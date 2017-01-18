@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page trimDirectiveWhitespaces="true" %>
 
 <!doctype html>
 <html>
@@ -42,19 +43,20 @@
             <div class="gnb">
                 <div class="inner">
                     <ul>
-                        <li onclick="location.href='/elementary'">
+                        <li onclick="Frameset('/elementary')">
+<!--                         <li onclick="location.href='/elementary'"> -->
                             <div class="txt">초등학원</div>
                         </li>
-                        <li onclick="location.href='/middle'">
+                        <li onclick="Frameset('/middle')">
                             <div class="txt">중등학원</div>
                         </li>
-                        <li onclick="location.href='/high'">
+                        <li onclick="Frameset('/high')">
                             <div class="txt">고등학원</div>
                         </li>
-                        <li onclick="location.href='/information'">
+                        <li onclick="Frameset('/information')">
                             <div class="txt">입시정보</div>
                         </li>
-                        <li onclick="location.href='/community'">
+                        <li onclick="Frameset('/community')">
                             <div class="txt">커뮤니티</div>
                         </li>
                     </ul>
@@ -551,6 +553,15 @@
     			$("#recom").html("초등");
     		}
     	}
+    	// 페이지 경로 숨기기
+    	function Frameset(page) { 
+			framecode = "<frameset rows='1*'>" 
+			+ "<frame name=main src='" + page + "'>" 
+			+ "</frameset>"; 
+			
+			document.write(framecode); 
+			document.close(); 
+		} 
     </script>
     
 </html>
