@@ -21,9 +21,16 @@ public class ChatSocket extends TextWebSocketHandler{
 	
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
+		String payload = message.getPayload();
+		if(payload.contains("<")){
+			payload = payload.replace("<", "&lt;");
+		}
+		if(payload.contains(">")){
+			payload = payload.replace(">", "&gt;");
+		}
 		for(WebSocketSession wss : users){
 			// <span>user</span>에 user를 사용자 로그인 아이디로
-			wss.sendMessage(new TextMessage("<span>user</span> : "+message.getPayload()));
+			wss.sendMessage(new TextMessage("<span>user</span> : "+payload));
 		}
 	}
 	
