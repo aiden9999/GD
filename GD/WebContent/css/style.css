@@ -3,7 +3,7 @@
 body { margin: 0; font-family:'Nanum Gothic'; font-size: 18px; font-family: seoul-namsan-jung-b; }
 div, header, footer, section, nav { position: relative;}
 img { vertical-align: top; max-width: 100%; }
-ul { margin: 0; }
+ul { margin: 0; padding: 0; }
 li { list-style: none; }
 
 header { width: 100%; }
@@ -13,6 +13,7 @@ header .header_top .logo { position: absolute; top: 20px; left: 50%; transform: 
 header .header_top .logo span { color: #88b04b; }
 header .header_top .search { float: right; margin-top: 28px; }
 header .header_top .hsearch { position: absolute; top: 6px; right: 6px; cursor: pointer; }
+header .header_top .txt { font-size: 15px; color: #2b3735; display: inline-block; margin-top: 45px; cursor: pointer; }
 header .gnb { border-bottom: 1px solid #484848; }
 header .gnb .inner { height: 48px; }
 header .gnb li { float: left; width: 20%; text-align: center; line-height: 45px; color: #2b3735; font-weight: bold; }
@@ -25,7 +26,7 @@ footer .logo { font-size: 70px; color: #2b3735; font-weight: bold; font-family:'
 footer .logo span { color: #88b04b; }
 footer .txt { font-size: 13px; color: #333333; display: inline-block; float: right; margin-top: 18px; }
 
-.inner { width: 990px; margin: 0 auto; }
+.main .inner { width: 990px; margin: 0 auto; }
 .main .contents { width: 720px; display: inline-block; }
 .main .contents .main_slider { width: 700px; height: 184px; margin-top: 10px; overflow: hidden; }
 .main .contents .main_slider .main_slider_inner { position: absolute; width: 700px; height: 2000px; }
@@ -75,6 +76,24 @@ footer .txt { font-size: 13px; color: #333333; display: inline-block; float: rig
 
 .main aside { width: 270px; float: right; }
 .main aside .login_wrap { width: 100%; border-bottom: 1px solid #6c6c6c; margin-top: 15px; }
+.main aside .login_on { padding-bottom: 20px; }
+.main aside .login_on .login_section { background-color: #f4f4f4; }
+.main aside .login_on .login_section .greeting { font-size: 14px; color: #2b3735; font-weight: bold; text-align: center; padding: 8px 0; }
+.main aside .login_on .login_section .member_wrap { width: 245px; margin: 0 auto; border: 1px solid #88b04b; }
+.main aside .login_on .login_section .member_inner { width: 230px; margin: 6px auto; }
+.main aside .login_on .login_section .member_inner .sub_box { display: inline-block; width: 114px; height: 39px; line-height: 31px; }
+.main aside .login_on .login_section .member_inner .point_wrap { float: right; border-left: 2px solid #d5d5d5; }
+.main aside .login_on .login_section .member_inner .point_wrap .img { margin-left: 8px; }
+.main aside .login_on .login_section .member_inner .write_wrap { border-top: 2px solid #d5d5d5; }
+.main aside .login_on .login_section .member_inner .reply_wrap { float: right; border-left: 2px solid #d5d5d5; border-top: 2px solid #d5d5d5; }
+.main aside .login_on .login_section .member_inner .reply_wrap .img {  margin-left: 8px; }
+.main aside .login_on .login_section .member_inner .img { float: left; margin-right: 5px; margin-top: 9px; }
+.main aside .login_on .login_section .member_inner .txt { font-size: 12px; color: #2b3735; font-weight: bold; line-height: 17px; display: inline-block; cursor: pointer; }
+.main aside .login_on .login_section .member_inner span { font-size: 13px; }
+.main aside .login_on .logout_wrap { font-size: 14px; color: #2b3735; width: 150px; margin: 0 auto; }
+.main aside .login_on .logout_wrap .txt { cursor: pointer; display: inline-block; margin: 12px 0; font-weight: bold; }
+.main aside .login_on .logout_wrap .txt:last-child { margin-left: 42px; }
+.main aside .login_on span { font-size: 16px; color: #88b04b; vertical-align: text-bottom; }
 .main aside .login_wrap .logo { font-size: 29px; opacity: 0.7; text-align: center; }
 .main aside .login_wrap .logo span { color: #88b04b; }
 .main aside .login_wrap .login_box { width: 262px; height: 60px; margin: 0 auto; }
@@ -118,3 +137,107 @@ footer .txt { font-size: 13px; color: #333333; display: inline-block; float: rig
 .main aside .chat_wrap .submit_wrap .submit { width: 40px; height: 36px; display: flex; }
 .main aside .chat_wrap .submit_wrap .submit input { background-color: #999999; color: #ffffff; font-size: 13px }
 .main aside .chatter_wrap .tit_wrap .tit .txt { margin-top: 7px; }
+
+.inner { width: 1100px; margin: 0 auto; }
+.aca_name { font-size: 30px; color: #2b3735; font-weight: bold; padding: 15px 0; border-bottom: 2px solid #88b04b; }
+.intro_section { margin-top: 10px; height: 215px; }
+.intro_section .intro_wrap { display: inline-block; }
+.intro_section .intro_wrap .tit { width: 110px; font-size: 21px; color: #2b3735; font-weight: bold; display: inline-block; }
+.intro_section .intro_wrap .txt { font-size: 18px; color: #2b3735; display: inline-block; margin-left: -6px; line-height: 28px; }
+.intro_section .intro_wrap .txt span { background-color: #fff; border: 1px solid #88b04b; font-size: 15px; color: #88b04b; padding: 1px 5px; }
+.intro_section .intro_wrap .address_wrap { margin-top: 10px; }
+.intro_section .intro_wrap .address_wrap .tit { float: left; }
+.intro_section .intro_wrap .address_wrap .txt { margin-left: 0; }
+.intro_section .intro_wrap .number_wrap { margin-top: 15px; }
+.intro_section .intro_wrap .category_wrap { margin-top: 15px; }
+.intro_section .intro_wrap .homepage_wrap { margin: 15px 0; }
+.intro_section .logo_box { float: right; width: 373px; height: 186px; border: 1px solid #838383; background-color: #fff; margin-top: 10px; }
+.intro_section .logo_box .img { position: absolute; width: 305px; height: 71px; top: 50%; left: 50%; transform: translate3d(-50%, -50%, 0); }
+.info_section { margin-top: 70px; }
+.info_section .gnb_wrap { border-bottom: 2px solid #88b04b; }
+.info_section .gnb_wrap .gnb { width: 190px; height: 35px; font-size: 18px; color: #0b0b0b; display: inline-block; text-align: center; line-height: 30px; }
+.info_section .gnb_wrap .gnb .txt { cursor: pointer; display: inline-block; }
+.info_section .gnb_wrap .sel{ color: #fff; background-image: url(../img/sub01_menu.png); background-repeat: no-repeat; }
+
+.info_section .board_wrap { border-top: 2px solid #999999; border-bottom: 2px solid #999999; margin-top: 20px; }
+.info_section .board_wrap .txt_box { width: 100%; height: 34px; border-bottom: 1px solid #d0d0d0; }
+.info_section .board_wrap .txt_box .tit { font-size: 16px; color: #2c2c2c; font-weight: bold; display: inline-block; text-align: center; line-height: 31px; }
+.info_section .board_wrap .txt_box .txt_number { width: 116px; }
+.info_section .board_wrap .txt_box .txt_number span { cursor: pointer; }
+.info_section .board_wrap .txt_box .txt_tit { width: 535px; }
+.info_section .board_wrap .txt_box .txt_tit span { cursor: pointer; }
+.info_section .board_wrap .txt_box .txt_name { width: 295px; }
+.info_section .board_wrap .txt_box .txt_name span { cursor: pointer; }
+.info_section .board_wrap .txt_box .txt_date { width: 135px; }
+.info_section .board_wrap .txt_box .txt_date span { cursor: pointer; }
+.info_section .board_wrap .txt_box .txt { font-size: 15px; color: #2b3735; font-weight: bold; display: inline-block; text-align: center; line-height: 33px; }
+.info_section .board_wrap .txt_box .txt:first-child { color: #666666; }
+.info_section .board_wrap .txt_box .contents { display: none; width: 1098px; position: absolute; background: #f4f4f4; z-index: 9; border: 1px solid #88b04b; }
+.info_section .board_wrap .txt_box .drop_show { display: block; }
+.info_section .board_wrap .txt_box .contents .drop_txt { width: 970px; margin: 20px auto; background-color: #fff; font-size: 15px; color: #2b3735; padding: 20px; text-align: justify; }
+.info_section .board_wrap .txt_box .img img { position: absolute; top: 10px; right: 10px; }
+.info_section .board_wrap .txt_box .img img { cursor: pointer; } 
+.info_section .empty_box { width: 973px; height: 50px; display: inline-block; }
+.info_section .write_btn { width: 118px; height: 31px; background-color: #fff; border: 1px solid #88b04b; border-radius: 5px; cursor: pointer; margin: 15px 0 25px; display: inline-block;  }
+.info_section .write_btn .txt { font-size: 18px; color: #88b04b; text-align: center; }
+.info_section .page_wrap { margin-bottom: 50px; }
+.info_section .page_wrap .inner { width: 420px; margin: 0 auto; }
+.info_section .page_wrap .inner .arrow_wrap .arrow { position: absolute; width: 16px; height: 18px; cursor: pointer; }
+.info_section .page_wrap .inner .arrow_wrap .prev { top: 5px; left: 0; }
+.info_section .page_wrap .inner .arrow_wrap .next { top: 5px; right: 0; }
+.info_section .page_wrap .inner .num_wrap { width: 370px; margin: 0 auto; }
+.info_section .page_wrap .inner .num_wrap .num { cursor: pointer; display: inline-block; font-size: 18px; color: #000000; margin: 0 12px; }
+.info_section .page_wrap .inner .num_wrap .sel { color: #88b04b; border-bottom: 1px solid #88b04b; }
+
+.sub01 .info_section .txt_info { font-size: 18px; color: #2b3735; margin-top: 10px; margin-left: 10px; line-height: 25px; }
+.sub01 .info_section .tit_wrap { width: 150px; margin-bottom: 15px; }
+.sub01 .info_section .tit_wrap .tit { font-size: 20px; color: #2b3735; font-weight: bold; display: inline-block;  }
+.sub01 .info_section .tit_wrap .line { width: 65px; height: 5px; background-color: #88b04b; float: right; margin-top: 13px; }
+.sub01 .info_section .pic_info { margin-top: 70px; }
+.sub01 .info_section .pic_info .thums_box { background-image: url(../img/sub01_pic_info_back.png); }
+.sub01 .info_section .pic_info .thums_box #bigPic{ overflow: hidden; width: 815px; height: 554px; display: inline-block; }
+.sub01 .info_section .pic_info .thums_box .bigPic_wrap { width: 795px; height: inherit; margin: 20px 0 0 20px ; }
+.sub01 .info_section .pic_info .thums_box .bigPic_wrap .bigPic_img { width: 100%; height: 510px; position: absolute; background-size: 100%; }
+.sub01 .info_section .pic_info .thums_box .bigPic_wrap .bigPic_img:first-child { background-image: url(../img/sub01_pic1.png); }
+.sub01 .info_section .pic_info .thums_box .bigPic_wrap .bigPic_img:nth-child(2) { background-image: url(../img/sub01_pic2.png); }
+.sub01 .info_section .pic_info .thums_box .bigPic_wrap .bigPic_img:nth-child(3) { background-image: url(../img/sub01_pic3.png); }
+.sub01 .info_section .pic_info .thums_box .bigPic_wrap .bigPic_img:nth-child(4) { background-image: url(../img/sub01_pic4.png); }
+.sub01 .info_section .pic_info .thums_box .bigPic_wrap .bigPic_img:nth-child(5) { background-image: url(../img/sub01_pic1.png); }
+.sub01 .info_section .pic_info .thums_box .bigPic_wrap .bigPic_img:nth-child(6) { background-image: url(../img/sub01_pic2.png); }
+.sub01 .info_section .pic_info .thums_box .bigPic_wrap .bigPic_img:last-child{ background-image: url(../img/sub01_pic3.png); }
+.sub01 .info_section .pic_info .thums_box .thumbs { width: 285px; height: inherit; float: right; position: relative; }
+.sub01 .info_section .pic_info .thums_box .thumbs .thumbs_wrap { width: 242px; height: 461px; margin: 37px auto; overflow: hidden; z-index: 2;}
+.sub01 .info_section .pic_info .thums_box .thumbs .thumbs_wrap .item { width: 100%; height: 140px; background-size: 100%; margin: 14px 0; }
+.sub01 .info_section .pic_info .thums_box .thumbs .thumbs_wrap .item:first-child { background-image: url(../img/sub01_pic1.png); }
+.sub01 .info_section .pic_info .thums_box .thumbs .thumbs_wrap .item:nth-child(2) { background-image: url(../img/sub01_pic2.png); }
+.sub01 .info_section .pic_info .thums_box .thumbs .thumbs_wrap .item:nth-child(3) { background-image: url(../img/sub01_pic3.png); }
+.sub01 .info_section .pic_info .thums_box .thumbs .thumbs_wrap .item:nth-child(4) { background-image: url(../img/sub01_pic4.png); }
+.sub01 .info_section .pic_info .thums_box .thumbs .thumbs_wrap .item:nth-child(5) { background-image: url(../img/sub01_pic1.png); }
+.sub01 .info_section .pic_info .thums_box .thumbs .thumbs_wrap .item:nth-child(6) { background-image: url(../img/sub01_pic2.png); }
+.sub01 .info_section .pic_info .thums_box .thumbs .thumbs_wrap .item:last-child { background-image: url(../img/sub01_pic3.png); }
+.sub01 .info_section .pic_info .thums_box .thumbs .arrow_wrap { position: absolute; width: 33px; height: 535px; top: 0; left: 50%; transform: translateX(-50%); z-index: 1; }
+.sub01 .info_section .pic_info .thums_box .thumbs .arrow_wrap .arrow { position: absolute; cursor: pointer; }
+.sub01 .info_section .pic_info .thums_box .thumbs .arrow_wrap .up { top: 20px; }
+.sub01 .info_section .pic_info .thums_box .thumbs .arrow_wrap .down { bottom: 0; }
+.sub01 .info_section .road_wrap { width: 172px; margin: 50px 0; }
+.sub01 .info_section .pic_info .map { width: 100%; height: 450px; border: 1px solid #888888; }
+.sub01 .info_section .pic_info .naver_map { width: 100%; height: inherit; }
+.sub01 .info_section .pic_info .subway_wrap { margin-top: 60px; border-bottom: 1px solid #d5d5d5;}
+.sub01 .info_section .pic_info .traffic_wrap .tit { font-size: 20px; color: #2b3735; font-weight: bold; margin: 15px 0; }
+.sub01 .info_section .pic_info .traffic_wrap .txt_wrap { margin-left: 5px; margin-bottom: 20px; }
+.sub01 .info_section .pic_info .traffic_wrap .circle_wrap { display: inline-block; width: 230px; }
+.sub01 .info_section .pic_info .traffic_wrap .circle { width: 24px; height: 24px; border-radius: 12px; background-color: #30bb37; text-align: center; float: left; color: #fff; line-height: 22px; margin-top: 2px; }
+.sub01 .info_section .pic_info .traffic_wrap .circle_wrap:nth-child(2) .circle { background-color: #f27939; }
+.sub01 .info_section .pic_info .traffic_wrap .circle_wrap:nth-child(3) .circle { background-color: #f7ba21; width: 50px; line-height: 20px; }
+.sub01 .info_section .pic_info .traffic_wrap .txt { font-size: 18px; color: #2b3735; display: inline-block; margin-left: 8px; margin-bottom: 2px; }
+.sub01 .info_section .pic_info .bus_wrap { margin-top: 25px; border-bottom: 1px solid #d5d5d5;}
+.sub01 .info_section .pic_info .bus_wrap { margin-bottom: 60px; }
+
+.sub03 .notice_wrap { padding: 30px 0 20px; border-bottom: 2px solid #88b04b; }
+.sub03 .notice_wrap .notice_tit { font-size: 30px; color: #2b3735; letter-spacing: 1px; display: inline-block; }
+.sub03 .notice_wrap .notice_txt { margin-left: 15px; font-size: 20px; color: #2b3735; font-weight: bold; display: inline-block; }
+.sub03 .notice_wrap .notice_txt span { color: #88b04b; }
+.sub03 .info_section { margin-top: 0; }
+.sub03 .info_section .new { background-color: #fafff3; }
+.sub03 .info_section .new .txt_number span { background-image: url(../img/sub03_new_box.png); background-size: 100%; width: 60px; height: 27px; display: inline-block; line-height: 22px; color: #fff; font-size: 17px; font-weight: 500; }
+.sub03 .info_section .new .txt_tit { color: #52692f; }

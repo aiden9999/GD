@@ -43,20 +43,24 @@
             <div class="gnb">
                 <div class="inner">
                     <ul>
-                        <li onclick="Frameset('/elementary')">
-<!--                         <li onclick="location.href='/elementary'"> -->
+<!--                         <li onclick="Frameset('/elementary')"> -->
+                        <li onclick="location.href='/elementary'">
                             <div class="txt">초등학원</div>
                         </li>
-                        <li onclick="Frameset('/middle')">
+<!--                         <li onclick="Frameset('/middle')"> -->
+						<li onclick="location.href='/middle'">
                             <div class="txt">중등학원</div>
                         </li>
-                        <li onclick="Frameset('/high')">
+<!--                         <li onclick="Frameset('/high')"> -->
+                        <li onclick="location.href='/high'">
                             <div class="txt">고등학원</div>
                         </li>
-                        <li onclick="Frameset('/information')">
+<!--                         <li onclick="Frameset('/information')"> -->
+                        <li onclick="location.href='/information'">
                             <div class="txt">입시정보</div>
                         </li>
-                        <li onclick="Frameset('/community')">
+<!--                         <li onclick="Frameset('/community')"> -->
+                        <li onclick="location.href='/community'">
                             <div class="txt">커뮤니티</div>
                         </li>
                     </ul>
@@ -286,30 +290,95 @@
                         </div>
                     </div>
                 <aside>
-                    <div class="login_wrap">
-                        <div class="logo"><span>L</span>ogo</div>
-                        <div class="login_box">
-                            <div class="id_box">
-                                <div class="id"><input type="text" id="user_id" placeholder="아이디" maxlength="12"></div>
-                                <div class="id pw"><input type="password" id="pw" placeholder="비밀번호" maxlength="16"></div>
-                            </div>
-                            <div class="submit"><input type="button" value="로그인" onclick="login()"></div>
-                        </div>
-                        <div class="txt_wrap">
-                            <div class="txt" onclick="searchId()">아이디/비밀번호찾기</div>
-                            <div class="txt" onclick="join()">회원가입</div>
-                        </div>
-                        <div class="check_box">
-                            <label class="check">
-                                <input type="checkbox" name="pre" value="auto">
-                                <div class="txt">자동 로그인</div>
-                            </label>
-                            <label class="check">
-                                <input type="checkbox" name="pre" value="save">
-                                <div class="txt">아이디 저장</div>
-                            </label>
-                        </div>
-                    </div>
+                	<c:choose>
+                		<c:when test="${login!=null }">
+                			<div class="login_wrap login_on">
+		                        <div class="login_section">
+		                            <div class="greeting">
+		                                <span>${login.NICK }</span>님 환영합니다.
+		                            </div>
+		                            <div class="member_wrap">
+		                                <div class="member_inner">
+		                                    <div class="trophy_wrap sub_box">
+		                                        <div class="img">
+		                                            <img src="img/trophy.png">
+		                                        </div>
+		                                        <div class="txt" onclick="grade()">등급<span> ${login.GRADE }</span></div>
+		                                    </div>
+		                                    <div class="point_wrap sub_box">
+		                                        <div class="img">
+		                                            <img src="img/point.png">
+		                                        </div>
+		                                        <div class="txt" onclick="point()">포인트<span> ${login.POINT }p</span></div>
+		                                    </div>
+		                                    <div class="write_wrap sub_box">
+		                                        <div class="img">
+		                                            <img src="img/page.png">
+		                                        </div>
+		                                        <div class="txt" onclick="board()">내 글<span> 5</span></div>
+		                                    </div>
+		                                    <div class="reply_wrap sub_box">
+		                                        <div class="img">
+		                                            <img src="img/reply.png">
+		                                        </div>
+		                                        <div class="txt" onclick="reply()">내 댓글<span> 3</span></div>
+		                                    </div>
+		                                </div>
+		                            </div>
+		                            <div class="logout_wrap">
+		                                <div class="txt" onclick="info()">내 정보</div>
+		                                <div class="txt" onclick="logout()">로그아웃</div>
+		                            </div>
+		                        </div>
+		                    </div>
+                		</c:when>
+                		<c:otherwise>
+                			<div class="login_wrap">
+		                        <div class="logo"><span>L</span>ogo</div>
+		                        <div class="login_box">
+		                            <div class="id_box">
+		                            	<c:choose>
+		                            		<c:when test="${save!=null }">
+		                            			<!-- 아이디 저장 -->
+		                            			<div class="id"><input type="text" id="user_id" placeholder="아이디" maxlength="12" value="${save }"></div>
+				                                <div class="id pw"><input type="password" id="pw" placeholder="비밀번호" maxlength="16"></div>
+		                            		</c:when>
+		                            		<c:otherwise>
+		                            			<!-- 기본 -->
+				                                <div class="id"><input type="text" id="user_id" placeholder="아이디" maxlength="12"></div>
+				                                <div class="id pw"><input type="password" id="pw" placeholder="비밀번호" maxlength="16"></div>
+		                            		</c:otherwise>
+		                            	</c:choose>
+		                            </div>
+		                            <div class="submit"><input type="button" value="로그인" onclick="login()"></div>
+		                        </div>
+		                        <div align="center" style="display: none" id="loginFail">
+		                        	<font style="color: red; font-size:12px">아이디/비밀번호를 확인해주세요.</font>
+		                        </div>
+		                        <div class="txt_wrap">
+		                            <div class="txt" onclick="searchId()">아이디/비밀번호찾기</div>
+		                            <div class="txt" onclick="join()">회원가입</div>
+		                        </div>
+		                        <div class="check_box">
+		                            <label class="check">
+		                                <input type="checkbox" name="pre" value="auto" id="auto">
+		                                <div class="txt">자동 로그인</div>
+		                            </label>
+		                            <label class="check">
+		                            	<c:choose>
+		                            		<c:when test="${save!=null }">
+				                                <input type="checkbox" name="pre" value="save" id="save" checked="checked">
+		                            		</c:when>
+		                            		<c:otherwise>
+		                            			<input type="checkbox" name="pre" value="save" id="save">
+		                            		</c:otherwise>
+		                            	</c:choose>
+		                                <div class="txt">아이디 저장</div>
+		                            </label>
+		                        </div>
+		                    </div>
+                		</c:otherwise>
+                	</c:choose>
                     <div class="board_wrap notice_wrap">
                         <div class="tit_wrap">
                             <div class="tit">
@@ -353,24 +422,24 @@
                             <div class="txt" id="chat" style="max-height: 280px; overflow-y: auto"></div>
                         </div>
                         <div class="submit_wrap">
-<%--                            	<c:choose> --%>
-<%--                            		<c:when test="${login==null }"> --%>
-<!--          		                   <div class="txt"> -->
-<!-- 		                                <input type="text" id="txt" placeholder="채팅에 참여하시려면 로그인을 해주세요." maxlength="38" readonly="readonly"> -->
-<!-- 		                            </div> -->
-<!-- 		                            <div class="submit"> -->
-<!-- 		                                <input type="button" value="전송" disabled="disabled"> -->
-<!-- 		                            </div> -->
-<%--                            		</c:when> --%>
-<%--                            		<c:otherwise> --%>
+                           	<c:choose>
+                           		<c:when test="${login==null }">
+         		                   <div class="txt">
+		                                <input type="text" id="txt" placeholder="채팅에 참여하시려면 로그인을 해주세요." maxlength="38" readonly="readonly">
+		                            </div>
+		                            <div class="submit">
+		                                <input type="button" value="전송" disabled="disabled">
+		                            </div>
+                           		</c:when>
+                           		<c:otherwise>
                            			<div class="txt">
 		                                <input type="text" id="txt" placeholder="채팅을 입력하세요." maxlength="38" style="font-size: 12px">
 		                            </div>
 		                            <div class="submit">
 		                                <input type="button" value="전송" onclick="send()">
 		                            </div>
-<%--                            		</c:otherwise> --%>
-<%--                            	</c:choose> --%>
+                           		</c:otherwise>
+                           	</c:choose>
                         </div>
                     </div>
                     <div class="board_wrap chatter_wrap">
@@ -434,7 +503,9 @@
     	$("#hsearch").keyup(function(txt){
     		if(txt.keyCode==13){
 	    		var search = $("#hsearch").val();
-	    		alert(search);
+	    		if(search!=""){
+		    		alert(search);
+	    		}
     		}
     	});
     	// 검색버튼 클릭
@@ -452,7 +523,7 @@
     	// 학원 클릭
     	function academy(num){
     		// num을 가지고 해당학원 페이지로 이동
-    		alert(num.innerHTML);
+    		location.href="/academy/"+1;
     	}
     	// 학원 검색
     	function searchAcademy(){
@@ -466,12 +537,32 @@
     	function login(){
     		var id = $("#user_id").val();
     		var pw = $("#pw").val();
-    		alert(id+"/"+pw);
+    		var auto = $("#auto").prop("checked");
+    		var save = $("#save").prop("checked");
+    		$.ajax({
+    			type : "post",
+    			url : "/login/"+id+"/"+pw+"/"+auto+"/"+save,
+    			async : false,
+    			success : function(txt){
+    				if(txt){
+    					location.href="/";
+    					$("#loginFain").hide();
+    				} else {
+    					$("#loginFail").show();
+    				}
+    			}
+    		});
     	}
     	// 비밀번호에서 엔터
     	$("#pw").keyup(function(txt){
     		if(txt.keyCode==13){
     			login();
+    		}
+    	});
+    	// 자동로그인 클릭
+    	$("#auto").change(function(){
+    		if($("#auto").prop("checked")){
+    			$("#save").prop("checked", false);
     		}
     	});
     	// 아이디/비밀번호 찾기
@@ -481,6 +572,10 @@
     	// 회원가입
     	function join(){
     		alert("join");
+    	}
+    	// 로그아웃
+    	function logout(){
+    		location.href="/logout";
     	}
     	// 더보기
     	function more(txt){
@@ -503,7 +598,7 @@
     	$("#txt").keyup(function(txt){
     		if(txt.keyCode==13){
     			if($("#txt").val()!=""){
-	    			socket.send($("#txt").val());
+	    			socket.send("${login.ID }~!@id#$%"+$("#txt").val());
 	    			$("#txt").val("");
 	    			$("#chat").scrollTop(999999);
     			}
@@ -553,15 +648,35 @@
     			$("#recom").html("초등");
     		}
     	}
+    	// 등급
+    	function grade(){
+    		alert("grade");
+    	}
+    	// 포인트
+    	function point(){
+    		alert("point");
+    	}
+    	// 내 글
+    	function board(){
+    		alert("board");
+    	}
+    	// 내 댓글
+    	function reply(){
+    		alert("reply");
+    	}
+    	// 내정보
+    	function info(){
+    		alert("info");
+    	}
     	// 페이지 경로 숨기기
-    	function Frameset(page) { 
-			framecode = "<frameset rows='1*'>" 
-			+ "<frame name=main src='" + page + "'>" 
-			+ "</frameset>"; 
+//     	function Frameset(page) { 
+// 			framecode = "<frameset rows='1*'>" 
+// 			+ "<frame name=main src='" + page + "'>" 
+// 			+ "</frameset>"; 
 			
-			document.write(framecode); 
-			document.close(); 
-		} 
+// 			document.write(framecode); 
+// 			document.close(); 
+// 		} 
     </script>
     
 </html>

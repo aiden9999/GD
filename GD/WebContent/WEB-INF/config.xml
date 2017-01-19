@@ -20,38 +20,46 @@
 	<bean class="org.springframework.web.servlet.view.BeanNameViewResolver"
 		id="beanNameViewResolver" p:order="2" />
 	
-<!-- 	<bean class="org.springframework.web.servlet.view.tiles3.TilesViewResolver" -->
-<!-- 		id="tilesViewResolver" p:order="3" /> -->
-	
-<!-- 	<bean class="org.springframework.web.servlet.view.tiles3.TilesConfigurer" -->
-<!-- 		id="tilesConfigurer"> -->
-<!-- 		<property name="definitions"> -->
-<!-- 			<list> -->
-<!-- 				<value>/WEB-INF/tiles/tile.xml</value> -->
-<!-- 			</list> -->
-<!-- 		</property> -->
-<!-- 	</bean> -->
-	
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver"
 		id="internalResourceViewResolver" p:order="9">
 		<property name="prefix" value="/WEB-INF/view" />
 	</bean>
 	
-	<bean class="org.apache.tomcat.jdbc.pool.DataSource" id="dataSource">
-		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
-		<property name="url" value="jdbc:oracle:thin:@127.0.0.1:1521:xe" />
-		<property name="username" value="GD" />
-		<property name="password" value="GD" />
-	</bean>
+	<!-- 오라클 DB 연동 -->
+<!-- 	<bean class="org.apache.tomcat.jdbc.pool.DataSource" id="dataSource"> -->
+<!-- 		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" /> -->
+<!-- 		<property name="url" value="jdbc:oracle:thin:@127.0.0.1:1521:xe" /> -->
+<!-- 		<property name="username" value="gd" /> -->
+<!-- 		<property name="password" value="gd" /> -->
+<!-- 	</bean> -->
+
+	<!-- mysql DB 연동 -->
+<!-- 	<bean id="dataSource" class="org.apache.tomcat.dbcp.dbcp2.BasicDataSource"> -->
+<!--         <property name="driverClassName" value="com.mysql.jdbc.Driver"/> -->
+<!--         <property name="url" value="jdbc:mysql://127.0.0.1:3306/gd"/> -->
+<!--         <property name="username" value="gd"/> -->
+<!--         <property name="password" value="gd"/> -->
+<!--     </bean> -->
+
+	<bean id="dataSource" class="org.apache.tomcat.dbcp.dbcp2.BasicDataSource">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://aiden9999.cafe24.com:3306/aiden9999"/>
+        <property name="username" value="aiden9999"/>
+        <property name="password" value="bluecat1"/>
+    </bean>
 	
-	<bean class="org.mybatis.spring.SqlSessionFactoryBean">
+	<bean class="org.mybatis.spring.SqlSessionFactoryBean" id="sqlSessionFactory">
 		<property name="dataSource" ref="dataSource" />
 		<property name="mapperLocations">
 			<list>
 				<value>/WEB-INF/mapper/*</value>
 			</list>
 		</property>
+	</bean>
+	
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg ref="sqlSessionFactory"/>
 	</bean>
 	
 	<bean

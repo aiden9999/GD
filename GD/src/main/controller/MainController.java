@@ -1,8 +1,13 @@
 package main.controller;
 
+import java.util.*;
+
+import javax.servlet.http.*;
+
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.*;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.*;
 
 import main.service.*;
 
@@ -14,7 +19,8 @@ public class MainController {
 	
 	// 메인
 	@RequestMapping("/")
-	public String index(){
+	public String index(HttpServletRequest req, HttpServletResponse resp, HttpSession session){
+		ms.check(req, resp, session);
 		return "/main/index.jsp";
 	}
 	
@@ -36,15 +42,40 @@ public class MainController {
 		return "/menu/high/index.jsp";
 	}
 
-	// top 메뉴 고등학원
+	// top 메뉴 입시정보
 	@RequestMapping("/information")
 	public String information(){
-		return "/menu/information/index.jsp";
+//		return "/menu/information/index.jsp";
+		return "/menu/notice/index.jsp";
 	}
 
-	// top 메뉴 고등학원
+	// top 메뉴 커뮤니티
 	@RequestMapping("/community")
 	public String community(){
 		return "/menu/community/index.jsp";
+	}
+	
+	// 로그인
+	@RequestMapping("/login/{id}/{pw}/{auto}/{save}")
+	@ResponseBody
+	public boolean login(@PathVariable(name="id")String id, @PathVariable(name="pw")String pw, @PathVariable(name="auto")boolean auto,
+									@PathVariable(name="save")boolean save, HttpSession session, HttpServletRequest req, HttpServletResponse resp){
+		return ms.login(id, pw, auto, save, session, req, resp);
+	}
+	
+	// 로그아웃
+	@RequestMapping("/logout")
+	public String logout(HttpSession session, HttpServletRequest req, HttpServletResponse resp){
+		ms.logout(session, req, resp);
+		return "redirect:/";
+	}
+	
+	// 학원 클릭
+	@RequestMapping("/academy/{num}")
+	public ModelAndView academy(@PathVariable(name="num")int num){
+		ModelAndView mav = new ModelAndView("/academy/academy.jsp");
+//		List<HashMap> list = ms.academy(num);
+//		mav.addObject("list", list);
+		return mav;
 	}
 }
