@@ -26,48 +26,38 @@
          
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="/js/common.js"></script>
-        <script>
-            function myFunction(num) { 
-                var x =document.getElementById("dropdown"+num);
-                if (x.className.indexOf("drop_show") == -1) {
-                    x.className += " drop_show";
-                }
-            }
-            function clo(num) {
-                var x = document.getElementById("dropdown"+num);
-                x.className = x.className.replace(" drop_show", "");
-            }
-        </script>
     </head>
      
     <body>
         <header>
             <div class="header_top">
                 <div class="inner">
-                    <div class="logo" onclick="location.href='/'"><span >L</span>ogo</div>
+                    <div class="logo" onclick="location.href='/'"><label><span >L</span>ogo</label></div>
                     <div class="search">
                         <input type="text" id="hsearch" style="border: 2px solid #888f8d; height: 24px; " maxlength="10">
                         <img class="hsearch" src="/img/search.png" onclick="search()">
                     </div>
-                    <div class="txt" onclick="login()">로그인</div>
+                    <c:if test="${login==null }">
+	                    <div class="txt" onclick="login()">로그인</div>
+                    </c:if>
                 </div>
             </div>
             <div class="gnb">
                 <div class="inner">
                     <ul>
-                        <li>
+                        <li onclick="location.href='/elementary'">
                             <div class="txt">초등학원</div>
                         </li>
-                        <li>
+                        <li onclick="location.href='/middle'">
                             <div class="txt">중등학원</div>
                         </li>
-                        <li>
+                        <li onclick="location.href='/high'">
                             <div class="txt">고등학원</div>
                         </li>
-                        <li>
+                        <li onclick="location.href='/information'">
                             <div class="txt">입시정보</div>
                         </li>
-                        <li>
+                        <li onclick="location.href='/community'">
                             <div class="txt">커뮤니티</div>
                         </li>
                     </ul>
@@ -99,313 +89,102 @@
                                 <span>작성일</span>
                             </div>
                         </div>
-                        <div class="txt_box new">
-                            <div class="txt txt_number">
-                                <span>new</span>
-                            </div>
-                            <div onclick="myFunction(1)" class="txt txt_tit">
-                                <span>안녕하세요 대치동 학원정보는 MATHSCHOOL</span>
-                            </div>
-                            <div id="dropdown1" class="contents">
-                                <div class="img"><img src="/img/sub02_arrow_up.png" onclick="clo(1)"></div>
-                                <div class="drop_txt">
-                                 안녕하세요 대치동 학원정보는 MATH SCHOOL 안녕하세요 대치동 학원정보는 MATH SCHOOL 안녕하세요 대치동 학원정보는 MATH SCHOOL
-안녕하세요 대치동 학원정보는 MATH SCHOOL 안녕하세요 대치동 학원정보는 MATH SCHOOL
-안녕하세요 대치동 학원정보는 MATH SCHOOL 안녕하세요 대치동 학원정보는 MATH SCHOOL 안녕하세요 대치동 학원정보는 MATH SCHOOL
-안녕하세요 대치동 학원정보는 MATH SCHOOL 안녕하세요 대치동 학원정보는 MATH SCHOOL 안녕하세요 대치동 학원정보는 MATH SCHOOL
-안녕하세요 대치동 학원정보는 MATH SCHOOL
-안녕하세요 대치동 학원정보는 MATH SCHOOL안녕하세요 대치동 학원정보는 MATH SCHOOL안녕하세요 대치동 학원정보는 MATH SCHOOL
-안녕하세요 대치동 학원정보는 MATH SCHOOL안녕하세요 대치동 학원정보는 MATH SCHOOL
-안녕하세요 대치동 학원정보는 MATH SCHOOL
-안녕하세요 대치동 학원정보는 MATH SCHOOL안녕하세요 대치동 학원정보는 MATH SCHOOL안녕하세요 대치동 학원정보는 MATH SCHOO
-                                </div>
-                            </div>
-                            <div class="txt txt_name">
-                                <span>매쓰클럽</span>
-                            </div>
-                            <div class="txt txt_date">
-                                <span>2017-01-17</span>
-                            </div>
-                        </div>
-                        <div class="txt_box new">
-                            <div class="txt txt_number">
-                                <span>new</span>
-                            </div>
-                            <div onclick="myFunction(2)" class="txt txt_tit">
-                                <span>안녕하세요 대치동 학원정보는 MATHSCHOOL</span>
-                            </div>
-                            <div id="dropdown2" class="contents">
-                                <div class="img"><img src="/img/sub02_arrow_up.png" onclick="clo(2)"></div>
-                                <div class="drop_txt">
-                                 안녕하세요 대치동 학원정보는 MATH SCHOOL 안녕하세요 대치동 학원정보는 MATH SCHOOL 안녕하세요 대치동 학원정보는 MATH SCHOOL
-안녕하세요 대치동 학원정보는 MATH SCHOOL 안녕하세요 대치동 학원정보는 MATH SCHOOL
-안녕하세요 대치동 학원정보는 MATH SCHOOL 안녕하세요 대치동 학원정보는 MATH SCHOOL 안녕하세요 대치동 학원정보는 MATH SCHOOL
-안녕하세요 대치동 학원정보는 MATH SCHOOL 안녕하세요 대치동 학원정보는 MATH SCHOOL 안녕하세요 대치동 학원정보는 MATH SCHOOL
-안녕하세요 대치동 학원정보는 MATH SCHOOL
-안녕하세요 대치동 학원정보는 MATH SCHOOL안녕하세요 대치동 학원정보는 MATH SCHOOL안녕하세요 대치동 학원정보는 MATH SCHOOL
-안녕하세요 대치동 학원정보는 MATH SCHOOL안녕하세요 대치동 학원정보는 MATH SCHOOL
-안녕하세요 대치동 학원정보는 MATH SCHOOL
-안녕하세요 대치동 학원정보는 MATH SCHOOL안녕하세요 대치동 학원정보는 MATH SCHOOL안녕하세요 대치동 학원정보는 MATH SCHOO
-                                </div>
-                            </div>
-                            <div class="txt txt_name">
-                                <span>매쓰클럽</span>
-                            </div>
-                            <div class="txt txt_date">
-                                <span>2017-01-17</span>
-                            </div>
-                        </div>
-                        <div class="txt_box">
-                            <div class="txt txt_number">
-                                <span>03</span>
-                            </div>
-                            <div onclick="myFunction(3)" class="txt txt_tit">
-                                <span>안녕하세요 대치동 학원정보는 MATHSCHOOL</span>
-                            </div>
-                            <div id="dropdown3" class="contents">
-                                <div class="img"><img src="/img/sub02_arrow_up.png" onclick="clo(3)"></div>
-                                <div class="drop_txt">
-                                 안녕하세요 대치동 학원정보는 MATH SCHOOL 안녕하세요 대치동 학원정보는 MATH SCHOOL 안녕하세요 대치동 학원정보는 MATH SCHOOL
-안녕하세요 대치동 학원정보는 MATH SCHOOL 안녕하세요 대치동 학원정보는 MATH SCHOOL
-안녕하세요 대치동 학원정보는 MATH SCHOOL 안녕하세요 대치동 학원정보는 MATH SCHOOL 안녕하세요 대치동 학원정보는 MATH SCHOOL
-안녕하세요 대치동 학원정보는 MATH SCHOOL 안녕하세요 대치동 학원정보는 MATH SCHOOL 안녕하세요 대치동 학원정보는 MATH SCHOOL
-안녕하세요 대치동 학원정보는 MATH SCHOOL
-안녕하세요 대치동 학원정보는 MATH SCHOOL안녕하세요 대치동 학원정보는 MATH SCHOOL안녕하세요 대치동 학원정보는 MATH SCHOOL
-안녕하세요 대치동 학원정보는 MATH SCHOOL안녕하세요 대치동 학원정보는 MATH SCHOOL
-안녕하세요 대치동 학원정보는 MATH SCHOOL
-안녕하세요 대치동 학원정보는 MATH SCHOOL안녕하세요 대치동 학원정보는 MATH SCHOOL안녕하세요 대치동 학원정보는 MATH SCHOO
-                                </div>
-                            </div>
-                            <div class="txt txt_name">
-                                <span>tjfdk</span>
-                            </div>
-                            <div class="txt txt_date">
-                                <span>2017-01-17</span>
-                            </div>
-                        </div>
-                        <div class="txt_box">
-                            <div class="txt txt_number">
-                                <span>04</span>
-                            </div>
-                            <div onclick="myFunction(4)" class="txt txt_tit">
-                                <span>안녕하세요 대치동 학원정보는 MATHSCHOOL</span>
-                            </div>
-                            <div id="dropdown4" class="contents">
-                                <div class="img"><img src="/img/sub02_arrow_up.png" onclick="clo(4)"></div>
-                                <div class="drop_txt">
-                                 안녕하세요 대치동 학원정보는 MATH SCHOOL 안녕하세요 대치동 학원정보는 MATH SCHOOL 안녕하세요 대치동 학원정보는 MATH SCHOOL
-안녕하세요 대치동 학원정보는 MATH SCHOOL 안녕하세요 대치동 학원정보는 MATH SCHOOL
-안녕하세요 대치동 학원정보는 MATH SCHOOL 안녕하세요 대치동 학원정보는 MATH SCHOOL 안녕하세요 대치동 학원정보는 MATH SCHOOL
-안녕하세요 대치동 학원정보는 MATH SCHOOL 안녕하세요 대치동 학원정보는 MATH SCHOOL 안녕하세요 대치동 학원정보는 MATH SCHOOL
-안녕하세요 대치동 학원정보는 MATH SCHOOL
-안녕하세요 대치동 학원정보는 MATH SCHOOL안녕하세요 대치동 학원정보는 MATH SCHOOL안녕하세요 대치동 학원정보는 MATH SCHOOL
-안녕하세요 대치동 학원정보는 MATH SCHOOL안녕하세요 대치동 학원정보는 MATH SCHOOL
-안녕하세요 대치동 학원정보는 MATH SCHOOL
-안녕하세요 대치동 학원정보는 MATH SCHOOL안녕하세요 대치동 학원정보는 MATH SCHOOL안녕하세요 대치동 학원정보는 MATH SCHOO
-                                </div>
-                            </div>
-                            <div class="txt txt_name">
-                                <span>tjfdk</span>
-                            </div>
-                            <div class="txt txt_date">
-                                <span>2017-01-17</span>
-                            </div>
-                        </div>
-                        <div class="txt_box">
-                            <div class="txt txt_number">
-                                <span>05</span>
-                            </div>
-                            <div onclick="myFunction(5)" class="txt txt_tit">
-                                <span>안녕하세요 대치동 학원정보는 MATHSCHOOL</span>
-                            </div>
-                            <div id="dropdown5" class="contents">
-                                <div class="img"><img src="/img/sub02_arrow_up.png" onclick="clo(5)"></div>
-                                <div class="drop_txt">
-                                 안녕하세요 대치동 학원정보는 MATH SCHOOL 안녕하세요 대치동 학원정보는 MATH SCHOOL 안녕하세요 대치동 학원정보는 MATH SCHOOL
-안녕하세요 대치동 학원정보는 MATH SCHOOL 안녕하세요 대치동 학원정보는 MATH SCHOOL
-안녕하세요 대치동 학원정보는 MATH SCHOOL 안녕하세요 대치동 학원정보는 MATH SCHOOL 안녕하세요 대치동 학원정보는 MATH SCHOOL
-안녕하세요 대치동 학원정보는 MATH SCHOOL 안녕하세요 대치동 학원정보는 MATH SCHOOL 안녕하세요 대치동 학원정보는 MATH SCHOOL
-안녕하세요 대치동 학원정보는 MATH SCHOOL
-안녕하세요 대치동 학원정보는 MATH SCHOOL안녕하세요 대치동 학원정보는 MATH SCHOOL안녕하세요 대치동 학원정보는 MATH SCHOOL
-안녕하세요 대치동 학원정보는 MATH SCHOOL안녕하세요 대치동 학원정보는 MATH SCHOOL
-안녕하세요 대치동 학원정보는 MATH SCHOOL
-안녕하세요 대치동 학원정보는 MATH SCHOOL안녕하세요 대치동 학원정보는 MATH SCHOOL안녕하세요 대치동 학원정보는 MATH SCHOO
-                                </div>
-                            </div>
-                            <div class="txt txt_name">
-                                <span>tjfdk</span>
-                            </div>
-                            <div class="txt txt_date">
-                                <span>2017-01-17</span>
-                            </div>
-                        </div>
-                        <div class="txt_box">
-                            <div class="txt txt_number">
-                                <span>06</span>
-                            </div>
-                            <div onclick="myFunction(6)" class="txt txt_tit">
-                                <span>안녕하세요 대치동 학원정보는 MATHSCHOOL</span>
-                            </div>
-                            <div id="dropdown6" class="contents">
-                                <div class="img"><img src="/img/sub02_arrow_up.png" onclick="clo(6)"></div>
-                                <div class="drop_txt">
-                                 안녕하세요 대치동 학원정보는 MATH SCHOOL 안녕하세요 대치동 학원정보는 MATH SCHOOL 안녕하세요 대치동 학원정보는 MATH SCHOOL
-안녕하세요 대치동 학원정보는 MATH SCHOOL 안녕하세요 대치동 학원정보는 MATH SCHOOL
-안녕하세요 대치동 학원정보는 MATH SCHOOL 안녕하세요 대치동 학원정보는 MATH SCHOOL 안녕하세요 대치동 학원정보는 MATH SCHOOL
-안녕하세요 대치동 학원정보는 MATH SCHOOL 안녕하세요 대치동 학원정보는 MATH SCHOOL 안녕하세요 대치동 학원정보는 MATH SCHOOL
-안녕하세요 대치동 학원정보는 MATH SCHOOL
-안녕하세요 대치동 학원정보는 MATH SCHOOL안녕하세요 대치동 학원정보는 MATH SCHOOL안녕하세요 대치동 학원정보는 MATH SCHOOL
-안녕하세요 대치동 학원정보는 MATH SCHOOL안녕하세요 대치동 학원정보는 MATH SCHOOL
-안녕하세요 대치동 학원정보는 MATH SCHOOL
-안녕하세요 대치동 학원정보는 MATH SCHOOL안녕하세요 대치동 학원정보는 MATH SCHOOL안녕하세요 대치동 학원정보는 MATH SCHOO
-                                </div>
-                            </div>
-                            <div class="txt txt_name">
-                                <span>tjfdk</span>
-                            </div>
-                            <div class="txt txt_date">
-                                <span>2017-01-17</span>
-                            </div>
-                        </div>
-                        <div class="txt_box">
-                            <div class="txt txt_number">
-                                <span>07</span>
-                            </div>
-                            <div onclick="myFunction(7)" class="txt txt_tit">
-                                <span>안녕하세요 대치동 학원정보는 MATHSCHOOL</span>
-                            </div>
-                            <div id="dropdown7" class="contents">
-                                <div class="img"><img src="/img/sub02_arrow_up.png" onclick="clo(7)"></div>
-                                <div class="drop_txt">
-                                 안녕하세요 대치동 학원정보는 MATH SCHOOL 안녕하세요 대치동 학원정보는 MATH SCHOOL 안녕하세요 대치동 학원정보는 MATH SCHOOL
-안녕하세요 대치동 학원정보는 MATH SCHOOL 안녕하세요 대치동 학원정보는 MATH SCHOOL
-안녕하세요 대치동 학원정보는 MATH SCHOOL 안녕하세요 대치동 학원정보는 MATH SCHOOL 안녕하세요 대치동 학원정보는 MATH SCHOOL
-안녕하세요 대치동 학원정보는 MATH SCHOOL 안녕하세요 대치동 학원정보는 MATH SCHOOL 안녕하세요 대치동 학원정보는 MATH SCHOOL
-안녕하세요 대치동 학원정보는 MATH SCHOOL
-안녕하세요 대치동 학원정보는 MATH SCHOOL안녕하세요 대치동 학원정보는 MATH SCHOOL안녕하세요 대치동 학원정보는 MATH SCHOOL
-안녕하세요 대치동 학원정보는 MATH SCHOOL안녕하세요 대치동 학원정보는 MATH SCHOOL
-안녕하세요 대치동 학원정보는 MATH SCHOOL
-안녕하세요 대치동 학원정보는 MATH SCHOOL안녕하세요 대치동 학원정보는 MATH SCHOOL안녕하세요 대치동 학원정보는 MATH SCHOO
-                                </div>
-                            </div>
-                            <div class="txt txt_name">
-                                <span>tjfdk</span>
-                            </div>
-                            <div class="txt txt_date">
-                                <span>2017-01-17</span>
-                            </div>
-                        </div>
-                        <div class="txt_box">
-                            <div class="txt txt_number">
-                                <span>08</span>
-                            </div>
-                            <div onclick="myFunction(8)" class="txt txt_tit">
-                                <span>안녕하세요 대치동 학원정보는 MATHSCHOOL</span>
-                            </div>
-                            <div id="dropdown8" class="contents">
-                                <div class="img"><img src="/img/sub02_arrow_up.png" onclick="clo(8)"></div>
-                                <div class="drop_txt">
-                                 안녕하세요 대치동 학원정보는 MATH SCHOOL 안녕하세요 대치동 학원정보는 MATH SCHOOL 안녕하세요 대치동 학원정보는 MATH SCHOOL
-안녕하세요 대치동 학원정보는 MATH SCHOOL 안녕하세요 대치동 학원정보는 MATH SCHOOL
-안녕하세요 대치동 학원정보는 MATH SCHOOL 안녕하세요 대치동 학원정보는 MATH SCHOOL 안녕하세요 대치동 학원정보는 MATH SCHOOL
-안녕하세요 대치동 학원정보는 MATH SCHOOL 안녕하세요 대치동 학원정보는 MATH SCHOOL 안녕하세요 대치동 학원정보는 MATH SCHOOL
-안녕하세요 대치동 학원정보는 MATH SCHOOL
-안녕하세요 대치동 학원정보는 MATH SCHOOL안녕하세요 대치동 학원정보는 MATH SCHOOL안녕하세요 대치동 학원정보는 MATH SCHOOL
-안녕하세요 대치동 학원정보는 MATH SCHOOL안녕하세요 대치동 학원정보는 MATH SCHOOL
-안녕하세요 대치동 학원정보는 MATH SCHOOL
-안녕하세요 대치동 학원정보는 MATH SCHOOL안녕하세요 대치동 학원정보는 MATH SCHOOL안녕하세요 대치동 학원정보는 MATH SCHOO
-                                </div>
-                            </div>
-                            <div class="txt txt_name">
-                                <span>tjfdk</span>
-                            </div>
-                            <div class="txt txt_date">
-                                <span>2017-01-17</span>
-                            </div>
-                        </div>
-                        <div class="txt_box">
-                            <div class="txt txt_number">
-                                <span>09</span>
-                            </div>
-                            <div onclick="myFunction(9)" class="txt txt_tit">
-                                <span>안녕하세요 대치동 학원정보는 MATHSCHOOL</span>
-                            </div>
-                            <div id="dropdown9" class="contents">
-                                <div class="img"><img src="img/sub02_arrow_up.png" onclick="clo(9)"></div>
-                                <div class="drop_txt">
-                                 안녕하세요 대치동 학원정보는 MATH SCHOOL 안녕하세요 대치동 학원정보는 MATH SCHOOL 안녕하세요 대치동 학원정보는 MATH SCHOOL
-안녕하세요 대치동 학원정보는 MATH SCHOOL 안녕하세요 대치동 학원정보는 MATH SCHOOL
-안녕하세요 대치동 학원정보는 MATH SCHOOL 안녕하세요 대치동 학원정보는 MATH SCHOOL 안녕하세요 대치동 학원정보는 MATH SCHOOL
-안녕하세요 대치동 학원정보는 MATH SCHOOL 안녕하세요 대치동 학원정보는 MATH SCHOOL 안녕하세요 대치동 학원정보는 MATH SCHOOL
-안녕하세요 대치동 학원정보는 MATH SCHOOL
-안녕하세요 대치동 학원정보는 MATH SCHOOL안녕하세요 대치동 학원정보는 MATH SCHOOL안녕하세요 대치동 학원정보는 MATH SCHOOL
-안녕하세요 대치동 학원정보는 MATH SCHOOL안녕하세요 대치동 학원정보는 MATH SCHOOL
-안녕하세요 대치동 학원정보는 MATH SCHOOL
-안녕하세요 대치동 학원정보는 MATH SCHOOL안녕하세요 대치동 학원정보는 MATH SCHOOL안녕하세요 대치동 학원정보는 MATH SCHOO
-                                </div>
-                            </div>
-                            <div class="txt txt_name">
-                                <span>tjfdk</span>
-                            </div>
-                            <div class="txt txt_date">
-                                <span>2017-01-17</span>
-                            </div>
-                        </div>
-                        <div class="txt_box">
-                            <div class="txt txt_number">
-                                <span>10</span>
-                            </div>
-                            <div onclick="myFunction(10)" class="txt txt_tit">
-                                <span>안녕하세요 대치동 학원정보는 MATHSCHOOL</span>
-                            </div>
-                            <div id="dropdown10" class="contents">
-                                <div class="img"><img src="img/sub02_arrow_up.png" onclick="clo(10)"></div>
-                                <div class="drop_txt">
-                                 안녕하세요 대치동 학원정보는 MATH SCHOOL 안녕하세요 대치동 학원정보는 MATH SCHOOL 안녕하세요 대치동 학원정보는 MATH SCHOOL
-안녕하세요 대치동 학원정보는 MATH SCHOOL 안녕하세요 대치동 학원정보는 MATH SCHOOL
-안녕하세요 대치동 학원정보는 MATH SCHOOL 안녕하세요 대치동 학원정보는 MATH SCHOOL 안녕하세요 대치동 학원정보는 MATH SCHOOL
-안녕하세요 대치동 학원정보는 MATH SCHOOL 안녕하세요 대치동 학원정보는 MATH SCHOOL 안녕하세요 대치동 학원정보는 MATH SCHOOL
-안녕하세요 대치동 학원정보는 MATH SCHOOL
-안녕하세요 대치동 학원정보는 MATH SCHOOL안녕하세요 대치동 학원정보는 MATH SCHOOL안녕하세요 대치동 학원정보는 MATH SCHOOL
-안녕하세요 대치동 학원정보는 MATH SCHOOL안녕하세요 대치동 학원정보는 MATH SCHOOL
-안녕하세요 대치동 학원정보는 MATH SCHOOL
-안녕하세요 대치동 학원정보는 MATH SCHOOL안녕하세요 대치동 학원정보는 MATH SCHOOL안녕하세요 대치동 학원정보는 MATH SCHOO
-                                </div>
-                            </div>
-                            <div class="txt txt_name">
-                                <span>tjfdk</span>
-                            </div>
-                            <div class="txt txt_date">
-                                <span>2017-01-17</span>
-                            </div>
-                        </div>
+                        <c:forEach var="i" begin="1" end="2">
+                        	<div class="txt_box new">
+	                            <div class="txt txt_number">
+	                                <span>new</span>
+	                            </div>
+	                            <div onclick="select(${i})" class="txt txt_tit">
+	                                <span>안녕하세요 대치동 학원정보는 MATHSCHOOL</span>
+	                            </div>
+	                            <div id="dropdown${i }" class="contents">
+	                                <div class="img"><img src="/img/sub02_arrow_up.png" onclick="clo(${i})"></div>
+	                                <div class="drop_txt">
+	                                 안녕하세요 대치동 학원정보는 MATH SCHOOL 안녕하세요 대치동 학원정보는 MATH SCHOOL 안녕하세요 대치동 학원정보는 MATH SCHOOL
+								안녕하세요 대치동 학원정보는 MATH SCHOOL 안녕하세요 대치동 학원정보는 MATH SCHOOL
+								안녕하세요 대치동 학원정보는 MATH SCHOOL 안녕하세요 대치동 학원정보는 MATH SCHOOL 안녕하세요 대치동 학원정보는 MATH SCHOOL
+								안녕하세요 대치동 학원정보는 MATH SCHOOL 안녕하세요 대치동 학원정보는 MATH SCHOOL 안녕하세요 대치동 학원정보는 MATH SCHOOL
+								안녕하세요 대치동 학원정보는 MATH SCHOOL
+								안녕하세요 대치동 학원정보는 MATH SCHOOL안녕하세요 대치동 학원정보는 MATH SCHOOL안녕하세요 대치동 학원정보는 MATH SCHOOL
+								안녕하세요 대치동 학원정보는 MATH SCHOOL안녕하세요 대치동 학원정보는 MATH SCHOOL
+								안녕하세요 대치동 학원정보는 MATH SCHOOL
+								안녕하세요 대치동 학원정보는 MATH SCHOOL안녕하세요 대치동 학원정보는 MATH SCHOOL안녕하세요 대치동 학원정보는 MATH SCHOO
+	                                </div>
+	                            </div>
+	                            <div class="txt txt_name">
+	                                <span>매쓰클럽</span>
+	                            </div>
+	                            <div class="txt txt_date">
+	                                <span>2017-01-17</span>
+	                            </div>
+	                        </div>
+                        </c:forEach>
+
+						<c:forEach var="i" begin="3" end="10">
+							<div class="txt_box">
+	                            <div class="txt txt_number">
+	                            	<c:choose>
+	                            		<c:when test="${i<10 }">
+			                                <span>0${i }</span>
+	                            		</c:when>
+	                            		<c:otherwise>
+			                                <span>${i }</span>
+	                            		</c:otherwise>
+	                            	</c:choose>
+	                            </div>
+	                            <div onclick="select(${i })" class="txt txt_tit">
+	                                <span>안녕하세요 대치동 학원정보는 MATHSCHOOL</span>
+	                            </div>
+	                            <div id="dropdown${i }" class="contents">
+	                                <div class="img"><img src="/img/sub02_arrow_up.png" onclick="clo(${i })"></div>
+	                                <div class="drop_txt">
+	                                  안녕하세요 대치동 학원정보는 MATH SCHOOL 안녕하세요 대치동 학원정보는 MATH SCHOOL 안녕하세요 대치동 학원정보는 MATH SCHOOL
+								안녕하세요 대치동 학원정보는 MATH SCHOOL 안녕하세요 대치동 학원정보는 MATH SCHOOL
+								안녕하세요 대치동 학원정보는 MATH SCHOOL 안녕하세요 대치동 학원정보는 MATH SCHOOL 안녕하세요 대치동 학원정보는 MATH SCHOOL
+								안녕하세요 대치동 학원정보는 MATH SCHOOL 안녕하세요 대치동 학원정보는 MATH SCHOOL 안녕하세요 대치동 학원정보는 MATH SCHOOL
+								안녕하세요 대치동 학원정보는 MATH SCHOOL
+								안녕하세요 대치동 학원정보는 MATH SCHOOL안녕하세요 대치동 학원정보는 MATH SCHOOL안녕하세요 대치동 학원정보는 MATH SCHOOL
+								안녕하세요 대치동 학원정보는 MATH SCHOOL안녕하세요 대치동 학원정보는 MATH SCHOOL
+								안녕하세요 대치동 학원정보는 MATH SCHOOL
+								안녕하세요 대치동 학원정보는 MATH SCHOOL안녕하세요 대치동 학원정보는 MATH SCHOOL안녕하세요 대치동 학원정보는 MATH SCHOO
+	                                </div>
+	                            </div>
+	                            <div class="txt txt_name">
+	                                <span>tjfdk</span>
+	                            </div>
+	                            <div class="txt txt_date">
+	                                <span>2017-01-17</span>
+	                            </div>
+	                        </div>
+						</c:forEach>
                     </div>
                     <div class="write_wrap">
                         <div class="empty_box"></div>
                         <div class="write_btn">
-                            <div class="txt">글쓰기</div>
+                            <div class="txt" onclick="wr()">글쓰기</div>
                         </div>
                     </div>
                     <div class="page_wrap">
                         <div class="inner">
                             <div class="arrow_wrap">
                                 <div class="arrow prev">
-                                    <img src="img/sub02_arrow_prev.png">
+                                    <img src="img/sub02_arrow_prev.png" onclick="prev(this)" id="prev1">
                                 </div>
                                 <div class="arrow next">
-                                    <img src="img/sub02_arrow_next.png">
+                                    <img src="img/sub02_arrow_next.png" onclick="next(this)" id="next1">
                                 </div>
                             </div>
-                            <div class="num_wrap">
-                                <div class="num sel">1</div>
-                                <div class="num">2</div>
-                                <div class="num">3</div>
-                                <div class="num">4</div>
-                                <div class="num">5</div>
-                                <div class="num">6</div>
-                                <div class="num">7</div>
-                                <div class="num">8</div>
-                                <div class="num">9</div>
+                            <div class="num_wrap" id="pages">
+                            	<c:forEach var="i" begin="1" end="10">
+                            		<c:choose>
+	                            		<c:when test="${i==1 }">
+			                                <div class="num sel" onclick="page(${i })" id="page${i }"><span>${i }</span></div>
+	                            		</c:when>
+	                            		<c:otherwise>
+			                                <div class="num" onclick="page(${i })" id="page${i }"><span>${i }</span></div>
+	                            		</c:otherwise>
+                            		</c:choose>
+                            	</c:forEach>
                             </div>
                         </div>
                     </div>
@@ -414,7 +193,7 @@
         </div>
         <footer>
             <div class="inner">
-                <div class="logo"><span >L</span>ogo</div>
+                <div class="logo" onclick="location.href='/'"><label><span >L</span>ogo</label></div>
                 <div class="txt">주소 : 서울 강남구 테헤란로 407 EK타워 4층 미래로입시컨설팅대표이사 : 이혁진 
 <br>상담시간 : 월 ~ 금 - 오전 10시 ~ 오후 9시 ( 점심시간 오전 11시 30분 ~ 오후 1시)   토 - 오전 10시 ~ 오후 5시
 <br>Copyright(c) TS group. All Rights Reserved.</div>
@@ -444,6 +223,83 @@
      		// 회원가입 페이지로 이동
      		alert("login");
      	}
-    </script>
-    
+     	// 글 선택
+     	function select(num) { 
+     		var ar = new Array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+            for(var i=0; i<ar.length; i++){
+            	var x = document.getElementById("dropdown"+ar[i]);
+            	if(ar[i]==num){
+            		if(x.className.indexOf("drop_show") == -1){
+            			x.className += " drop_show";
+            		}
+            	} else {
+            		x.className = x.className.replace(" drop_show", "");
+            	}
+            }
+        }
+     	// 글 닫기
+        function clo(num) {
+            var x = document.getElementById("dropdown"+num);
+            x.className = x.className.replace(" drop_show", "");
+        }
+     	// 페이지 클릭
+   		var pageNum = new Array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+     	function page(num){
+     		for(var i=0; i<pageNum.length; i++){
+				var x = document.getElementById("page"+pageNum[i]);
+     			if(pageNum[i]==num){
+     				if(x.className.indexOf("sel") == -1){
+     					x.className += " sel";
+     				}
+     			} else {
+     				x.className = x.className.replace(" sel", "");
+     			}
+     		}
+     	}
+     	// 글쓰기
+     	function wr(){
+     		alert("write");
+     	}
+     	// 페이지 이전 클릭
+     	function prev(element){
+     		var id = element.id;
+     		id = id.substring(id.indexOf('v')+1);
+     		pageNum = new Array();
+     		var html = ""
+     		if(Number(id)==1){
+     			return;
+     		} else {
+	     		for(var i=(Number(id)-10); i<Number(id); i++){
+	     			if(i==(Number(id)-10)){
+	     				html += "<div class='num sel' onclick='page("+i+")' id='page"+i+"'><span>"+i+"</span></div>";
+	     			} else {
+	     				html += "<div class='num' onclick='page("+i+")' id='page"+i+"'><span>"+i+"</span></div>";
+	     			}
+	     			pageNum[pageNum.length] = i;
+	     		}
+	     		$("#prev"+id).prop("id", "prev"+(Number(id)-10));
+	     		$("#next"+id).prop("id", "next"+(Number(id)-10));
+	     		$("#pages").html(html);
+     		}
+     	}
+     	// 페이지 다음 클릭
+     	function next(element){
+     		var id = element.id;
+     		id = id.substring(id.indexOf('t')+1);
+     		pageNum = new Array();
+     		var html = ""
+     		for(var i=(Number(id)+10); i<(Number(id)+20); i++){
+     			if(i==(Number(id)+10)){
+     				html += "<div class='num sel' onclick='page("+i+")' id='page"+i+"'><span>"+i+"</span></div>";
+     			} else {
+     				html += "<div class='num' onclick='page("+i+")' id='page"+i+"'><span>"+i+"</span></div>";
+     			}
+     			pageNum[pageNum.length] = i;
+     		}
+     		$("#next"+id).prop("id", "next"+(Number(id)+10));
+     		$("#prev"+id).prop("id", "prev"+(Number(id)+10));
+     		$("#pages").html(html);
+     	}
+   	</script>    
+   	
 </html>

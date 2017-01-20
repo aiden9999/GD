@@ -108,6 +108,27 @@ public class MainService {
 						}
 					}
 				}
+			} else if(!save){
+				saveCo.setPath("/");
+				saveCo.setMaxAge(0);
+				idCo.setPath("/");
+				idCo.setMaxAge(0);
+				resp.addCookie(saveCo);
+				resp.addCookie(idCo);
+				Cookie[] cookies = req.getCookies();
+				if(cookies!=null){
+					for(Cookie c : cookies){
+						if(c.getName().equals("auto")){
+							autoCo.setPath("/");
+							autoCo.setMaxAge(0);
+							resp.addCookie(autoCo);
+						} else if(c.getName().equals("pw")){
+							pwCo.setPath("/");
+							pwCo.setMaxAge(0);
+							resp.addCookie(pwCo);
+						}
+					}
+				}
 			}
 			session.setAttribute("login", list.get(0));
 			return true;

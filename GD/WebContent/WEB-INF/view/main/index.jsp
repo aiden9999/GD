@@ -496,6 +496,7 @@
     	var socket;
     	$(document).ready(function(){
     		socket = new SockJS("/chatSocket/chatSocket");
+// 			socket = new WebSocket("/chatSocket/chatSocket");
     		socket.onmessage = onMessage;
     		socket.onclose = onClose;
     	});
@@ -571,7 +572,7 @@
     	}
     	// 회원가입
     	function join(){
-    		alert("join");
+    		location.href="/join";
     	}
     	// 로그아웃
     	function logout(){
@@ -602,6 +603,12 @@
 	    			$("#txt").val("");
 	    			$("#chat").scrollTop(999999);
     			}
+    		}
+    	});
+    	// 채팅창 키 누르고있을 때
+    	$("#txt").keypress(function(txt){
+    		if(txt.length>38){
+    			$("#txt").val(txt.substring(0, 38));
     		}
     	});
     	// 채팅 수신

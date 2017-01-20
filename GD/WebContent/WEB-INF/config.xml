@@ -42,11 +42,12 @@
 <!--         <property name="password" value="gd"/> -->
 <!--     </bean> -->
 
+	<!-- mysql 웹db 연동 -->
 	<bean id="dataSource" class="org.apache.tomcat.dbcp.dbcp2.BasicDataSource">
         <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
-        <property name="url" value="jdbc:mysql://aiden9999.cafe24.com:3306/aiden9999"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/aiden9999"/>
         <property name="username" value="aiden9999"/>
-        <property name="password" value="bluecat1"/>
+        <property name="password" value="bluecat123"/>
     </bean>
 	
 	<bean class="org.mybatis.spring.SqlSessionFactoryBean" id="sqlSessionFactory">
@@ -69,7 +70,7 @@
 	<bean class="websocket.socket.ChatSocket" id="chatSocket" />
 	<websocket:handlers>
 		<websocket:mapping handler="chatSocket" path="/chatSocket/chatSocket"/>
-		<websocket:sockjs />
+		<websocket:sockjs/>
 	</websocket:handlers>
 
 </beans>

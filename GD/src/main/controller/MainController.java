@@ -78,4 +78,10 @@ public class MainController {
 //		mav.addObject("list", list);
 		return mav;
 	}
+	
+	// 회원가입
+	@RequestMapping("/join")
+	public String join(){
+		return "/main/join.jsp";
+	}
 }

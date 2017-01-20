@@ -81,7 +81,9 @@
                         <input type="text" id="hsearch" style="border: 2px solid #888f8d; height: 24px; " maxlength="10">
                         <img class="hsearch" src="/img/search.png" onclick="search()">
                     </div>
-                    <div class="txt" onclick="login()">로그인</div>
+                    <c:if test="${login==null }">
+	                    <div class="txt" onclick="login()">로그인</div>
+                    </c:if>
                 </div>
             </div>
             <div class="gnb">
@@ -106,7 +108,7 @@
                 </div>
             </div>
         </header>
-        <div class="sub01">
+        <div class="main01-01">
             <div class="inner">
                 <div class="aca_name">강남대치학원</div>
                 <section class="intro_section">
@@ -153,8 +155,8 @@
                             </li>
                         </ul>
                     </div>
-                    <div id="tab1">
-	                    <div class="txt_info">스스로 암기하는 것이 답! 하지만 스스로 암기하지 않는 것이 가장 큰 문제 입니다<br>
+                    <div id="tab1" class="tab">
+	                    <div class="txt_info">aaaaa스스로 암기하는 것이 답! 하지만 스스로 암기하지 않는 것이 가장 큰 문제 입니다<br>
 	멘토클리닉은 강의하는 수업이 아닙니다.학생이 스스로 암기하도록 도와주는 수업입니다</div>
 	                    <div class="pic_info">
 	                        <div class="tit_wrap">
@@ -266,15 +268,176 @@
 	                        </div>
 	                    </div>
                    	</div>
-                   	<div id="tab2" style="display: none">asdfasdfasdfsa</div>
-                   	<div id="tab3" style="display: none">dcc</div>
-                   	<div id="tab4" style="display: none">ㄴㅁㅇㄻㄴㅇㄹ</div>
+                   	<div id="tab2" style="display: none" class="tab">
+                   		<div class="board_wrap">
+                   			<div class="txt_box">
+	                            <div class="tit txt_number">
+	                                <span>번호</span>
+	                            </div>
+	                            <div class="tit txt_tit">
+	                                <span>제목</span>
+	                            </div>
+	                            <div class="tit txt_name">
+	                                <span>작성자</span>
+	                            </div>
+	                            <div class="tit txt_date">
+	                                <span>작성일</span>
+	                            </div>
+	                        </div>
+                   			<c:forEach var="i" begin="1" end="10">
+		                        <div class="txt_box">
+	                   				<div class="txt txt_number">
+	                   					<c:choose>
+			                   				<c:when test="${i<10 }">
+			                   					<span>0${i }</span>
+			                   				</c:when>
+			                   				<c:otherwise>
+			                   					<span>${i }</span>
+			                   				</c:otherwise>
+			                   			</c:choose>
+	                   				</div>
+	                   				<div onclick="select(${i})" class="txt txt_tit">
+		                                <span>안녕하세요 대치동 학원정보는 MATHSCHOOL</span>
+		                            </div>
+		                            <div id="dropdown${i }" class="contents">
+		                                <div class="img"><img src="/img/sub02_arrow_up.png" onclick="clo(${i})"></div>
+		                                <div class="drop_txt">
+		                                  안녕하세요 대치동 학원정보는 MATH SCHOOL 안녕하세요 대치동 학원정보는 MATH SCHOOL 안녕하세요 대치동 학원정보는 MATH SCHOOL
+									안녕하세요 대치동 학원정보는 MATH SCHOOL 안녕하세요 대치동 학원정보는 MATH SCHOOL
+									안녕하세요 대치동 학원정보는 MATH SCHOOL 안녕하세요 대치동 학원정보는 MATH SCHOOL 안녕하세요 대치동 학원정보는 MATH SCHOOL
+									안녕하세요 대치동 학원정보는 MATH SCHOOL 안녕하세요 대치동 학원정보는 MATH SCHOOL 안녕하세요 대치동 학원정보는 MATH SCHOOL
+									안녕하세요 대치동 학원정보는 MATH SCHOOL
+									안녕하세요 대치동 학원정보는 MATH SCHOOL안녕하세요 대치동 학원정보는 MATH SCHOOL안녕하세요 대치동 학원정보는 MATH SCHOOL
+									안녕하세요 대치동 학원정보는 MATH SCHOOL안녕하세요 대치동 학원정보는 MATH SCHOOL
+									안녕하세요 대치동 학원정보는 MATH SCHOOL
+									안녕하세요 대치동 학원정보는 MATH SCHOOL안녕하세요 대치동 학원정보는 MATH SCHOOL안녕하세요 대치동 학원정보는 MATH SCHOO
+		                                </div>
+		                            </div>
+		                            <div class="txt txt_name">
+		                                <span>tjfdk</span>
+		                            </div>
+		                            <div class="txt txt_date">
+		                                <span>2017-01-17</span>
+		                            </div>
+	                   			</div>
+                   			</c:forEach>
+	                    </div>
+	                    <div class="write_wrap">
+	                        <div class="empty_box"></div>
+	                        <div class="write_btn">
+	                            <div class="txt" onclick="wr()">글쓰기</div>
+	                        </div>
+	                    </div>
+	                    <div class="page_wrap">
+	                        <div class="inner">
+	                            <div class="arrow_wrap">
+	                                <div class="arrow prev">
+	                                    <img src="/img/sub02_arrow_prev.png" onclick="prev(this)" id="prev1">
+	                                </div>
+	                                <div class="arrow next">
+	                                    <img src="/img/sub02_arrow_next.png" onclick="next(this)" id="next1">
+	                                </div>
+	                            </div>
+	                            <div class="num_wrap" id="pages">
+                            	<c:forEach var="i" begin="1" end="10">
+                            		<c:choose>
+	                            		<c:when test="${i==1 }">
+			                                <div class="num sel" onclick="page(${i })" id="page${i }"><span>${i }</span></div>
+	                            		</c:when>
+	                            		<c:otherwise>
+			                                <div class="num" onclick="page(${i })" id="page${i }"><span>${i }</span></div>
+	                            		</c:otherwise>
+                            		</c:choose>
+                            	</c:forEach>
+                            </div>
+	                        </div>
+	                    </div>
+                   	</div>
+                   	<div id="tab3" style="display: none" class="tab">dcc</div>
+                   	<div id="tab4" style="display: none" class="tab">
+                   		<div class="test_wrap">
+	                        <div class="test_tit">
+	                            <div class="test">평가</div>
+	                            <div class="star_wrap">
+	                                <div class="star"><img src="/img/main01_04_star.png"></div>
+	                                <div class="star"><img src="/img/main01_04_star.png"></div>
+	                                <div class="star"><img src="/img/main01_04_star.png"></div>
+	                                <div class="star"><img src="/img/main01_04_star.png"></div>
+	                                <div class="star"><img src="/img/main01_04_star.png"></div>
+	                            </div>
+	                            <div class="point_wrap">
+	                                <div class="txt">10.0</div>
+	                                <div class="txt1">3명</div>
+	                            </div>
+	                        </div>
+	                        <div class="test_input">
+	                            <div class="input_inner">
+	                                <div id="select_box" class="select_box">
+	                                    <label for="ex_select">평점선택</label>
+	                                    <select id="ex_select">
+	                                        <option selected>평점선택</option>
+	                                        <option>평점선택</option>
+	                                        <option>평점선택</option>
+	                                        <option>평점선택</option>
+	                                    </select>
+	                                </div>
+	                                <div class="text_wrap">
+                                    	<c:choose>
+                                    		<c:when test="${login!=null }">
+			                                    <div class="text_box">
+<!-- 			                                        <input type="text" id="point_txt" placeholder="( 최소 10자이상, 최대 100까지 입력 가능합니다. )" maxlength="100"> -->
+			                                        <textarea rows="1" cols="134" id="point_txt" style="resize: none" placeholder="( 최소 10자이상, 최대 200까지 입력 가능합니다. )"></textarea>
+			                                    </div>
+			                                    <div class="btn">
+			                                        <div class="regi" onclick="submit()">등록</div>
+			                                    </div>
+                                    		</c:when>
+                                    		<c:otherwise>
+		                                        <div class="text_box">
+			                                        <input type="text" id="point_txt" placeholder="( 로그인 후 등록 가능합니다. )" readonly="readonly">
+			                                    </div>
+			                                    <div class="btn">
+			                                       	<div class="regi" onclick="submit()">등록</div>
+			                                    </div>
+                                    		</c:otherwise>
+                                    	</c:choose>
+	                                    <div class="txt" id="countTxt"> 0 / 100 </div>
+	                                </div>
+	                            </div>
+	                        </div>
+	                    </div>
+                   		<div class="reply_section">
+                   			<c:forEach var="i" begin="1" end="5">
+		                        <div class="reply_wrap">
+		                            <div class="star_wrap">
+		                                <div class="star">
+		                                    <img src="/img/main01_04_star.png">
+		                                </div>
+		                                <div class="star">
+		                                    <img src="/img/main01_04_star.png">
+		                                </div>
+		                                <div class="star">
+		                                    <img src="/img/main01_04_star.png">
+		                                </div>
+		                                <div class="star">
+		                                    <img src="/img/main01_04_star.png">
+		                                </div>
+		                                <div class="star">
+		                                    <img src="/img/main01_04_star.png">
+		                                </div>
+		                            </div>
+		                            <div class="txt" id="replyTxt${i }">안녕하세요 강남대치학원입니다, 안녕하세요 강남대치학원입니다, 안녕하세요 강남대치학원입니다. 안녕하세요 강남대치학원입니다. 안녕하세요 강남대치학원강남대치학원입니다. 안녕하세요 강남대</div>
+		                            <div class="id" id="replyId${i }">김설아(seo3****)<span class="txt1" id="replyTime${i }">2016-11-30 16:23</span> </div>
+		                        </div>
+                   			</c:forEach>
+	                    </div>
+                   	</div>
                 </section>
-            </div>
+			</div>
         </div>
         <footer>
             <div class="inner">
-                <div class="logo" onclick="location.href='/'"><span >L</span>ogo</div>
+                <div class="logo" onclick="location.href='/'"><label><span >L</span>ogo</label></div>
                 <div class="txt">주소 : 서울 강남구 테헤란로 407 EK타워 4층 미래로입시컨설팅대표이사 : 이혁진 
 <br>상담시간 : 월 ~ 금 - 오전 10시 ~ 오후 9시 ( 점심시간 오전 11시 30분 ~ 오후 1시)   토 - 오전 10시 ~ 오후 5시
 <br>Copyright(c) TS group. All Rights Reserved.</div>
@@ -327,6 +490,132 @@
     	function down(){
     		alert("down");
     	}
+    	// 글 선택
+     	function select(num) { 
+     		var ar = new Array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+            for(var i=0; i<ar.length; i++){
+            	var x = document.getElementById("dropdown"+ar[i]);
+            	if(ar[i]==num){
+            		if(x.className.indexOf("drop_show") == -1){
+            			x.className += " drop_show";
+            		}
+            	} else {
+            		x.className = x.className.replace(" drop_show", "");
+            	}
+            }
+        }
+     	// 글 닫기
+        function clo(num) {
+            var x = document.getElementById("dropdown"+num);
+            x.className = x.className.replace(" drop_show", "");
+        }
+     	// 페이지 클릭
+   		var pageNum = new Array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+     	function page(num){
+     		for(var i=0; i<pageNum.length; i++){
+				var x = document.getElementById("page"+pageNum[i]);
+     			if(pageNum[i]==num){
+     				if(x.className.indexOf("sel") == -1){
+     					x.className += " sel";
+     				}
+     			} else {
+     				x.className = x.className.replace(" sel", "");
+     			}
+     		}
+     	}
+     	// 글쓰기
+     	function wr(){
+     		alert("write");
+     	}
+     	// 페이지 이전 클릭
+     	function prev(element){
+     		var id = element.id;
+     		id = id.substring(id.indexOf('v')+1);
+     		pageNum = new Array();
+     		var html = ""
+     		if(Number(id)==1){
+     			return;
+     		} else {
+	     		for(var i=(Number(id)-10); i<Number(id); i++){
+	     			if(i==(Number(id)-10)){
+	     				html += "<div class='num sel' onclick='page("+i+")' id='page"+i+"'><span>"+i+"</span></div>";
+	     			} else {
+	     				html += "<div class='num' onclick='page("+i+")' id='page"+i+"'><span>"+i+"</span></div>";
+	     			}
+	     			pageNum[pageNum.length] = i;
+	     		}
+	     		$("#prev"+id).prop("id", "prev"+(Number(id)-10));
+	     		$("#next"+id).prop("id", "next"+(Number(id)-10));
+	     		$("#pages").html(html);
+     		}
+     	}
+     	// 페이지 다음 클릭
+     	function next(element){
+     		var id = element.id;
+     		id = id.substring(id.indexOf('t')+1);
+     		pageNum = new Array();
+     		var html = ""
+     		for(var i=(Number(id)+10); i<(Number(id)+20); i++){
+     			if(i==(Number(id)+10)){
+     				html += "<div class='num sel' onclick='page("+i+")' id='page"+i+"'><span>"+i+"</span></div>";
+     			} else {
+     				html += "<div class='num' onclick='page("+i+")' id='page"+i+"'><span>"+i+"</span></div>";
+     			}
+     			pageNum[pageNum.length] = i;
+     		}
+     		$("#next"+id).prop("id", "next"+(Number(id)+10));
+     		$("#prev"+id).prop("id", "prev"+(Number(id)+10));
+     		$("#pages").html(html);
+     	}
+     	// 한줄평가 등록
+     	function submit(){
+     		var txt = $("#point_txt").val();
+     		if(txt.length>10){
+	     		alert(txt);
+     		} else if(txt.length>0 && txt.length <10){
+     			alert("10자 이상 입력바랍");
+     		} else{
+     			alert("아무것도 안쓰면 등록안됨");
+     		}
+     	}
+     	// 한줄평가 입력시 글자수 감소 및 입력창 증가/감소
+     	$("#point_txt").keyup(function(txt){
+     		var strValue = $("#point_txt").val();
+	        var strLen = strValue.length;
+	        var totalByte = 0;
+	        var len = 0;
+	        var oneChar = "";
+	        var str2 = "";
+	 
+	        for (var i = 0; i < strLen; i++) {
+	            var oneChar = strValue.charAt(i);
+	            if (escape(oneChar).length > 4) {
+	                totalByte += 2;
+	            } else {
+	                totalByte++;
+	            }
+	 
+	            // 입력한 문자 길이보다 넘치면 잘라내기 위해 저장
+	            if (totalByte <= 200) {
+	                len = i + 1;
+	            }
+	        }
+	 
+	        // 넘어가는 글자는 자른다.
+	        if (totalByte > 200) {
+	            str2 = strValue.substr(0, len);
+	            totalByte = 200;
+	            $("#point_txt").val(str2);
+	        }
+	        
+     		$("#countTxt").html(totalByte+" / 200");
+     		if(totalByte>=132){
+     			$("#point_txt").prop("rows", "2");
+     		} else if(totalByte<132){
+     			$("#point_txt").prop("rows", "1");
+     		}
+     	});
+     	
     </script>
     
 </html>
