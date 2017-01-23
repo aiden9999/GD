@@ -1,13 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="member">
-	<insert id="join" parameterType="java.util.HashMap">
-		insert into member values(#{id}, #{pass}, #{name}, #{phone}, #{type})
+	<insert id="joinId">
+		insert into id values(#{id})
 	</insert>
-	<select id="member" resultType="java.util.HashMap">
-		select * from member where id = #{id}
+	<insert id="joinNick">
+		insert into nick values(#{nick})
+	</insert>
+	<select id="idCheck" resultType="java.util.HashMap">
+		select * from id where id = #{id}
 	</select>
-	<select id="login" parameterType="java.util.HashMap" resultType="java.util.HashMap">
-		select * from member where id = #{id} and pw = #{pw}
+	<select id="nickCheck" resultType="java.util.HashMap">
+		select * from nick where nick = #{nick}
+	</select>
+	<insert id="joinS" parameterType="java.util.HashMap">
+		insert into student values(#{id}, #{name}, #{pw}, #{nick}, #{addr1}, #{addr2}, #{phone}, #{email}, #{agreesms}, #{agreeemail},
+												#{schooladdr}, #{school}, #{type}, '준회원', 0)
+	</insert>
+	<insert id="joinN" parameterType="java.util.HashMap">
+		insert into normal values(#{id}, #{name}, #{pw}, #{nick}, #{addr1}, #{addr2}, #{phone}, #{email}, #{agreesms}, #{agreeemail},
+												'준회원', 0)
+	</insert>
+	<insert id="joinP" parameterType="java.util.HashMap">
+		insert into parent values(#{id}, #{name}, #{pw}, #{nick}, #{addr1}, #{addr2}, #{phone}, #{email}, #{agreesms}, #{agreeemail},
+												#{child1}, #{1schooladdr}, #{1schoolgrade}, #{1school}, #{1acaaddr1}, #{1academy1}, #{1teacher1},
+												#{1acaaddr2}, #{1academy2}, #{1teacher2},
+												#{child2}, #{2schooladdr}, #{2schoolgrade}, #{2school}, #{2acaaddr1}, #{2academy1}, #{2teacher1},
+												#{2acaaddr2}, #{2academy2}, #{2teacher2},
+												#{child3}, #{3schooladdr}, #{3schoolgrade}, #{3school}, #{3acaaddr1}, #{3academy1}, #{3teacher1},
+												#{3acaaddr2}, #{3academy2}, #{3teacher2}, '준회원', 0)
+	</insert>
+	<insert id="joinT" parameterType="java.util.HashMap">
+		insert into teacher values(#{id}, #{name}, #{pw}, #{nick}, #{addr1}, #{addr2}, #{phone}, #{email}, #{agreesms}, #{agreeemail},
+												#{type}, #{schooladdr}, #{school}, #{target}, #{subject}, #{etc}, '준회원', 0)
+	</insert>
+	<select id="loginS" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		select * from student where id = #{id} and pw = #{pw}
+	</select>
+	<select id="loginN" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		select * from normal where id = #{id} and pw = #{pw}
+	</select>
+	<select id="loginP" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		select * from parent where id = #{id} and pw = #{pw}
+	</select>
+	<select id="loginT" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		select * from teacher where id = #{id} and pw = #{pw}
 	</select>
 </mapper>

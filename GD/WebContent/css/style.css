@@ -307,6 +307,87 @@ footer .txt { font-size: 13px; color: #333333; display: inline-block; float: rig
 .join .join_bottom .join_type .type .aca { background-image: url(../img/login_black_note.png); }
 .join .join_bottom .join_type .type .sch { background-image: url(../img/login_black_school.png); }
 
+.join01-01 { background-color: #fafafa; }
+.join01-01 > .inner { padding-bottom: 20px; }
+.join01-01 .tit { padding: 25px 0 10px; border-bottom: 2px solid #88b04b; }
+.join01-01 .tit .icon_wrap { width: 240px; display: inline-block; }
+.join01-01 .tit .icon_wrap .img { display: inline-block; }
+.join01-01 .tit .icon_wrap .txt { width: 184px; display: table-cell; font-size: 18px; color: #2b3835; padding-top: 32px; float: right; font-weight: bold; text-align: center; }
+.join01-01 .tit .step { display: table-cell; float: right; padding-top: 37px; font-size: 15px; color: #2b3835; font-weight: bold; }
+.join01-01 .tit .step span { color: #88b04b; }
+.join01-01 .terms_wrap { width: 880px; margin: 0 auto; }
+.join01-01 .terms_wrap .terms_wrapper { width: 420px; margin-top: 40px; display: inline-block; }
+.join01-01 .terms_wrap .terms_wrapper:last-child { float: right; }
+.join01-01 .terms_wrap .terms_box { height: 350px; overflow: auto; margin: 0 auto; border: 1px solid #e5e5e5; padding: 5px 0; background-color: #fff; }
+.join01-01 .terms_wrap .terms_box .term_tit { width: 375px; margin: 0 auto; border-bottom: 1px solid #e5e5e5; padding: 5px 0; }
+.join01-01 .terms_wrap .terms_box .term_tit .circle { width: 6px; height: 6px; background-color: #b6ce91; border-radius: 3px; display: inline-block; margin-bottom: 2px; }
+.join01-01 .terms_wrap .terms_box .term_tit .txt { font-size: 13px; color: #2c2c2c; display: inline-block; margin-bottom: 5px; }
+.join01-01 .terms_wrap .terms_box .txt_wrap { width: 360px; margin: 0 auto; }
+.join01-01 .terms_wrap .terms_box .txt_wrap .sub_tit { font-size: 14px; color: #2c2c2c; text-align: center; font-weight: bold; padding: 15px 0 15px; }
+.join01-01 .terms_wrap .terms_box .txt_wrap .txt { font-size: 13px; color: #2c2c2c; text-align: left; padding: 20px 0; }
+.join01-01 .terms_wrap .terms_wrapper .agree { font-size: 15px; color: #2b3735; text-align: center; padding: 15px 0; }
+.join01-01 .confirm_wrap { width: 880px; margin: 0 auto; padding-bottom: 20px; border: 1px solid #c5c5c5; background-color: #fff; }
+.join01-01 .confirm_wrap .confirm_tit { font-size: 15px; color: #2c2c2c; padding: 5px 10px; font-weight: bold; }
+.join01-01 .confirm_wrap .confirm_txt { text-align: center; margin: 30px 0 30px; font-size: 15px; color: #2b3835;  }
+.join01-01 .confirm_wrap .confirm_txt span { font-size: 16px; font-weight: bold; }
+.join01-01 .confirm_wrap .btn_wrap { width: 810px; margin: 0 auto; border-bottom: 1px solid #8c8c8c; }
+.join01-01 .confirm_wrap .btn_wrap .confirm_btn { width: 310px; margin: 0 auto 30px; border: 1px solid #a4a4a4; background-color: #fafafa; cursor: pointer; }
+.join01-01 .confirm_wrap .btn_wrap .confirm_btn .inner { width: 211px; margin: 0 auto; }
+.join01-01 .confirm_wrap .btn_wrap .confirm_btn .img { display: inline-block; padding: 15px 0; }
+.join01-01 .confirm_wrap .btn_wrap .confirm_btn .txt { float: right; font-size: 20px; color: #88b04b; padding-top: 27px; font-weight: bold; }
+.join01-01 .confirm_wrap > .txt { width: 810px; margin: 0 auto; text-align: center; font-size: 12px; color: #2b3835; line-height: 30px; padding: 20px 0; }
+.join01-01 .confirm_wrap > .txt span { font-size: 13px; color: #2b3835; font-weight: bold; }
+.cannext_wrap { width: 250px; margin: 40px auto 0; padding-bottom: 35px; }
+.cannext_wrap .btn { width: 100px; margin: 0 auto; font-size: 15px; display: inline-block; text-align: center; cursor: pointer; padding: 7px 0; font-weight: bold; }
+.cannext_wrap .cancel { color: #2b3735; background-color: #fafafa; border: 1px solid #2b3735; }
+.cannext_wrap .next { color: #fff; background-color: #2b3735; border: 1px solid #2b3735; float: right; }
+
+.join01-02 { background-color: #fafafa; }
+.join01-02 > .inner { padding-bottom: 380px; }
+.join01-02 .inner> .tit { padding: 25px 0 10px; border-bottom: 2px solid #88b04b; }
+.join01-02 .tit .icon_wrap { width: 240px; display: inline-block; }
+.join01-02 .tit .icon_wrap .img { display: inline-block; }
+.join01-02 .tit .icon_wrap .txt { width: 184px; display: table-cell; font-size: 18px; color: #2b3835; padding-top: 32px; float: right; font-weight: bold; text-align: center; }
+.join01-02 .tit .step { display: table-cell; padding-top: 37px; font-size: 15px; color: #2b3835; font-weight: bold; float: right; }
+.join01-02 .tit .step span { color: #88b04b; }
+.join01-02 .tit_section { padding: 20px 0; } 
+.join01-02 .tit_section .txt { font-size: 17px; font-weight: bold; color: #2b3835; display: inline-block; } 
+.join01-02 .tit_section .line { width: 963px; height: 1px; background-color: #2b3835; display: inline-block; margin-bottom: 6px; } 
+.join01-02 .person_wrap { padding-top: 30px; }
+.join01-02 .person_wrap .tit { width: 115px; margin-left: 7px; font-size: 15px; color: #2b3835; font-weight: bold; display: inline-block; padding-top: 7px; }
+.join01-02 .person_wrap .section_wrap { padding: 2px 0; }
+.join01-02 .person_wrap .section_wrap > .txt { font-size: 13px; color: #2b3835; line-height: 30px; padding: 4px 0 0 6px; display: inline-block; }
+.join01-02 .person_wrap .section_wrap .select_box { width: 290px; height: 30px; display: inline-block; border: 1px solid #c5c5c5; }
+.join01-02 .person_wrap .name_wrap .txt { font-size: 14px; color: #88b04b; line-height: 30px; font-weight: bold; display: inline-block;}
+.join01-02 .person_wrap .input_box { width: 290px; height: 30px; background-color: #fff; border: 1px solid #c5c5c5; display: inline-block; }
+.join01-02 .person_wrap .input_box input { width: 286px; height: 25px; }
+.join01-02 .person_wrap .overlap { width: 85px; height: 23px; background-color: #88b04b; cursor: pointer; display: inline-block; margin-left: 10px; margin-top: 2px; }
+.join01-02 .person_wrap .overlap .txt { width: 85px; height: 23px; background-color: #88b04b; font-size: 15px; color: #ffffff; text-align: center; padding: 2px 0; }
+.join01-02 .person_wrap .overlap .txt { width: 85px; height: 23px; background-color: #88b04b; font-size: 15px; color: #ffffff; text-align: center; padding: 2px 0; }
+.join01-02 .person_wrap .area_wrap .select_box select { width: 290px; height: 30px; }
+.join01-02 .person_wrap .phone_wrap .select_box { width: 85px; height: 30px; vertical-align: bottom; }
+.join01-02 .person_wrap .phone_wrap .select_box select { width: 85px; height: 30px; }
+.join01-02 .person_wrap .phone_wrap .hyphen { width: 14px; height: 2px; background-color: #2b3835; display: inline-block; margin-bottom: 4px; }
+.join01-02 .person_wrap .phone_wrap .input_box { width: 106px; height: 30px; }
+.join01-02 .person_wrap .phone_wrap .input_box input { width: 102px; height: 25px; }
+.join01-02 .person_wrap .mail_wrap .txt { font-size: 15px; font-weight: bold; color: #2b3835; }
+.join01-02 .person_wrap .mail_wrap .input_box { width: 210px; height: 30px; }
+.join01-02 .person_wrap .mail_wrap .input_box input { width: 206px; height: 25px; }
+.join01-02 .person_wrap .mail_wrap .input_box:last-child { width: 350px; height: 30px; }
+.join01-02 .person_wrap .mail_wrap .input_box:last-child input { width: 346px; height: 25px; }
+.join01-02 .person_wrap .mail_wrap .select_box { width: 140px; height: 30px; vertical-align: bottom; }
+.join01-02 .person_wrap .mail_wrap .select_box select { width: 140px; height: 30px; font-size: 15px; color: #2b3835; text-align: center; font-weight: bold; }
+.join01-02 .person_wrap .called_wrap .txt_box { width:741px; background-color: #fff; display: inline-block; border: 2px solid #a9a9a9; }
+.join01-02 .person_wrap .called_wrap .txt_box .txt { font-size: 15px; color: #2b3835; padding: 4px 0 0 8px; }
+.join01-02 .person_wrap .called_wrap .txt { font-size: 15px; color: #2b3835; display: inline-block;  }
+.join01-02 .person_wrap .called_wrap input { display: inline-block; }
+.join01-02 .person_wrap .called_wrap .input_txt { font-size: 15px; color: #2b3835; font-weight: bold; display: inline-block; } 
+.join01-02 .person_wrap .called_wrap .messege_wrap { padding: 8px 0 5px; }
+.join01-02 .person_wrap .called_wrap .email_wrap { padding: 0 0 15px; }
+
+.join01-03 > .inner { padding-bottom: 50px; }
+.join01-03 .person_wrap { padding-top: 0; }
+
 .sub0123 .inner { width: 990px; margin: 0 auto; }
 .sub0123 .contents { width: 720px; display: inline-block; float: left; }
 .sub0123 .contents .main_slider { width: 700px; height: 184px; margin-top: 10px; overflow: hidden; }

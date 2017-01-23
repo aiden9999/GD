@@ -391,21 +391,21 @@
                             <div class="txt_wrap">
                                 <div class="dot green"></div>
 <!--                                 <div class="txt green" onclick="notice(${t.NUM })">11월 12일, 11월 19일 입시 -->
-                                <div class="txt green" onclick="notice(this)">11월 12일, 11월 19일 입시
-                                    <br> 설명회 중등부12일 고등부 19일 ‥</div>
+                                <div class="txt green" onclick="notice(this)"><label>11월 12일, 11월 19일 입시
+                                    <br> 설명회 중등부12일 고등부 19일 ‥</label></div>
                             </div>
                             <div class="txt_wrap">
                                 <div class="dot"></div>
-                                <div class="txt" onclick="notice(this)">2017년 겨울방학 특강 시간표</div>
+                                <div class="txt" onclick="notice(this)"><label>2017년 겨울방학 특강 시간표</label></div>
                             </div>
                             <div class="txt_wrap">
                                 <div class="dot"></div>
-                                <div class="txt" onclick="notice(this)">2017년 수능 고3 미적분1 + 확률통계
-                                    수능 족집게 개념 강의</div>
+                                <div class="txt" onclick="notice(this)"><label>2017년 수능 고3 미적분1 + 확률통계
+                                    수능 족집게 개념 강의</label></div>
                             </div>
                             <div class="txt_wrap">
                                 <div class="dot"></div>
-                                <div class="txt" onclick="notice(this)">2017년 겨울방학 특강 시간표</div>
+                                <div class="txt" onclick="notice(this)"><label>2017년 겨울방학 특강 시간표</label></div>
                             </div>
                         </div>
                     </div>
@@ -454,21 +454,21 @@
                             <div class="txt_wrap">
                                 <div class="dot"></div>
 <!--                                 <div class="txt" onclick="waggle(${t.NUM })">11월 12일, 11월 19일 입시 -->
-                                <div class="txt" onclick="waggle(this)">11월 12일, 11월 19일 입시
-                                    <br> 설명회 중등부12일 고등부 19일 ‥</div>
+                                <div class="txt" onclick="waggle(this)"><label>11월 12일, 11월 19일 입시
+                                    <br> 설명회 중등부12일 고등부 19일 ‥</label></div>
                             </div>
                             <div class="txt_wrap">
                                 <div class="dot green"></div>
-                                <div class="txt green" onclick="waggle(this)">2017년 겨울방학 특강 시간표</div>
+                                <div class="txt green" onclick="waggle(this)"><label>2017년 겨울방학 특강 시간표</label></div>
                             </div>
                             <div class="txt_wrap">
                                 <div class="dot"></div>
-                                <div class="txt" onclick="waggle(this)">2017년 수능 고3 미적분1 + 확률통계
-                                    수능 족집게 개념 강의</div>
+                                <div class="txt" onclick="waggle(this)"><label>2017년 수능 고3 미적분1 + 확률통계
+                                    수능 족집게 개념 강의</label></div>
                             </div>
                             <div class="txt_wrap">
                                 <div class="dot"></div>
-                                <div class="txt" onclick="waggle(this)">2017년 겨울방학 특강 시간표</div>
+                                <div class="txt" onclick="waggle(this)"><label>2017년 겨울방학 특강 시간표</label></div>
                             </div>
                         </div>
                     </div>
@@ -493,13 +493,12 @@
     
     <script>
     	// 홈페이지 접속시 웹소캣 서버 연결
-    	var socket;
-    	$(document).ready(function(){
-    		socket = new SockJS("/chatSocket/chatSocket");
-// 			socket = new WebSocket("/chatSocket/chatSocket");
-    		socket.onmessage = onMessage;
-    		socket.onclose = onClose;
-    	});
+//     	var socket;
+//     	$(document).ready(function(){
+//     		socket = new SockJS("/chatSocket/chatSocket");
+//     		socket.onmessage = onMessage;
+//     		socket.onclose = onClose;
+//     	});
     	// 검색란에서 엔터입력
     	$("#hsearch").keyup(function(txt){
     		if(txt.keyCode==13){
@@ -587,24 +586,24 @@
     		}
     	}
     	// 채팅 전송
-    	function send(){
-    		var txt = $("#txt").val();
-    		if(txt!=""){
-	    		socket.send(txt);
-	    		$("#txt").val("");
-	    		$("#chat").scrollTop(999999);
-    		}
-    	}
+//     	function send(){
+//     		var txt = $("#txt").val();
+//     		if(txt!=""){
+// 	    		socket.send(txt);
+// 	    		$("#txt").val("");
+// 	    		$("#chat").scrollTop(999999);
+//     		}
+//     	}
     	// 채팅창에서 엔터입력
-    	$("#txt").keyup(function(txt){
-    		if(txt.keyCode==13){
-    			if($("#txt").val()!=""){
-	    			socket.send("${login.ID }~!@id#$%"+$("#txt").val());
-	    			$("#txt").val("");
-	    			$("#chat").scrollTop(999999);
-    			}
-    		}
-    	});
+//     	$("#txt").keyup(function(txt){
+//     		if(txt.keyCode==13){
+//     			if($("#txt").val()!=""){
+// 	    			socket.send("${login.ID }~!@id#$%"+$("#txt").val());
+// 	    			$("#txt").val("");
+// 	    			$("#chat").scrollTop(999999);
+//     			}
+//     		}
+//     	});
     	// 채팅창 키 누르고있을 때
     	$("#txt").keypress(function(txt){
     		if(txt.length>38){
@@ -612,19 +611,19 @@
     		}
     	});
     	// 채팅 수신
-    	function onMessage(e){
-    		var html = $("#chat").html();
-    		if(html!=""){
-    			$("#chat").html(html+"<br/>"+e.data);
-    		} else {
-	    		$("#chat").html(html+e.data);
-    		}
-    		$("#chat").scrollTop(999999);
-    	}
+//     	function onMessage(e){
+//     		var html = $("#chat").html();
+//     		if(html!=""){
+//     			$("#chat").html(html+"<br/>"+e.data);
+//     		} else {
+// 	    		$("#chat").html(html+e.data);
+//     		}
+//     		$("#chat").scrollTop(999999);
+//     	}
     	// 웹소켓 연결 종료
-    	function onClose(){
-    		console.log("연결 종료");
-    	}
+//     	function onClose(){
+//     		console.log("연결 종료");
+//     	}
     	// 공지사항
     	function notice(num){
     		alert(num.innerHTML);
@@ -683,7 +682,7 @@
 			
 // 			document.write(framecode); 
 // 			document.close(); 
-// 		} 
+// 		}
     </script>
     
 </html>

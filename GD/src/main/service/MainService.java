@@ -45,7 +45,16 @@ public class MainService {
 			HashMap<String, String> map = new HashMap<>();
 			map.put("id", id);
 			map.put("pw", pw);
-			List<HashMap> list = ss.selectList("member.login", map);
+			List<HashMap> list = ss.selectList("member.loginS", map);
+			if(list.size()==0){
+				list = ss.selectList("member.loginN", map);
+				if(list.size()==0){
+					list = ss.selectList("member.loginP", map);
+					if(list.size()==0){
+						list = ss.selectList("member.loginT", map);
+					}
+				}
+			}
 			ss.close();
 			session.setAttribute("login", list.get(0));
 		} else if(!id.equals("") && pw.equals("")){
@@ -59,7 +68,16 @@ public class MainService {
 		HashMap<String, String> map = new HashMap<>();
 		map.put("id", id);
 		map.put("pw", pw);
-		List<HashMap> list = ss.selectList("member.login", map);
+		List<HashMap> list = ss.selectList("member.loginS", map);
+		if(list.size()==0){
+			list = ss.selectList("member.loginN", map);
+			if(list.size()==0){
+				list = ss.selectList("member.loginP", map);
+				if(list.size()==0){
+					list = ss.selectList("member.loginT", map);
+				}
+			}
+		}
 		ss.close();
 		if(list.size()!=0){
 			Cookie autoCo = new Cookie("auto", "auto");

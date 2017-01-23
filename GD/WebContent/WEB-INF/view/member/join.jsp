@@ -228,19 +228,23 @@
     	}
     	// 학생
     	function student(){
-    		alert("학생");
+    		location.href="/join/student";
+//     		Frameset("/join/student");
     	}
-    	// 부모님
+    	// 학부모
     	function parent(){
-    		alert("부모님");	
+    		location.href="/join/parent";
+//     		Frameset("/join/parent");
     	}
     	// 선생님
     	function teacher(){
-    		alert("선생님");
+    		location.href="/join/teacher";
+//     		Frameset("/join/teacher");
     	}
     	// 일반
     	function normal(){
-    		alert("일반");
+    		location.href="/join/normal";
+// 			Frameset("/join/normal");
     	}
     	// 학원
     	function academy(){
@@ -250,6 +254,15 @@
     	function school(){
     		alert("학교/법인");
     	}
+    	// 페이지 주소 숨김
+//     	function Frameset(page) { 
+// 			framecode = "<frameset rows='1*' id='join'>" 
+// 			+ "<frame name=main src='" + page + "'>" 
+// 			+ "</frameset>"; 
+			
+// 			document.write(framecode); 
+// 			document.close(); 
+// 		}
     </script>
     
 </html>

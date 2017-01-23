@@ -386,7 +386,7 @@
                                     		<c:when test="${login!=null }">
 			                                    <div class="text_box">
 <!-- 			                                        <input type="text" id="point_txt" placeholder="( 최소 10자이상, 최대 100까지 입력 가능합니다. )" maxlength="100"> -->
-			                                        <textarea rows="1" cols="134" id="point_txt" style="resize: none" placeholder="( 최소 10자이상, 최대 200까지 입력 가능합니다. )"></textarea>
+			                                        <textarea rows="1" cols="134" id="point_txt" style="resize: none" placeholder="( 최소 10자이상, 최대 한글 100자/영어 200자 까지 입력 가능합니다. )"></textarea>
 			                                    </div>
 			                                    <div class="btn">
 			                                        <div class="regi" onclick="submit()">등록</div>
@@ -394,14 +394,14 @@
                                     		</c:when>
                                     		<c:otherwise>
 		                                        <div class="text_box">
-			                                        <input type="text" id="point_txt" placeholder="( 로그인 후 등록 가능합니다. )" readonly="readonly">
+		                                        	<textarea rows="1" cols="134" id="point_txt" style="resize: none" placeholder="( 로그인 후 작성 가능합니다. )" readonly="readonly"></textarea>
 			                                    </div>
 			                                    <div class="btn">
-			                                       	<div class="regi" onclick="submit()">등록</div>
+			                                       	<div class="regi">등록</div>
 			                                    </div>
                                     		</c:otherwise>
                                     	</c:choose>
-	                                    <div class="txt" id="countTxt"> 0 / 100 </div>
+	                                    <div class="txt" id="countTxt"> 0 / 200 </div>
 	                                </div>
 	                            </div>
 	                        </div>
@@ -465,7 +465,7 @@
     	// 로그인
     	function login(){
     		// 회원가입 페이지로 이동
-    		alert("login");
+    		location.href="/join";
     	}
     	// 학원정보 탭
     	function tab(element){
@@ -498,6 +498,8 @@
             	if(ar[i]==num){
             		if(x.className.indexOf("drop_show") == -1){
             			x.className += " drop_show";
+            		} else {
+            			x.className = x.className.replace(" drop_show", "");
             		}
             	} else {
             		x.className = x.className.replace(" drop_show", "");

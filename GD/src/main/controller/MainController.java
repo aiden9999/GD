@@ -82,6 +82,6 @@ public class MainController {
 	// 회원가입
 	@RequestMapping("/join")
 	public String join(){
-		return "/main/join.jsp";
+		return "/member/join.jsp";
 	}
 }

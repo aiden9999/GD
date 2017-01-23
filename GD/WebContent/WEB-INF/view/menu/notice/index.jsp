@@ -160,9 +160,11 @@
                     </div>
                     <div class="write_wrap">
                         <div class="empty_box"></div>
-                        <div class="write_btn">
-                            <div class="txt" onclick="wr()">글쓰기</div>
-                        </div>
+                    	<c:if test="${login.GRADE=='관리자' }">
+                        	<div class="write_btn">
+	                            <div class="txt" onclick="wr()">글쓰기</div>
+                        	</div>
+                       	</c:if>
                     </div>
                     <div class="page_wrap">
                         <div class="inner">
@@ -221,7 +223,7 @@
      	// 로그인
      	function login(){
      		// 회원가입 페이지로 이동
-     		alert("login");
+     		location.href="/join";
      	}
      	// 글 선택
      	function select(num) { 
@@ -231,6 +233,8 @@
             	if(ar[i]==num){
             		if(x.className.indexOf("drop_show") == -1){
             			x.className += " drop_show";
+            		} else {
+            			x.className = x.className.replace(" drop_show", "");
             		}
             	} else {
             		x.className = x.className.replace(" drop_show", "");
