@@ -224,7 +224,7 @@
     	});
     	// 아이디/비밀번호 찾기
     	function searchId(){
-    		alert("searchId()");
+    		location.href="/member/search";
     	}
     	// 학생
     	function student(){

@@ -1,10 +1,12 @@
 package main.service;
 
+import java.text.*;
 import java.util.*;
 
 import javax.servlet.http.*;
 
 import org.apache.ibatis.session.*;
+import org.apache.tomcat.util.collections.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.*;
 
@@ -69,16 +71,19 @@ public class MainService {
 		map.put("id", id);
 		map.put("pw", pw);
 		List<HashMap> list = ss.selectList("member.loginS", map);
+		String type = "S";
 		if(list.size()==0){
 			list = ss.selectList("member.loginN", map);
+			type = "N";
 			if(list.size()==0){
 				list = ss.selectList("member.loginP", map);
+				type = "P";
 				if(list.size()==0){
 					list = ss.selectList("member.loginT", map);
+					type = "T";
 				}
 			}
 		}
-		ss.close();
 		if(list.size()!=0){
 			Cookie autoCo = new Cookie("auto", "auto");
 			Cookie saveCo = new Cookie("save", "save");
@@ -148,8 +153,40 @@ public class MainService {
 					}
 				}
 			}
-			session.setAttribute("login", list.get(0));
-			return true;
+			List<HashMap> visitList = ss.selectList("member.visitList", id);
+			if(visitList.size()==0){
+				try{
+					ss.insert("member.visit", id);
+					ss.update("member.visitUp"+type, id);
+					list.get(0).put("VISIT", (int)list.get(0).get("VISIT")+1);
+					session.setAttribute("login", list.get(0));
+					ss.commit();
+					ss.close();
+					return true;
+				} catch(Exception e){
+					ss.rollback();
+					ss.close();
+					e.printStackTrace();
+					return false;
+				}
+			} else {
+				Date date = (Date)visitList.get(visitList.size()-1).get("VISIT");
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+				String today = sdf.format(System.currentTimeMillis());
+				if(today.equals(date.toString())){
+					ss.commit();
+					ss.close();
+					session.setAttribute("login", list.get(0));
+				} else {
+					ss.insert("member.visit", id);
+					ss.update("member.visitUp"+type, id);
+					list.get(0).put("VISIT", (int)list.get(0).get("VISIT")+1);
+					session.setAttribute("login", list.get(0));
+					ss.commit();
+					ss.close();
+				}
+				return true;
+			}
 		} else {
 			return false;
 		}

@@ -143,11 +143,11 @@
                 <div class="confirm_wrap">
                     <div class="confirm_tit">실명확인</div>
                     <div class="confirm_txt"><span>휴대폰 인증 </span>메시지 수신 가능한 휴대폰으로 인증번호를 받으실 수 있습니다.</div>
-                    <div class="btn_wrap">
+                    <div class="btn_wrap" onclick="certification()">
                         <div class="confirm_btn">
                             <div class="inner">
                                 <div class="img"><img src="/img/join01_01_phone.png"></div>
-                                <div class="txt" onclick="certification()">휴대폰 인증하기</div>
+                                <div class="txt">휴대폰 인증하기</div>
                             </div>
                         </div>
                     </div>
@@ -173,6 +173,7 @@
     </body>
     
     <script>
+    	var certify = 0;
 	 	// 검색란에서 엔터입력
 		$("#hsearch").keyup(function(txt){
 			if(txt.keyCode==13){
@@ -191,7 +192,13 @@
 		}
 		// 다음
 		function next(){
-			location.href="/join/normal/2";
+			if(!($("#agree1").prop("checked") && $("#agree2").prop("checked"))){
+				alert("약관에 동의해주세요.");
+			} else if(certify==0){
+				alert("본인인증을 진행해주세요.");
+			} else {
+				location.href="/join/normal/2";
+			}
 		}
 		// 본인인증
 		function certification(){
@@ -199,6 +206,7 @@
 				alert("약관에 동의해주세요.");
 			} else {
 				alert("인증");
+				certify ++;
 			}
 		}
     </script>

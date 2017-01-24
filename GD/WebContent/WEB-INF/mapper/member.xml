@@ -15,11 +15,11 @@
 	</select>
 	<insert id="joinS" parameterType="java.util.HashMap">
 		insert into student values(#{id}, #{name}, #{pw}, #{nick}, #{addr1}, #{addr2}, #{phone}, #{email}, #{agreesms}, #{agreeemail},
-												#{schooladdr}, #{school}, #{type}, '준회원', 0)
+												#{schooladdr}, #{school}, #{grade}, #{type}, '새싹', 0, now())
 	</insert>
 	<insert id="joinN" parameterType="java.util.HashMap">
 		insert into normal values(#{id}, #{name}, #{pw}, #{nick}, #{addr1}, #{addr2}, #{phone}, #{email}, #{agreesms}, #{agreeemail},
-												'준회원', 0)
+												'새싹', 0, now())
 	</insert>
 	<insert id="joinP" parameterType="java.util.HashMap">
 		insert into parent values(#{id}, #{name}, #{pw}, #{nick}, #{addr1}, #{addr2}, #{phone}, #{email}, #{agreesms}, #{agreeemail},
@@ -28,11 +28,11 @@
 												#{child2}, #{2schooladdr}, #{2schoolgrade}, #{2school}, #{2acaaddr1}, #{2academy1}, #{2teacher1},
 												#{2acaaddr2}, #{2academy2}, #{2teacher2},
 												#{child3}, #{3schooladdr}, #{3schoolgrade}, #{3school}, #{3acaaddr1}, #{3academy1}, #{3teacher1},
-												#{3acaaddr2}, #{3academy2}, #{3teacher2}, '준회원', 0)
+												#{3acaaddr2}, #{3academy2}, #{3teacher2}, '새싹', 0, now())
 	</insert>
 	<insert id="joinT" parameterType="java.util.HashMap">
 		insert into teacher values(#{id}, #{name}, #{pw}, #{nick}, #{addr1}, #{addr2}, #{phone}, #{email}, #{agreesms}, #{agreeemail},
-												#{type}, #{schooladdr}, #{school}, #{target}, #{subject}, #{etc}, '준회원', 0)
+												#{type}, #{schooladdr}, #{school}, #{target}, #{subject}, #{etc}, '새싹', 0, now())
 	</insert>
 	<select id="loginS" parameterType="java.util.HashMap" resultType="java.util.HashMap">
 		select * from student where id = #{id} and pw = #{pw}
@@ -45,5 +45,47 @@
 	</select>
 	<select id="loginT" parameterType="java.util.HashMap" resultType="java.util.HashMap">
 		select * from teacher where id = #{id} and pw = #{pw}
+	</select>
+	<insert id="visit">
+		insert into visit values(#{id}, now())
+	</insert>
+	<update id="visitUpS">
+		update student set visit = visit+1 where id = #{id}
+	</update>
+	<update id="visitUpN">
+		update normal set visit = visit+1 where id = #{id}
+	</update>
+	<update id="visitUpP">
+		update parent set visit = visit+1 where id = #{id}
+	</update>
+	<update id="visitUpT">
+		update teacher set visit = visit+1 where id = #{id}
+	</update>
+	<select id="visitList" resultType="java.util.HashMap">
+		select * from visit where id = #{id} order by visit asc
+	</select>
+	<select id="searchIdS" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		select * from student where name = #{name} and phone = #{phone}
+	</select>
+	<select id="searchIdN" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		select * from normal where name = #{name} and phone = #{phone}
+	</select>
+	<select id="searchIdP" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		select * from parent where name = #{name} and phone = #{phone}
+	</select>
+	<select id="searchIdT" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		select * from teacher where name = #{name} and phone = #{phone}
+	</select>
+	<select id="searchPwS" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		select * from student where id = #{id} and name = #{name}
+	</select>
+	<select id="searchPwN" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		select * from normal where id = #{id} and name = #{name}
+	</select>
+	<select id="searchPwP" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		select * from parent where id = #{id} and name = #{name}
+	</select>
+	<select id="searchPwT" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		select * from teacher where id = #{id} and name = #{name}
 	</select>
 </mapper>

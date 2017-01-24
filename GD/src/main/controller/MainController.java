@@ -9,6 +9,7 @@ import org.springframework.stereotype.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.*;
 
+import academy.service.*;
 import main.service.*;
 
 @Controller
@@ -16,6 +17,8 @@ import main.service.*;
 public class MainController {
 	@Autowired
 	MainService ms;
+	@Autowired
+	AcademyService as;
 	
 	// ∏ﬁ¿Œ
 	@RequestMapping("/")
@@ -74,8 +77,10 @@ public class MainController {
 	@RequestMapping("/academy/{num}")
 	public ModelAndView academy(@PathVariable(name="num")int num){
 		ModelAndView mav = new ModelAndView("/academy/academy.jsp");
-//		List<HashMap> list = ms.academy(num);
-//		mav.addObject("list", list);
+		List<HashMap> list = as.academy(num);
+		mav.addObject("list", list.get(0));
+		List<HashMap> news = as.acanews(num, 1);
+		mav.addObject("news", news);
 		return mav;
 	}
 	

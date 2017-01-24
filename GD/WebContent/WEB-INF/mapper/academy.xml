@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="academy">
+	<insert id="newAcademy" parameterType="java.util.HashMap">
+		insert into academy values((select *from (select max(seq)+1 from tbl_board) next), #{name}, #{addr1}, #{addr2}, #{tel}, #{type1}, #{type2},
+													#{site}, #{logo}, #{info}, #{pic1}, #{pic2}, #{pic3}, #{pic4}, #{pic5}, 0.0, 0, #{target}, #{subject})
+	</insert>
+	<select id="academy" resultType="java.util.HashMap">
+		select * from academy where num = #{num}
+	</select>
+	<select id="acanews" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		select aa.* from (select @RNUM := @RNUM + 1 AS NO, a.* from acanews a where num = #{num} order by day desc)aa where aa.rnum &lt;= #{end} and aa.rnum &gt;= #{start}
+	</select>
+</mapper>

@@ -82,34 +82,34 @@
                     <div class="id_wrap section_wrap">
                         <div class="tit">아이디</div>
                         <div class="input_box">
-                            <input type="text" id="id">
+                            <input type="text" id="id" name="id" maxlength="30">
                         </div>
                         <div class="overlap">
-                            <div class="txt" onclick="idCheck()">중복확인</div>
+                            <div class="txt" onclick="idCheck()" id="idCheck">중복확인</div>
                         </div>
                         <div class="txt">4자~30자 영문, 숫자 조합가능 (공백은 입력불가)</div>
                     </div>
                     <div class="id_wrap section_wrap">
                         <div class="tit">필명</div>
-                        <div class="input_box"> 
-                            <input type="text" id="nick">
+                        <div class="input_box">
+                            <input type="text" id="nick" maxlength="6">
                         </div>
                         <div class="overlap">
-                            <div class="txt" onclick="nickCheck()">중복확인</div>
+                            <div class="txt" onclick="nickCheck()" id="nickCheck">중복확인</div>
                         </div>
                         <div class="txt">2자~6자 한글, 영문, 숫자 조합가능 (공백은 입력불가)</div>
                     </div>
                     <div class="pw_wrap section_wrap">
                         <div class="tit">비밀번호</div>
                         <div class="input_box">
-                            <input type="password" id="pw">
+                            <input type="password" id="pw" maxlength="16" name="pw">
                         </div>
                         <div class="txt">6~16자 영문, 숫자조합 (대소문자구분, 공백은 입력불가)</div>
                     </div>
                     <div class="pw_wrap section_wrap">
                         <div class="tit">비밀번호 확인</div>
                         <div class="input_box">
-                            <input type="password" id="pw2">
+                            <input type="password" id="pw2" maxlength="16" name="pw2">
                         </div>
                     </div>
                     <div class="area_wrap section_wrap">
@@ -134,27 +134,27 @@
                         <div class="select_box">
                             <select id="phone1">
                                 <option value="choose">선택</option>
-                                <option value="a010">010</option>
-                                <option value="a011">011</option>
-                                <option value="a016">016</option>
-                                <option value="a017">017</option>
-                                <option value="a018">018</option>
-                                <option value="a019">019</option>
+                                <option value="010">010</option>
+                                <option value="011">011</option>
+                                <option value="016">016</option>
+                                <option value="017">017</option>
+                                <option value="018">018</option>
+                                <option value="019">019</option>
                             </select>
                         </div>
                         <div class="hyphen"></div>
                         <div class="input_box">
-                            <input type="number" id="phone2" maxlength="4">
+                            <input type="text" id="phone2" maxlength="4" name="phone2">
                         </div>
                         <div class="hyphen"></div>
                         <div class="input_box">
-                            <input type="number" id="phone3" maxlength="4">
+                            <input type="text" id="phone3" maxlength="4" name="phone3">
                         </div>
                     </div>
                     <div class="mail_wrap section_wrap">
                         <div class="tit">E-mail</div>
                         <div class="input_box">
-                            <input type="text" id="email1">
+                            <input type="text" id="email1" name="email1">
                         </div>
                         <div class="txt">@</div>
                         <div class="select_box">
@@ -196,7 +196,7 @@
                     </div>
                 </div>
                 <div class="cannext_wrap">
-                    <div class="btn cancel" onclick="location.href='/'">취 소</div>
+                    <div class="btn cancel" onclick="location.href='/join'">취 소</div>
                     <div class="btn next" onclick="next()">다 음</div>
                 </div>
             </div>
@@ -209,13 +209,64 @@
 <br>Copyright(c) TS group. All Rights Reserved.</div>
             </div>
         </footer>
+        
+        <div class="popup_cover" style="display: none" id="end1"></div>
+		<div class="popup_wrap" style="display: none" id="end2">
+			<div class="logo"><label><span >L</span>ogo</label></div>
+			<div class="name"><span>심청이</span>님</div>
+			<div class="welcome txt"><span>강남에서 대학가기</span> 회원가입을 환영합니다.<br>회원님의 등급은<span> 새싹등급</span>  입니다.</div>
+			<div class="move txt">아래 확인버튼을 누르시면 메인페이지로이동합니다.</div>
+			<div class="popup_confirm">
+				<div class="confirm_txt" onclick="location.href='/'">확인</div>
+			</div>
+		</div>
+        
     </body>
     
     <script>
-    	$("#document").ready(function(){
+    	$(document).ready(function(){
     		idBtn = 0;
     		nickBtn = 0;
     	});
+		// 아이디, 비번 한글입력 방지
+    	$(document).ready(function(){
+			$("input[name=id]").keyup(function(event){ 
+				if (!(event.keyCode >=37 && event.keyCode<=40)) {
+					var inputVal = $(this).val();
+					$(this).val(inputVal.replace(/[^a-z0-9]/gi,''));
+				}
+			});
+			$("input[name=email1]").keyup(function(event){ 
+				if (!(event.keyCode >=37 && event.keyCode<=40)) {
+					var inputVal = $(this).val();
+					$(this).val(inputVal.replace(/[^a-z0-9]/gi,''));
+				}
+			});
+			$("input[name=pw]").keyup(function(event){ 
+				if (!(event.keyCode >=37 && event.keyCode<=40)) {
+					var inputVal = $(this).val();
+					$(this).val(inputVal.replace(/[^a-z0-9]/gi,''));
+				}
+			});
+			$("input[name=pw2]").keyup(function(event){ 
+				if (!(event.keyCode >=37 && event.keyCode<=40)) {
+					var inputVal = $(this).val();
+					$(this).val(inputVal.replace(/[^a-z0-9]/gi,''));
+				}
+			});
+			$("input[name=phone2]").keyup(function(event){ 
+				if (!(event.keyCode >=48 && event.keyCode<=57)) {
+					var inputVal = $(this).val();
+					$(this).val(inputVal.replace(/[^0-9]/gi,''));
+				}
+			});
+			$("input[name=phone3]").keyup(function(event){ 
+				if (!(event.keyCode >=48 && event.keyCode<=57)) {
+					var inputVal = $(this).val();
+					$(this).val(inputVal.replace(/[^0-9]/gi,''));
+				}
+			});
+		});
  		// 검색란에서 엔터입력
  		$("#hsearch").keyup(function(txt){
  			if(txt.keyCode==13){
@@ -238,8 +289,13 @@
  			document.getElementById("id").style.color = "black";
  		});
  		// 아이디 중복체크
- 		function idCheck(){
- 			var id = $("#id").val();
+		function idCheck(){
+			var id = $("#id").val();
+			if(id.length==0){
+				alert("아이디를 입력해주세요.");
+			} else if(id.length<4){
+				alert("아이디는 4~30자로 설정해주세요");
+			} else {
  			$.ajax({
  				type : "post",
  				url : "/join/idCheck/"+id,
@@ -255,15 +311,21 @@
  					idBtn ++;
  				}
  			});
- 		}
- 		// 닉네임 입력
- 		$("#nick").keyup(function(){
- 			nickBtn = 0;
- 			document.getElementById("nick").style.color = "black";
- 		});
- 		// 닉네임 중복체크
- 		function nickCheck(){
- 			var nick = $("#nick").val();
+			}
+		}
+		// 닉네임 입력
+		$("#nick").keyup(function(){
+			nickBtn = 0;
+			document.getElementById("nick").style.color = "black";
+		});
+		// 닉네임 중복체크
+		function nickCheck(){
+			var nick = $("#nick").val();
+			if(nick.length==0){
+				alert("닉네임을 입력해주세요.");
+			} else if(nick.length<2){
+				alert("닉네임은 2~6자로 설정해주세요");
+			} else {
  			$.ajax({
  				type : "post",
  				url : "/join/nickCheck/"+nick,
@@ -279,7 +341,8 @@
  					nickBtn ++;
  				}
  			});
- 		}
+			}
+		}
  		// 이메일 선택
  		$("#emailSelect").change(function(txt){
  			if($("#emailSelect").val()=="input"){
@@ -351,18 +414,21 @@
 	 				return;
 	 			} else if(id.indexOf(" ")>0){
 	 				alert("아이디에 공백은 사용할 수 없습니다.");
+	 				return;
 	 			}
 	 			if(nick.length<2 || nick.length>6){
 	 				alert("닉네임은 2~6자로 설정해주세요");
 	 				return;
 	 			} else if(nick.indexOf(" ")>0){
 	 				alert("닉네임에 공백은 사용할 수 없습니다.");
+	 				return;
 	 			}
 	 			if(pw.length<6 || pw.length>16){
 	 				alert("비밀번호는 6~16자로 설정해주세요.");
 	 				return;
 	 			} else if(pw.indexOf(" ")>0){
 	 				alert("비밀번호에 공백은 사용할 수 없습니다.");
+	 				return;
 	 			}
 	 			$.ajax({
 	 				type : "post",
@@ -370,8 +436,8 @@
 	 				async : false,
 	 				success : function(txt){
 	 					if(txt){
-	 						alert("회원가입 완료");
-	 						location.href="/join/normal/3";
+	 						$("#end1").show();
+	 						$("#end2").show();
 	 					} else {
 	 						alert("가입에 실패하였습니다.\n잠시후 다시 시도해주세요.");
 	 					}

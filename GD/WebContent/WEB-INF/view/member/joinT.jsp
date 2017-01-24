@@ -143,10 +143,10 @@
                     <div class="confirm_tit">실명확인</div>
                     <div class="confirm_txt"><span>휴대폰 인증 </span>메시지 수신 가능한 휴대폰으로 인증번호를 받으실 수 있습니다.</div>
                     <div class="btn_wrap">
-                        <div class="confirm_btn">
+                        <div class="confirm_btn" onclick="certification()">
                             <div class="inner">
                                 <div class="img"><img src="/img/join01_01_phone.png"></div>
-                                <div class="txt" onclick="certification()">휴대폰 인증하기</div>
+                                <div class="txt">휴대폰 인증하기</div>
                             </div>
                         </div>
                     </div>
@@ -164,7 +164,7 @@
         <footer>
             <div class="inner">
                 <div class="logo" onclick="location.href='/'"><label><span >L</span>ogo</label></div>
-                <div class="txt">주소 : 서울 강남구 테헤란로 407 EK타워 4층 미래로입시컨설팅대표이사 : 이혁진 
+                <div class="txt">주소 : 서울 강남구 테헤란로 407 EK타워 4층 미래로입시컨설팅대표이사 : 이혁진
 <br>상담시간 : 월 ~ 금 - 오전 10시 ~ 오후 9시 ( 점심시간 오전 11시 30분 ~ 오후 1시)   토 - 오전 10시 ~ 오후 5시
 <br>Copyright(c) TS group. All Rights Reserved.</div>
             </div>
@@ -172,6 +172,7 @@
     </body>
     
     <script>
+    	var certify = 0;
 	 	// 검색란에서 엔터입력
 		$("#hsearch").keyup(function(txt){
 			if(txt.keyCode==13){
@@ -190,7 +191,13 @@
 		}
 		// 다음
 		function next(){
-			alert("next");
+			if(!($("#agree1").prop("checked") && $("#agree2").prop("checked"))){
+				alert("약관에 동의해주세요.");
+			} else if(certify==0){
+				alert("본인인증을 진행해주세요.");
+			} else {
+				location.href="/join/teacher/2";
+			}
 		}
 		// 본인인증
 		function certification(){
@@ -198,6 +205,7 @@
 				alert("약관에 동의해주세요.");
 			} else {
 				alert("인증");
+				certify ++;
 			}
 		}
     </script>

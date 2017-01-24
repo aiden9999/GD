@@ -309,7 +309,7 @@
 		                                        <div class="img">
 		                                            <img src="img/point.png">
 		                                        </div>
-		                                        <div class="txt" onclick="point()">포인트<span> ${login.POINT }p</span></div>
+		                                        <div class="txt" onclick="point()">포인트<span> ${login.VISIT }p</span></div>
 		                                    </div>
 		                                    <div class="write_wrap sub_box">
 		                                        <div class="img">
@@ -546,7 +546,7 @@
     			success : function(txt){
     				if(txt){
     					location.href="/";
-    					$("#loginFain").hide();
+    					$("#loginFail").hide();
     				} else {
     					$("#loginFail").show();
     				}
@@ -567,7 +567,7 @@
     	});
     	// 아이디/비밀번호 찾기
     	function searchId(){
-    		alert("searchId()");
+    		location.href="/member/search";
     	}
     	// 회원가입
     	function join(){
