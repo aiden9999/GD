@@ -9,6 +9,6 @@
 		select * from academy where num = #{num}
 	</select>
 	<select id="acanews" parameterType="java.util.HashMap" resultType="java.util.HashMap">
-		select aa.* from (select @RNUM := @RNUM + 1 AS NO, a.* from acanews a where num = #{num} order by day desc)aa where aa.rnum &lt;= #{end} and aa.rnum &gt;= #{start}
+		select aa.* from (select @RNUM := @RNUM + 1 AS NO, a.* from acanews a, ( SELECT @RNUM := 0 ) b where num = #{num} order by day desc)aa where aa.rnum &lt;= #{end} and aa.rnum &gt;= #{start}
 	</select>
 </mapper>
