@@ -9,6 +9,26 @@
 		select * from academy where num = #{num}
 	</select>
 	<select id="acanews" parameterType="java.util.HashMap" resultType="java.util.HashMap">
-		select aa.* from (select @RNUM := @RNUM + 1 AS NO, a.* from acanews a, ( SELECT @RNUM := 0 ) b where num = #{num} order by day desc)aa where aa.rnum &lt;= #{end} and aa.rnum &gt;= #{start}
+<!-- 		select a.* from (select @rownum := @rownum+1 as rownum, acanews.* from acanews, (select @rownum := 0)r where num = #{num} or num = 0 order by day desc)a limit #{page}, 10 -->
+		select aa.* from (select @rownum := @rownum+1 as rownum, a.* from (select * from acanews where num = #{num} order by day asc)a, (select @rownum := 0)r)aa limit #{page}, 10
+	</select>
+	<select id="newsCount" resultType="java.lang.Integer">
+		select count(*) from acanews where num = #{num}
+	</select>
+	<insert id="review" parameterType="java.util.HashMap">
+		insert into review values(#{num}, #{day}, #{subject}, #{subject1}, #{className}, #{teacher}, #{type}, #{point}, #{rate1}, #{rate2},
+												#{rate3}, #{rate4}, #{again}, #{writer}, now(), 0, 0)
+	</insert>
+	<select id="reviewPage" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+		select * from review where num = #{num} order by reday desc limit 0, 7
+	</select>
+	<select id="reviewTop" resultType="java.util.HashMap">
+		select * from review where num = #{num} order by recomend desc limit 0, 3
+	</select>
+	<select id="reviewAll" resultType="java.util.HashMap">
+		select * from review where num = #{num}
+	</select>
+	<select id="again" resultType="java.lang.Integer">
+		select count(*) from review where num = #{num} and again = 'y'
 	</select>
 </mapper>

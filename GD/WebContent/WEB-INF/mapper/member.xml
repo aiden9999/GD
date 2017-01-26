@@ -23,12 +23,12 @@
 	</insert>
 	<insert id="joinP" parameterType="java.util.HashMap">
 		insert into parent values(#{id}, #{name}, #{pw}, #{nick}, #{addr1}, #{addr2}, #{phone}, #{email}, #{agreesms}, #{agreeemail},
-												#{child1}, #{1schooladdr}, #{1schoolgrade}, #{1school}, #{1acaaddr1}, #{1academy1}, #{1teacher1},
-												#{1acaaddr2}, #{1academy2}, #{1teacher2},
-												#{child2}, #{2schooladdr}, #{2schoolgrade}, #{2school}, #{2acaaddr1}, #{2academy1}, #{2teacher1},
-												#{2acaaddr2}, #{2academy2}, #{2teacher2},
-												#{child3}, #{3schooladdr}, #{3schoolgrade}, #{3school}, #{3acaaddr1}, #{3academy1}, #{3teacher1},
-												#{3acaaddr2}, #{3academy2}, #{3teacher2}, '새싹', 0, now())
+												#{child1}, #{1schoolAddr}, #{1schoolGrade}, #{1school}, #{1acaAddr1}, #{1academy1}, #{1teacher1},
+												#{1acaAddr2}, #{1academy2}, #{1teacher2},
+												#{child2}, #{2schoolAddr}, #{2schoolGrade}, #{2school}, #{2acaAddr1}, #{2academy1}, #{2teacher1},
+												#{2acaAddr2}, #{2academy2}, #{2teacher2},
+												#{child3}, #{3schoolAddr}, #{3schoolGrade}, #{3school}, #{3acaAddr1}, #{3academy1}, #{3teacher1},
+												#{3acaAddr2}, #{3academy2}, #{3teacher2}, '새싹', 0, now(), #{review})
 	</insert>
 	<insert id="joinT" parameterType="java.util.HashMap">
 		insert into teacher values(#{id}, #{name}, #{pw}, #{nick}, #{addr1}, #{addr2}, #{phone}, #{email}, #{agreesms}, #{agreeemail},

@@ -69,10 +69,10 @@
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver"
 		id="multipartResolver" />
 	
-	<bean class="websocket.socket.ChatSocket" id="chatSocket" />
-	<websocket:handlers>
-		<websocket:mapping handler="chatSocket" path="/chatSocket/chatSocket"/>
-		<websocket:sockjs/>
-	</websocket:handlers>
+<!-- 	<bean class="websocket.socket.ChatSocket" id="chatSocket" /> -->
+<!-- 	<websocket:handlers> -->
+<!-- 		<websocket:mapping handler="chatSocket" path="/chatSocket/chatSocket"/> -->
+<!-- 		<websocket:sockjs/> -->
+<!-- 	</websocket:handlers> -->
 
 </beans>

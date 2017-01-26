@@ -81,6 +81,19 @@ public class MainController {
 		mav.addObject("list", list.get(0));
 		List<HashMap> news = as.acanews(num, 1);
 		mav.addObject("news", news);
+		int newsCount = as.newsCount(num);
+		mav.addObject("newsCount", newsCount);
+//		List<HashMap> review = as.reviewPage(num, 1);
+		List<HashMap> review = as.reviewPage(num);
+		mav.addObject("review", review);
+		List<HashMap> reviewTop = as.reviewTop(num);
+		mav.addObject("reviewTop", reviewTop);
+		double rePoint = as.rePoint(num);
+		mav.addObject("rePoint", rePoint);
+		int again = as.again(num);
+		mav.addObject("again", again);
+		int all = as.reviewAll(num);
+		mav.addObject("all", all);
 		return mav;
 	}
 	
