@@ -324,7 +324,7 @@ footer .txt { font-size: 13px; color: #333333; display: inline-block; float: rig
 .main01-01 .info_section .test_wrap { margin-top: 20px; }
 .main01-01 .info_section .test_wrap .test_tit { margin-bottom: 10px; }
 .main01-01 .info_section .test_wrap .test { font-size: 20px; color: #2c2c2c; display: inline-block; float: left;}
-.main01-01 .info_section .star_wrap { width: 120px; display: flex; padding: 3px 10px 0; }
+.main01-01 .info_section .star_wrap { width: 120px; display: flex; padding: 3px 10px 0; float: left; }
 .main01-01 .info_section .point_wrap { display: flex; }
 .main01-01 .info_section .point_wrap .txt { font-size: 23px; color: #bf1a1e; font-weight: bold; padding-right: 6px; }
 .main01-01 .info_section .point_wrap .txt1 { font-size: 12px; color: #000000; line-height: 14px; padding-left: 6px; border-left: 2px solid #777778; height: 16px; margin-top: 8px; font-weight: bold; }
@@ -333,7 +333,7 @@ footer .txt { font-size: 13px; color: #333333; display: inline-block; float: rig
 .main01-01 .info_section .test_wrap .test_input .select_box { position: absolute; top: 15px; width: 130px; height: 24px; border: 1px solid #d4d4d4; z-index: 1; display: flex; }
 .main01-01 .info_section .test_wrap .test_input .select_box::after { content: ""; position: absolute; top: -1px; left: 135px; width: 24px; height: 24px; background-image: url(../img/main01_04_sel_arrow.png); background-size: 90%; background-color: #fff; background-repeat: no-repeat; background-position: 1px 4px; border: 1px solid #d4d4d4; cursor: pointer; }
 .main01-01 .info_section .test_wrap .test_input .select_box label { position: absolute; top: 1px; left: 5px; z-index: -1; }
-.main01-01 .info_section .test_wrap .test_input .select_box select { width: 100%; height: auto; -webkit-appearance: none;  -moz-appearance: none; appearance: none; }
+.main01-01 .info_section .test_wrap .test_input .select_box select { width: 100%; height: auto; -webkit-appearance: none; /* 네이티브 외형 감추기 */ -moz-appearance: none; appearance: none; }
 .main01-01 .info_section .test_wrap .text_wrap { padding-top: 50px; }
 .main01-01 .info_section .test_wrap .text_wrap .text_box { width: 935px; display: inline-block; }
 .main01-01 .info_section .test_wrap .text_wrap .text_box textarea { width: 100%; padding: 15px 10px 15px; border: none; font-size: 14px; }

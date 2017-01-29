@@ -504,7 +504,7 @@
     		if(txt.keyCode==13){
 	    		var search = $("#hsearch").val();
 	    		if(search!=""){
-		    		alert(search);
+	    			location.href="/search/"+search;
 	    		}
     		}
     	});
@@ -512,7 +512,7 @@
     	function search(){
     		var search = $("#hsearch").val();
     		if(search!=""){
-	    		alert($("#hsearch").val());
+    			location.href="/search/"+search;
     		}
     	}
     	// 입시정보 글 클릭

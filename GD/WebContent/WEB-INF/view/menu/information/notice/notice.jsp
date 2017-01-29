@@ -262,7 +262,7 @@
      	}
      	// 글쓰기
      	function wr(){
-     		alert("write");
+     		location.href="/notice/write";
      	}
      	// 페이지 이전 클릭
      	function prev(element){

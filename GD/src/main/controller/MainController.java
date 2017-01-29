@@ -49,13 +49,13 @@ public class MainController {
 	@RequestMapping("/information")
 	public String information(){
 //		return "/menu/information/index.jsp";
-		return "/menu/notice/index.jsp";
+		return "/menu/information/notice/notice.jsp";
 	}
 
 	// top 메뉴 커뮤니티
 	@RequestMapping("/community")
 	public String community(){
-		return "/menu/community/index.jsp";
+		return "/menu/community/worry/worry.jsp";
 	}
 	
 	// 로그인
@@ -101,5 +101,14 @@ public class MainController {
 	@RequestMapping("/join")
 	public String join(){
 		return "/member/join.jsp";
+	}
+	
+	// 검색
+	@RequestMapping("search/{search}")
+	public ModelAndView search(@PathVariable(name="search")String search){
+		ModelAndView mav = new ModelAndView("/main/search.jsp");
+//		List<HashMap> list = ms.search(search);
+//		mav.addObject("search", list);
+		return mav;
 	}
 }
