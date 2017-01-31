@@ -9,26 +9,34 @@
 		select * from academy where num = #{num}
 	</select>
 	<select id="acanews" parameterType="java.util.HashMap" resultType="java.util.HashMap">
-<!-- 		select a.* from (select @rownum := @rownum+1 as rownum, acanews.* from acanews, (select @rownum := 0)r where num = #{num} or num = 0 order by day desc)a limit #{page}, 10 -->
-		select aa.* from (select @rownum := @rownum+1 as rownum, a.* from (select * from acanews where num = #{num} order by day asc)a, (select @rownum := 0)r)aa limit #{page}, 10
+		select * from acanews where num = #{num} order by day desc limit 10 offset #{page}
 	</select>
 	<select id="newsCount" resultType="java.lang.Integer">
 		select count(*) from acanews where num = #{num}
 	</select>
 	<insert id="review" parameterType="java.util.HashMap">
-		insert into review values(#{num}, #{day}, #{subject}, #{subject1}, #{className}, #{teacher}, #{type}, #{point}, #{rate1}, #{rate2},
-												#{rate3}, #{rate4}, #{again}, #{writer}, now(), 0, 0)
+		insert into review values(#{num}, #{day}, #{subject}, #{subject1}, #{className}, #{grade}, #{teacher}, #{type}, #{point}, #{rate1},
+											#{rate2}, #{rate3}, #{rate4}, #{again}, #{writer}, now(), 0, 0)
 	</insert>
 	<select id="reviewPage" resultType="java.util.HashMap" parameterType="java.util.HashMap">
-		select * from review where num = #{num} order by reday desc limit 0, 7
+		select * from review where num = #{num} order by reday desc limit 7 offset #{page}
 	</select>
 	<select id="reviewTop" resultType="java.util.HashMap">
-		select * from review where num = #{num} order by recomend desc limit 0, 3
+		select * from review where num = #{num} order by recomend desc limit 3
 	</select>
 	<select id="reviewAll" resultType="java.util.HashMap">
 		select * from review where num = #{num}
 	</select>
+	<select id="reviewCount" resultType="java.lang.Integer">
+		select count(*) from review where num = #{num}
+	</select>
 	<select id="again" resultType="java.lang.Integer">
 		select count(*) from review where num = #{num} and again = 'y'
+	</select>
+	<insert id="comment" parameterType="java.util.HashMap">
+		insert into acacomment values(#{id}, #{name}, #{point}, #{comment}, now(), #{num})
+	</insert>
+	<select id="commentList" resultType="java.util.HashMap">
+		select * from acacomment where num = #{num} order by day desc
 	</select>
 </mapper>

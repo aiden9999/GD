@@ -262,4 +262,12 @@ public class MemberService {
 			}
 		}
 	}
+
+	// 방문기록
+	public List<HashMap> visit(String id) {
+		SqlSession ss = fac.openSession();
+		List<HashMap> list = ss.selectList("member.visitList", id);
+		ss.close();
+		return list;
+	}
 }

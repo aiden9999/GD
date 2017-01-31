@@ -13,13 +13,16 @@
 	<select id="nickCheck" resultType="java.util.HashMap">
 		select * from nick where nick = #{nick}
 	</select>
+	<select id="searchMember" resultType="java.util.HashMap">
+		select * from normal where id = #{id}
+	</select>
 	<insert id="joinS" parameterType="java.util.HashMap">
 		insert into student values(#{id}, #{name}, #{pw}, #{nick}, #{addr1}, #{addr2}, #{phone}, #{email}, #{agreesms}, #{agreeemail},
-												#{schooladdr}, #{school}, #{grade}, #{type}, '새싹', 0, now())
+												#{schooladdr}, #{school}, #{grade}, #{type}, '새싹', 0, now(), 'n')
 	</insert>
 	<insert id="joinN" parameterType="java.util.HashMap">
 		insert into normal values(#{id}, #{name}, #{pw}, #{nick}, #{addr1}, #{addr2}, #{phone}, #{email}, #{agreesms}, #{agreeemail},
-												'새싹', 0, now())
+												'새싹', 0, now(), 'n')
 	</insert>
 	<insert id="joinP" parameterType="java.util.HashMap">
 		insert into parent values(#{id}, #{name}, #{pw}, #{nick}, #{addr1}, #{addr2}, #{phone}, #{email}, #{agreesms}, #{agreeemail},
@@ -28,11 +31,11 @@
 												#{child2}, #{2schoolAddr}, #{2schoolGrade}, #{2school}, #{2acaAddr1}, #{2academy1}, #{2teacher1},
 												#{2acaAddr2}, #{2academy2}, #{2teacher2},
 												#{child3}, #{3schoolAddr}, #{3schoolGrade}, #{3school}, #{3acaAddr1}, #{3academy1}, #{3teacher1},
-												#{3acaAddr2}, #{3academy2}, #{3teacher2}, '새싹', 0, now(), #{review})
+												#{3acaAddr2}, #{3academy2}, #{3teacher2}, '새싹', 0, now(), #{review}, 'n')
 	</insert>
 	<insert id="joinT" parameterType="java.util.HashMap">
 		insert into teacher values(#{id}, #{name}, #{pw}, #{nick}, #{addr1}, #{addr2}, #{phone}, #{email}, #{agreesms}, #{agreeemail},
-												#{type}, #{schooladdr}, #{school}, #{target}, #{subject}, #{etc}, '새싹', 0, now())
+												#{type}, #{schooladdr}, #{school}, #{target}, #{subject}, #{etc}, '새싹', 0, now(), 'n')
 	</insert>
 	<select id="loginS" parameterType="java.util.HashMap" resultType="java.util.HashMap">
 		select * from student where id = #{id} and pw = #{pw}

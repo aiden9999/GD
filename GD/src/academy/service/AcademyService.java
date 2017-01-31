@@ -25,7 +25,7 @@ public class AcademyService {
 		HashMap map = new HashMap();
 		map.put("num", num);
 		map.put("page", (page-1)*10);
-		List<HashMap> list = ss.selectList("academy.acanews", num);
+		List<HashMap> list = ss.selectList("academy.acanews", map);
 		ss.close();
 		int count = newsCount(num);
 		for(int i=0; i<list.size(); i++){
@@ -79,10 +79,13 @@ public class AcademyService {
 	}
 
 	// 페이지 리뷰 리스트
-//	public List<HashMap> reviewPage(int num, int page) {
-	public List<HashMap> reviewPage(int num) {
+	public List<HashMap> reviewPage(int num, int page) {
+//	public List<HashMap> reviewPage(int num) {
 		SqlSession ss = fac.openSession();
-		List<HashMap> list = ss.selectList("academy.reviewPage", num);
+		HashMap map = new HashMap();
+		map.put("num", num);
+		map.put("page", (page-1)*7);
+		List<HashMap> list = ss.selectList("academy.reviewPage", map);
 		ss.close();
 		return list;
 	}
@@ -92,8 +95,7 @@ public class AcademyService {
 		SqlSession ss = fac.openSession();
 		HashMap map = new HashMap();
 		map.put("num", num);
-		map.put("page", 1);
-		List<HashMap> list = ss.selectList("academy.reviewTop", map);
+		List<HashMap> list = ss.selectList("academy.reviewTop", num);
 		ss.close();
 		return list;
 	}
@@ -107,8 +109,8 @@ public class AcademyService {
 		for(HashMap map : list){
 			point += (int)map.get("POINT");
 		}
-		String s = String.format("%.1f", point/(list.size()/1.0));
-		return Double.parseDouble(s);
+		double s = Double.parseDouble(String.format("%.1f", point/(list.size()/1.0)));
+		return s;
 	}
 	
 	// 재등원 의사
@@ -123,8 +125,49 @@ public class AcademyService {
 	// 전체리뷰 갯수
 	public int reviewAll(int num){
 		SqlSession ss = fac.openSession();
-		List<HashMap> list = ss.selectList("academy.reviewAll", num);
+		int reviewCount= ss.selectOne("academy.reviewCount", num);
 		ss.close();
-		return list.size();
+		return reviewCount;
+	}
+
+	// 한줄평가 등록
+	public boolean comment(String id, String name, String point, int num, String comment) {
+		SqlSession ss = fac.openSession();
+		HashMap map = new HashMap();
+		map.put("id", id);
+		map.put("name", name);
+		map.put("point", point);
+		map.put("num", num);
+		map.put("comment", comment);
+		try{
+			ss.insert("academy.comment", map);
+			ss.commit();
+			ss.close();
+			return true;
+		} catch(Exception e){
+			e.printStackTrace();
+			ss.rollback();
+			ss.close();
+			return false;
+		}
+	}
+
+	// 한줄평가 리스트
+	public List<HashMap> commentList(int num) {
+		SqlSession ss = fac.openSession();
+		List<HashMap> list = ss.selectList("academy.commentList", num);
+		for(int i=0; i<list.size(); i++){
+			HashMap m = list.get(i);
+			String id = (String)m.get("ID");
+			String id1 = id.substring(0, id.length()/2);
+			String id2 = id.substring(id.length()/2);
+			for(int j=0; j<id2.length(); j++){
+				id1 += "*";
+			}
+			m.put("ID", id1);
+			list.set(i, m);
+		}
+		ss.close();
+		return list;
 	}
 }

@@ -74,50 +74,61 @@
                 </div>
                 <div class="worry_txtarea">
                     <div class="inner">
-                        <textarea placeholder="(고민상담 글쓰기)" style="resize: none" id="worry"></textarea>
-                        <div class="btn" onclick="submit()">등록</div>
+                    	<c:choose>
+                    		<c:when test="${login!=null }">
+		                        <textarea placeholder="(고민상담 글쓰기)" style="resize: none" id="worry"></textarea>
+		                        <div class="btn" onclick="submit()">등록</div>
+                    		</c:when>
+                    		<c:otherwise>
+                    			<textarea placeholder="(로그인 후 이용할 수 있습니다.)" style="resize: none" disabled="disabled"></textarea>
+                    			<div class="btn">등록</div>
+                    		</c:otherwise>
+                    	</c:choose>
                     </div>
                 </div>
-                <c:forEach var="i" begin="1" end="3">
+                <c:forEach var="i" begin="0" end="${worryList.size()-1 }">
 	                <div class="worry_txt_wrap">
-	                    <div class="content">안녕하세요 강남대치학원입니다 , 안녕하세요 강남대치학원입니다 , 안녕하세요 강남대치학원입니다....</div>
-	                    <div class="name">김설아 (seo3****)</div>
+	                	<c:choose>
+	                		<c:when test="${worryList.get(i).CONTENT.length()>40 }">
+			                    <div class="content"><label onclick="select(${i })" style="cursor: pointer;">
+			                    <font style="color: #88b04b; font-size: 15px; font-weight: bold;">
+			                    ${worryList.get(i).CONTENT.substring(0, 40) } ......
+			                    </label></font></div>
+	                		</c:when>
+	                		<c:otherwise>
+	                			<div class="content"><label onclick="select(${i })" style="cursor: pointer;">
+	                			<font style="color: #88b04b; font-size: 15px; font-weight: bold;">
+			                    ${worryList.get(i).CONTENT }
+			                    </label></font></div>
+	                		</c:otherwise>
+	                	</c:choose>
+	                    <div class="name">${worryList.get(i).NAME } (${worryList.get(i).WRITER })</div>
 	                    <div class="date">
-	                        <span class="txt1">2016-11-30 16:23</span>
-	                        <span class="txt2"> 조회 (0) </span>
-	                        <span class="txt3" onclick="select(${i })">댓글쓰기</span>(0)
+	                        <span class="txt1">${worryList.get(i).DAY } |</span>
+	                        <span class="txt3" style="cursor: default;"><font style="color: black; font-size: 13px; font-weight: normal">댓글 (0)</font></span>
 	                        <div id="dropdown${i }" class="contents">
 	                            <div class="img">
 	                                <img src="/img/sub02_arrow_up.png" onclick="clo(${i })">
 	                            </div>
-	                            <div class="txt_section">안녕하세요 강남대치학원입니다 , 안녕하세요 강남대치학원입니다 , 안녕하세요 강남대치학원입니다
-	                            안녕하세요 강남대치학원입니다 , 안녕하세요 강남대치학원입니다 , 
-	                            안녕하세요 강남대치학원입니다 , 안녕하세요 강남대치학원입니다 , 안녕하세요 강남대치학원입니다 안녕하세요 강남대치학원입니다
-	                            안녕하세요 강남대치학원입니다 , 안녕하세요 강남대치학원입니다 , 안녕하세요 강남대치학원입니다</div>
+	                            <div class="txt_section">${worryList.get(i).CONTENT }</div>
 	                            <div class="reply_section">
-	                                <div class="reply_name">김설아 (seo3****)</div>
-	                                <div class="reply_date">
-	                                    <span class="txt1">2016-11-30 16:23</span>
-	                                    <span class="txt2">조회 (0)</span>
-	                                    <span class="txt3">댓글쓰기</span>(2)</div>
 	                                <div class="reply_input">
-	                                    <input type="text" id="reply${i }" name="reply">
-	                                    <div class="btn" onclick="replySubmit(${i })">등록</div>
+	                                    <input type="text" id="reply${worryList.get(i).NUM }" name="reply">
+	                                    <div class="btn" onclick="replySubmit(${worryList.get(i).NUM })">등록</div>
 	                                </div>
-	                                <div class="reply_old">
-	                                    <div class="header">
-	                                        <div class="header_name">tjfdk</div>
-	                                        <div class="header_date">2016-11-30 16:23 </div>
-	                                    </div>
-	                                    <div class="reply_content">안녕하세요 강남대치학원입니다 안녕하세요</div>
-	                                </div>
-	                                <div class="reply_old">
-	                                    <div class="header">
-	                                        <div class="header_name">tjfdk</div>
-	                                        <div class="header_date">2016-11-30 16:23 </div>
-	                                    </div>
-	                                    <div class="reply_content">안녕하세요 강남대치학원입니다 안녕하세요</div>
-	                                </div>
+	                                
+	                                <c:forEach var="j" begin="0" end="${replyList.size()-1 }">
+	                                	<c:if test="${worryList.get(i).NUM == replyList.get(j).NUM }">
+			                                <div class="reply_old">
+			                                    <div class="header">
+			                                        <div class="header_name">${replyList.get(j).NAME } (${replyList.get(j).ID })</div>
+			                                        <div class="header_date">${replyList.get(j).DAY }</div>
+			                                    </div>
+			                                    <div class="reply_content">${replyList.get(j).REPLY }</div>
+			                                </div>
+	                                	</c:if>
+	                                </c:forEach>
+	                                
 	                            </div>
 	                        </div>
 	                    </div>
@@ -134,15 +145,16 @@
                             </div>
                         </div>
                         <div class="num_wrap">
-                            <div class="num sel">1</div>
-                            <div class="num">2</div>
-                            <div class="num">3</div>
-                            <div class="num">4</div>
-                            <div class="num">5</div>
-                            <div class="num">6</div>
-                            <div class="num">7</div>
-                            <div class="num">8</div>
-                            <div class="num">9</div>
+                            <c:forEach var="i" begin="1" end="${worryPage }">
+                           		<c:choose>
+                            		<c:when test="${i==1 }">
+		                                <div class="num sel" onclick="page(${i })" id="page${i }"><span>${i }</span></div>
+                            		</c:when>
+                            		<c:otherwise>
+		                                <div class="num" onclick="page(${i })" id="page${i }"><span>${i }</span></div>
+                            		</c:otherwise>
+                           		</c:choose>
+                           	</c:forEach>
                         </div>
                     </div>
                 </div>
@@ -198,10 +210,9 @@
      	}
      	// 글 선택
      	function select(num) { 
-     		var ar = new Array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
-            for(var i=0; i<ar.length; i++){
-            	var x = document.getElementById("dropdown"+ar[i]);
-            	if(ar[i]==num){
+            for(var i=0; i<10; i++){
+            	var x = document.getElementById("dropdown"+i);
+            	if(i==num){
             		if(x.className.indexOf("drop_show") == -1){
             			x.className += " drop_show";
             		} else {
@@ -278,12 +289,36 @@
      	// 고민상담 등록
      	function submit(){
      		var worry = $("#worry").val();
-     		alert(worry);
+     		$.ajax({
+     			type : "post",
+     			url : "/worry/write/${login.ID }/${login.NAME }/"+worry,
+     			async : false,
+     			success : function(txt){
+     				if(txt){
+     					alert("등록되었습니다.");
+     					location.reload();
+     				} else {
+     					alert("등록에 실패하였습니다.\n잠시후 다시 시도해주세요.");
+     				}
+     			}
+     		});
      	}
      	// 리플 등록
      	function replySubmit(num){
      		var reply = $("#reply"+num).val();
-     		alert(reply);
+     		$.ajax({
+     			type : "post",
+     			url : "worry/reply/${login.ID }/${login.NAME }/"+reply+"/"+num,
+     			async : false,
+     			success : function(txt){
+     				if(txt){
+     					alert("등록되었습니다.");
+     					location.reload();
+     				} else {
+     					alert("등록에 실패하였습니다.\n잠시후 다시 시도해주세요.");
+     				}
+     			}
+     		});
      	}
      	// 글 검색
      	function searchWorry(){

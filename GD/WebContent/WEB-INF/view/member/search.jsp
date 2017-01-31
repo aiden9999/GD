@@ -127,7 +127,7 @@
                     <div class="txt">휴대폰 인증하기</div>
                 </div>
             </div>
-            <div class="close_btn" onclick="$('#pwpop').hide(), $('#pwpop2').hide()">닫기</div>
+            <div class="close_btn" onclick="$('#pwpop').hide(), $('#pwpop2').hide(), $('#pw_id').val(''), $('#pw_name').val('')">닫기</div>
         </div>
     
 	    <script>

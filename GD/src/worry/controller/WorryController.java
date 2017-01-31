@@ -13,11 +13,18 @@ public class WorryController {
 	@Autowired
 	WorryService ws;
 	
-	@RequestMapping("/")
-	public ModelAndView worry(){
-		ModelAndView mav = new ModelAndView("/menu/community/worry/worry.jsp");
-//		List<HashMap> list = ws.worry(1);
-//		mav.addObject("list", list);
-		return mav;
+	// 등록
+	@RequestMapping("/write/{id}/{name}/{worry}")
+	@ResponseBody
+	public boolean write(@PathVariable(name="id")String id, @PathVariable(name="name")String name, @PathVariable(name="worry")String worry){
+		return ws.write(id, name, worry);
+	}
+	
+	// 댓글등록
+	@RequestMapping("/reply/{id}/{name}/{reply}/{num}")
+	@ResponseBody
+	public boolean reply(@PathVariable(name="id")String id, @PathVariable(name="name")String name, @PathVariable(name="reply")String reply,
+										@PathVariable(name="num")int num){
+		return ws.reply(id, name, reply, num);
 	}
 }

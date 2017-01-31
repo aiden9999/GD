@@ -89,71 +89,60 @@
                                 <span>작성일</span>
                             </div>
                         </div>
-                        <c:forEach var="i" begin="1" end="2">
-                        	<div class="txt_box new">
-	                            <div class="txt txt_number">
-	                                <span>new</span>
-	                            </div>
-	                            <div onclick="select(${i})" class="txt txt_tit">
-	                                <span>안녕하세요 대치동 학원정보는 MATHSCHOOL</span>
-	                            </div>
-	                            <div id="dropdown${i }" class="contents">
-	                                <div class="img"><img src="/img/sub02_arrow_up.png" onclick="clo(${i})"></div>
-	                                <div class="drop_txt">
-	                                 안녕하세요 대치동 학원정보는 MATH SCHOOL 안녕하세요 대치동 학원정보는 MATH SCHOOL 안녕하세요 대치동 학원정보는 MATH SCHOOL
-								안녕하세요 대치동 학원정보는 MATH SCHOOL 안녕하세요 대치동 학원정보는 MATH SCHOOL
-								안녕하세요 대치동 학원정보는 MATH SCHOOL 안녕하세요 대치동 학원정보는 MATH SCHOOL 안녕하세요 대치동 학원정보는 MATH SCHOOL
-								안녕하세요 대치동 학원정보는 MATH SCHOOL 안녕하세요 대치동 학원정보는 MATH SCHOOL 안녕하세요 대치동 학원정보는 MATH SCHOOL
-								안녕하세요 대치동 학원정보는 MATH SCHOOL
-								안녕하세요 대치동 학원정보는 MATH SCHOOL안녕하세요 대치동 학원정보는 MATH SCHOOL안녕하세요 대치동 학원정보는 MATH SCHOOL
-								안녕하세요 대치동 학원정보는 MATH SCHOOL안녕하세요 대치동 학원정보는 MATH SCHOOL
-								안녕하세요 대치동 학원정보는 MATH SCHOOL
-								안녕하세요 대치동 학원정보는 MATH SCHOOL안녕하세요 대치동 학원정보는 MATH SCHOOL안녕하세요 대치동 학원정보는 MATH SCHOO
-	                                </div>
-	                            </div>
-	                            <div class="txt txt_name">
-	                                <span>매쓰클럽</span>
-	                            </div>
-	                            <div class="txt txt_date">
-	                                <span>2017-01-17</span>
-	                            </div>
-	                        </div>
-                        </c:forEach>
-
-						<c:forEach var="i" begin="3" end="10">
+<%--                         <c:forEach var="i" begin="1" end="2"> --%>
+<!--                         	<div class="txt_box new"> -->
+<!-- 	                            <div class="txt txt_number"> -->
+<!-- 	                                <span>new</span> -->
+<!-- 	                            </div> -->
+<%-- 	                            <div onclick="select(${i})" class="txt txt_tit"> --%>
+<!-- 	                                <span>안녕하세요 대치동 학원정보는 MATHSCHOOL</span> -->
+<!-- 	                            </div> -->
+<%-- 	                            <div id="dropdown${i }" class="contents"> --%>
+<%-- 	                                <div class="img"><img src="/img/sub02_arrow_up.png" onclick="clo(${i})"></div> --%>
+<!-- 	                                <div class="drop_txt"> -->
+<!-- 	                                 안녕하세요 대치동 학원정보는 MATH SCHOOL 안녕하세요 대치동 학원정보는 MATH SCHOOL 안녕하세요 대치동 학원정보는 MATH SCHOOL -->
+<!-- 								안녕하세요 대치동 학원정보는 MATH SCHOOL 안녕하세요 대치동 학원정보는 MATH SCHOOL -->
+<!-- 								안녕하세요 대치동 학원정보는 MATH SCHOOL 안녕하세요 대치동 학원정보는 MATH SCHOOL 안녕하세요 대치동 학원정보는 MATH SCHOOL -->
+<!-- 								안녕하세요 대치동 학원정보는 MATH SCHOOL 안녕하세요 대치동 학원정보는 MATH SCHOOL 안녕하세요 대치동 학원정보는 MATH SCHOOL -->
+<!-- 								안녕하세요 대치동 학원정보는 MATH SCHOOL -->
+<!-- 								안녕하세요 대치동 학원정보는 MATH SCHOOL안녕하세요 대치동 학원정보는 MATH SCHOOL안녕하세요 대치동 학원정보는 MATH SCHOOL -->
+<!-- 								안녕하세요 대치동 학원정보는 MATH SCHOOL안녕하세요 대치동 학원정보는 MATH SCHOOL -->
+<!-- 								안녕하세요 대치동 학원정보는 MATH SCHOOL -->
+<!-- 								안녕하세요 대치동 학원정보는 MATH SCHOOL안녕하세요 대치동 학원정보는 MATH SCHOOL안녕하세요 대치동 학원정보는 MATH SCHOO -->
+<!-- 	                                </div> -->
+<!-- 	                            </div> -->
+<!-- 	                            <div class="txt txt_name"> -->
+<!-- 	                                <span>매쓰클럽</span> -->
+<!-- 	                            </div> -->
+<!-- 	                            <div class="txt txt_date"> -->
+<!-- 	                                <span>2017-01-17</span> -->
+<!-- 	                            </div> -->
+<!-- 	                        </div> -->
+<%--                         </c:forEach> --%>
+						<c:forEach var="i" begin="0" end="${noticeList.size()-1 }">
 							<div class="txt_box">
 	                            <div class="txt txt_number">
 	                            	<c:choose>
-	                            		<c:when test="${i<10 }">
-			                                <span>0${i }</span>
+	                            		<c:when test="${noticeCount-i<10 }">
+			                                <span>0${noticeCount-i }</span>
 	                            		</c:when>
 	                            		<c:otherwise>
-			                                <span>${i }</span>
+			                                <span>${noticeCount-i }</span>
 	                            		</c:otherwise>
 	                            	</c:choose>
 	                            </div>
 	                            <div onclick="select(${i })" class="txt txt_tit">
-	                                <span>안녕하세요 대치동 학원정보는 MATHSCHOOL</span>
+	                                <span>${noticeList.get(i).TITLE }</span>
 	                            </div>
 	                            <div id="dropdown${i }" class="contents">
 	                                <div class="img"><img src="/img/sub02_arrow_up.png" onclick="clo(${i })"></div>
-	                                <div class="drop_txt">
-	                                  안녕하세요 대치동 학원정보는 MATH SCHOOL 안녕하세요 대치동 학원정보는 MATH SCHOOL 안녕하세요 대치동 학원정보는 MATH SCHOOL
-								안녕하세요 대치동 학원정보는 MATH SCHOOL 안녕하세요 대치동 학원정보는 MATH SCHOOL
-								안녕하세요 대치동 학원정보는 MATH SCHOOL 안녕하세요 대치동 학원정보는 MATH SCHOOL 안녕하세요 대치동 학원정보는 MATH SCHOOL
-								안녕하세요 대치동 학원정보는 MATH SCHOOL 안녕하세요 대치동 학원정보는 MATH SCHOOL 안녕하세요 대치동 학원정보는 MATH SCHOOL
-								안녕하세요 대치동 학원정보는 MATH SCHOOL
-								안녕하세요 대치동 학원정보는 MATH SCHOOL안녕하세요 대치동 학원정보는 MATH SCHOOL안녕하세요 대치동 학원정보는 MATH SCHOOL
-								안녕하세요 대치동 학원정보는 MATH SCHOOL안녕하세요 대치동 학원정보는 MATH SCHOOL
-								안녕하세요 대치동 학원정보는 MATH SCHOOL
-								안녕하세요 대치동 학원정보는 MATH SCHOOL안녕하세요 대치동 학원정보는 MATH SCHOOL안녕하세요 대치동 학원정보는 MATH SCHOO
-	                                </div>
+	                                <div class="drop_txt">${noticeList.get(i).CONTENT }</div>
 	                            </div>
 	                            <div class="txt txt_name">
-	                                <span>tjfdk</span>
+	                                <span>${noticeList.get(i).WRITER }</span>
 	                            </div>
 	                            <div class="txt txt_date">
-	                                <span>2017-01-17</span>
+	                                <span>${noticeList.get(i).DAY }</span>
 	                            </div>
 	                        </div>
 						</c:forEach>
@@ -177,7 +166,7 @@
                                 </div>
                             </div>
                             <div class="num_wrap" id="pages">
-                            	<c:forEach var="i" begin="1" end="10">
+                            	<c:forEach var="i" begin="1" end="${noticePage }">
                             		<c:choose>
 	                            		<c:when test="${i==1 }">
 			                                <div class="num sel" onclick="page(${i })" id="page${i }"><span>${i }</span></div>
@@ -227,7 +216,10 @@
      	}
      	// 글 선택
      	function select(num) { 
-     		var ar = new Array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+     		var ar = new Array();
+     		for(var i=0; i<${noticeCount}; i++){
+     			ar[i] = i;
+     		}
             for(var i=0; i<ar.length; i++){
             	var x = document.getElementById("dropdown"+ar[i]);
             	if(ar[i]==num){

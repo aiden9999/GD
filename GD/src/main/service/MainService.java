@@ -72,14 +72,18 @@ public class MainService {
 		map.put("pw", pw);
 		List<HashMap> list = ss.selectList("member.loginS", map);
 		String type = "S";
+		session.setAttribute("type", "切积");
 		if(list.size()==0){
 			list = ss.selectList("member.loginN", map);
+			session.setAttribute("type", "老馆");
 			type = "N";
 			if(list.size()==0){
 				list = ss.selectList("member.loginP", map);
+				session.setAttribute("type", "何葛丛");
 				type = "P";
 				if(list.size()==0){
 					list = ss.selectList("member.loginT", map);
+					session.setAttribute("type", "急积丛");
 					type = "T";
 				}
 			}

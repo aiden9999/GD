@@ -138,7 +138,7 @@
 					</div>
 					<div class="homepage_wrap">
 						<div class="tit">홈페이지</div>
-						<a href="http://mentorschool.co.kr/">
+						<a href="${list.SITE }" target="_blank">
 							<div class="txt">${list.SITE }</div>
 						</a>
 					</div>
@@ -281,244 +281,282 @@
 					</div>
 				</div>
 				<div id="tab2" style="display: none" class="tab">
-					<div class="board_wrap">
-						<div class="txt_box">
-							<div class="tit txt_number">
-								<span>번호</span>
-							</div>
-							<div class="tit txt_tit">
-								<span>제목</span>
-							</div>
-							<div class="tit txt_name">
-								<span>작성자</span>
-							</div>
-							<div class="tit txt_date">
-								<span>작성일</span>
-							</div>
-						</div>
-						<c:forEach var="i" items="${news }">
-							<div class="txt_box">
-								<div class="txt txt_number">
-									<c:choose>
-										<c:when test="${i.rownum<10 }">
-											<span>0${i.rownum }</span>
-										</c:when>
-										<c:otherwise>
-											<span>${i.rownum }</span>
-										</c:otherwise>
-									</c:choose>
-								</div>
-								<div onclick="select(${i.rownum })" class="txt txt_tit">
-									<span>${i.TITLE }</span>
-								</div>
-								<div id="dropdown${i.rownum }" class="contents">
-									<div class="img">
-										<img src="/img/sub02_arrow_up.png" onclick="clo(${i.rownum })">
+					<c:choose>
+						<c:when test="${news!=null}">
+							<div class="board_wrap">
+								<div class="txt_box">
+									<div class="tit txt_number">
+										<span>번호</span>
 									</div>
-									<div class="drop_txt">
-										${i.CONTENT }
+									<div class="tit txt_tit">
+										<span>제목</span>
+									</div>
+									<div class="tit txt_name">
+										<span>작성자</span>
+									</div>
+									<div class="tit txt_date">
+										<span>작성일</span>
 									</div>
 								</div>
-								<div class="txt txt_name">
-									<span>${i.WRITER }</span>
-								</div>
-								<div class="txt txt_date">
-									<span>${i.DAY }</span>
-								</div>
-							</div>
-						</c:forEach>
-					</div>
-					<div class="write_wrap">
-						<div class="empty_box"></div>
-						<div class="write_btn">
-							<div class="txt" onclick="wr()">글쓰기</div>
-						</div>
-					</div>
-					<div class="page_wrap">
-						<div class="inner">
-							<div class="arrow_wrap">
-								<div class="arrow prev">
-									<img src="/img/sub02_arrow_prev.png" onclick="prev(this)"
-										id="prev1">
-								</div>
-								<div class="arrow next">
-									<img src="/img/sub02_arrow_next.png" onclick="next(this)"
-										id="next1">
-								</div>
-							</div>
-							<div class="num_wrap" id="pages">
-								<c:forEach var="i" begin="1" end="10">
-									<c:choose>
-										<c:when test="${i==1 }">
-											<div class="num sel" onclick="page(${i })" id="page${i }">
-												<span>${i }</span>
+								<c:forEach var="i" begin="0" end="${news.size()-1 }">
+									<div class="txt_box">
+										<div class="txt txt_number">
+											<c:choose>
+<%-- 												<c:when test="${news.size()-i<10}"> --%>
+												<c:when test="${newsCount-i<10}">
+													<span>0${newsCount-i }</span>
+												</c:when>
+												<c:otherwise>
+													<span>${newsCount-i }</span>
+												</c:otherwise>
+											</c:choose>
+										</div>
+										<div onclick="select(${i })" class="txt txt_tit">
+											<span>${news.get(i).TITLE }</span>
+										</div>
+										<div id="dropdown${i }" class="contents">
+											<div class="img">
+												<img src="/img/sub02_arrow_up.png" onclick="clo(${i })">
 											</div>
-										</c:when>
-										<c:otherwise>
-											<div class="num" onclick="page(${i })" id="page${i }">
-												<span>${i }</span>
+											<div class="drop_txt">
+												${news.get(i).CONTENT }
 											</div>
-										</c:otherwise>
-									</c:choose>
+										</div>
+										<div class="txt txt_name">
+											<span>${news.get(i).WRITER }</span>
+										</div>
+										<div class="txt txt_date">
+											<span>${news.get(i).DAY }</span>
+										</div>
+									</div>
 								</c:forEach>
 							</div>
-						</div>
-					</div>
+							<div class="write_wrap">
+								<div class="empty_box"></div>
+								<div class="write_btn">
+									<div class="txt" onclick="wr()">글쓰기</div>
+								</div>
+							</div>
+							<div class="page_wrap">
+								<div class="inner">
+									<div class="arrow_wrap">
+										<div class="arrow prev">
+											<img src="/img/sub02_arrow_prev.png" onclick="prev(this)"
+												id="prev1">
+										</div>
+										<div class="arrow next">
+											<img src="/img/sub02_arrow_next.png" onclick="next(this)"
+												id="next1">
+										</div>
+									</div>
+									<div class="num_wrap" id="pages">
+										<c:forEach var="i" begin="1" end="${newsPage }">
+											<c:choose>
+												<c:when test="${i==1 }">
+													<div class="num sel" onclick="newsPage(${i })" id="newsPage${i }">
+														<span>${i }</span>
+													</div>
+												</c:when>
+												<c:otherwise>
+													<div class="num" onclick="newsPage(${i })" id="newsPage${i }">
+														<span>${i }</span>
+													</div>
+												</c:otherwise>
+											</c:choose>
+										</c:forEach>
+									</div>
+								</div>
+							</div>
+						</c:when>
+						<c:otherwise>
+							<div align="center" style="margin-top: 20px; margin-bottom: 20px">
+								<label>등록된 글이 없습니다.</label>
+								<div class="write_wrap">
+								<div class="empty_box"></div>
+								<div class="write_btn">
+									<div class="txt" onclick="wr()">글쓰기</div>
+								</div>
+							</div>
+							</div>
+						</c:otherwise>
+					</c:choose>
 				</div>
 				<div id="tab3" style="display: none" class="tab">
-					<div class="grade_wrap" id="gradeDiv">
-						<div class="star_grade">
-							<div class="txt">
-								강남대치학원 멘토클리닉의 전체과목 평점<br>
-								<span>${rePoint }</span>
+					 <c:choose>
+						<c:when test="${review.size()!=0 && rePoint!=null && all!=null && again!=null && reviewTop!=null}">
+							<div class="grade_wrap" id="gradeDiv">
+								<div class="star_grade">
+									<div class="txt">
+										강남대치학원 멘토클리닉의 전체과목 평점<br>
+										<span>${rePoint } / 5.0</span>
+									</div>
+									<div class="star_wrap1">
+										<c:choose>
+											<c:when test="${rePoint>4.9 }">
+												<c:forEach var="i" begin="1" end="5">
+													<div class="star">
+														<img src="/img/main01_03_star.png">
+													</div>
+												</c:forEach>
+											</c:when>
+											<c:when test="${rePoint>=4 }">
+												<c:forEach var="i" begin="1" end="4">
+													<div class="star">
+														<img src="/img/main01_03_star.png">
+													</div>
+												</c:forEach>
+												<div class="star">
+														<img src="/img/main01_03_star1.png">
+													</div>
+											</c:when>
+											<c:when test="${rePoint>=3 }">
+												<c:forEach var="i" begin="1" end="3">
+													<div class="star">
+														<img src="/img/main01_03_star.png">
+													</div>
+												</c:forEach>
+												<c:forEach var="i" begin="1" end="2">
+													<div class="star">
+														<img src="/img/main01_03_star1.png">
+													</div>
+												</c:forEach>
+											</c:when>
+											<c:when test="${rePoint>=1 }">
+												<c:forEach var="i" begin="1" end="2">
+													<div class="star">
+														<img src="/img/main01_03_star.png">
+													</div>
+												</c:forEach>
+												<c:forEach var="i" begin="1" end="3">
+													<div class="star">
+														<img src="/img/main01_03_star1.png">
+													</div>
+												</c:forEach>
+											</c:when>
+											<c:when test="${rePoint>=0 }">
+												<div class="star">
+													<img src="/img/main01_03_star.png">
+												</div>
+												<c:forEach var="i" begin="1" end="4">
+													<div class="star">
+														<img src="/img/main01_03_star1.png">
+													</div>
+												</c:forEach>
+											</c:when>
+										</c:choose>
+									</div>
+								</div>
+								<div class="bar_grade">
+									<div class="bar_wrap">
+										<div class="txt">${again }%</div>
+										<div class="bar" id="bar" style="width: ${again }%"></div>
+									</div>
+									<div class="txt">
+										<span>${all }</span> 명의 학생중 <span>${again }%</span> 가<br> 강남대치학원 멘토클리닉을
+										다시 다니고 싶어합니다.
+									</div>
+								</div>
 							</div>
-							<div class="star_wrap1">
-								<c:choose>
-									<c:when test="${rePoint>4.9 }">
-										<c:forEach var="i" begin="1" end="5">
-											<div class="star">
-												<img src="/img/main01_03_star.png">
-											</div>
-										</c:forEach>
-									</c:when>
-									<c:when test="${rePoint>=4 }">
-										<c:forEach var="i" begin="1" end="4">
-											<div class="star">
-												<img src="/img/main01_03_star.png">
-											</div>
-										</c:forEach>
-										<div class="star">
-												<img src="/img/main01_03_star1.png">
-											</div>
-									</c:when>
-									<c:when test="${rePoint>=3 }">
-										<c:forEach var="i" begin="1" end="3">
-											<div class="star">
-												<img src="/img/main01_03_star.png">
-											</div>
-										</c:forEach>
-										<c:forEach var="i" begin="1" end="2">
-											<div class="star">
-												<img src="/img/main01_03_star1.png">
-											</div>
-										</c:forEach>
-									</c:when>
-									<c:when test="${rePoint>=1 }">
-										<c:forEach var="i" begin="1" end="2">
-											<div class="star">
-												<img src="/img/main01_03_star.png">
-											</div>
-										</c:forEach>
-										<c:forEach var="i" begin="1" end="3">
-											<div class="star">
-												<img src="/img/main01_03_star1.png">
-											</div>
-										</c:forEach>
-									</c:when>
-									<c:when test="${rePoint>=0 }">
-										<div class="star">
-											<img src="/img/main01_03_star.png">
+							<div class="board_wrap" id="boardDiv">
+								<div class="txt_box">
+									<div class="tit txt_number">
+										<span>번호</span>
+									</div>
+									<div class="tit txt_tit">
+										<span>기간 / 과목 / 평점</span>
+									</div>
+									<div class="tit txt_rec">
+										<span>추천</span>
+										<div class="love">
+											<img src="/img/main01_03_love.png">
 										</div>
-										<c:forEach var="i" begin="1" end="4">
-											<div class="star">
-												<img src="/img/main01_03_star1.png">
+									</div>
+								</div>
+								<c:forEach var="i" begin="0" end="${reviewTop.size()-1 }">
+									<div class="txt_box best">
+										<div class="txt txt_number">
+											<div class="best_txt">BEST</div>
+											<img src="/img/sub03_new_box.png">
+										</div>
+										<div class="txt txt_tit" onclick="reviewDetail()">
+											<span>${reviewTop.get(i).DAY } / ${reviewTop.get(i).SUBJECT } / ${reviewTop.get(i).POINT }</span>
+										</div>
+										<div class="txt txt_rec">
+											<span>${reviewTop.get(i).RECOMEND }</span>
+											<div class="love">
+												<img src="/img/main01_03_love.png">
 											</div>
+										</div>
+									</div>
+								</c:forEach>
+								<c:forEach var="i" begin="0" end="${review.size()-1 }">
+									<div class="txt_box">
+										<div class="txt txt_number">
+											<div class="best_txt">${reviewCount-i }</div>
+										</div>
+										<div class="txt txt_tit">
+											<span>${review.get(i).DAY } / ${review.get(i).SUBJECT } / ${review.get(i).POINT }</span>
+										</div>
+										<div class="txt txt_rec">
+											<span>${review.get(i).RECOMEND }</span>
+											<div class="love">
+												<img src="/img/main01_03_love.png">
+											</div>
+										</div>
+									</div>
+								</c:forEach>
+							</div>
+							<div class="write_wrap" id="writeDiv">
+								<div class="empty_box"></div>
+								<c:if test="${login!=null }">
+									<div class="write_btn" onclick="review(${list.NUM})">
+										<div class="txt">리뷰쓰기</div>
+									</div>
+								</c:if>
+							</div>
+							<div class="page_wrap" id="pageDiv">
+								<div class="inner">
+									<div class="arrow_wrap">
+										<div class="arrow prev">
+											<img src="/img/sub02_arrow_prev.png">
+										</div>
+										<div class="arrow next">
+											<img src="/img/sub02_arrow_next.png">
+										</div>
+									</div>
+									<div class="num_wrap">
+										<c:forEach var="i" begin="1" end="${reviewPage }">
+											<c:choose>
+												<c:when test="${i==1 }">
+													<div class="num sel" onclick="reviewPage(${i })" id="reviewPage${i }">
+														<span>${i }</span>
+													</div>
+												</c:when>
+												<c:otherwise>
+													<div class="num" onclick="reviewPage(${i })" id="reviewPage${i }">
+														<span>${i }</span>
+													</div>
+												</c:otherwise>
+											</c:choose>
 										</c:forEach>
-									</c:when>
-								</c:choose>
-							</div>
-						</div>
-						<div class="bar_grade">
-							<div class="bar_wrap">
-								<div class="txt">${again }%</div>
-								<div class="bar" id="bar" style="width: ${again }%"></div>
-							</div>
-							<div class="txt">
-								<span>${all }</span> 명의 학생중 <span>${again }%</span> 가<br> 강남대치학원 멘토클리닉을
-								다시 다니고 싶어합니다.
-							</div>
-						</div>
-					</div>
-					<div class="board_wrap" id="boardDiv">
-						<div class="txt_box">
-							<div class="tit txt_number">
-								<span>번호</span>
-							</div>
-							<div class="tit txt_tit">
-								<span>기간 / 과목 / 평점</span>
-							</div>
-							<div class="tit txt_rec">
-								<span>추천</span>
-								<div class="love">
-									<img src="/img/main01_03_love.png">
-								</div>
-							</div>
-						</div>
-						<c:forEach var="i" begin="0" end="${reviewTop.size()-1 }">
-							<div class="txt_box best">
-								<div class="txt txt_number">
-									<div class="best_txt">BEST</div>
-									<img src="/img/sub03_new_box.png">
-								</div>
-								<div class="txt txt_tit" onclick="reviewDetail()">
-									<span>${reviewTop.get(i).DAY } / ${reviewTop.get(i).SUBJECT } / ${reviewTop.get(i).POINT }</span>
-								</div>
-								<div class="txt txt_rec">
-									<span>${reviewTop.get(i).RECOMEND }</span>
-									<div class="love">
-										<img src="/img/main01_03_love.png">
 									</div>
 								</div>
 							</div>
-						</c:forEach>
-						<c:forEach var="i" begin="0" end="${review.size()-1 }">
-							<div class="txt_box">
-								<div class="txt txt_number">
-									<div class="best_txt">${review.size()-i }</div>
-								</div>
-								<div class="txt txt_tit">
-									<span>${review.get(i).DAY } / ${review.get(i).SUBJECT } / ${review.get(i).POINT }</span>
-								</div>
-								<div class="txt txt_rec">
-									<span>${review.get(i).RECOMEND }</span>
-									<div class="love">
-										<img src="/img/main01_03_love.png">
+						</c:when>
+						<c:otherwise>
+							<div align="center" style="margin-top: 20px; margin-bottom: 20px" id="noReview">
+								<label>등록된 리뷰가 없습니다.</label>
+								<div class="write_wrap" id="writeDiv">
+								<div class="empty_box"></div>
+								<c:if test="${login!=null }">
+									<div class="write_btn" onclick="review(${list.NUM})">
+										<div class="txt">리뷰쓰기</div>
 									</div>
-								</div>
+								</c:if>
 							</div>
-						</c:forEach>
-					</div>
-					<div class="write_wrap" id="writeDiv">
-						<div class="empty_box"></div>
-						<c:if test="${login!=null }">
-							<div class="write_btn" onclick="review(${list.NUM})">
-								<div class="txt">리뷰쓰기</div>
 							</div>
-						</c:if>
-					</div>
-					<div class="page_wrap" id="pageDiv">
-						<div class="inner">
-							<div class="arrow_wrap">
-								<div class="arrow prev">
-									<img src="/img/sub02_arrow_prev.png">
-								</div>
-								<div class="arrow next">
-									<img src="/img/sub02_arrow_next.png">
-								</div>
-							</div>
-							<div class="num_wrap">
-								<div class="num sel">1</div>
-								<div class="num">2</div>
-								<div class="num">3</div>
-								<div class="num">4</div>
-								<div class="num">5</div>
-								<div class="num">6</div>
-								<div class="num">7</div>
-								<div class="num">8</div>
-								<div class="num">9</div>
-							</div>
-						</div>
-					</div>
+						</c:otherwise>
+					 </c:choose>
 					<div class="review_wrap1" id="reviewDiv" style="display: none">
 					    <div class="review_intro">
 					        <div class="txt">
@@ -586,7 +624,7 @@
 						            </div>
 					        	</c:forEach>
 					        </div>
-					        <div class="txt" style="position: absolute; right: 0; top: 10%">(4.0)</div>
+					        <div class="txt" style="position: absolute; right: 0; top: 10%" id="totalPoint">(0.0)</div>
 					    </div>
 					    <div class="feeling_txtarea">
 					        <div class="ft_txtarea">
@@ -622,100 +660,194 @@
 					</div>
 				</div>
 				<div id="tab4" style="display: none" class="tab">
-					<div class="test_wrap">
-						<div class="test_tit">
-							<div class="test">평가</div>
-							<div class="star_wrap">
-								<div class="star">
-									<img src="/img/main01_04_star.png">
+					<c:choose>
+						<c:when test="${comment.size()!=0 && totalPoint!=null}">
+							<div class="test_wrap">
+								<div class="test_tit">
+									<div class="test">평가</div>
+									<div class="star_wrap">
+										<c:choose>
+											<c:when test="${totalPoint>4.9 }">
+												<c:forEach var="i" begin="1" end="5">
+													<div class="star">
+														<img src="/img/main01_03_star.png">
+													</div>
+												</c:forEach>
+											</c:when>
+											<c:when test="${totalPoint>=4 }">
+												<c:forEach var="i" begin="1" end="4">
+													<div class="star">
+														<img src="/img/main01_03_star.png">
+													</div>
+												</c:forEach>
+												<div class="star">
+														<img src="/img/main01_03_star1.png">
+													</div>
+											</c:when>
+											<c:when test="${totalPoint>=3 }">
+												<c:forEach var="i" begin="1" end="3">
+													<div class="star">
+														<img src="/img/main01_03_star.png">
+													</div>
+												</c:forEach>
+												<c:forEach var="i" begin="1" end="2">
+													<div class="star">
+														<img src="/img/main01_03_star1.png">
+													</div>
+												</c:forEach>
+											</c:when>
+											<c:when test="${totalPoint>=1 }">
+												<c:forEach var="i" begin="1" end="2">
+													<div class="star">
+														<img src="/img/main01_03_star.png">
+													</div>
+												</c:forEach>
+												<c:forEach var="i" begin="1" end="3">
+													<div class="star">
+														<img src="/img/main01_03_star1.png">
+													</div>
+												</c:forEach>
+											</c:when>
+											<c:when test="${totalPoint>=0 }">
+												<div class="star">
+													<img src="/img/main01_03_star.png">
+												</div>
+												<c:forEach var="i" begin="1" end="4">
+													<div class="star">
+														<img src="/img/main01_03_star1.png">
+													</div>
+												</c:forEach>
+											</c:when>
+										</c:choose>
+									</div>
+									<div class="point_wrap">
+										<div class="txt">${totalPoint } / 5.0</div>
+										<div class="txt1">${comment.size() }명</div>
+									</div>
 								</div>
-								<div class="star">
-									<img src="/img/main01_04_star.png">
-								</div>
-								<div class="star">
-									<img src="/img/main01_04_star.png">
-								</div>
-								<div class="star">
-									<img src="/img/main01_04_star.png">
-								</div>
-								<div class="star">
-									<img src="/img/main01_04_star.png">
+								<div class="test_input">
+									<div class="input_inner">
+										<div id="select_box" class="select_box">
+											<select id="ex_select">
+												<option value="choose">평점선택</option>
+												<option value="1">1점</option>
+												<option value="2">2점</option>
+												<option value="3">3점</option>
+												<option value="4">4점</option>
+												<option value="5">5점</option>
+											</select>
+										</div>
+										<div class="text_wrap">
+											<c:choose>
+												<c:when test="${login!=null }">
+													<div class="text_box">
+														<!-- 	<input type="text" id="point_txt" placeholder="( 최소 10자이상, 최대 100까지 입력 가능합니다. )" maxlength="100"> -->
+														<textarea rows="1" cols="134" id="point_txt"
+															style="resize: none"
+															placeholder="( 최소 10자이상, 최대 한글 100자/영어 200자 까지 입력 가능합니다. )"></textarea>
+													</div>
+													<div class="btn">
+														<div class="regi" onclick="submit()">등록</div>
+													</div>
+												</c:when>
+												<c:otherwise>
+													<div class="text_box">
+														<textarea rows="1" cols="134" id="point_txt"
+															style="resize: none" placeholder="( 로그인 후 작성 가능합니다. )"
+															readonly="readonly"></textarea>
+													</div>
+													<div class="btn">
+														<div class="regi">등록</div>
+													</div>
+												</c:otherwise>
+											</c:choose>
+											<div class="txt" id="countTxt">0 / 200</div>
+										</div>
+									</div>
 								</div>
 							</div>
-							<div class="point_wrap">
-								<div class="txt">10.0</div>
-								<div class="txt1">3명</div>
+							<div class="reply_section">
+								<c:forEach var="i" begin="0" end="${comment.size()-1 }">
+									<div class="reply_wrap">
+										<div class="star_wrap">
+											<c:forEach var="j" begin="1" end="${comment.get(i).POINT }">
+												<div class="star">
+													<img src="/img/main01_04_star.png">
+												</div>
+											</c:forEach>
+										</div>
+										<div class="txt" id="replyTxt${i }">${comment.get(i).COMMENT }</div>
+										<div class="id" id="replyId${i }">
+											${comment.get(i).NAME }(${comment.get(i).ID })<span class="txt1" id="replyTime${i }">${comment.get(i).DAY }</span>
+										</div>
+									</div>
+								</c:forEach>
 							</div>
-						</div>
-						<div class="test_input">
-							<div class="input_inner">
-								<div id="select_box" class="select_box">
-									<label for="ex_select">평점선택</label> <select id="ex_select">
-										<option selected>평점선택</option>
-										<option>평점선택</option>
-										<option>평점선택</option>
-										<option>평점선택</option>
-									</select>
-								</div>
-								<div class="text_wrap">
-									<c:choose>
-										<c:when test="${login!=null }">
-											<div class="text_box">
-												<!-- 	<input type="text" id="point_txt" placeholder="( 최소 10자이상, 최대 100까지 입력 가능합니다. )" maxlength="100"> -->
-												<textarea rows="1" cols="134" id="point_txt"
-													style="resize: none"
-													placeholder="( 최소 10자이상, 최대 한글 100자/영어 200자 까지 입력 가능합니다. )"></textarea>
+						</c:when>
+						<c:otherwise>
+							<div class="test_wrap">
+								<div class="test_tit">
+									<div class="test">평가</div>
+									<div class="star_wrap">
+										<c:forEach var="i" begin="1" end="5">
+											<div class="star">
+												<img src="/img/main01_03_star1.png">
 											</div>
-											<div class="btn">
-												<div class="regi" onclick="submit()">등록</div>
-											</div>
-										</c:when>
-										<c:otherwise>
-											<div class="text_box">
-												<textarea rows="1" cols="134" id="point_txt"
-													style="resize: none" placeholder="( 로그인 후 작성 가능합니다. )"
-													readonly="readonly"></textarea>
-											</div>
-											<div class="btn">
-												<div class="regi">등록</div>
-											</div>
-										</c:otherwise>
-									</c:choose>
-									<div class="txt" id="countTxt">0 / 200</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="reply_section">
-						<c:forEach var="i" begin="1" end="5">
-							<div class="reply_wrap">
-								<div class="star_wrap">
-									<div class="star">
-										<img src="/img/main01_04_star.png">
+										</c:forEach>
 									</div>
-									<div class="star">
-										<img src="/img/main01_04_star.png">
-									</div>
-									<div class="star">
-										<img src="/img/main01_04_star.png">
-									</div>
-									<div class="star">
-										<img src="/img/main01_04_star.png">
-									</div>
-									<div class="star">
-										<img src="/img/main01_04_star.png">
+									<div class="point_wrap">
+										<div class="txt">0.0 / 5.0</div>
+										<div class="txt1">0명</div>
 									</div>
 								</div>
-								<div class="txt" id="replyTxt${i }">안녕하세요 강남대치학원입니다, 안녕하세요
-									강남대치학원입니다, 안녕하세요 강남대치학원입니다. 안녕하세요 강남대치학원입니다. 안녕하세요
-									강남대치학원강남대치학원입니다. 안녕하세요 강남대</div>
-								<div class="id" id="replyId${i }">
-									김설아(seo3****)<span class="txt1" id="replyTime${i }">2016-11-30
-										16:23</span>
+								<div class="test_input">
+									<div class="input_inner">
+										<div id="select_box" class="select_box">
+											<select id="ex_select">
+												<option value="choose">평점선택</option>
+												<option value="1">1점</option>
+												<option value="2">2점</option>
+												<option value="3">3점</option>
+												<option value="4">4점</option>
+												<option value="5">5점</option>
+											</select>
+										</div>
+										<div class="text_wrap">
+											<c:choose>
+												<c:when test="${login!=null }">
+													<div class="text_box">
+														<!-- 	<input type="text" id="point_txt" placeholder="( 최소 10자이상, 최대 100까지 입력 가능합니다. )" maxlength="100"> -->
+														<textarea rows="1" cols="134" id="point_txt"
+															style="resize: none"
+															placeholder="( 최소 10자이상, 최대 한글 100자/영어 200자 까지 입력 가능합니다. )"></textarea>
+													</div>
+													<div class="btn">
+														<div class="regi" onclick="submit()">등록</div>
+													</div>
+												</c:when>
+												<c:otherwise>
+													<div class="text_box">
+														<textarea rows="1" cols="134" id="point_txt"
+															style="resize: none" placeholder="( 로그인 후 작성 가능합니다. )"
+															readonly="readonly"></textarea>
+													</div>
+													<div class="btn">
+														<div class="regi">등록</div>
+													</div>
+												</c:otherwise>
+											</c:choose>
+											<div class="txt" id="countTxt">0 / 200</div>
+										</div>
+									</div>
 								</div>
 							</div>
-						</c:forEach>
-					</div>
+							<div class="reply_section">
+								<div align="center" style="margin-top: 20px; margin-bottom: 20px" id="noComment">
+									<label>등록된 평가가 없습니다.</label>
+								</div>
+							</div>
+						</c:otherwise>
+					</c:choose>
 				</div>
 			</section>
 		</div>
@@ -787,7 +919,7 @@
     	}
     	// 글 선택
     	var ar = new Array();
-    	for(var i=1; i<=${newsCount }; i++){
+    	for(var i=0; i<${newsCount }; i++){
     		ar[ar.length] = i;
     	}
      	function select(num) { 
@@ -814,19 +946,27 @@
             var x = document.getElementById("dropdown"+num);
             x.className = x.className.replace(" drop_show", "");
         }
-     	// 페이지 클릭
-   		var pageNum = new Array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
-     	function page(num){
-     		for(var i=0; i<pageNum.length; i++){
-				var x = document.getElementById("page"+pageNum[i]);
-     			if(pageNum[i]==num){
-     				if(x.className.indexOf("sel") == -1){
-     					x.className += " sel";
-     				}
-     			} else {
-     				x.className = x.className.replace(" sel", "");
+     	// 학원소식 페이지 클릭
+     	function newsPage(num){
+     		$.ajax({
+     			type : "post",
+     			url : "/academy/newsPage/"+num+"/"+${list.NUM },
+     			async : false,
+     			success : function(txt){
+     				$("#tab2").html(txt);
      			}
-     		}
+     		});
+     	}
+     	// 리뷰 페이지 클릭
+     	function reviewPage(num){
+     		$.ajax({
+     			type : "post",
+     			url : "/academy/reviewPage/"+num+"/"+${list.NUM },
+     			async : false,
+     			success : function(txt){
+     				$("#tab3").html(txt);
+     			}
+     		});
      	}
      	// 글쓰기
      	function wr(){
@@ -874,13 +1014,29 @@
      	}
      	// 한줄평가 등록
      	function submit(){
-     		var txt = $("#point_txt").val();
-     		if(txt.length>10){
-	     		alert(txt);
-     		} else if(txt.length>0 && txt.length <10){
-     			alert("10자 이상 입력바랍");
-     		} else{
-     			alert("아무것도 안쓰면 등록안됨");
+     		var comment = $("#point_txt").val();
+     		var point = $("#ex_select").val();
+     		var num = ${list.NUM };
+     		if(comment.length==0){
+     			alert("한줄평가를 입력해주세요.");
+     		} else if(comment.length<10){
+     			alert("10자이상 입력해주세요.");
+     		} else if(point=="choose"){
+     			alert("평점을 선택해주세요.");
+     		} else {
+     			$.ajax({
+     				type : "post",
+     				url : "/academy/comment/${login.ID }/${login.NAME }/"+point+"/"+num+"/"+comment,
+     				async : false,
+     				success : function(txt){
+     					if(txt){
+     						alert("등록완료");
+     						location.reload();
+     					} else {
+     						alert("등록에 실패하였습니다.\n잠시후 다시 시도해주세요.");
+     					}
+     				}
+     			});
      		}
      	}
      	// 한줄평가 입력시 글자수 감소 및 입력창 증가/감소
@@ -928,6 +1084,7 @@
      		$("#pageDiv").hide();
      		$("#reviewDiv").show();
      		$("#feelingDiv").show();
+     		$("#noReview").hide();
      	}
      	// 리뷰 취소
      	function cancel(){
@@ -953,6 +1110,7 @@
      		$("#pageDiv").show();
      		$("#reviewDiv").hide();
      		$("#feelingDiv").hide();
+     		$("#noReview").show();
      	}
      	// 리뷰 저장
      	function reSave(){
@@ -1008,6 +1166,7 @@
      			}
      		}
      		repoint = num;
+     		$("#totalPoint").html("("+num+".0)");
      	}
     </script>
 

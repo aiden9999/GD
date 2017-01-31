@@ -105,10 +105,10 @@
                             <div class="sub_tit" id="recom">초등</div>
                             <div class="arrow_wrap">
                                 <div class="arrow prev">
-                                    <img src="/img/arrow_prev.png" onclick="prev()">
+                                    <img src="/img/arrow_prev.png" onclick="prev()" id="recPrev" style="display: none">
                                 </div>
                                 <div class="arrow next">
-                                    <img src="/img/arrow_next.png" onclick="next()">
+                                    <img src="/img/arrow_next.png" onclick="next()" id="recNext">
                                 </div>
                             </div>
                             <div class="rec_slider">
@@ -303,7 +303,14 @@
 		                                        <div class="img">
 		                                            <img src="img/trophy.png">
 		                                        </div>
-		                                        <div class="txt" onclick="grade()">등급<span> ${login.GRADE }</span></div>
+		                                        <c:choose>
+		                                        	<c:when test="${login.GRADE=='관리자' }">
+				                                        <div class="txt" onclick="location.href='/admin'">등급<span> ${login.GRADE }</span></div>
+		                                        	</c:when>
+		                                        	<c:otherwise>
+		                                        		<div class="txt" style="cursor: default;">등급<span> ${login.GRADE }</span></div>
+		                                        	</c:otherwise>
+		                                        </c:choose>
 		                                    </div>
 		                                    <div class="point_wrap sub_box">
 		                                        <div class="img">
@@ -580,7 +587,7 @@
     	// 더보기
     	function more(txt){
     		if(txt=="notice"){
-    			alert(txt);
+    			location.href="/information";
     		} else if(txt=="waggle"){
     			alert(txt);
     		}
@@ -605,11 +612,11 @@
 //     		}
 //     	});
     	// 채팅창 키 누르고있을 때
-    	$("#txt").keypress(function(txt){
-    		if(txt.length>38){
-    			$("#txt").val(txt.substring(0, 38));
-    		}
-    	});
+//     	$("#txt").keypress(function(txt){
+//     		if(txt.length>38){
+//     			$("#txt").val(txt.substring(0, 38));
+//     		}
+//     	});
     	// 채팅 수신
 //     	function onMessage(e){
 //     		var html = $("#chat").html();
@@ -637,10 +644,16 @@
     		var recom = $("#recom").html();
     		if(recom=="초등"){
 	    		$("#recom").html("고등");
+    			$("#recPrev").show();
+    			$("#recNext").hide();
     		} else if(recom=="중등"){
     			$("#recom").html("초등");
+	    		$("#recPrev").hide();
+	    		$("#recNext").show();
     		} else {
     			$("#recom").html("중등");
+    			$("#recPrev").show();
+    			$("#recNext").show();
     		}
     	}
     	// 다음
@@ -648,15 +661,17 @@
     		var recom = $("#recom").html();
     		if(recom=="초등"){
 	    		$("#recom").html("중등");
+	    		$("#recNext").show();
+	    		$("#recPrev").show();
     		} else if(recom=="중등"){
     			$("#recom").html("고등");
+    			$("#recNext").hide();
+    			$("#recPrev").show();
     		} else {
     			$("#recom").html("초등");
+    			$("#recNext").show();
+    			$("#recPrev").hide();
     		}
-    	}
-    	// 등급
-    	function grade(){
-    		alert("grade");
     	}
     	// 포인트
     	function point(){
@@ -672,7 +687,7 @@
     	}
     	// 내정보
     	function info(){
-    		alert("info");
+    		location.href="/member/info/${login.ID }";
     	}
     	// 페이지 경로 숨기기
 //     	function Frameset(page) { 

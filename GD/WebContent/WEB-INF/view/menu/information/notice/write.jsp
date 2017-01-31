@@ -74,7 +74,7 @@
                 <div class="write_wrap">
                     <div class="write_section write_fir">
                         <div class="tit">제목</div>
-                        <div class="txt">안녕하세요</div>
+                        <div class="txt"><input type="text" id="title"/></div>
                     </div>
                     <div class="write_section write_sec">
                         <div class="write_name">
@@ -130,21 +130,21 @@
       	}
       	// 등록
       	function submit(){
-//       		var id = ${login.ID };
+      		var title = $("#title").val();
       		var content = $("#content").val();
-//       		$.ajax({
-//       			type : "post",
-//       			url : "/notice/write/"+id+"/"+content,
-//       			async : false,
-//       			success : function(txt){
-//       				if(txt){
-      					
-//       				} else {
-      					
-//       				}
-//       			}
-//       		});
-			alert(content);
+      		$.ajax({
+      			type : "post",
+      			url : "/notice/write/${login.ID }/"+title+"/"+content,
+      			async : false,
+      			success : function(txt){
+      				if(txt){
+      					alert("등록되었습니다.");
+      					location.href="/information";
+      				} else {
+      					alert("등록에 실패하였습니다.\n잠시후 다시 시도해주세요.");
+      				}
+      			}
+      		});
       	}
     </script>
     

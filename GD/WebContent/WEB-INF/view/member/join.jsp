@@ -171,6 +171,28 @@
 <br>Copyright(c) TS group. All Rights Reserved.</div>
             </div>
         </footer>
+        
+        <div class="popup_cover" id="modal1" style="display: none"></div>
+        <div class="popup_wrap search_popup school_popup" id="modal2" style="display: none">
+            <div class="tit_wrap">
+                <div class="tit">학교,학원/법인 가입안내</div>
+                <div class="logo"><span >L</span>ogo</div>
+            </div>
+            <div class="txt_wrap">
+                <div class="txt">
+                    <span class="txt1">학교,학원/법인 가입
+                    </span>은 고객센터로<br> 문의주시기 바랍니다.
+                </div>
+            </div>
+            <div class="phone_wrap">
+                <div class="img">
+                    <img src="/img/phone.png">
+                </div>
+                <div class="txt">02-1234-4567</div>
+            </div>
+            <div class="close_btn" onclick="$('#modal1').hide(), $('#modal2').hide()">닫기</div>
+        </div>
+        
     </body>
     
     <script>
@@ -248,11 +270,13 @@
     	}
     	// 학원
     	function academy(){
-    		alert("학원");
+    		$("#modal1").show();
+    		$("#modal2").show();
     	}
     	// 학교, 법인
     	function school(){
-    		alert("학교/법인");
+    		$("#modal1").show();
+    		$("#modal2").show();
     	}
     	// 페이지 주소 숨김
 //     	function Frameset(page) { 

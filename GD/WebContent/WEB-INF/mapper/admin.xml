@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="admin">
+	<select id="memberListS" resultType="java.util.HashMap">
+		select * from student
+	</select>
+	<select id="memberListN" resultType="java.util.HashMap">
+		select * from normal
+	</select>
+	<select id="memberListP" resultType="java.util.HashMap">
+		select * from parent
+	</select>
+	<select id="memberListT" resultType="java.util.HashMap">
+		select * from teacher
+	</select>
+	<select id="memberDetailS" resultType="java.util.HashMap">
+		select * from student where id = #{id}
+	</select>
+	<select id="memberDetailN" resultType="java.util.HashMap">
+		select * from normal where id = #{id}
+	</select>
+	<select id="memberDetailP" resultType="java.util.HashMap">
+		select * from parent where id = #{id}
+	</select>
+	<select id="memberDetailT" resultType="java.util.HashMap">
+		select * from teacher where id = #{id}
+	</select>
+</mapper>
