@@ -82,4 +82,20 @@ public class AcademyController {
 		mav.addObject("selectPage", pageNum);
 		return mav;
 	}
+	
+	// 학원소식 작성
+	@RequestMapping("/writeNews/{acaNum}")
+	public ModelAndView writeNews(@PathVariable(name="acaNum")int num){
+		ModelAndView mav = new ModelAndView("/academy/write.jsp");
+		mav.addObject("acaNum", num);
+		return mav;
+	}
+	
+	// 학원소식 저장
+	@RequestMapping("/saveNews/{writer}/{title}/{content}/{acaNum}")
+	@ResponseBody
+	public boolean saveNews(@PathVariable(name="writer")String writer, @PathVariable(name="title")String title,
+											@PathVariable(name="content")String content, @PathVariable(name="acaNum")int acaNum){
+		return as.saveNews(writer, title, content, acaNum);
+	}
 }

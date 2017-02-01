@@ -69,17 +69,18 @@
                     </div>
                 </div>
                 <div class="container">
-                    <div class="tab_wrap tab01">
-                        <div class="tit sel">
-                            <div class="txt"> 회 원 목 록 </div>
+                    <div class="tab_wrap">
+                        <div class="tit sel" id="t1">
+                            <div class="txt" onclick="tab(1)"> 회 원 목 록 </div>
                         </div>
-                        <div class="tit">
-                            <div class="txt"> 게 시 판 관 리 </div>
+                        <div class="tit" id="t2">
+                            <div class="txt" onclick="tab(2)"> 게 시 판 관 리 </div>
                         </div>
-                        <div class="tit">
-                            <div class="txt"> 문 자 전 송 </div>
+                        <div class="tit" id="t3">
+                            <div class="txt" onclick="tab(3)"> 문 자 전 송 </div>
                         </div>
-                        <div class="contents">
+                        <!-- tab1 -->
+                        <div class="contents" id="tab1">
                             <div class="inner">
                                 <div class=list_wrap>
                                     <div class="tit">회원목록</div>
@@ -87,7 +88,7 @@
                                     	<c:forEach var="i" begin="0" end="${memberList.size()-1 }">
 	                                        <div class="name_wrap">
 	                                            <div class="dot"></div>
-	                                            <div class="name" style="cursor: pointer;" onclick="memberInfo('${memberList.get(i).ID}')">
+	                                            <div class="name" style="cursor: pointer;" onclick="memberInfo(this)" id="${memberList.get(i).ID }">
 	                                            	${memberList.get(i).NAME }(${memberList.get(i).ID })
 	                                            </div>
 	                                        </div>
@@ -96,6 +97,10 @@
                                 </div>
                                 <div class="detailinfo_wrap" id="memDetail">
                                     <div class="tit">상세정보</div>
+                                    <div class="info_wrap">
+                                        <div class="tit">아이디</div>
+                                        <div class="txt" id="id">${memberList.get(0).ID }</div>
+                                    </div>
                                     <div class="info_wrap">
                                         <div class="tit">이름</div>
                                         <div class="txt">${memberList.get(0).NAME }</div>
@@ -106,7 +111,11 @@
                                     </div>
                                     <div class="info_wrap">
                                         <div class="tit">구분</div>
-                                        <div class="txt">${memberList.get(0).WHAT }</div>
+                                        <div class="txt" id="what">${memberList.get(0).WHAT }</div>
+                                    </div>
+                                    <div class="info_wrap">
+                                        <div class="tit">등급</div>
+                                        <div class="txt" id="grade">${memberList.get(0).GRADE }</div>
                                     </div>
                                     <div class="info_wrap">
                                         <div class="tit">전화번호</div>
@@ -116,13 +125,112 @@
                                         <div class="tit">이메일</div>
                                         <div class="txt">${memberList.get(0).EMAIL }</div>
                                     </div>
-                                    <div class="info_wrap checks">
-                                        <input type="checkbox" id="giveAdmin">
-                                        <label for="giveAdmin" class="tit">관리자 권한부여</label>
+                                    <c:choose>
+                                    	<c:when test="${memberList.get(0).ADMIN=='y' }">
+                                    		<c:choose>
+                                    			<c:when test="${memberList.get(0).NAME=='관리자' }">
+				                                    <div class="info_wrap checks">
+				                                        <input type="checkbox" id="giveAdmin" checked="checked" disabled="disabled">
+				                                        <label for="giveAdmin" class="tit">관리자 권한부여</label>
+				                                    </div>
+                                    			</c:when>
+                                    			<c:otherwise>
+				                                    <div class="info_wrap checks">
+				                                        <input type="checkbox" id="giveAdmin" checked="checked">
+				                                        <label for="giveAdmin" class="tit">관리자 권한부여</label>
+				                                    </div>
+                                    			</c:otherwise>
+                                    		</c:choose>
+                                    	</c:when>
+                                    	<c:otherwise>
+		                                    <div class="info_wrap checks">
+		                                        <input type="checkbox" id="giveAdmin">
+		                                        <label for="giveAdmin" class="tit">관리자 권한부여</label>
+		                                    </div>
+                                    	</c:otherwise>
+                                    </c:choose>
+                                    <div class="cannext_wrap" style="margin: 70px 0">
+                                        <div class="btn cancel" onclick="location.href='/'">취 소</div>
+                                        <c:choose>
+                                        	<c:when test="${memberList.get(0).NAME=='관리자' }">
+		                                        <div class="btn next" style="cursor: default;">저 장</div>
+                                        	</c:when>	
+                                        	<c:otherwise>
+                                        		<div class="btn next" onclick="tab1Save()">저 장</div>
+                                        	</c:otherwise>
+                                        </c:choose>
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- tab2 -->
+                        <div class="contents" id="tab2" style="display: none">
+                            <div class="inner">
+                                <div class="board_sel">
+                                    <select id="nowBoard">
+                                        <option value="choose">게시판 선택</option>
+                                        <option value="notice">공지사항</option>
+                                        <option value="exam">입시정보</option>
+                                    </select>
+                                </div>
+                                <div class=list_wrap>
+                                    <div class="tit">글 목록</div>
+                                    <div class="list" id="boardList" style="height: 350px">
+                                        <div class="name_wrap">
+                                            <div class="name">게시판을 선택해주세요.</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="detailinfo_wrap2">
+                                    <div class="tit">상세정보</div>
+                                    <div class="info_wrap">
+                                        <div class="tit">제목</div>
+                                        <input type="text" id="tab2Title" readonly="readonly">
+                                    </div>
+                                    <div class="info_wrap">
+                                        <div class="tit">작성자</div>
+                                        <input type="text" id="tab2Writer" readonly="readonly">
+                                    </div>
+                                    <div class="info_wrap">
+                                        <div class="tit">내용</div>
+                                        <textarea id="tab2Content" style="resize: none; heigth: 300px" readonly="readonly"></textarea>
+                                    </div>
+                                    <div class="board_sel" style="margin-top: 200px">
+<!--                                         <select id="targetBoard" style="margin-top: 200px"> -->
+<!--                                             <option value="choose">게시판 선택</option> -->
+<!--                                             <option value="notice">공지사항</option> -->
+<!--                                             <option value="exam">입시정보</option> -->
+<!--                                         </select> -->
+                                        <div class="btn" onclick="boardDelete()" style="margin-left: 160px">삭제</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- tab3 -->
+                        <div class="contents" id="tab3" style="display: none">
+                            <div class="inner">
+                                <div class="list_wrap list_wrap3">
+                                    <div class="tit">회원목록</div>
+                                    <div class="list">
+                                    	<c:forEach var="i" items="${memberList }">
+	                                        <div class="name_wrap">
+	                                            <div class="dot"></div>
+	                                            <div class="name" onclick="take(this)" style="cursor: pointer;">${i.NAME }(${i.ID })</div>
+	                                        </div>
+                                    	</c:forEach>
+                                    </div>
+                                </div>
+                                <div class="receive_wrap">
+                                    <div class="tit">수신목록</div>
+                                    <div class="list" id="takeList"></div>
+                                </div>
+                                <div class="letter_wrap">
+                                    <div class="tit">문자 전송</div>
+                                    <textarea placeholder="내용을 입력해주세요." style="resize: none" id="message"></textarea>
+                                    <div class="txt" id="words">0 / 200</div>
                                     <div class="cannext_wrap">
                                         <div class="btn cancel" onclick="location.href='/'">취 소</div>
-                                        <div class="btn next" onclick="tab1Save()">저 장</div>
+                                        <div class="btn next">전 송</div>
                                     </div>
                                 </div>
                             </div>
@@ -142,8 +250,40 @@
 	</body>
 	
 	<script>
-		// tab1 회원목록
-		function memberInfo(id){
+		// 검색란에서 엔터입력
+		$("#hsearch").keyup(function(txt){
+			if(txt.keyCode==13){
+	    		var search = $("#hsearch").val();
+	    		if(search!=""){
+		    		alert(search);
+	    		}
+			}
+		});
+		// 검색버튼 클릭
+		function search(){
+			var search = $("#hsearch").val();
+			if(search!=""){
+	    		alert($("#hsearch").val());
+			}
+		}
+		// 탭이동
+		function tab(num){
+			for(var i=1; i<4; i++){
+				var x = document.getElementById("t"+i);
+            	if(i==num){
+            		if(x.className.indexOf(" sel") == -1){
+            			x.className += " sel";
+            			$("#tab"+i).show();
+            		}
+            	} else {
+            		x.className = x.className.replace(" sel", "");
+            		$("#tab"+i).hide();
+            	}
+			}
+		}
+		// tab1 회원 상세정보
+		function memberInfo(element){
+			var id = element.id;
 			$.ajax({
 				type : "post",
 				url : "/admin/memberDetail/"+id,
@@ -153,6 +293,155 @@
 				}
 			});
 		}
+		// 관리자 권한주기, 권한뺏기 및 저장
+		function tab1Save(){
+			var admin = $("#giveAdmin").prop("checked");
+			var id = $("#id").html();
+			var what = $("#what").html();
+			var grade = $("#grade").html();
+			if(admin){
+				$.ajax({
+					type : "post",
+					url : "/admin/giveAdmin/"+id+"/"+what+"/"+grade,
+					async : false,
+					success : function(txt){
+						if(txt){
+							alert("저장되었습니다.");
+							location.reload();
+						} else {
+							alert("저장에 실패하였습니다.\n잠시후 다시 시도해주세요.");
+						}
+					}
+				});
+			} else {
+				$.ajax({
+					type : "post",
+					url : "/admin/loseAdmin/"+id,
+					async : false,
+					success : function(txt){
+						if(txt){
+							alert("저장되었습니다.");
+							location.reload();
+						} else {
+							alert("저장에 실패하였습니다.\n잠시후 다시 시도해주세요.");
+						}
+					}
+				});
+			}
+		}
+		// 메인관리자 권한 체크해제
+		function change(){
+			$("#giveAdmin").prop("checked", true);
+			alert("메인관리자의 권한은 제거할 수 없습니다.");
+		}
+		// tab2 게시판 선택
+		$("#nowBoard").change(function(){
+			var board = $("#nowBoard").val();
+			if(board!="choose"){
+				$.ajax({
+					type : "post",
+					url : "/admin/board/"+board,
+					async : false,
+					success : function(txt){
+						$("#boardList").html(txt);
+					}
+				});
+			} else {
+				var html = "<div class='name_wrap'><div class='name'>게시판을 선택해주세요.</div></div>";
+				$("#boardList").html(html);
+			}
+		});
+		// tab2 게시판 글 선택
+		function boardDetail(title){
+			var board = $("#nowBoard").val();
+			$.ajax({
+				type : "post",
+				url : "/admin/boardDetail/"+board+"/"+title,
+				async : false,
+				success : function(txt){
+					$("#tab2Title").val(txt[0].TITLE);
+					$("#tab2Writer").val(txt[0].WRITER);
+					$("#tab2Content").val(txt[0].CONTENT);
+				}
+			});
+		}
+		// tab2 게시판 글 삭제
+		function boardDelete(){
+			var nowBoard = $("#nowBoard").val();
+			var title = $("#tab2Title").val();
+			var writer = $("#tab2Writer").val();
+			var content = $("#tab2Content").val();
+			if(nowBoard=="choose"){
+				alert("게시판을 선택해주세요.");
+			} else if(title.length==0){
+				alert("글을 선택해주세요.");
+			} else {
+				$.ajax({
+					type : "post",
+					url : "/admin/boardDelete/"+nowBoard+"/"+title+"/"+writer+"/"+content,
+					async : false,
+					success : function(txt){
+						if(txt){
+							alert("삭제되었습니다.");
+							location.reload();
+						} else {
+							alert("삭제에 실패하였습니다.\n잠시후 다시 시도해주세요.");
+						}
+					}
+				});
+			}
+		}
+		// tab3 회원 클릭 / 제거
+		var num = 1;
+		function take(element){
+			var html = "<div class='name_wrap' id='"+num+"'>";
+			html += "<div class='dot'></div>&nbsp;";
+			html += "<div class='name'>"+element.innerHTML+"</div>&nbsp;";
+			html += "<div class='X_mark' onclick='$(\"#"+num+"\").remove()'>X</div></div>";
+			if($("#takeList").html().indexOf(element.innerHTML)>0){
+				alert("이미 수신목록에 있습니다.");
+			} else {
+				$("#takeList").append(html);
+				num ++;
+			}
+		}
+		// tab3 문자내용 입력
+     	$("#message").keyup(function(txt){
+     		var strValue = $("#message").val();
+	        var strLen = strValue.length;
+	        var totalByte = 0;
+	        var len = 0;
+	        var oneChar = "";
+	        var str2 = "";
+	 
+	        for (var i = 0; i < strLen; i++) {
+	            var oneChar = strValue.charAt(i);
+	            if (escape(oneChar).length > 4) {
+	                totalByte += 2;
+	            } else {
+	                totalByte++;
+	            }
+	 
+	            // 입력한 문자 길이보다 넘치면 잘라내기 위해 저장
+	            if (totalByte <= 200) {
+	                len = i + 1;
+	            }
+	        }
+	 
+	        // 넘어가는 글자는 자른다.
+	        if (totalByte > 200) {
+	            str2 = strValue.substr(0, len);
+	            totalByte = 200;
+	            $("#message").val(str2);
+	        }
+	        
+     		$("#words").html(totalByte+" / 200");
+     		if(totalByte>=132){
+     			$("#message").prop("rows", "2");
+     		} else if(totalByte<132){
+     			$("#message").prop("rows", "1");
+     		}
+     	});
 	</script>
 	
 </html>

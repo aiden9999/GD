@@ -104,36 +104,40 @@
                         <div class="container">
                             <div class="sub_tit" id="recom">초등</div>
                             <div class="arrow_wrap">
-                                <div class="arrow prev">
+                                <div class="rec_arrow rec_arrow_prev">
                                     <img src="/img/arrow_prev.png" onclick="prev()" id="recPrev" style="display: none">
                                 </div>
-                                <div class="arrow next">
+                                <div class="rec_arrow rec_arrow_next">
                                     <img src="/img/arrow_next.png" onclick="next()" id="recNext">
                                 </div>
                             </div>
                             <div class="rec_slider">
-                                <div class="rec_slider_inner">
-                                    <div class="rec_slide">
-<!--                                         <div class="img" onclick="recomAcademy(${t.NUM })"></div> -->
-                                        <div class="img" onclick="academy(this)"></div>
-                                        <div class="txt" onclick="academy(this)">강남대치학원</div>
-                                    </div>
-                                    <div class="rec_slide">
-                                        <div class="img" onclick="academy(this)"></div>
-                                        <div class="txt" onclick="academy(this)">강남대치학원</div>
-                                    </div>
-                                    <div class="rec_slide">
-                                        <div class="img" onclick="academy(this)"></div>
-                                        <div class="txt" onclick="academy(this)">강남대치학원</div>
-                                    </div>
-                                    <div class="rec_slide">
-                                        <div class="img" onclick="academy(this)"></div>
-                                        <div class="txt" onclick="academy(this)">강남대치학원</div>
-                                    </div>
-                                    <div class="rec_slide">
-                                        <div class="img" onclick="academy(this)"></div>
-                                        <div class="txt" onclick="academy(this)">강남대치학원</div>
-                                    </div>
+                                <div class="rec_slider_inner" id="inner1">
+                                	<c:forEach var="i" begin="1" end="3">
+	                                    <div class="rec_slide">
+<%-- 	                                 		<div class="img" onclick="recomAcademy(${t.NUM })"></div> --%>
+	                                        <div class="img" onclick="academy(this)"></div>
+	                                        <div class="txt" onclick="academy(this)">강남대치학원(초딩)</div>
+	                                    </div>
+                                	</c:forEach>
+                                </div>
+                                <div class="rec_slider_inner" id="inner2" style="display: none">
+                                	<c:forEach var="i" begin="1" end="3">
+	                                    <div class="rec_slide">
+<%-- 	                                 		<div class="img" onclick="recomAcademy(${t.NUM })"></div> --%>
+	                                        <div class="img" onclick="academy(this)"></div>
+	                                        <div class="txt" onclick="academy(this)">강남대치학원(중딩)</div>
+	                                    </div>
+                                	</c:forEach>
+                                </div>
+                                <div class="rec_slider_inner" id="inner3" style="display: none">
+                                	<c:forEach var="i" begin="1" end="3">
+	                                    <div class="rec_slide">
+<%-- 	                                 		<div class="img" onclick="recomAcademy(${t.NUM })"></div> --%>
+	                                        <div class="img" onclick="academy(this)"></div>
+	                                        <div class="txt" onclick="academy(this)">강남대치학원(고딩)</div>
+	                                    </div>
+                                	</c:forEach>
                                 </div>
                             </div>
                         </div>
@@ -304,7 +308,7 @@
 		                                            <img src="img/trophy.png">
 		                                        </div>
 		                                        <c:choose>
-		                                        	<c:when test="${login.GRADE=='관리자' }">
+		                                        	<c:when test="${login.ADMIN=='y' }">
 				                                        <div class="txt" onclick="location.href='/admin'">등급<span> ${login.GRADE }</span></div>
 		                                        	</c:when>
 		                                        	<c:otherwise>
@@ -650,10 +654,22 @@
     			$("#recom").html("초등");
 	    		$("#recPrev").hide();
 	    		$("#recNext").show();
+	    		$("#inner2").animate({"left" : "+=565px"}, "slow");
+	    		$("#inner1").fadeIn(1500);
+	    		setTimeout(function() {
+	    			$("#inner2").animate({"left" : "-=565px"}, "slow");
+	    			$("#inner2").hide();
+	    		}, 1500);
     		} else {
     			$("#recom").html("중등");
     			$("#recPrev").show();
     			$("#recNext").show();
+    			$("#inner3").animate({"left" : "+=565px"}, "slow");
+	    		$("#inner2").fadeIn(1500);
+	    		setTimeout(function() {
+	    			$("#inner3").animate({"left" : "-=565px"}, "slow");
+	    			$("#inner3").hide();
+	    		}, 1500);
     		}
     	}
     	// 다음
@@ -663,10 +679,23 @@
 	    		$("#recom").html("중등");
 	    		$("#recNext").show();
 	    		$("#recPrev").show();
+	    		$("#inner1").animate({"left" : "-=565px"}, "slow");
+	    		$("#inner2").fadeIn(1500);
+	    		setTimeout(function() {
+	    			$("#inner1").animate({"left" : "+=565px"}, "slow");
+	    			$("#inner1").hide();
+	    		}, 1500);
     		} else if(recom=="중등"){
     			$("#recom").html("고등");
     			$("#recNext").hide();
     			$("#recPrev").show();
+    			$("#inner1").hide();
+    			$("#inner2").animate({"left" : "-=565px"}, "slow");
+	    		$("#inner3").fadeIn(1500);
+	    		setTimeout(function() {
+	    			$("#inner2").animate({"left" : "+=565px"}, "slow");
+	    			$("#inner2").hide();
+	    		}, 1500);
     		} else {
     			$("#recom").html("초등");
     			$("#recNext").show();

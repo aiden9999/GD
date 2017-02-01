@@ -39,4 +39,7 @@
 	<select id="commentList" resultType="java.util.HashMap">
 		select * from acacomment where num = #{num} order by day desc
 	</select>
+	<insert id="saveNews" parameterType="java.util.HashMap">
+		insert into acanews values(#{title}, #{content}, #{writer}, now(), #{acaNum})
+	</insert>
 </mapper>

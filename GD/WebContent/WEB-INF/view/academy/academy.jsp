@@ -298,38 +298,47 @@
 										<span>작성일</span>
 									</div>
 								</div>
-								<c:forEach var="i" begin="0" end="${news.size()-1 }">
-									<div class="txt_box">
-										<div class="txt txt_number">
-											<c:choose>
-<%-- 												<c:when test="${news.size()-i<10}"> --%>
-												<c:when test="${newsCount-i<10}">
-													<span>0${newsCount-i }</span>
-												</c:when>
-												<c:otherwise>
-													<span>${newsCount-i }</span>
-												</c:otherwise>
-											</c:choose>
-										</div>
-										<div onclick="select(${i })" class="txt txt_tit">
-											<span>${news.get(i).TITLE }</span>
-										</div>
-										<div id="dropdown${i }" class="contents">
-											<div class="img">
-												<img src="/img/sub02_arrow_up.png" onclick="clo(${i })">
+								<c:choose>
+									<c:when test="${news.size()>0 }">
+										<c:forEach var="i" begin="0" end="${news.size()-1 }">
+											<div class="txt_box">
+												<div class="txt txt_number">
+													<c:choose>
+		<%-- 												<c:when test="${news.size()-i<10}"> --%>
+														<c:when test="${newsCount-i<10}">
+															<span>0${newsCount-i }</span>
+														</c:when>
+														<c:otherwise>
+															<span>${newsCount-i }</span>
+														</c:otherwise>
+													</c:choose>
+												</div>
+												<div onclick="select(${i })" class="txt txt_tit">
+													<span>${news.get(i).TITLE }</span>
+												</div>
+												<div id="dropdown${i }" class="contents">
+													<div class="img">
+														<img src="/img/sub02_arrow_up.png" onclick="clo(${i })">
+													</div>
+													<div class="drop_txt">
+														${news.get(i).CONTENT }
+													</div>
+												</div>
+												<div class="txt txt_name">
+													<span>${news.get(i).WRITER }</span>
+												</div>
+												<div class="txt txt_date">
+													<span>${news.get(i).DAY }</span>
+												</div>
 											</div>
-											<div class="drop_txt">
-												${news.get(i).CONTENT }
-											</div>
+										</c:forEach>
+									</c:when>
+									<c:otherwise>
+										<div class="txt_box" align="center">
+											<div style="margin-top: 20px; margin-bottom: 20px"><label>등록된 글이 없습니다.</label></div>
 										</div>
-										<div class="txt txt_name">
-											<span>${news.get(i).WRITER }</span>
-										</div>
-										<div class="txt txt_date">
-											<span>${news.get(i).DAY }</span>
-										</div>
-									</div>
-								</c:forEach>
+									</c:otherwise>
+								</c:choose>
 							</div>
 							<div class="write_wrap">
 								<div class="empty_box"></div>
@@ -923,7 +932,6 @@
     		ar[ar.length] = i;
     	}
      	function select(num) { 
-//      		var ar = new Array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
             for(var i=0; i<ar.length; i++){
             	var x = document.getElementById("dropdown"+ar[i]);
             	if(ar[i]==num){
@@ -970,7 +978,7 @@
      	}
      	// 글쓰기
      	function wr(){
-     		alert("write");
+     		location.href="/academy/writeNews/${list.NUM }";
      	}
      	// 페이지 이전 클릭
      	function prev(element){

@@ -25,4 +25,64 @@
 	<select id="memberDetailT" resultType="java.util.HashMap">
 		select * from teacher where id = #{id}
 	</select>
+	<update id="giveAdminS">
+		update student set admin = 'y' where id = #{id}
+	</update>
+	<update id="giveAdminN">
+		update normal set admin = 'y' where id = #{id}
+	</update>
+	<update id="giveAdminP">
+		update parent set admin = 'y' where id = #{id}
+	</update>
+	<update id="giveAdminT">
+		update teacher set admin = 'y' where id = #{id}
+	</update>
+	<update id="loseAdminS">
+		update student set admin = 'n' where id = #{id}
+	</update>
+	<update id="loseAdminN">
+		update normal set admin = 'n' where id = #{id}
+	</update>
+	<update id="loseAdminP">
+		update parent set admin = 'n' where id = #{id}
+	</update>
+	<update id="loseAdminT">
+		update teacher set admin = 'n' where id = #{id}
+	</update>
+	<update id="updateGradeS" parameterType="java.util.HashMap">
+		update student set grade = #{grade} where id = #{id}
+	</update>
+	<update id="updateGradeN" parameterType="java.util.HashMap">
+		update normal set grade = #{grade} where id = #{id}
+	</update>
+	<update id="updateGradeP" parameterType="java.util.HashMap">
+		update parent set grade = #{grade} where id = #{id}
+	</update>
+	<update id="updateGradeT" parameterType="java.util.HashMap">
+		update teacher set grade = #{grade} where id = #{id}
+	</update>
+	<insert id="saveGrade" parameterType="java.util.HashMap">
+		insert into grade values(#{id}, #{grade}, #{what})
+	</insert>
+	<select id="selectGrade" resultType="java.util.HashMap">
+		select * from grade where id = #{id}
+	</select>
+	<delete id="deleteGrade">
+		delete from grade where id = #{id}
+	</delete>
+	<select id="boardNotice" resultType="java.util.HashMap">
+		select * from notice order by day desc
+	</select>
+	<select id="boardExam" resultType="java.util.HashMap">
+		select * from exam order by day desc
+	</select>
+	<select id="noticeList" resultType="java.util.HashMap">
+		select * from notice where title = #{title}
+	</select>
+	<select id="examList" resultType="java.util.HashMap">
+		select * from exam where title = #{title}
+	</select>
+	<delete id="deletenotice" parameterType="java.util.HashMap">
+		delete from notice where title = #{title} and writer = #{writer} and content = #{content}
+	</delete>
 </mapper>

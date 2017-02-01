@@ -170,4 +170,25 @@ public class AcademyService {
 		ss.close();
 		return list;
 	}
+	
+	// 학원소식 저장
+	public boolean saveNews(String writer, String title, String content, int acaNum) {
+		SqlSession ss = fac.openSession();
+		HashMap map = new HashMap<>();
+		map.put("writer", writer);
+		map.put("title", title);
+		map.put("content", content);
+		map.put("acaNum", acaNum);
+		try{
+			ss.insert("academy.saveNews", map);
+			ss.commit();
+			ss.close();
+			return true;
+		} catch(Exception e){
+			e.printStackTrace();
+			ss.rollback();
+			ss.close();
+			return false;
+		}
+	}
 }
