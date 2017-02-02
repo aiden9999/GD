@@ -70,19 +70,31 @@
 	<delete id="deleteGrade">
 		delete from grade where id = #{id}
 	</delete>
-	<select id="boardNotice" resultType="java.util.HashMap">
-		select * from notice order by day desc
+	<select id="boardnotice" resultType="java.util.HashMap">
+		select * from notice order by day
 	</select>
-	<select id="boardExam" resultType="java.util.HashMap">
-		select * from exam order by day desc
+	<select id="boardhighExam" resultType="java.util.HashMap">
+		select * from highexam order by day
+	</select>
+	<select id="boardunivExam" resultType="java.util.HashMap">
+		select * from univexam order by day
 	</select>
 	<select id="noticeList" resultType="java.util.HashMap">
 		select * from notice where title = #{title}
 	</select>
-	<select id="examList" resultType="java.util.HashMap">
-		select * from exam where title = #{title}
+	<select id="highExamList" resultType="java.util.HashMap">
+		select * from highexam where title = #{title}
+	</select>
+	<select id="univExamList" resultType="java.util.HashMap">
+		select * from univexam where title = #{title}
 	</select>
 	<delete id="deletenotice" parameterType="java.util.HashMap">
 		delete from notice where title = #{title} and writer = #{writer} and content = #{content}
+	</delete>
+	<delete id="deletehighExam" parameterType="java.util.HashMap">
+		delete from highExam where title = #{title} and writer = #{writer} and content = #{content}
+	</delete>
+	<delete id="deleteunivExam" parameterType="java.util.HashMap">
+		delete from univExam where title = #{title} and writer = #{writer} and content = #{content}
 	</delete>
 </mapper>

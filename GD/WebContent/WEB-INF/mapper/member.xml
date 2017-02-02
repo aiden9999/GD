@@ -91,4 +91,7 @@
 	<select id="searchPwT" parameterType="java.util.HashMap" resultType="java.util.HashMap">
 		select * from teacher where id = #{id} and name = #{name}
 	</select>
+	<select id="worryList" resultType="java.util.HashMap">
+		select * from worry where writer = #{id} order by day desc
+	</select>
 </mapper>

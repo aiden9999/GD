@@ -34,40 +34,59 @@
 
 <body>
 	<header>
-		<div class="header_top">
-			<div class="inner">
-				<div class="logo" onclick="location.href='/'">
-					<label><span>L</span>ogo</label>
-				</div>
-				<div class="search">
-					<input type="text" id="hsearch"
-						style="border: 2px solid #888f8d; height: 24px;" maxlength="10">
-					<img class="hsearch" src="/img/search.png" onclick="search()">
-				</div>
-			</div>
-		</div>
-		<div class="gnb">
-			<div class="inner">
-				<ul>
-					<li onclick="location.href='/elmenetary'">
-						<div class="txt">초등학원</div>
-					</li>
-					<li onclick="location.href='/middle'">
-						<div class="txt">중등학원</div>
-					</li>
-					<li onclick="location.href='/high'">
-						<div class="txt">고등학원</div>
-					</li>
-					<li onclick="location.href='/information'">
-						<div class="txt">입시정보</div>
-					</li>
-					<li onclick="location.href='/community'">
-						<div class="txt">커뮤니티</div>
-					</li>
-				</ul>
-			</div>
-		</div>
-	</header>
+            <div class="header_top">
+                <div class="inner">
+                	<c:if test="${login==null }">
+	                	<div class="txt" onclick="login()">로그인</div>
+                	</c:if>
+                    <div class="logo" onclick="location.href='/'"><label><span >L</span>ogo</label></div>
+                    <div class="search">
+                        <input type="text" id="hsearch" style="border: 2px solid #888f8d; height: 24px; " maxlength="10">
+                        <img class="hsearch" src="/img/search.png" onclick="search()">
+                    </div>
+                </div>
+            </div>
+            <div class="gnb">
+                <div class="inner">
+                    <ul>
+                        <li onclick="location.href='/elementary'" class="gnb_menu">
+                            <div class="txt">초등학원</div>
+                        </li>
+						<li onclick="location.href='/middle'" class="gnb_menu">
+                            <div class="txt">중등학원</div>
+                        </li>
+                        <li onclick="location.href='/high'" class="gnb_menu">
+                            <div class="txt">고등학원</div>
+                        </li>
+                        <li class="gnb_menu">
+                            <div class="txt">입시정보</div>
+                            <ul>
+                                <li class="drop_menu" onclick="location.href='/highExam'">
+                                    <div class="txt1">고등입시</div>
+                                </li>
+                                <li class="drop_menu" onclick="location.href='/univExam'">
+                                    <div class="txt1">대학입시</div>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="gnb_menu">
+                            <div class="txt">커뮤니티</div>
+                            <ul>
+                                <li class="drop_menu" onclick="location.href='/waggle'">
+                                    <div class="txt1">수다방</div>
+                                </li>
+                                <li class="drop_menu" onclick="location.href='/worry'">
+                                    <div class="txt1">고민상담</div>
+                                </li>
+                                <li class="drop_menu" onclick="location.href='/notice'">
+                                    <div class="txt1">공지사항</div>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </header>
 	<div class="join01-02 join01-03 join01-04">
 		<div class="inner">
 			<div class="tit">
@@ -342,7 +361,7 @@
  			if(txt.keyCode==13){
  	    		var search = $("#hsearch").val();
  	    		if(search!=""){
- 		    		alert(search);
+ 	    			location.href="/search/"+search;
  	    		}
  			}
  		});
@@ -391,7 +410,7 @@
  		function search(){
  			var search = $("#hsearch").val();
  			if(search!=""){
- 	    		alert($("#hsearch").val());
+ 				location.href="/search/"+search;
  			}
  		}
  		// 아이디 입력

@@ -11,8 +11,11 @@ import org.springframework.web.servlet.*;
 
 import academy.service.*;
 import admin.service.*;
+import highExam.service.*;
 import main.service.*;
 import notice.service.*;
+import univExam.controller.*;
+import univExam.service.*;
 import worry.service.*;
 
 @Controller
@@ -28,6 +31,10 @@ public class MainController {
 	WorryService ws;
 	@Autowired
 	AdminService ad;
+	@Autowired
+	HighExamService hs;
+	@Autowired
+	UnivExamService us;
 	
 	// 메인
 	@RequestMapping("/")
@@ -54,11 +61,11 @@ public class MainController {
 		return "/menu/high/index.jsp";
 	}
 
-	// top 메뉴 입시정보
-	@RequestMapping("/information")
-	public ModelAndView information(){
+	// top 메뉴 공지사항
+	@RequestMapping("/notice")
+	public ModelAndView notice(){
 //		return "/menu/information/index.jsp";
-		ModelAndView mav = new ModelAndView("/menu/information/notice/notice.jsp");
+		ModelAndView mav = new ModelAndView("/menu/community/notice/notice.jsp");
 		List<HashMap> noticeList = ns.noticeList(1);
 		mav.addObject("noticeList", noticeList);
 		int noticeCount = ns.noticeCount();
@@ -68,9 +75,9 @@ public class MainController {
 		return mav;
 	}
 
-	// top 메뉴 커뮤니티
-	@RequestMapping("/community")
-	public ModelAndView community(){
+	// top 메뉴 고민상담
+	@RequestMapping("/worry")
+	public ModelAndView worry(){
 		ModelAndView mav = new ModelAndView("/menu/community/worry/worry.jsp");
 		List<HashMap> worryList = ws.worry(1);
 		mav.addObject("worryList", worryList);
@@ -78,6 +85,32 @@ public class MainController {
 		mav.addObject("replyList", replyList);
 		int worryPage = ws.worryCount()%10==0 ? ws.worryCount()/10 : ws.worryCount()/10+1;
 		mav.addObject("worryPage", worryPage);
+		return mav;
+	}
+	
+	// top 메뉴 고등입시
+	@RequestMapping("/highExam")
+	public ModelAndView highExam(){
+		ModelAndView mav = new ModelAndView("/menu/information/highExam/highExam.jsp");
+		List<HashMap> list = hs.highExam(1);
+		mav.addObject("list", list);
+		int noticeCount = hs.highCount();
+		mav.addObject("highCount", noticeCount);
+		int noticePage = hs.highCount()%10==0 ? hs.highCount()/10 : hs.highCount()/10+1;
+		mav.addObject("highPage", noticePage);
+		return mav;
+	}
+
+	// top 메뉴 대학입시
+	@RequestMapping("/univExam")
+	public ModelAndView univExam(){
+		ModelAndView mav = new ModelAndView("/menu/information/univExam/univExam.jsp");
+		List<HashMap> list = us.univExam(1);
+		mav.addObject("list", list);
+		int noticeCount = us.univCount();
+		mav.addObject("univCount", noticeCount);
+		int noticePage = us.univCount()%10==0 ? us.univCount()/10 : us.univCount()/10+1;
+		mav.addObject("univPage", noticePage);
 		return mav;
 	}
 	
@@ -143,11 +176,35 @@ public class MainController {
 	}
 	
 	// 검색
-	@RequestMapping("search/{search}")
+	@RequestMapping("/search/{search}")
 	public ModelAndView search(@PathVariable(name="search")String search){
+		ModelAndView mav = inner(search, 1);
+		return mav;
+	}
+	
+	// 검색 내부메서드
+	public ModelAndView inner(String search, int num){
 		ModelAndView mav = new ModelAndView("/main/search.jsp");
-//		List<HashMap> list = ms.search(search);
-//		mav.addObject("search", list);
+		mav.addObject("searchWord", search);
+		List<HashMap> list = ms.academy(search, num);
+		mav.addObject("academy", list);
+		int acaPage = ms.academyPage(search);
+		mav.addObject("acaPage", acaPage);
+		
+		List<HashMap> notice = ms.notice(search, num);
+		mav.addObject("notice", notice);
+		int noticePage = ms.noticePage(search);
+		noticePage = noticePage%5==0 ? noticePage/5 : noticePage/5+1;
+		mav.addObject("noticePage", noticePage);
+		return mav;
+	}
+	
+	// 검색 게시판 변경
+	@RequestMapping("/boardChange/{board}/{search}")
+	public ModelAndView boardChange(@PathVariable(name="board")String board, @PathVariable(name="search")String search){
+		ModelAndView mav = new ModelAndView("/main/searchAjax.jsp");
+		List<HashMap> list = ms.boardChange(board, search);
+		mav.addObject("list", list);
 		return mav;
 	}
 	

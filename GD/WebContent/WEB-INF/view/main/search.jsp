@@ -28,7 +28,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="/js/common.js"></script>
         <script>
-            function myFunction() { 
+            function select() { 
                 var x =document.getElementById("dropdown");
                 if (x.className.indexOf("drop_show") == -1) {
                     x.className += " drop_show";
@@ -45,33 +45,52 @@
         <header>
             <div class="header_top">
                 <div class="inner">
+                	<c:if test="${login==null }">
+	                	<div class="txt" onclick="login()">로그인</div>
+                	</c:if>
                     <div class="logo" onclick="location.href='/'"><label><span >L</span>ogo</label></div>
                     <div class="search">
                         <input type="text" id="hsearch" style="border: 2px solid #888f8d; height: 24px; " maxlength="10">
                         <img class="hsearch" src="/img/search.png" onclick="search()">
                     </div>
-                    <c:if test="${login==null }">
-	                    <div class="txt" onclick="login()">로그인</div>
-                    </c:if>
                 </div>
             </div>
             <div class="gnb">
                 <div class="inner">
                     <ul>
-                        <li>
+                        <li onclick="location.href='/elementary'" class="gnb_menu">
                             <div class="txt">초등학원</div>
                         </li>
-                        <li>
+						<li onclick="location.href='/middle'" class="gnb_menu">
                             <div class="txt">중등학원</div>
                         </li>
-                        <li>
+                        <li onclick="location.href='/high'" class="gnb_menu">
                             <div class="txt">고등학원</div>
                         </li>
-                        <li>
+                        <li class="gnb_menu">
                             <div class="txt">입시정보</div>
+                            <ul>
+                                <li class="drop_menu" onclick="location.href='/highExam'">
+                                    <div class="txt1">고등입시</div>
+                                </li>
+                                <li class="drop_menu" onclick="location.href='/univExam'">
+                                    <div class="txt1">대학입시</div>
+                                </li>
+                            </ul>
                         </li>
-                        <li>
+                        <li class="gnb_menu">
                             <div class="txt">커뮤니티</div>
+                            <ul>
+                                <li class="drop_menu" onclick="location.href='/waggle'">
+                                    <div class="txt1">수다방</div>
+                                </li>
+                                <li class="drop_menu" onclick="location.href='/worry'">
+                                    <div class="txt1">고민상담</div>
+                                </li>
+                                <li class="drop_menu" onclick="location.href='/notice'">
+                                    <div class="txt1">공지사항</div>
+                                </li>
+                            </ul>
                         </li>
                     </ul>
                 </div>
@@ -79,7 +98,7 @@
         </header>
         <div class="search02">
             <div class="inner">
-                <div class="search02_tit"><span>'멘토'</span> 검색결과</div>
+                <div class="search02_tit"><span>'${searchWord }'</span> 검색결과</div>
                 <section class="info_section">
                     <div class="section_aca">
                         <div class="aca_header">
@@ -87,10 +106,9 @@
                             <div class="txt">학원</div>
                         </div>
                         <div class="txt_wrap">
-                            <div class="txt"><span>멘토</span>(www.mento.com)</div>
-                            <div class="txt"><span>멘토클리닉</span>(www.mentoccc.co.kr)</div>
-                            <div class="txt"><span>강남대치학원 멘토클리닉</span>(www.mentorschool.co.kr)</div>
-                            <div class="txt"><span>강남대치학원 멘토클리닉</span>(www.mentorschool.co.kr)</div>
+                        	<c:forEach var="t" items="${academy }">
+	                            <div class="txt" onclick="academy('${t.NUM }')"><span>${t.NAME }</span>(${t.SITE })</div>
+                        	</c:forEach>
                         </div>
                         <div class="page_wrap">
                             <div class="inner">
@@ -103,11 +121,16 @@
                                     </div>
                                 </div>
                                 <div class="num_wrap">
-                                    <div class="num sel"><span>1</span></div>
-                                    <div class="num"><span>2</span></div>
-                                    <div class="num"><span>3</span></div>
-                                    <div class="num"><span>4</span></div>
-                                    <div class="num"><span>5</span></div>
+                                	<c:forEach var="i" begin="1" end="${acaPage }">
+                                		<c:choose>
+                                			<c:when test="${i==1 }">
+			                                    <div class="num sel"><span>${i }</span></div>
+                                			</c:when>
+                                			<c:otherwise>
+			                                    <div class="num"><span>${i }</span></div>
+                                			</c:otherwise>
+                                		</c:choose>
+                                	</c:forEach>
                                 </div>
                             </div>
                         </div>
@@ -116,23 +139,20 @@
                         <div class="aca_header">
                             <div class="circle"></div>
                             <div class="txt">게시글</div>
-                            <div class="drop_wrap">
-                                <div class="img">
-                                    <img src="/img/sub02_arrow_up.png" onclick="clo(1)">
-                                </div>
-                                <div onclick="myFunction()" class="txt">
-                                    최신순
-                                </div>
-                                <div id="dropdown" class="contents">
-                                    <div class="drop_txt">최신순</div>
-                                    <div class="drop_txt">수다방</div>
-                                    <div class="drop_txt">고민상담</div>
-                                    <div class="drop_txt">학원리뷰</div>
-                                    <div class="drop_txt">한줄평가</div>
-                                </div>
+                            <div class="drop_wrap" style="width: 150px; display: table; border: 0px">
+                                <select id="boardSelect" style="width: 150px; padding: 4px; border: 1px solid #88b04b; font-size: 15px; -webkit-appearance: none;
+                                												background: url(../img/sub02_arrow_down.png) no-repeat 95% 50% #fff;">
+                                	<option value="notice">공지사항</option>
+                                	<option value="goHigh">고등입시</option>
+                                	<option value="goUniv">대학입시</option>
+                                	<option value="worry">고민상담</option>
+                                	<option value="waggle">수다방</option>
+                                	<option value="acaNews">학원소식</option>
+                                	<option value="acaComment">한줄평가</option>
+                                </select>
                             </div>
                         </div>
-                        <div class="board_wrap">
+                        <div class="board_wrap" id="boardList">
                             <div class="txt_box">
                                 <div class="tit txt_number">
                                     <span>카테고리</span>
@@ -147,19 +167,19 @@
                                     <span>작성일</span>
                                 </div>
                             </div>
-                            <c:forEach var="i" begin="1" end="4">
+                            <c:forEach var="t" items="${notice }">
 	                            <div class="txt_box">
 	                                <div class="txt txt_number">
-	                                    <div class="txt">한줄평가</div>
+	                                    <div class="txt">공지사항</div>
 	                                </div>
 	                                <div class="txt txt_tit">
-	                                    <span>안녕하세요 대치동 학원정보는 MATH SCHOOL</span>
+	                                    <span>${t.TITLE }</span>
 	                                </div>
 	                                <div class="txt txt_rec">
-	                                    <span>tjfdk</span>
+	                                    <span>${t.WRITER }</span>
 	                                </div>
 	                                <div class="txt txt_date">
-	                                    <span>2017-01-17</span>
+	                                    <span>${t.DAY }</span>
 	                                </div>
 	                            </div>
                             </c:forEach>
@@ -175,11 +195,16 @@
                                     </div>
                                 </div>
                                 <div class="num_wrap">
-                                    <div class="num sel"><span>1</span></div>
-                                    <div class="num"><span>2</span></div>
-                                    <div class="num"><span>3</span></div>
-                                    <div class="num"><span>4</span></div>
-                                    <div class="num"><span>5</span></div>
+                                    <c:forEach var="i" begin="1" end="${noticePage }">
+                                		<c:choose>
+                                			<c:when test="${i==1 }">
+			                                    <div class="num sel"><span>${i }</span></div>
+                                			</c:when>
+                                			<c:otherwise>
+			                                    <div class="num"><span>${i }</span></div>
+                                			</c:otherwise>
+                                		</c:choose>
+                                	</c:forEach>
                                 </div>
                             </div>
                         </div>
@@ -203,7 +228,7 @@
   			if(txt.keyCode==13){
   	    		var search = $("#hsearch").val();
   	    		if(search!=""){
-  		    		alert(search);
+  	    			location.href="/search/"+search;
   	    		}
   			}
   		});
@@ -211,7 +236,7 @@
   		function search(){
   			var search = $("#hsearch").val();
   			if(search!=""){
-  	    		alert($("#hsearch").val());
+  				location.href="/search/"+search;
   			}
   		}
       	// 로그인
@@ -219,6 +244,26 @@
       		// 회원가입 페이지로 이동
       		location.href="/join";
       	}
+      	// 학원 클릭
+      	function academy(num){
+      		location.href="/academy/"+num;
+      	}
+      	// 게시판 선택
+      	$("#boardSelect").change(function(){
+      		var board = $("#boardSelect").val();
+      		$.ajax({
+      			type : "post",
+      			url : "/boardChange/"+board+"/${searchWord }",
+      			async : false,
+      			success : function(txt){
+      				$("#boardList").html(txt);
+      			}
+      		});
+      	});
+      	
+      	
+      	
+      	
      	// 페이지 클릭
    		var pageNum = new Array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
      	function page(num){

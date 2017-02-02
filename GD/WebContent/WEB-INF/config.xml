@@ -21,6 +21,8 @@
 	<context:component-scan base-package="worry"/>
 	<context:component-scan base-package="notice"/>
 	<context:component-scan base-package="admin"/>
+	<context:component-scan base-package="highExam"/>
+	<context:component-scan base-package="univExam"/>
 	
 	<bean class="org.springframework.web.servlet.view.BeanNameViewResolver"
 		id="beanNameViewResolver" p:order="2" />

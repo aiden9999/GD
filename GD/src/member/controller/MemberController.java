@@ -3,6 +3,8 @@ package member.controller;
 import java.text.*;
 import java.util.*;
 
+import javax.servlet.http.*;
+
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.*;
 import org.springframework.web.bind.annotation.*;
@@ -41,7 +43,30 @@ public class MemberController {
 	
 	// 내정보
 	@RequestMapping("/info/{id}")
-	public ModelAndView info(@PathVariable(name="id")String id){
+	public ModelAndView info(@PathVariable(name="id")String id, HttpSession session){
+		ModelAndView mav = inner(id);
+		session.removeAttribute("info");
+		return mav;
+	}
+	
+	// 내 글
+	@RequestMapping("/info/myBoard/{id}")
+	public ModelAndView myBoard(@PathVariable(name="id")String id, HttpSession session){
+		ModelAndView mav = inner(id);
+		session.setAttribute("info", "board");
+		return mav;
+	}
+	
+	// 내 댓글
+	@RequestMapping("/info/myReply/{id}")
+	public ModelAndView myReply(@PathVariable(name="id")String id, HttpSession session){
+		ModelAndView mav = inner(id);
+		session.setAttribute("info", "reply");
+		return mav;
+	}
+	
+	// 내정보 내부메서드
+	public ModelAndView inner(String id){
 		ModelAndView mav = new ModelAndView("/member/info.jsp");
 		List<HashMap> visit = ms.visit(id);
 		mav.addObject("visit", visit);
@@ -59,6 +84,16 @@ public class MemberController {
 		}
 		mav.addObject("monthVisit", monthVisit);
 		mav.addObject("point", 0);
+		
+//		List<HashMap> board1 = ms.board1(id);
+//		mav.addObject("board1", board1);
+		List<HashMap> board2 = ms.board2(id);
+		mav.addObject("board2", board2);
+		
+//		List<HashMap> reply1 = ms.reply1(id);
+//		mav.addObject("reply1", reply1);
+		List<HashMap> reply2 = ms.reply2(id);
+		mav.addObject("reply2", reply2);
 		return mav;
 	}
 }

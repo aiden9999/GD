@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="search">
+	<select id="academy" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+		select * from academy where name like #{search} order by name asc limit 5 offset #{page}
+	</select>
+	<select id="academyPage" resultType="java.lang.Integer">
+		select count(*) from academy where name like #{search}
+	</select>
+	<select id="notice" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		select * from notice where title like #{search} order by day desc limit 5 offset #{page}
+	</select>
+	<select id="noticePage" resultType="java.lang.Integer">
+		select count(*) from notice where title like #{search}
+	</select>
+	<select id="searchnotice" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+		select * from notice where title like #{search} order by day desc limit 5 offset #{page}
+	</select>
+<!-- 	<select id="searchhighExam" resultType="java.util.HashMap" parameterType="java.util.HashMap"> -->
+<!-- 		select * from highexam where title like #{search} order by day desc limit 5 offset #{page} -->
+<!-- 	</select> -->
+<!-- 	<select id="searchunivExam" resultType="java.util.HashMap" parameterType="java.util.HashMap"> -->
+<!-- 		select * from univexam where title like #{search} order by day desc limit 5 offset #{page} -->
+<!-- 	</select> -->
+	<select id="searchworry" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+		select * from worry where content like #{search} order by day desc limit 5 offset #{page}
+	</select>
+<!-- 	<select id="searchwaggle" resultType="java.util.HashMap" parameterType="java.util.HashMap"> -->
+<!-- 		select * from waggle where title like #{search} order by day desc limit 5 offset #{page} -->
+<!-- 	</select> -->
+	<select id="searchacaNews" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+		select * from acanews where title like #{search} order by day desc limit 5 offset #{page}
+	</select>
+	<select id="searchacaComment" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+		select * from acacomment where comment like #{search} order by day desc limit 5 offset #{page}
+	</select>
+</mapper>

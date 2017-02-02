@@ -43,33 +43,52 @@
         <header>
             <div class="header_top">
                 <div class="inner">
+                	<c:if test="${login==null }">
+	                	<div class="txt" onclick="login()">로그인</div>
+                	</c:if>
                     <div class="logo" onclick="location.href='/'"><label><span >L</span>ogo</label></div>
                     <div class="search">
                         <input type="text" id="hsearch" style="border: 2px solid #888f8d; height: 24px; " maxlength="10">
                         <img class="hsearch" src="/img/search.png" onclick="search()">
                     </div>
-                    <c:if test="${login==null }">
-	                    <div class="txt" onclick="login()">로그인</div>
-                    </c:if>
                 </div>
             </div>
             <div class="gnb">
                 <div class="inner">
                     <ul>
-                        <li onclick="location.href='/elementary'">
+                        <li onclick="location.href='/elementary'" class="gnb_menu">
                             <div class="txt">초등학원</div>
                         </li>
-                        <li onclick="location.href='/middle'">
+						<li onclick="location.href='/middle'" class="gnb_menu">
                             <div class="txt">중등학원</div>
                         </li>
-                        <li onclick="location.href='/high'">
+                        <li onclick="location.href='/high'" class="gnb_menu">
                             <div class="txt">고등학원</div>
                         </li>
-                        <li onclick="location.href='/information'">
+                        <li class="gnb_menu">
                             <div class="txt">입시정보</div>
+                            <ul>
+                                <li class="drop_menu" onclick="location.href='/highExam'">
+                                    <div class="txt1">고등입시</div>
+                                </li>
+                                <li class="drop_menu" onclick="location.href='/univExam'">
+                                    <div class="txt1">대학입시</div>
+                                </li>
+                            </ul>
                         </li>
-                        <li onclick="location.href='/community'">
+                        <li class="gnb_menu">
                             <div class="txt">커뮤니티</div>
+                            <ul>
+                                <li class="drop_menu" onclick="location.href='/waggle'">
+                                    <div class="txt1">수다방</div>
+                                </li>
+                                <li class="drop_menu" onclick="location.href='/worry'">
+                                    <div class="txt1">고민상담</div>
+                                </li>
+                                <li class="drop_menu" onclick="location.href='/notice'">
+                                    <div class="txt1">공지사항</div>
+                                </li>
+                            </ul>
                         </li>
                     </ul>
                 </div>
@@ -228,12 +247,23 @@
                                 <span>작성일</span>
                             </div>
                         </div>
-                        <div class="board_txt">
-                            <div class="board_tit">우리아이가 달라졌어요<span>(3)</span></div>
-                            <div class="bulletin_date">
-                                <span>2017-01-12</span>
-                            </div>
-                        </div>
+                        <c:forEach var="t" items="${board2 }">
+	                        <div class="board_txt">
+	                            <div class="board_tit" style="cursor: default;">
+	                            	<c:choose>
+	                            		<c:when test="${t.CONTENT.length()>20 }">
+	                            			<label style="cursor: default">${t.CONTENT.substring(0, 20) }...</label>
+	                            		</c:when>
+	                            		<c:otherwise>
+	                            			<label style="cursor: default">${t.CONTENT }</label>
+	                            		</c:otherwise>
+	                            	</c:choose>
+	                            <span style="cursor: default;">(${t.REPLY })</span></div>
+	                            <div class="bulletin_date">
+	                                <span>${t.DAY }</span>
+	                            </div>
+	                        </div>
+                        </c:forEach>
                     </div>
                 </div>
                	<div class="container" id='tab4' style="display: none">
@@ -262,12 +292,34 @@
                                 <span>작성일</span>
                             </div>
                         </div>
-                        <div class="board_txt">
-                            <div class="board_tit">우리아이가 달라졌어요<span>(3)</span></div>
-                            <div class="bulletin_date">
-                                <span>2017-01-12</span>
-                            </div>
-                        </div>
+                        
+                        <c:forEach var="t" items="${reply2 }">
+	                        <div class="board_txt">
+	                            <div class="board_tit" style="cursor: default;">
+									<c:choose>
+	                            		<c:when test="${t.REPLY.length()>20 }">
+	                            			<label style="cursor: default">${t.REPLY.substring(0, 20) }...</label>
+	                            		</c:when>
+	                            		<c:otherwise>
+	                            			<label style="cursor: default">${t.REPLY }</label>
+	                            		</c:otherwise>
+	                            	</c:choose>
+								<span style="cursor: default;">
+									<c:choose>
+	                            		<c:when test="${t.BOARD.length()>20 }">
+	                            			<label style="cursor: default">(${t.BOARD.substring(0, 20) }...)</label>
+	                            		</c:when>
+	                            		<c:otherwise>
+	                            			<label style="cursor: default">(${t.BOARD })</label>
+	                            		</c:otherwise>
+	                            	</c:choose>
+								</span></div>
+	                            <div class="bulletin_date">
+	                                <span>${t.DAY }</span>
+	                            </div>
+	                        </div>
+                        </c:forEach>
+                        
                     </div>
                 </div>
 <!--                 <div id="tab5" style="display: none"></div> -->
@@ -284,6 +336,29 @@
     </body>
     
     <script>
+    	$(document).ready(function(){
+    		if("${info }"=="board"){
+    			tab(3);
+    		} else if("${info }"=="reply"){
+    			tab(4);
+    		}
+    	});
+    	// 검색란에서 엔터입력
+    	$("#hsearch").keyup(function(txt){
+    		if(txt.keyCode==13){
+	    		var search = $("#hsearch").val();
+	    		if(search!=""){
+	    			location.href="/search/"+search;
+	    		}
+    		}
+    	});
+    	// 검색버튼 클릭
+    	function search(){
+    		var search = $("#hsearch").val();
+    		if(search!=""){
+    			location.href="/search/"+search;
+    		}
+    	}
     	// 탭 클릭
     	function tab(num){
     		for(var i=1; i<=5; i++){

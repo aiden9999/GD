@@ -11,7 +11,10 @@
 		insert into worryreply values(#{id}, #{name}, #{reply}, now(), #{num})
 	</insert>
 	<select id="replyList" resultType="java.util.HashMap">
-		select * from worryreply
+		select * from worryreply order by day desc
+	</select>
+	<select id="worryList" resultType="java.util.HashMap">
+		select * from worry order by day desc
 	</select>
 	<select id="worryCount" resultType="java.lang.Integer">
 		select count(*) from worry

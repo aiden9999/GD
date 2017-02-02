@@ -31,6 +31,9 @@
         <header>
             <div class="header_top">
                 <div class="inner">
+                	<c:if test="${login==null }">
+	                	<div class="txt" onclick="login()">로그인</div>
+                	</c:if>
                     <div class="logo" onclick="location.href='/'"><label><span >L</span>ogo</label></div>
                     <div class="search">
                         <input type="text" id="hsearch" style="border: 2px solid #888f8d; height: 24px; " maxlength="10">
@@ -41,20 +44,39 @@
             <div class="gnb">
                 <div class="inner">
                     <ul>
-                        <li onclick="location.href='/elementary'">
+                        <li onclick="location.href='/elementary'" class="gnb_menu">
                             <div class="txt">초등학원</div>
                         </li>
-                        <li onclick="location.href='/middle'">
+						<li onclick="location.href='/middle'" class="gnb_menu">
                             <div class="txt">중등학원</div>
                         </li>
-                        <li onclick="location.href='/high'">
+                        <li onclick="location.href='/high'" class="gnb_menu">
                             <div class="txt">고등학원</div>
                         </li>
-                        <li onclick="location.href='/information'">
+                        <li class="gnb_menu">
                             <div class="txt">입시정보</div>
+                            <ul>
+                                <li class="drop_menu" onclick="location.href='/highExam'">
+                                    <div class="txt1">고등입시</div>
+                                </li>
+                                <li class="drop_menu" onclick="location.href='/univExam'">
+                                    <div class="txt1">대학입시</div>
+                                </li>
+                            </ul>
                         </li>
-                        <li onclick="location.href='/community'">
+                        <li class="gnb_menu">
                             <div class="txt">커뮤니티</div>
+                            <ul>
+                                <li class="drop_menu" onclick="location.href='/waggle'">
+                                    <div class="txt1">수다방</div>
+                                </li>
+                                <li class="drop_menu" onclick="location.href='/worry'">
+                                    <div class="txt1">고민상담</div>
+                                </li>
+                                <li class="drop_menu" onclick="location.href='/notice'">
+                                    <div class="txt1">공지사항</div>
+                                </li>
+                            </ul>
                         </li>
                     </ul>
                 </div>
@@ -70,14 +92,14 @@
                 </div>
                 <div class="container">
                     <div class="tab_wrap">
-                        <div class="tit sel" id="t1">
-                            <div class="txt" onclick="tab(1)"> 회 원 목 록 </div>
+                        <div class="tit sel" id="t1" onclick="tab(1)">
+                            <div class="txt"> 회 원 목 록 </div>
                         </div>
-                        <div class="tit" id="t2">
-                            <div class="txt" onclick="tab(2)"> 게 시 판 관 리 </div>
+                        <div class="tit" id="t2" onclick="tab(2)">
+                            <div class="txt"> 게 시 판 관 리 </div>
                         </div>
-                        <div class="tit" id="t3">
-                            <div class="txt" onclick="tab(3)"> 문 자 전 송 </div>
+                        <div class="tit" id="t3" onclick="tab(3)">
+                            <div class="txt"> 문 자 전 송 </div>
                         </div>
                         <!-- tab1 -->
                         <div class="contents" id="tab1">
@@ -170,7 +192,8 @@
                                     <select id="nowBoard">
                                         <option value="choose">게시판 선택</option>
                                         <option value="notice">공지사항</option>
-                                        <option value="exam">입시정보</option>
+                                        <option value="highExam">고등입시</option>
+                                        <option value="univExam">대학입시</option>
                                     </select>
                                 </div>
                                 <div class=list_wrap>
@@ -221,7 +244,9 @@
                                     </div>
                                 </div>
                                 <div class="receive_wrap">
-                                    <div class="tit">수신목록</div>
+                                    <div class="tit">수신목록&nbsp;
+                                    	<font style="color: black; font-weight: normal; font-size: 15px" id="giveCount">0 / 100</font>
+                                    </div>
                                     <div class="list" id="takeList"></div>
                                 </div>
                                 <div class="letter_wrap">
@@ -255,7 +280,7 @@
 			if(txt.keyCode==13){
 	    		var search = $("#hsearch").val();
 	    		if(search!=""){
-		    		alert(search);
+	    			location.href="/search/"+search;
 	    		}
 			}
 		});
@@ -263,7 +288,7 @@
 		function search(){
 			var search = $("#hsearch").val();
 			if(search!=""){
-	    		alert($("#hsearch").val());
+				location.href="/search/"+search;
 			}
 		}
 		// 탭이동
@@ -349,6 +374,9 @@
 			} else {
 				var html = "<div class='name_wrap'><div class='name'>게시판을 선택해주세요.</div></div>";
 				$("#boardList").html(html);
+				$("#tab2Title").val("");
+				$("#tab2Writer").val("");
+				$("#tab2Content").val("");
 			}
 		});
 		// tab2 게시판 글 선택
@@ -391,19 +419,29 @@
 				});
 			}
 		}
-		// tab3 회원 클릭 / 제거
-		var num = 1;
+		// tab3 회원 클릭
+		var num = 0;
 		function take(element){
-			var html = "<div class='name_wrap' id='"+num+"'>";
+			var html = "<div class='name_wrap' id='give"+num+"'>";
 			html += "<div class='dot'></div>&nbsp;";
 			html += "<div class='name'>"+element.innerHTML+"</div>&nbsp;";
-			html += "<div class='X_mark' onclick='$(\"#"+num+"\").remove()'>X</div></div>";
+			html += "<div class='X_mark' onclick='remov("+num+")'>X</div></div>";
 			if($("#takeList").html().indexOf(element.innerHTML)>0){
 				alert("이미 수신목록에 있습니다.");
 			} else {
 				$("#takeList").append(html);
 				num ++;
+				$("#giveCount").html(num+" / 100");
 			}
+		}
+		// tab3 회원 제거
+		function remov(num2){
+			$("#give"+num2).remove();
+			var count = $("#giveCount").html();
+			count = count.substring(0, count.indexOf('/')-1);
+			count --;
+			num --;
+			$("#giveCount").html(count+" / 100");
 		}
 		// tab3 문자내용 입력
      	$("#message").keyup(function(txt){

@@ -213,4 +213,54 @@ public class MainService {
 		}
 		session.removeAttribute("login");
 	}
+
+	// 검색시 학원리스트
+	public List<HashMap> academy(String search, int num) {
+		SqlSession ss = fac.openSession();
+		HashMap map = new HashMap();
+		map.put("search", "%"+search+"%");
+		map.put("page", (num-1)*5);
+		List<HashMap> list = ss.selectList("search.academy", map);
+		ss.close();
+		return list;
+	}
+
+	// 검색시 학원리스트 페이지
+	public int academyPage(String search) {
+		SqlSession ss = fac.openSession();
+		int page = ss.selectOne("search.academyPage", "%"+search+"%");
+		page = page%5==0 ? page/5 : page/5+1;
+		ss.close();
+		return page;
+	}
+
+	// 검색시 공지사항 리스트
+	public List<HashMap> notice(String search, int num) {
+		SqlSession ss = fac.openSession();
+		HashMap map = new HashMap();
+		map.put("search", "%"+search+"%");
+		map.put("page", (num-1)*5);
+		List<HashMap> list = ss.selectList("search.notice", map);
+		ss.close();
+		return list;
+	}
+	
+	// 검색시 공지사항 페이지
+	public int noticePage(String search){
+		SqlSession ss = fac.openSession();
+		int page = ss.selectOne("search.noticePage", "%"+search+"%");
+		ss.close();
+		return page;
+	}
+
+	// 검색 게시판 변경
+	public List<HashMap> boardChange(String board, String search) {
+		SqlSession ss = fac.openSession();
+		HashMap map = new HashMap();
+		map.put("search", "%"+search+"%");
+		map.put("page", 0);
+		List<HashMap> list = ss.selectList("search"+board, map);
+		ss.close();
+		return list;
+	}
 }

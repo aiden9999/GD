@@ -12,12 +12,13 @@ public class NoticeService {
 	SqlSessionFactory fac;
 
 	// 공지사항 작성
-	public boolean write(String title, String content, String id) {
+	public boolean write(String title, String content, String id, String name) {
 		SqlSession ss = fac.openSession();
 		HashMap<String, String> map = new HashMap<>();
 		map.put("title", title);
 		map.put("content", content);
 		map.put("id", id);
+		map.put("name", name);
 		try{
 			ss.insert("notice.write", map);
 			ss.commit();

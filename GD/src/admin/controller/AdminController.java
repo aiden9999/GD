@@ -61,4 +61,10 @@ public class AdminController {
 												@PathVariable(name="writer")String writer, @PathVariable(name="content")String content){
 		return ad.boardMove(nowBoard, title, writer, content);
 	}
+	
+	// 학원 등록
+	@RequestMapping("/regist")
+	public String regist(){
+		return "/admin/regist.jsp";
+	}
 }

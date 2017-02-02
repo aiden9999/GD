@@ -175,15 +175,7 @@ public class AdminService {
 	public List<HashMap> board(String type) {
 		SqlSession ss = fac.openSession();
 		String sql = "admin.board";
-		switch(type){
-		case "notice":
-			sql += "Notice";
-			break;
-		case "exam":
-			sql += "Exam";
-			break;
-		}
-		List<HashMap> list = ss.selectList(sql);
+		List<HashMap> list = ss.selectList("admin.board"+type);
 		ss.close();
 		return list;
 	}

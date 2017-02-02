@@ -4,7 +4,7 @@
 
 <c:choose>
 	<c:when test="${boardList.size()!=0 }">
-		<c:forEach var="i" begin="1" end="${boardList.size()-1 }">
+		<c:forEach var="i" begin="0" end="${boardList.size()-1 }">
 			<div class="name_wrap">
 				<div class="dot"></div>
 				<div class="name" style="cursor: pointer;" onclick="boardDetail('${boardList.get(i).TITLE}')">${boardList.get(i).TITLE }</div>

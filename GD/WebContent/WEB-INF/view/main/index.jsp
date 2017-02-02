@@ -43,25 +43,39 @@
             <div class="gnb">
                 <div class="inner">
                     <ul>
-<!--                         <li onclick="Frameset('/elementary')"> -->
-                        <li onclick="location.href='/elementary'">
+                        <li onclick="location.href='/elementary'" class="gnb_menu">
                             <div class="txt">초등학원</div>
                         </li>
-<!--                         <li onclick="Frameset('/middle')"> -->
-						<li onclick="location.href='/middle'">
+						<li onclick="location.href='/middle'" class="gnb_menu">
                             <div class="txt">중등학원</div>
                         </li>
-<!--                         <li onclick="Frameset('/high')"> -->
-                        <li onclick="location.href='/high'">
+                        <li onclick="location.href='/high'" class="gnb_menu">
                             <div class="txt">고등학원</div>
                         </li>
-<!--                         <li onclick="Frameset('/information')"> -->
-                        <li onclick="location.href='/information'">
+                        <li class="gnb_menu">
                             <div class="txt">입시정보</div>
+                            <ul>
+                                <li class="drop_menu" onclick="location.href='/highExam'">
+                                    <div class="txt1">고등입시</div>
+                                </li>
+                                <li class="drop_menu" onclick="location.href='/univExam'">
+                                    <div class="txt1">대학입시</div>
+                                </li>
+                            </ul>
                         </li>
-<!--                         <li onclick="Frameset('/community')"> -->
-                        <li onclick="location.href='/community'">
+                        <li class="gnb_menu">
                             <div class="txt">커뮤니티</div>
+                            <ul>
+                                <li class="drop_menu" onclick="location.href='/waggle'">
+                                    <div class="txt1">수다방</div>
+                                </li>
+                                <li class="drop_menu" onclick="location.href='/worry'">
+                                    <div class="txt1">고민상담</div>
+                                </li>
+                                <li class="drop_menu" onclick="location.href='/notice'">
+                                    <div class="txt1">공지사항</div>
+                                </li>
+                            </ul>
                         </li>
                     </ul>
                 </div>
@@ -169,6 +183,7 @@
                                 <div class="dot"></div>
                                 <div class="txt" onclick="information(this)"> 2018학년도 수능 최저 등급 </div>
                             </div>
+                            <div class="plus">더보기+</div>
                         </div>
                         <div class="choice">
                             <select id="grade">
@@ -225,7 +240,7 @@
                              <c:forEach var="i" begin="6" end="10">
 	                            <div class="academy low">
 	                                <div class="number">${i }.</div>
-	                                <div class="txt" onclick="academy(this)">강남대치학원 멘토클리닉</div>
+	                                <div class="txt" onclick="academy(this)" style="cursor: pointer;">강남대치학원 멘토클리닉</div>
 	                            </div>
                             </c:forEach>
                         </div>
@@ -256,7 +271,7 @@
                             <c:forEach var="i" begin="6" end="10">
 	                            <div class="academy low">
 	                                <div class="number">${i }.</div>
-	                                <div class="txt" onclick="academy(this)">강남대치학원 멘토클리닉</div>
+	                                <div class="txt" onclick="academy(this)" style="cursor: pointer;">강남대치학원 멘토클리닉</div>
 	                            </div>
                             </c:forEach>
                         </div>
@@ -287,7 +302,7 @@
                             <c:forEach var="i" begin="6" end="10">
 	                            <div class="academy low">
 	                                <div class="number">${i }.</div>
-	                                <div class="txt" onclick="academy(this)">강남대치학원 멘토클리닉</div>
+	                                <div class="txt" onclick="academy(this)" style="cursor: pointer;">강남대치학원 멘토클리닉</div>
 	                            </div>
                             </c:forEach>
                         </div>
@@ -320,7 +335,7 @@
 		                                        <div class="img">
 		                                            <img src="img/point.png">
 		                                        </div>
-		                                        <div class="txt" onclick="point()">포인트<span> ${login.VISIT }p</span></div>
+		                                        <div class="txt" style="cursor: default;">포인트<span> ${login.VISIT }p</span></div>
 		                                    </div>
 		                                    <div class="write_wrap sub_box">
 		                                        <div class="img">
@@ -347,7 +362,7 @@
                 			<div class="login_wrap">
 		                        <div class="logo"><span>L</span>ogo</div>
 		                        <div class="login_box">
-		                            <div class="id_box">
+		                            <div class="id_box" style="margin-top: 2px">
 		                            	<c:choose>
 		                            		<c:when test="${save!=null }">
 		                            			<!-- 아이디 저장 -->
@@ -402,21 +417,21 @@
                             <div class="txt_wrap">
                                 <div class="dot green"></div>
 <!--                                 <div class="txt green" onclick="notice(${t.NUM })">11월 12일, 11월 19일 입시 -->
-                                <div class="txt green" onclick="notice(this)"><label>11월 12일, 11월 19일 입시
-                                    <br> 설명회 중등부12일 고등부 19일 ‥</label></div>
+                                <div class="txt green" onclick="notice(this)" style="cursor: pointer; font-weight: normal;">11월 12일, 11월 19일 입시
+                                    <br> 설명회 중등부12일 고등부 19일 ‥</div>
                             </div>
                             <div class="txt_wrap">
                                 <div class="dot"></div>
-                                <div class="txt" onclick="notice(this)"><label>2017년 겨울방학 특강 시간표</label></div>
+                                <div class="txt" onclick="notice(this)" style="cursor: pointer; font-weight: normal;">2017년 겨울방학 특강 시간표</div>
                             </div>
                             <div class="txt_wrap">
                                 <div class="dot"></div>
-                                <div class="txt" onclick="notice(this)"><label>2017년 수능 고3 미적분1 + 확률통계
-                                    수능 족집게 개념 강의</label></div>
+                                <div class="txt" onclick="notice(this)" style="cursor: pointer; font-weight: normal;">2017년 수능 고3 미적분1 + 확률통계
+                                    수능 족집게 개념 강의</div>
                             </div>
                             <div class="txt_wrap">
                                 <div class="dot"></div>
-                                <div class="txt" onclick="notice(this)"><label>2017년 겨울방학 특강 시간표</label></div>
+                                <div class="txt" onclick="notice(this)" style="cursor: pointer; font-weight: normal;">2017년 겨울방학 특강 시간표</div>
                             </div>
                         </div>
                     </div>
@@ -465,21 +480,21 @@
                             <div class="txt_wrap">
                                 <div class="dot"></div>
 <!--                                 <div class="txt" onclick="waggle(${t.NUM })">11월 12일, 11월 19일 입시 -->
-                                <div class="txt" onclick="waggle(this)"><label>11월 12일, 11월 19일 입시
-                                    <br> 설명회 중등부12일 고등부 19일 ‥</label></div>
+                                <div class="txt" onclick="waggle(this)" style="cursor: pointer; font-weight: normal;">11월 12일, 11월 19일 입시
+                                    <br> 설명회 중등부12일 고등부 19일 ‥</div>
                             </div>
                             <div class="txt_wrap">
                                 <div class="dot green"></div>
-                                <div class="txt green" onclick="waggle(this)"><label>2017년 겨울방학 특강 시간표</label></div>
+                                <div class="txt green" onclick="waggle(this)" style="cursor: pointer; font-weight: normal;">2017년 겨울방학 특강 시간표</div>
                             </div>
                             <div class="txt_wrap">
                                 <div class="dot"></div>
-                                <div class="txt" onclick="waggle(this)"><label>2017년 수능 고3 미적분1 + 확률통계
-                                    수능 족집게 개념 강의</label></div>
+                                <div class="txt" onclick="waggle(this)" style="cursor: pointer; font-weight: normal;">2017년 수능 고3 미적분1 + 확률통계
+                                    수능 족집게 개념 강의</div>
                             </div>
                             <div class="txt_wrap">
                                 <div class="dot"></div>
-                                <div class="txt" onclick="waggle(this)"><label>2017년 겨울방학 특강 시간표</label></div>
+                                <div class="txt" onclick="waggle(this)" style="cursor: pointer; font-weight: normal;">2017년 겨울방학 특강 시간표</div>
                             </div>
                         </div>
                     </div>
@@ -591,7 +606,7 @@
     	// 더보기
     	function more(txt){
     		if(txt=="notice"){
-    			location.href="/information";
+    			location.href="/notice";
     		} else if(txt=="waggle"){
     			alert(txt);
     		}
@@ -654,22 +669,22 @@
     			$("#recom").html("초등");
 	    		$("#recPrev").hide();
 	    		$("#recNext").show();
-	    		$("#inner2").animate({"left" : "+=565px"}, "slow");
-	    		$("#inner1").fadeIn(1500);
-	    		setTimeout(function() {
-	    			$("#inner2").animate({"left" : "-=565px"}, "slow");
-	    			$("#inner2").hide();
-	    		}, 1500);
+// 	    		$("#inner2").animate({"left" : "+=565px"}, "slow");
+// 	    		$("#inner1").fadeIn(1500);
+// 	    		setTimeout(function() {
+// 	    			$("#inner2").animate({"left" : "-=565px"}, "slow");
+// 	    			$("#inner2").hide();
+// 	    		}, 1500);
     		} else {
     			$("#recom").html("중등");
     			$("#recPrev").show();
     			$("#recNext").show();
-    			$("#inner3").animate({"left" : "+=565px"}, "slow");
-	    		$("#inner2").fadeIn(1500);
-	    		setTimeout(function() {
-	    			$("#inner3").animate({"left" : "-=565px"}, "slow");
-	    			$("#inner3").hide();
-	    		}, 1500);
+//     			$("#inner3").animate({"left" : "+=565px"}, "slow");
+// 	    		$("#inner2").fadeIn(1500);
+// 	    		setTimeout(function() {
+// 	    			$("#inner3").animate({"left" : "-=565px"}, "slow");
+// 	    			$("#inner3").hide();
+// 	    		}, 1500);
     		}
     	}
     	// 다음
@@ -679,23 +694,23 @@
 	    		$("#recom").html("중등");
 	    		$("#recNext").show();
 	    		$("#recPrev").show();
-	    		$("#inner1").animate({"left" : "-=565px"}, "slow");
-	    		$("#inner2").fadeIn(1500);
-	    		setTimeout(function() {
-	    			$("#inner1").animate({"left" : "+=565px"}, "slow");
-	    			$("#inner1").hide();
-	    		}, 1500);
+// 	    		$("#inner1").animate({"left" : "-=565px"}, "slow");
+// 	    		$("#inner2").fadeIn(1500);
+// 	    		setTimeout(function() {
+// 	    			$("#inner1").animate({"left" : "+=565px"}, "slow");
+// 	    			$("#inner1").hide();
+// 	    		}, 1500);
     		} else if(recom=="중등"){
     			$("#recom").html("고등");
     			$("#recNext").hide();
     			$("#recPrev").show();
     			$("#inner1").hide();
-    			$("#inner2").animate({"left" : "-=565px"}, "slow");
-	    		$("#inner3").fadeIn(1500);
-	    		setTimeout(function() {
-	    			$("#inner2").animate({"left" : "+=565px"}, "slow");
-	    			$("#inner2").hide();
-	    		}, 1500);
+//     			$("#inner2").animate({"left" : "-=565px"}, "slow");
+// 	    		$("#inner3").fadeIn(1500);
+// 	    		setTimeout(function() {
+// 	    			$("#inner2").animate({"left" : "+=565px"}, "slow");
+// 	    			$("#inner2").hide();
+// 	    		}, 1500);
     		} else {
     			$("#recom").html("초등");
     			$("#recNext").show();
@@ -703,16 +718,16 @@
     		}
     	}
     	// 포인트
-    	function point(){
-    		alert("point");
-    	}
+//     	function point(){
+//     		alert("point");
+//     	}
     	// 내 글
     	function board(){
-    		alert("board");
+    		location.href="/member/info/myBoard/${login.ID }";
     	}
     	// 내 댓글
     	function reply(){
-    		alert("reply");
+    		location.href="/member/info/myReply/${login.ID }";
     	}
     	// 내정보
     	function info(){

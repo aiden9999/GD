@@ -270,4 +270,45 @@ public class MemberService {
 		ss.close();
 		return list;
 	}
+
+	// 내정보 내가 쓴글1
+//	public List<HashMap> board1(String id) {
+//		SqlSession ss = fac.openSession();
+//		List<HashMap> list = ss.selectList("member.waggleList", id);
+//		List<HashMap> list2 = ss.selectList("member.waggleReply", id);
+//		ss.close();
+//		return list;
+//	}
+	
+	// 내정보 내가 쓴글2
+	public List<HashMap> board2(String id) {
+		SqlSession ss = fac.openSession();
+		List<HashMap> list = ss.selectList("member.worryList", id);
+		List<HashMap> list2 = ss.selectList("worry.replyList");
+		for(int i=0; i<list.size(); i++){
+			int n = 0;
+			for(int j=0; j<list2.size(); j++){
+				if(list.get(i).get("NUM")==list2.get(j).get("NUM")){
+					list.get(i).put("REPLY", n++);
+				}
+			}
+		}
+		ss.close();
+		return list;
+	}
+
+	// 내정보 내가 쓴 댓글2
+	public List<HashMap> reply2(String id) {
+		SqlSession ss = fac.openSession();
+		List<HashMap> list = ss.selectList("worry.worryList", id);
+		List<HashMap> list2 = ss.selectList("worry.replyList");
+		for(int i=0; i<list2.size(); i++){
+			for(int j=0; j<list.size(); j++){
+				if(list2.get(i).get("NUM")==list.get(j).get("NUM")){
+					list2.get(i).put("BOARD", list.get(j).get("CONTENT"));
+				}
+			}
+		}
+		return list2;
+	}
 }

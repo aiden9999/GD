@@ -34,33 +34,52 @@
         <header>
             <div class="header_top">
                 <div class="inner">
+                	<c:if test="${login==null }">
+	                	<div class="txt" onclick="login()">로그인</div>
+                	</c:if>
                     <div class="logo" onclick="location.href='/'"><label><span >L</span>ogo</label></div>
                     <div class="search">
                         <input type="text" id="hsearch" style="border: 2px solid #888f8d; height: 24px; " maxlength="10">
                         <img class="hsearch" src="/img/search.png" onclick="search()">
                     </div>
-                    <c:if test="${login==null }">
-	                    <div class="txt" onclick="login()">로그인</div>
-                    </c:if>
                 </div>
             </div>
             <div class="gnb">
                 <div class="inner">
                     <ul>
-                        <li onclick="location.href='/elementary'">
+                        <li onclick="location.href='/elementary'" class="gnb_menu">
                             <div class="txt">초등학원</div>
                         </li>
-                        <li onclick="location.href='/middle'">
+						<li onclick="location.href='/middle'" class="gnb_menu">
                             <div class="txt">중등학원</div>
                         </li>
-                        <li onclick="location.href='/high'">
+                        <li onclick="location.href='/high'" class="gnb_menu">
                             <div class="txt">고등학원</div>
                         </li>
-                        <li onclick="location.href='/information'">
+                        <li class="gnb_menu">
                             <div class="txt">입시정보</div>
+                            <ul>
+                                <li class="drop_menu" onclick="location.href='/highExam'">
+                                    <div class="txt1">고등입시</div>
+                                </li>
+                                <li class="drop_menu" onclick="location.href='/univExam'">
+                                    <div class="txt1">대학입시</div>
+                                </li>
+                            </ul>
                         </li>
-                        <li onclick="location.href='/community'">
+                        <li class="gnb_menu">
                             <div class="txt">커뮤니티</div>
+                            <ul>
+                                <li class="drop_menu" onclick="location.href='/waggle'">
+                                    <div class="txt1">수다방</div>
+                                </li>
+                                <li class="drop_menu" onclick="location.href='/worry'">
+                                    <div class="txt1">고민상담</div>
+                                </li>
+                                <li class="drop_menu" onclick="location.href='/notice'">
+                                    <div class="txt1">공지사항</div>
+                                </li>
+                            </ul>
                         </li>
                     </ul>
                 </div>
@@ -116,7 +135,6 @@
 	                                    <input type="text" id="reply${worryList.get(i).NUM }" name="reply">
 	                                    <div class="btn" onclick="replySubmit(${worryList.get(i).NUM })">등록</div>
 	                                </div>
-	                                
 	                                <c:forEach var="j" begin="0" end="${replyList.size()-1 }">
 	                                	<c:if test="${worryList.get(i).NUM == replyList.get(j).NUM }">
 			                                <div class="reply_old">
@@ -128,7 +146,6 @@
 			                                </div>
 	                                	</c:if>
 	                                </c:forEach>
-	                                
 	                            </div>
 	                        </div>
 	                    </div>
@@ -192,7 +209,7 @@
 			if(txt.keyCode==13){
 	    		var search = $("#hsearch").val();
 	    		if(search!=""){
-		    		alert(search);
+	    			location.href="/search/"+search;
 	    		}
 			}
 		});
@@ -200,7 +217,7 @@
 		function search(){
 			var search = $("#hsearch").val();
 			if(search!=""){
-	    		alert($("#hsearch").val());
+				location.href="/search/"+search;
 			}
 		}
 		// 로그인
@@ -229,7 +246,10 @@
             x.className = x.className.replace(" drop_show", "");
         }
      	// 페이지 클릭
-   		var pageNum = new Array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+   		var pageNum = new Array();
+     	for(var i=1; i<=${worryPage}; i++){
+     		pageNum[i] = i;
+     	}
      	function page(num){
      		for(var i=0; i<pageNum.length; i++){
 				var x = document.getElementById("page"+pageNum[i]);
