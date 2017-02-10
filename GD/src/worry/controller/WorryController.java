@@ -1,5 +1,7 @@
 package worry.controller;
 
+import java.util.*;
+
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.*;
 import org.springframework.web.bind.annotation.*;
@@ -25,6 +27,39 @@ public class WorryController {
 	@ResponseBody
 	public boolean reply(@PathVariable(name="id")String id, @PathVariable(name="name")String name, @PathVariable(name="reply")String reply,
 										@PathVariable(name="num")int num){
-		return ws.reply(id, name, reply, num);
+		boolean b = ws.reply(id, name, reply, num);
+		if(b){
+			ws.replyUp(num);
+		}
+		return b;
+	}
+	
+	// 검색 Ajax 및 검색 페이징처리
+	@RequestMapping("/search/{search}/{word}/{page}")
+	public ModelAndView sesarch(@PathVariable(name="search")String search, @PathVariable(name="word")String word,
+													@PathVariable(name="page")int page){
+		ModelAndView mav = new ModelAndView("/menu/community/worry/worryAjax.jsp");
+		List<HashMap> worryList = ws.worryAjax(search, word, page);
+		mav.addObject("worryList", worryList);
+		List<HashMap> replyList = ws.replyList();
+		mav.addObject("replyList", replyList);
+		int worryPage = ws.searchPage(search, word)%10==0 ? ws.searchPage(search, word)/10 : ws.searchPage(search, word)/10+1;
+		mav.addObject("worryPage", worryPage);
+		mav.addObject("search", search);
+		mav.addObject("word", word);
+		return mav;
+	}
+	
+	// 기본 페이징처리
+	@RequestMapping("/page/{page}")
+	public ModelAndView page(@PathVariable(name="page")int page){
+		ModelAndView mav = new ModelAndView("/menu/community/worry/worryPage.jsp");
+		List<HashMap> worryList = ws.worry(page);
+		mav.addObject("worryList", worryList);
+		List<HashMap> replyList = ws.replyList();
+		mav.addObject("replyList", replyList);
+		int worryPage = ws.worryCount()%10==0 ? ws.worryCount()/10 : ws.worryCount()/10+1;
+		mav.addObject("worryPage", worryPage);
+		return mav;
 	}
 }

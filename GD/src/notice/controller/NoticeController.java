@@ -40,6 +40,34 @@ public class NoticeController {
 		int noticePage = ns.noticeCount()%10==0 ? ns.noticeCount()/10 : ns.noticeCount()/10+1;
 		mav.addObject("noticePage", noticePage);
 		mav.addObject("selectPage", pageNum);
+		int start = 1+(int)((pageNum-1)/10)*10;
+		mav.addObject("start", start);
+		int end = start+9>pageNum ? pageNum : start+9;
+		mav.addObject("end", end);
 		return mav;
+	}
+	
+	// 공지사항 상세보기
+	@RequestMapping("/view/{num}")
+	public ModelAndView view(@PathVariable(name="num")int num){
+		ModelAndView mav = new ModelAndView("/menu/community/notice/view.jsp");
+		HashMap map = ns.view(num);
+		mav.addObject("map", map);
+		return mav;
+	}
+	
+	// 공지사항 수정
+	@RequestMapping("/modify/{num}/{title}/{content}")
+	@ResponseBody
+	public boolean modify(@PathVariable(name="num")int num, @PathVariable(name="title")String title,
+											@PathVariable(name="content")String content){
+		return ns.modify(num, title, content);
+	}
+	
+	// 공지사항 삭제
+	@RequestMapping("/delete/{num}")
+	@ResponseBody
+	public boolean delete(@PathVariable(name="num")int num){
+		return ns.delete(num);
 	}
 }

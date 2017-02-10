@@ -44,13 +44,13 @@
             <div class="gnb">
                 <div class="inner">
                     <ul>
-                        <li onclick="location.href='/elementary'" class="gnb_menu">
+                        <li onclick="location.href='/el'" class="gnb_menu">
                             <div class="txt">초등학원</div>
                         </li>
-						<li onclick="location.href='/middle'" class="gnb_menu">
+						<li onclick="location.href='/mi'" class="gnb_menu">
                             <div class="txt">중등학원</div>
                         </li>
-                        <li onclick="location.href='/high'" class="gnb_menu">
+                        <li onclick="location.href='/hi'" class="gnb_menu">
                             <div class="txt">고등학원</div>
                         </li>
                         <li class="gnb_menu">
@@ -100,6 +100,9 @@
                         </div>
                         <div class="tit" id="t3" onclick="tab(3)">
                             <div class="txt"> 문 자 전 송 </div>
+                        </div>
+                        <div class="tit" id="t4" onclick="tab(4)" style="border-left: none">
+                            <div class="txt"> 학 원 등 록 </div>
                         </div>
                         <!-- tab1 -->
                         <div class="contents" id="tab1">
@@ -158,7 +161,14 @@
                                     			</c:when>
                                     			<c:otherwise>
 				                                    <div class="info_wrap checks">
-				                                        <input type="checkbox" id="giveAdmin" checked="checked">
+				                                    	<c:choose>
+				                                    		<c:when test="${login.ID == 'admin' }">
+						                                        <input type="checkbox" id="giveAdmin" checked="checked">
+				                                    		</c:when>
+				                                    		<c:otherwise>
+						                                        <input type="checkbox" id="giveAdmin" checked="checked" disabled="disabled">
+				                                    		</c:otherwise>
+				                                    	</c:choose>
 				                                        <label for="giveAdmin" class="tit">관리자 권한부여</label>
 				                                    </div>
                                     			</c:otherwise>
@@ -166,7 +176,14 @@
                                     	</c:when>
                                     	<c:otherwise>
 		                                    <div class="info_wrap checks">
-		                                        <input type="checkbox" id="giveAdmin">
+		                                    	<c:choose>
+		                                    		<c:when test="${login.ID == 'admin' }">
+				                                        <input type="checkbox" id="giveAdmin">
+		                                    		</c:when>
+		                                    		<c:otherwise>
+				                                        <input type="checkbox" id="giveAdmin" disabled="disabled">
+		                                    		</c:otherwise>
+		                                    	</c:choose>
 		                                        <label for="giveAdmin" class="tit">관리자 권한부여</label>
 		                                    </div>
                                     	</c:otherwise>
@@ -250,7 +267,7 @@
                                     <div class="list" id="takeList"></div>
                                 </div>
                                 <div class="letter_wrap">
-                                    <div class="tit">문자 전송</div>
+                                    <div class="tit">문자전송</div>
                                     <textarea placeholder="내용을 입력해주세요." style="resize: none" id="message"></textarea>
                                     <div class="txt" id="words">0 / 200</div>
                                     <div class="cannext_wrap">
@@ -258,6 +275,124 @@
                                         <div class="btn next">전 송</div>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                        <!-- tab4 -->
+                        <div class="contents" id="tab4" style="display: none">
+                            <div class="inner">
+                            	<div class="join02">
+						        	<form action="/admin/	registCommit" enctype="multipart/form-data" method="post" id="form">
+							            <div class="inner">
+<!-- 							                <div class="prize_tit"> -->
+<!-- 							                    <div class="img"> -->
+<!-- 							                        <img src="/img/prize.png"> -->
+<!-- 							                    </div> -->
+<!-- 							                    <div class="txt">학원등록</div> -->
+<!-- 							                </div> -->
+							                <div class="save_section">
+							                    <div class="save_box save_name">
+							                        <div class="txt">학원이름</div>
+							                        <input type="text" id="name" name="name" placeholder="ex) 강남대치학원">
+							                    </div>
+							                    <div class="save_box save_address">
+							                        <div class="txt">학원주소</div>
+							                        <input type="text" id="address" name="addr" placeholder="우편번호 클릭" readonly="readonly">
+							                        <div class="btn" onclick="postCode()">우편번호</div>
+							                    </div>
+							                    <div class="save_box save_address">
+							                        <div class="txt">지번주소</div>
+							                        <input type="text" id="address1" name="addr1" placeholder="우편번호 클릭" readonly="readonly">
+							                    </div>
+							                    <div class="save_box save_phone">
+							                        <div class="txt">학원 전화번호</div>
+							                        <input type="text" id="tell" name="tell" placeholder="ex) 02-123-4567">
+							                    </div>
+							                    <div class="save_box save_sort">
+							                        <div class="txt">분류1</div>
+							                        <select id="type1" name="type1">
+							                            <option value="1">1</option>
+							                            <option value="2">2</option>
+							                            <option value="3">3</option>
+							                        </select>
+							                    </div>
+							                    <div class="save_box save_sort save_sort1">
+							                        <div class="txt">분류2</div>
+							                        <select id="type2" name="type2">
+							                            <option value="1">1</option>
+							                            <option value="2">2</option>
+							                            <option value="3">3</option>
+							                        </select>
+							                    </div>
+							                    <div class="save_box save_homepage">
+							                        <div class="txt">홈페이지주소</div>
+							                        <div class="txt1">http://</div>
+							                        <input type="text" id="site" name="site" placeholder="gogosky.co.kr">
+							                    </div>
+							                    <div class="save_box save_logo">
+							                        <div class="txt" style="bottom: 45px">학원로고</div>
+							                        <div class="plus_box" id="logo1">
+							                            <div class="plus_circle">
+							                                <div class="plus" onclick="logo()">+</div>
+							                                <input type="file" id="logo" name="logo" style="display: none" onchange="showImg(this)"/>
+							                            </div>
+							                        </div>
+							                        <div class="txt1">(5mb 이하, 373px x 186px 사이즈로 업로드 해주십시오.)</div>
+							                    </div>
+							                    <div class="save_box save_intro">
+							                        <div class="txt">학원 소개</div>
+							                        <textarea id="intro" name="intro" placeholder="최대 500자 까지 가능합니다." maxlength="500" style="resize: none"></textarea>
+							                    </div>
+							                    <div class="save_box save_img">
+							                        <div class="txt">학원이미지</div>
+							                        <div class="plus_box" id="pic11">
+							                            <div class="plus_circle">
+							                                <div class="plus" onclick="picture(1)">+</div>
+							                                <input type="file" id="pic1" name="pic1" style="display: none" onchange="showImg(this)"/>
+							                            </div>
+							                        </div>
+							                        <div class="plus_box" id="pic22">
+							                            <div class="plus_circle">
+							                                <div class="plus" onclick="picture(2)">+</div>
+							                                <input type="file" id="pic2" name="pic2" style="display: none" onchange="showImg(this)"/>
+							                            </div>
+							                        </div>
+							                        <div class="plus_box" id="pic33">
+							                            <div class="plus_circle">
+							                                <div class="plus" onclick="picture(3)">+</div>
+							                                <input type="file" id="pic3" name="pic3" style="display: none" onchange="showImg(this)"/>
+							                            </div>
+							                        </div>
+							                        <div class="plus_box" id="pic44">
+							                            <div class="plus_circle">
+							                                <div class="plus" onclick="picture(4)">+</div>
+							                                <input type="file" id="pic4" name="pic4" style="display: none" onchange="showImg(this)"/>
+							                            </div>
+							                        </div>
+							                        <div class="plus_box" id="pic55">
+							                            <div class="plus_circle">
+							                                <div class="plus" onclick="picture(5)">+</div>
+							                                <input type="file" id="pic5" name="pic5" style="display: none" onchange="showImg(this)"/>
+							                            </div>
+							                        </div>
+							                        <div class="txt1">최소 1장 이상 (5mb 이하, 795px x 510px 사이즈로 업로드 해주십시오.)</div>
+							                    </div>
+							                    <div class="save_box save_target">
+							                        <div class="txt">수업대상</div>
+							                        <input type="text" id="target" name="target" placeholder="초등,중등,고등">
+							                    </div>
+							                    <div class="save_box save_subject">
+							                        <div class="txt">수업과목</div>
+							                        <input type="text" id="subject" name="subject" placeholder="국어,영어,수학">
+							                    </div>
+							                    <div class="txt2">※사진을 업로드 하실때 위 사이즈가 아니면 화질이 깨지거나 사진이 늘어날 수 있습니다.※</div>
+							                </div>
+							                <div class="cannext_wrap">
+							                    <div class="btn cancel" onclick="history.back()">취 소</div>
+							                    <div class="btn next" onclick="commit()">등 록</div>
+							                </div>
+							            </div>
+						            </form>
+						        </div>
                             </div>
                         </div>
                     </div>
@@ -275,6 +410,17 @@
 	</body>
 	
 	<script>
+		// 학원 등록 성공 / 실패
+		$(document).ready(function(){
+			if("${b}"!=""){
+				if("${b}"=="y"){
+					alert("등록되었습니다.");
+				} else {
+					alert("등록에 실패하였습니다.\n잠시후 다시 시도해주세요.");
+				}
+			}
+		});
+	
 		// 검색란에서 엔터입력
 		$("#hsearch").keyup(function(txt){
 			if(txt.keyCode==13){
@@ -293,7 +439,7 @@
 		}
 		// 탭이동
 		function tab(num){
-			for(var i=1; i<4; i++){
+			for(var i=1; i<5; i++){
 				var x = document.getElementById("t"+i);
             	if(i==num){
             		if(x.className.indexOf(" sel") == -1){
@@ -480,6 +626,79 @@
      			$("#message").prop("rows", "1");
      		}
      	});
+    	 // tab4 등록
+	  	function commit(){
+	  		var name = $("#name").val();
+	  		var addr1 = $("#address").val();
+	  		var addr2 = $("#address1").val();
+	  		var tell = $("#tell").val();
+	  		var type1 = $("#type1").val();
+	  		var type2 = $("#type2").val();
+	  		var site = $("#site").val();
+	  		var logo = $("#logo").val();
+	  		var intro = $("#intro").val();
+	  		var pic1 = $("#pic1").val();
+	  		var pic2 = $("#pic2").val();
+	  		var pic3 = $("#pic3").val();
+	  		var pic4 = $("#pic4").val();
+	  		var pic5 = $("#pic5").val();
+	  		var target = $("#target").val();
+	  		var subject = $("#subject").val();
+	  		if(logo==""){
+	  			alert("학원로고는 필수로 등록해주세요.");
+	  		} else if(pic1==""){
+	  			alert("학원이미지는 1장이상 등록해야합니다.");
+	  		} else if(name=="" || addr1=="" || addr2=="" || tell=="" || type1=="choose" || type2=="choose" || site=="" || intro=="" ||
+	  						target=="" || subject==""){
+	  			alert("입력하지 않은 항목이 있습니다.");
+	  		} else {
+	  			$("#form").submit();
+	  		}
+	  	}
+	  	// tab4 우편번호
+	    function postCode(){
+	  		var width = window.innerWidth;
+	  		var height = window.innerHeight; 
+			window.open("/admin/postCode", "postCode", "width=500px; height=550px; left="+width/2+" top="+height/2);
+		}
+	  	// tab4 우편번호
+	    function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2,engAddr, jibunAddr, zipNo, admCd, rnMgtSn, bdMgtSn){
+	    	// 팝업페이지에서 주소입력한 정보를 받아서, 현 페이지에 정보를 등록합니다.
+	    	$("#address").val(roadFullAddr);
+	    	$("#address1").val(jibunAddr+" "+addrDetail);
+	    }
+	  	// tab4 로고 선택
+	  	function logo(){
+	  		$("#logo").trigger("click");
+	  	}
+	  	// tab4 사진 선택
+	  	function picture(num){
+	  		$("#pic"+num).trigger("click");
+	  	}
+	 	// tab4 사진 변경시 이미지 미리보기
+ 		function showImg(input) {
+	 		var id = input.id;
+	 		if(id.startsWith("l")){
+	 			id = "logo1";
+	 		} else {
+		 		id = id.substring(id.indexOf('c')+1);
+		 		id = "pic"+id+""+id;
+	 		}
+	 		var name = input.value;
+	 		name = name.substring(name.indexOf('.')+1).toLowerCase();
+	 		if(name != "jpg" && name != "png" && name != "gif"){
+	 			alert(".jpg / .png / .gif 파일만 등록가능합니다.");
+	 		} else {
+	 		    if (input.files && input.files[0]) {
+	 		        var reader = new FileReader();
+	 		        reader.onload = function (e) {
+	 		        	$("#"+id).css("background-image", "url('"+e.target.result+"')");
+	 		        	$("#"+id).css({"background-size" : "100%", "background-position" : "center", "background-repeat" : "no-repeat"});
+	 		        }
+	 		        reader.readAsDataURL(input.files[0]);
+	 		    }
+	 		}
+ 		}
 	</script>
 	
 </html>

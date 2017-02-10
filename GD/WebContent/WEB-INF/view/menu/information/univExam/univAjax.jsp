@@ -23,17 +23,26 @@
 				<div class="txt_box">
 					<div class="txt txt_number">
 						<c:choose>
-							<c:when test="${univCount-i<10 }">
+							<c:when test="${list.get(i).AUTO<10 }">
 								<span>0${univCount-i }</span>
 							</c:when>
 							<c:otherwise>
-								<span>${univCount-i }</span>
+								<span>${list.get(i).AUTO }</span>
 							</c:otherwise>
 						</c:choose>
 					</div>
-					<div onclick="select(${i })" class="txt txt_tit">
-						<span>${list.get(i).TITLE }</span>
-					</div>
+					<c:choose>
+						<c:when test="${login!=null }">
+							<div onclick="select(${list.get(i).AUTO })" class="txt txt_tit">
+								<span>${list.get(i).TITLE }</span>
+							</div>
+						</c:when>
+						<c:otherwise>
+							<div class="txt txt_tit">
+								<span>${list.get(i).TITLE }</span>
+							</div>
+						</c:otherwise>
+					</c:choose>
 					<div id="dropdown${i }" class="contents">
 						<div class="img">
 							<img src="/img/sub02_arrow_up.png" onclick="clo(${i })">
@@ -67,17 +76,17 @@
 <div class="page_wrap">
 	<div class="inner">
 		<div class="arrow_wrap">
-			<div class="arrow prev">
-				<img src="img/sub02_arrow_prev.png">
+			<div class="arrow prev" onclick="prev(this)" id="prev${start }">
+				<img src="/img/sub02_arrow_prev.png">
 			</div>
-			<div class="arrow next">
-				<img src="img/sub02_arrow_next.png">
+			<div class="arrow next" onclick="prev(this)" id="next${start }">
+				<img src="/img/sub02_arrow_next.png">
 			</div>
 		</div>
-		<div class="num_wrap">
-			<c:forEach var="i" begin="1" end="${univPage }">
+		<div class="num_wrap" id="pages" align="center">
+			<c:forEach var="i" begin="${start }" end="${end }">
 				<c:choose>
-					<c:when test="${i==1 }">
+					<c:when test="${i==selectPage }">
 						<div class="num sel" onclick="page(${i })" id="page${i }">
 							<span>${i }</span>
 						</div>
@@ -92,3 +101,23 @@
 		</div>
 	</div>
 </div>
+
+<script>
+	//페이지 표시
+	$(document).ready(function(){
+		var start = ${start };
+		var end = ${end };
+		if(start==1 && end<10){
+			$("#prev"+start).hide();
+			$("#next"+start).hide();
+		} else {
+			if(start==1){
+	  			$("#prev"+start).hide();
+	  			$("#next"+start).show();
+	  		} else if(end>=${univPage }){
+	  			$("#prev"+start).show();
+	  			$("#next"+start).hide();
+	  		}
+		}
+	});
+</script>

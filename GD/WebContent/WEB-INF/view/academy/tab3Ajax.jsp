@@ -112,7 +112,7 @@
 			<div class="txt txt_number">
 				<div class="best_txt">${reviewCount-i }</div>
 			</div>
-			<div class="txt txt_tit">
+			<div class="txt txt_tit" onclick="reviewDetail('${review.get(i).AUTO}')">
 				<span>${review.get(i).DAY } / ${review.get(i).SUBJECT } /
 					${review.get(i).POINT }</span>
 			</div>
@@ -133,18 +133,18 @@
 		</div>
 	</c:if>
 </div>
-<div class="page_wrap" id="pageDiv">
+<div class="page_wrap" id="reviewPages">
 	<div class="inner">
 		<div class="arrow_wrap">
-			<div class="arrow prev">
+			<div class="arrow prev" onclick="reviewPrev(this)" id="reviewPrev${start }">
 				<img src="/img/sub02_arrow_prev.png">
 			</div>
-			<div class="arrow next">
+			<div class="arrow next" onclick="reviewNext(this)" id="reviewNext${start }">
 				<img src="/img/sub02_arrow_next.png">
 			</div>
 		</div>
-		<div class="num_wrap">
-			<c:forEach var="i" begin="1" end="${reviewPage }">
+		<div class="num_wrap" id="pages" align="center" style="font-size: 0">
+			<c:forEach var="i" begin="${start }" end="${end }">
 				<c:choose>
 					<c:when test="${i==selectPage }">
 						<div class="num sel" onclick="reviewPage(${i })" id="reviewPage${i }">
@@ -178,16 +178,6 @@
 	</div>
 	<div class="academy_input">
 		<div class="inner">
-			<!-- 					            <div class="academy_name academy_info"> -->
-			<!-- 					                <div class="tit">학원명</div> -->
-			<!-- 					                <input type="text" id="acaName"> -->
-			<!-- 					            </div> -->
-			<!-- 					            <div class="aca_loca academy_info"> -->
-			<!-- 					                <div class="tit">학원위치</div> -->
-			<!-- 					                <input type="text" id="aca_loca"><span>시</span> -->
-			<!-- 					                <input type="text" id="aca_loca"><span>구</span> -->
-			<!-- 					                <input type="text" id="aca_loca"><span>동</span> -->
-			<!-- 					            </div> -->
 			<div class="aca_term academy_info">
 				<div class="tit">수강기간</div>
 				<input type="text" id="re_day" placeholder="ex. 6개월">
@@ -282,3 +272,24 @@
 		<div class="btn next" onclick="reSave()">저 장</div>
 	</div>
 </div>
+<div class="review_wrap" id="reviewDetail" style="display: none"></div>
+
+<script>
+	//페이지 표시
+	$(document).ready(function(){
+		var start = ${start };
+		var end = ${end };
+		if(start==1 && end<10){
+			$("#reviewPrev"+start).hide();
+			$("#reviewNext"+start).hide();
+		} else {
+			if(start==1){
+	  			$("#reviewPrev"+start).hide();
+	  			$("#reviewNext"+start).show();
+	  		} else if(end>=${reviewPage }){
+	  			$("#reviewPrev"+start).show();
+	  			$("#reviewNext"+start).hide();
+	  		}
+		}
+	});
+</script>

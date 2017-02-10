@@ -44,13 +44,13 @@
             <div class="gnb">
                 <div class="inner">
                     <ul>
-                        <li onclick="location.href='/elementary'" class="gnb_menu">
+                        <li onclick="location.href='/el'" class="gnb_menu">
                             <div class="txt">초등학원</div>
                         </li>
-						<li onclick="location.href='/middle'" class="gnb_menu">
+						<li onclick="location.href='/mi'" class="gnb_menu">
                             <div class="txt">중등학원</div>
                         </li>
-                        <li onclick="location.href='/high'" class="gnb_menu">
+                        <li onclick="location.href='/hi'" class="gnb_menu">
                             <div class="txt">고등학원</div>
                         </li>
                         <li class="gnb_menu">
@@ -99,7 +99,7 @@
                                 <div class="txt">강남에서 대학가기 회원약관</div>
                             </div>
                             <div class="txt_wrap">
-                                <div class="sub_tit">제 1 장 총 칙</div>
+                                <div class="sub_tit">제 1 장 &nbsp;총 칙</div>
                                 <div class="txt">제 1 조 (목적) <br>
                                     이 약관은 주식회사 강남에서 대학가기(이하 '회사'라 합니다)와 이용 고객
                                     (이하 '회원'이라 합니다)간에 회사가 제공하는 강남에서 대학가기 서비스
@@ -133,7 +133,7 @@
                                 <div class="txt">개인정보 수집 및 이용에 대한 안내</div>
                             </div>
                             <div class="txt_wrap">
-                                <div class="sub_tit">제 1 장 총 칙</div>
+                                <div class="sub_tit">제 1 장 &nbsp;총 칙</div>
                                 <div class="txt">제 1 조 (목적) <br>
                                     이 약관은 주식회사 강남에서 대학가기(이하 '회사'라 합니다)와 이용 고객
                                     (이하 '회원'이라 합니다)간에 회사가 제공하는 강남에서 대학가기 서비스
@@ -163,7 +163,7 @@
                 </div>
                 <div class="confirm_wrap">
                     <div class="confirm_tit">실명확인</div>
-                    <div class="confirm_txt"><span>휴대폰 인증 </span>메시지 수신 가능한 휴대폰으로 인증번호를 받으실 수 있습니다.</div>
+                    <div class="confirm_txt"><span>휴대폰 인증 </span>휴대폰으로 인증번호를 받으실 수 있습니다.</div>
                     <div class="btn_wrap" onclick="certification()">
                         <div class="confirm_btn">
                             <div class="inner">

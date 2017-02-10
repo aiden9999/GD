@@ -44,13 +44,13 @@
             <div class="gnb">
                 <div class="inner">
                     <ul>
-                        <li onclick="location.href='/elementary'" class="gnb_menu">
+                        <li onclick="location.href='/el'" class="gnb_menu">
                             <div class="txt">초등학원</div>
                         </li>
-						<li onclick="location.href='/middle'" class="gnb_menu">
+						<li onclick="location.href='/mi'" class="gnb_menu">
                             <div class="txt">중등학원</div>
                         </li>
-                        <li onclick="location.href='/high'" class="gnb_menu">
+                        <li onclick="location.href='/hi'" class="gnb_menu">
                             <div class="txt">고등학원</div>
                         </li>
                         <li class="gnb_menu">

@@ -2,12 +2,26 @@
 <!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="highExam">
 	<insert id="write" parameterType="java.util.HashMap">
-		insert into highexam values(#{title}, #{content},  #{id}, #{name}, now())
+		insert into
+		highexam(title, content, writer, name, day)
+		values(#{title}, #{content},  #{id}, #{name}, now())
 	</insert>
 	<select id="highExam" resultType="java.util.HashMap">
-		select * from highexam order by day desc limit 10 offset #{page}
+		select * from highexam order by auto desc limit 10 offset #{page}
 	</select>
 	<select id="count" resultType="java.lang.Integer">
 		select count(*) from highexam
 	</select>
+	<select id="mainHigh" resultType="java.util.HashMap">
+		select * from highExam order by auto desc
+	</select>
+	<select id="view" resultType="java.util.HashMap">
+		select * from highExam where auto = #{num}
+	</select>
+	<update id="modify" parameterType="java.util.HashMap">
+		update highExam set title = #{title}, content = #{content} where auto = #{num}
+	</update>
+	<delete id="delete">
+		delete from highExam where auto = #{num}
+	</delete>
 </mapper>

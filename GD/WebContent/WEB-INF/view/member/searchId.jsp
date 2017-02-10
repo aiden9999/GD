@@ -13,7 +13,7 @@
     <div class="id_txt" id="findId">
     	<c:choose>
     		<c:when test="${list!=null }">
-		    	${list.get(0).ID }<span>(${list.get(0).DAY } 가입)</span>
+		    	${list.get(0).ID }<span> (${list.get(0).DAY } 가입)</span>
     		</c:when>
     		<c:otherwise>
     			<span>입력하신 정보와 일치하는 회원이 없습니다.</span>

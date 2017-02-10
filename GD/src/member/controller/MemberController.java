@@ -46,6 +46,8 @@ public class MemberController {
 	public ModelAndView info(@PathVariable(name="id")String id, HttpSession session){
 		ModelAndView mav = inner(id);
 		session.removeAttribute("info");
+		String[] addr = {"서울", "인천", "세종", "대전", "대구", "광주", "울산", "부산", "경기도", "강원도", "충청도", "전라도", "경상도", "제주도"};
+		mav.addObject("addr", addr);
 		return mav;
 	}
 	
@@ -85,15 +87,25 @@ public class MemberController {
 		mav.addObject("monthVisit", monthVisit);
 		mav.addObject("point", 0);
 		
-//		List<HashMap> board1 = ms.board1(id);
-//		mav.addObject("board1", board1);
+		// 내가 쓴 글
+		List<HashMap> board1 = ms.board1(id);
+		mav.addObject("board1", board1);
 		List<HashMap> board2 = ms.board2(id);
 		mav.addObject("board2", board2);
 		
-//		List<HashMap> reply1 = ms.reply1(id);
-//		mav.addObject("reply1", reply1);
+		// 내가 쓴 댓글
+		List<HashMap> reply1 = ms.reply1(id);
+		mav.addObject("reply1", reply1);
 		List<HashMap> reply2 = ms.reply2(id);
 		mav.addObject("reply2", reply2);
+		
+		// 학원 리뷰
+		List<HashMap> review = ms.review(id);
+		mav.addObject("review", review);
+		
+		// 한줄 평가
+		List<HashMap> comment = ms.comment(id);
+		mav.addObject("comment", comment);
 		return mav;
 	}
 }

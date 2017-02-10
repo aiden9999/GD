@@ -58,13 +58,13 @@
             <div class="gnb">
                 <div class="inner">
                     <ul>
-                        <li onclick="location.href='/elementary'" class="gnb_menu">
+                        <li onclick="location.href='/el'" class="gnb_menu">
                             <div class="txt">초등학원</div>
                         </li>
-						<li onclick="location.href='/middle'" class="gnb_menu">
+						<li onclick="location.href='/mi'" class="gnb_menu">
                             <div class="txt">중등학원</div>
                         </li>
-                        <li onclick="location.href='/high'" class="gnb_menu">
+                        <li onclick="location.href='/hi'" class="gnb_menu">
                             <div class="txt">고등학원</div>
                         </li>
                         <li class="gnb_menu">
@@ -100,7 +100,7 @@
             <div class="inner">
                 <div class="search02_tit"><span>'${searchWord }'</span> 검색결과</div>
                 <section class="info_section">
-                    <div class="section_aca">
+                    <div class="section_aca" id="acaSection">
                         <div class="aca_header">
                             <div class="circle"></div>
                             <div class="txt">학원</div>
@@ -113,21 +113,21 @@
                         <div class="page_wrap">
                             <div class="inner">
                                 <div class="arrow_wrap">
-                                    <div class="arrow prev">
+                                    <div class="arrow prev" onclick="acaPrev(this)" id="acaPrev1" style="display: none">
                                         <img src="/img/sub02_arrow_prev.png">
                                     </div>
-                                    <div class="arrow next">
+                                    <div class="arrow next" onclick="acaNext(this)" id="acaNext1">
                                         <img src="/img/sub02_arrow_next.png">
                                     </div>
                                 </div>
-                                <div class="num_wrap">
+                                <div class="num_wrap" id="pages" align="center" style="font-size: 0">
                                 	<c:forEach var="i" begin="1" end="${acaPage }">
                                 		<c:choose>
                                 			<c:when test="${i==1 }">
-			                                    <div class="num sel"><span>${i }</span></div>
+			                                    <div class="num sel" onclick="acaPage(${i})" id="acaPage${i }" style="width: 33px"><span>${i }</span></div>
                                 			</c:when>
                                 			<c:otherwise>
-			                                    <div class="num"><span>${i }</span></div>
+			                                    <div class="num" onclick="acaPage(${i})" id="acaPage${i }" style="width: 33px"><span>${i }</span></div>
                                 			</c:otherwise>
                                 		</c:choose>
                                 	</c:forEach>
@@ -143,8 +143,8 @@
                                 <select id="boardSelect" style="width: 150px; padding: 4px; border: 1px solid #88b04b; font-size: 15px; -webkit-appearance: none;
                                 												background: url(../img/sub02_arrow_down.png) no-repeat 95% 50% #fff;">
                                 	<option value="notice">공지사항</option>
-                                	<option value="goHigh">고등입시</option>
-                                	<option value="goUniv">대학입시</option>
+                                	<option value="highExam">고등입시</option>
+                                	<option value="univExam">대학입시</option>
                                 	<option value="worry">고민상담</option>
                                 	<option value="waggle">수다방</option>
                                 	<option value="acaNews">학원소식</option>
@@ -176,7 +176,7 @@
 	                                    <span>${t.TITLE }</span>
 	                                </div>
 	                                <div class="txt txt_rec">
-	                                    <span>${t.WRITER }</span>
+	                                    <span>${t.NAME }</span>
 	                                </div>
 	                                <div class="txt txt_date">
 	                                    <span>${t.DAY }</span>
@@ -184,24 +184,24 @@
 	                            </div>
                             </c:forEach>
                         </div>
-                        <div class="page_wrap">
-                            <div class="inner">
+                        <div class="page_wrap"id="boardPages" align="center" style="font-size: 0">
+                            <div class="inner" style="width: 420px">
                                 <div class="arrow_wrap">
                                     <div class="arrow prev">
-                                        <img src="/img/sub02_arrow_prev.png" onclick="prev()">
+                                        <img src="/img/sub02_arrow_prev.png" onclick="boardPrev()" id="boardPrev1" style="display: none">
                                     </div>
                                     <div class="arrow next">
-                                        <img src="/img/sub02_arrow_next.png" onclick="next()">
+                                        <img src="/img/sub02_arrow_next.png" onclick="boardNext()" id="boardPrev1" style="display: none">
                                     </div>
                                 </div>
-                                <div class="num_wrap">
-                                    <c:forEach var="i" begin="1" end="${noticePage }">
+                                <div class="num_wrap" id="boardPages2" align="center" style="font-size: 0; width: 350px">
+                                    <c:forEach var="i" begin="1" end="${listPage>10 ? 10 : listPage }">
                                 		<c:choose>
                                 			<c:when test="${i==1 }">
-			                                    <div class="num sel"><span>${i }</span></div>
+			                                    <div class="num sel" onclick="boardPage(${i})" id="boardPage${i }" style="width: 33px"><span>${i }</span></div>
                                 			</c:when>
                                 			<c:otherwise>
-			                                    <div class="num"><span>${i }</span></div>
+			                                    <div class="num" onclick="boardPage(${i})" id="boardPage${i }" style="width: 33px"><span>${i }</span></div>
                                 			</c:otherwise>
                                 		</c:choose>
                                 	</c:forEach>
@@ -223,6 +223,40 @@
     </body>
     
     <script>
+		 // 학원 페이지 표시
+	    $(document).ready(function(){
+			var start = 1;
+			var end = start+9>=${acaPage } ? ${acaPage } : start+9;
+			if(start==1 && end<10){
+				$("#acaPrev"+start).hide();
+				$("#acaNext"+start).hide();
+			} else {
+				if(start==1){
+		  			$("#acaPrev"+start).hide();
+		  			$("#acaNext"+start).show();
+		  		} else if(end>=${acaPage }){
+		  			$("#acaPrev"+start).show();
+		  			$("#acaNext"+start).hide();
+		  		}
+			}
+		});
+	 	// 게시판 페이지 표시
+	    $(document).ready(function(){
+			var start = 1;
+			var end = start+9>=${listPage } ? ${listPage } : start+9;
+			if(start==1 && end<10){
+				$("#boardPrev"+start).hide();
+				$("#boardNext"+start).hide();
+			} else {
+				if(start==1){
+		  			$("#boardPrev"+start).hide();
+		  			$("#boardNext"+start).show();
+		  		} else if(end>=${listPage }){
+		  			$("#boardPrev"+start).show();
+		  			$("#boardNext"+start).hide();
+		  		}
+			}
+		});
  		// 검색란에서 엔터입력
   		$("#hsearch").keyup(function(txt){
   			if(txt.keyCode==13){
@@ -253,71 +287,140 @@
       		var board = $("#boardSelect").val();
       		$.ajax({
       			type : "post",
-      			url : "/boardChange/"+board+"/${searchWord }",
+      			url : "/search/boardChange/"+board+"/${searchWord }/1",
       			async : false,
       			success : function(txt){
-      				$("#boardList").html(txt);
+      				$.ajax({
+      					type : "post",
+      					url : "/boardPage/"+board+"/${searchWord }/1",
+      					async : false,
+      					success : function(html){
+		      				$("#boardList").html(txt);
+		      				$("#boardPages").html(html);
+      					}
+      				});
       			}
       		});
       	});
-      	
-      	
-      	
-      	
-     	// 페이지 클릭
-   		var pageNum = new Array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
-     	function page(num){
-     		for(var i=0; i<pageNum.length; i++){
-				var x = document.getElementById("page"+pageNum[i]);
-     			if(pageNum[i]==num){
-     				if(x.className.indexOf("sel") == -1){
-     					x.className += " sel";
-     				}
-     			} else {
-     				x.className = x.className.replace(" sel", "");
+      	// 학원 페이지 이동
+      	function acaPage(num){
+     		$.ajax({
+     			type : "post",
+     			url : "/search/acaPage/${searchWord }/"+num,
+     			async : false,
+     			success : function(txt){
+     				$("#acaSection").html(txt);
      			}
-     		}
+     		});
      	}
-     	// 페이지 이전 클릭
-     	function prev(element){
-     		var id = element.id;
-     		id = id.substring(id.indexOf('v')+1);
-     		pageNum = new Array();
-     		var html = ""
-     		if(Number(id)==1){
-     			return;
-     		} else {
-	     		for(var i=(Number(id)-10); i<Number(id); i++){
-	     			if(i==(Number(id)-10)){
-	     				html += "<div class='num sel' onclick='page("+i+")' id='page"+i+"'><span>"+i+"</span></div>";
-	     			} else {
-	     				html += "<div class='num' onclick='page("+i+")' id='page"+i+"'><span>"+i+"</span></div>";
-	     			}
-	     			pageNum[pageNum.length] = i;
-	     		}
-	     		$("#prev"+id).prop("id", "prev"+(Number(id)-10));
-	     		$("#next"+id).prop("id", "next"+(Number(id)-10));
-	     		$("#pages").html(html);
-     		}
-     	}
-     	// 페이지 다음 클릭
-     	function next(element){
-     		var id = element.id;
-     		id = id.substring(id.indexOf('t')+1);
-     		pageNum = new Array();
-     		var html = ""
-     		for(var i=(Number(id)+10); i<(Number(id)+20); i++){
-     			if(i==(Number(id)+10)){
-     				html += "<div class='num sel' onclick='page("+i+")' id='page"+i+"'><span>"+i+"</span></div>";
-     			} else {
-     				html += "<div class='num' onclick='page("+i+")' id='page"+i+"'><span>"+i+"</span></div>";
+      	// 게시판 페이지 이동
+      	function boardPage(num){
+      		var board = $("#boardSelect").val();
+     		$.ajax({
+     			type : "post",
+     			url : "/search/boardList/${searchWord }/"+num+"/"+board,
+     			async : false,
+     			success : function(txt){
+     				$.ajax({
+     					type : "post",
+     					url : "/search/boardPage/${searchWord }/"+num+"/"+board,
+     					async : false,
+     					success : function(html){
+		     				$("#boardList").html(txt);
+     						$("#boardPage").html(html);
+     					}
+     				});
      			}
-     			pageNum[pageNum.length] = i;
-     		}
-     		$("#next"+id).prop("id", "next"+(Number(id)+10));
-     		$("#prev"+id).prop("id", "prev"+(Number(id)+10));
-     		$("#pages").html(html);
+     		});
      	}
+   	  	// 학원 이전 클릭
+      	function acaPrev(element){
+      		var id = element.id;
+      		id = id.substring(id.indexOf('v')+1);
+      		var start = Number(id)-10;
+      		var end = start+9>=${acaPage } ? ${acaPage } : start+9;
+    		$("#acaNext"+id).show();
+      		if(start==1){
+      			$("#acaPrev"+id).hide();
+      		}
+      		var html = "";
+      		for(var i=start; i<=end; i++){
+      			if(i==start){
+      				html += "<div class='num sel' onclick='acaPage("+i+")' id='acaPage"+i+"' style='width: 33px'><span>"+i+"</span></div>";
+      			} else {
+      				html += "<div class='num' onclick='acaPage("+i+")' id='acaPage"+i+"' style='width: 33px'><span>"+i+"</span></div>";
+      			}
+      		}
+      		$("#acaPrev"+id).prop("id", "acaPrev"+start);
+      		$("#acaNext"+id).prop("id", "acaNext"+start);
+      		$("#acaPages").html(html);
+      	}
+      	// 학원 다음 클릭
+      	function acaNext(element){
+      		var id = element.id;
+      		id = id.substring(id.indexOf('t')+1);
+      		var start = Number(id)+10;
+      		var end = start+9>=${acaPage } ? ${acaPage } : start+9;
+   			$("#acaPrev"+id).show();
+      		if(end>=${acaPage }){
+      			$("#acaNext"+id).hide();
+      		}
+      		var html = "";
+      		for(var i=start; i<=end; i++){
+      			if(i==start){
+      				html += "<div class='num sel' onclick='acaPage("+i+")' id='acaPage"+i+"' style='width: 33px'><span>"+i+"</span></div>";
+      			} else {
+      				html += "<div class='num' onclick='acaPage("+i+")' id='acaPage"+i+"' style='width: 33px'><span>"+i+"</span></div>";
+      			}
+      		}
+      		$("#acaPrev"+id).prop("id", "acaPrev"+start);
+      		$("#acaNext"+id).prop("id", "acaNext"+start);
+      		$("#acaPages").html(html);
+      	}
+    	// 게시판 이전 클릭
+      	function boardPrev(element){
+      		var id = element.id;
+      		id = id.substring(id.indexOf('v')+1);
+      		var start = Number(id)-10;
+      		var end = start+9>=${listPage } ? ${listPage } : start+9;
+    		$("#boardNext"+id).show();
+      		if(start==1){
+      			$("#boardPrev"+id).hide();
+      		}
+      		var html = "";
+      		for(var i=start; i<=end; i++){
+      			if(i==start){
+      				html += "<div class='num sel' onclick='boardPage("+i+")' id='boardPage"+i+"' style='width: 33px'><span>"+i+"</span></div>";
+      			} else {
+      				html += "<div class='num' onclick='boardPage("+i+")' id='boardPage"+i+"' style='width: 33px'><span>"+i+"</span></div>";
+      			}
+      		}
+      		$("#boardPrev"+id).prop("id", "boardPrev"+start);
+      		$("#boardNext"+id).prop("id", "boardNext"+start);
+      		$("#boardPages2").html(html);
+      	}
+      	// 게시판 다음 클릭
+      	function boardNext(element){
+      		var id = element.id;
+      		id = id.substring(id.indexOf('t')+1);
+      		var start = Number(id)+10;
+      		var end = start+9>=${listPage } ? ${listPage } : start+9;
+   			$("#boardPrev"+id).show();
+      		if(end>=${listPage }){
+      			$("#boardNext"+id).hide();
+      		}
+      		var html = "";
+      		for(var i=start; i<=end; i++){
+      			if(i==start){
+      				html += "<div class='num sel' onclick='boardPage("+i+")' id='boardPage"+i+"' style='width: 33px'><span>"+i+"</span></div>";
+      			} else {
+      				html += "<div class='num' onclick='boardPage("+i+")' id='boardPage"+i+"' style='width: 33px'><span>"+i+"</span></div>";
+      			}
+      		}
+      		$("#boardPrev"+id).prop("id", "boardPrev"+start);
+      		$("#boardNext"+id).prop("id", "boardNext"+start);
+      		$("#boardPages2").html(html);
+      	}
     </script>
     
 </html>

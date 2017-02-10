@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="main">
+	<select id="acaT" resultType="java.util.HashMap">
+		select * from academy order by total desc
+	</select>
+	<select id="acaP" resultType="java.util.HashMap">
+		select * from academy order by point desc
+	</select>
+	<select id="acaR" resultType="java.util.HashMap">
+		select * from academy order by reply desc
+	</select>
+	<select id="acaC" resultType="java.util.HashMap">
+		select * from academy order by count desc
+	</select>
+</mapper>

@@ -1,15 +1,21 @@
 package admin.service;
 
+import java.io.*;
 import java.util.*;
+
+import javax.servlet.*;
 
 import org.apache.ibatis.session.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.*;
+import org.springframework.web.multipart.*;
 
 @Controller
 public class AdminService {
 	@Autowired
 	SqlSessionFactory fac;
+	@Autowired
+	ServletContext application;
 	
 	// 멤버리스트
 	public List<HashMap> memberList(){
@@ -201,6 +207,116 @@ public class AdminService {
 			ss.close();
 			return true;
 		} else {
+			ss.rollback();
+			ss.close();
+			return false;
+		}
+	}
+	
+	// 학원 로고 uuid 생성
+	public String logoUUID(MultipartFile logo){
+		if(logo.isEmpty()){
+			return null;
+		}
+		try{
+			String uuid = UUID.randomUUID().toString();
+			String filename = uuid.substring(0,10);
+			String fileDir = application.getRealPath("/logo");
+			File file = new File(fileDir, filename);
+			logo.transferTo(file);
+			return filename;
+		}catch(Exception e){
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	// 학원 로고 등록
+	public void logoUpload(String name, String site, String uuid){
+		SqlSession ss = fac.openSession();
+		HashMap map = new HashMap();
+		map.put("site", site);
+		map.put("name", name);
+		map.put("uuid", uuid);
+		try {
+			ss.insert("admin.logoUpload",map);
+			ss.commit();
+			ss.close();
+		} catch(Exception e){
+			e.printStackTrace();
+			ss.rollback();
+			ss.close();
+		}
+	}
+	
+	// 학원 이미지 uuid 생성
+	public String picUUID(MultipartFile pic) {
+		if(pic.isEmpty()){
+			return null;
+		}
+		try{
+			String uuid = UUID.randomUUID().toString();
+			String filename = uuid.substring(0,10);
+			String fileDir = application.getRealPath("/pic");
+			File file = new File(fileDir, filename);
+			pic.transferTo(file);
+			return filename;
+		}catch(Exception e){
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	// 학원 이미지 등록
+	public void picUpload(String site, String name, String uuid1, String uuid2, String uuid3, String uuid4, String uuid5){
+		SqlSession ss = fac.openSession();
+		HashMap map = new HashMap();
+		map.put("site", site);
+		map.put("name", name);
+		map.put("uuid1", uuid1);
+		map.put("uuid2", uuid2);
+		map.put("uuid3", uuid3);
+		map.put("uuid4", uuid4);
+		map.put("uuid5", uuid5);
+		try {
+			ss.insert("admin.picUpload",map);
+			ss.commit();
+			ss.close();
+		} catch(Exception e){
+			e.printStackTrace();
+			ss.rollback();
+			ss.close();
+		}
+	}
+	
+	// 학원 등록
+	public boolean academyRegist(String name, String addr1, String addr2, String tell, String type1, String type2, String site,
+												String logo, String intro, String pic1, String pic2, String pic3, String pic4, String pic5, String target, String subject){
+		SqlSession ss = fac.openSession();
+		HashMap<String, String> map = new HashMap<>();
+		map.put("name", name);
+		map.put("addr1", addr1);
+		map.put("addr2", addr2);
+		map.put("tell", tell);
+		map.put("type1", type1);
+		map.put("type2", type2);
+		map.put("site", site);
+		map.put("logo", logo);
+		map.put("intro", intro);
+		map.put("pic1", pic1);
+		map.put("pic2", pic2);
+		map.put("pic3", pic3);
+		map.put("pic4", pic4);
+		map.put("pic5", pic5);
+		map.put("target", target);
+		map.put("subject", subject);
+		try{
+			ss.insert("academy.newAcademy", map);
+			ss.commit();
+			ss.close();
+			return true;
+		} catch(Exception e){
+			e.printStackTrace();
 			ss.rollback();
 			ss.close();
 			return false;

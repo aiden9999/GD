@@ -45,13 +45,13 @@
             <div class="gnb">
                 <div class="inner">
                     <ul>
-                        <li onclick="location.href='/elementary'" class="gnb_menu">
+                        <li onclick="location.href='/el'" class="gnb_menu">
                             <div class="txt">초등학원</div>
                         </li>
-						<li onclick="location.href='/middle'" class="gnb_menu">
+						<li onclick="location.href='/mi'" class="gnb_menu">
                             <div class="txt">중등학원</div>
                         </li>
-                        <li onclick="location.href='/high'" class="gnb_menu">
+                        <li onclick="location.href='/hi'" class="gnb_menu">
                             <div class="txt">고등학원</div>
                         </li>
                         <li class="gnb_menu">
@@ -114,7 +114,7 @@
                     <div class="id_wrap section_wrap">
                         <div class="tit">필명</div>
                         <div class="input_box">
-                            <input type="text" id="nick" maxlength="6">
+                            <input type="text" id="nick" maxlength="6" name="nick">
                         </div>
                         <div class="overlap">
                             <div class="txt" onclick="nickCheck()" id="nickCheck">중복확인</div>
@@ -139,9 +139,20 @@
                         <div class="select_box">
                             <select id="addr1">
                                 <option value="choose">선택</option>
-                                <option value="강남">강남</option>
-                                <option value="강남">강남</option>
-                                <option value="강남">강남</option>
+                                <option value="서울">서울</option>
+                                <option value="인천">인천</option>
+                                <option value="세종">세종</option>
+                                <option value="대전">대전</option>
+                                <option value="대구">대구</option>
+                                <option value="광주">광주</option>
+                                <option value="울산">울산</option>
+                                <option value="부산">부산</option>
+                                <option value="경기도">경기도</option>
+                                <option value="강원도">강원도</option>
+                                <option value="충청도">충청도</option>
+                                <option value="전라도">전라도</option>
+                                <option value="경상도">경상도</option>
+                                <option value="제주도">제주도</option>
                             </select>
                         </div>
                     </div>
@@ -256,6 +267,12 @@
 				if (!(event.keyCode >=37 && event.keyCode<=40)) {
 					var inputVal = $(this).val();
 					$(this).val(inputVal.replace(/[^a-z0-9]/gi,''));
+				}
+			});
+			$("input[id=nick]").keyup(function(event){
+				if (!(event.keyCode >=37 && event.keyCode<=40)) {
+					var inputVal = $(this).val();
+					$(this).val(inputVal.replace(/[^a-z0-9ㄱ-ㅎㅏ-ㅣ가-힣]/gi,''));
 				}
 			});
 			$("input[name=email1]").keyup(function(event){ 

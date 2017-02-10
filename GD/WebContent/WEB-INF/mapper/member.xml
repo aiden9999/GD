@@ -13,8 +13,17 @@
 	<select id="nickCheck" resultType="java.util.HashMap">
 		select * from nick where nick = #{nick}
 	</select>
-	<select id="searchMember" resultType="java.util.HashMap">
+	<select id="searchMemberS" resultType="java.util.HashMap">
+		select * from student where id = #{id}
+	</select>
+	<select id="searchMemberN" resultType="java.util.HashMap">
 		select * from normal where id = #{id}
+	</select>
+	<select id="searchMemberT" resultType="java.util.HashMap">
+		select * from teacher where id = #{id}
+	</select>
+	<select id="searchMemberP" resultType="java.util.HashMap">
+		select * from parent where id = #{id}
 	</select>
 	<insert id="joinS" parameterType="java.util.HashMap">
 		insert into student values(#{id}, #{name}, #{pw}, #{nick}, #{addr1}, #{addr2}, #{phone}, #{email}, #{agreesms}, #{agreeemail},

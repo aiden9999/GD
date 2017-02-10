@@ -2,6 +2,8 @@ package academy.service;
 
 import java.util.*;
 
+import javax.servlet.http.*;
+
 import org.apache.ibatis.session.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.*;
@@ -27,12 +29,6 @@ public class AcademyService {
 		map.put("page", (page-1)*10);
 		List<HashMap> list = ss.selectList("academy.acanews", map);
 		ss.close();
-		int count = newsCount(num);
-		for(int i=0; i<list.size(); i++){
-			HashMap m = list.get(i);
-			m.put("rownum", count-1-i);
-			list.set(i, m);
-		}
 		return list;
 	}
 	
@@ -47,7 +43,7 @@ public class AcademyService {
 	// 리뷰 작성
 	public boolean review(int num, String day, String subject, String subject1, String className, String grade,
 			String teacher, String type, String rate1, String rate2, String rate3, String rate4, String again,
-			String point, String writer) {
+			String point, String writer, String name) {
 		SqlSession ss = fac.openSession();
 		HashMap map = new HashMap<>();
 		map.put("num", num);
@@ -65,6 +61,7 @@ public class AcademyService {
 		map.put("again", again);
 		map.put("point", point);
 		map.put("writer", writer);
+		map.put("name", name);
 		try{
 			ss.insert("academy.review", map);
 			ss.commit();
@@ -80,7 +77,6 @@ public class AcademyService {
 
 	// 페이지 리뷰 리스트
 	public List<HashMap> reviewPage(int num, int page) {
-//	public List<HashMap> reviewPage(int num) {
 		SqlSession ss = fac.openSession();
 		HashMap map = new HashMap();
 		map.put("num", num);
@@ -153,9 +149,12 @@ public class AcademyService {
 	}
 
 	// 한줄평가 리스트
-	public List<HashMap> commentList(int num) {
+	public List<HashMap> commentList(int num, int page) {
 		SqlSession ss = fac.openSession();
-		List<HashMap> list = ss.selectList("academy.commentList", num);
+		HashMap map = new HashMap();
+		map.put("num", num);
+		map.put("page", (page-1)*5);
+		List<HashMap> list = ss.selectList("academy.commentList", map);
 		for(int i=0; i<list.size(); i++){
 			HashMap m = list.get(i);
 			String id = (String)m.get("ID");
@@ -171,11 +170,28 @@ public class AcademyService {
 		return list;
 	}
 	
+	// 한줄평가 전체 리스트
+	public List<HashMap> commentAll(int num){
+		SqlSession ss = fac.openSession();
+		List<HashMap> list = ss.selectList("academy.commentAll", num);
+		ss.close();
+		return list;
+	}
+	
+	// 한줄평가 페이지
+	public int commentPage(int num){
+		SqlSession ss = fac.openSession();
+		int n = ss.selectOne("academy.commentPage", num);
+		ss.close();
+		return n;
+	}
+	
 	// 학원소식 저장
-	public boolean saveNews(String writer, String title, String content, int acaNum) {
+	public boolean saveNews(String writer, String name, String title, String content, int acaNum) {
 		SqlSession ss = fac.openSession();
 		HashMap map = new HashMap<>();
 		map.put("writer", writer);
+		map.put("name", name);
 		map.put("title", title);
 		map.put("content", content);
 		map.put("acaNum", acaNum);
@@ -186,6 +202,127 @@ public class AcademyService {
 			return true;
 		} catch(Exception e){
 			e.printStackTrace();
+			ss.rollback();
+			ss.close();
+			return false;
+		}
+	}
+	
+	// 리뷰 포인트 업데이트
+	public void updatePoint(int num, String point){
+		SqlSession ss = fac.openSession();
+		HashMap map = new HashMap();
+		map.put("num", num);
+		HashMap academy = ss.selectOne("academy.academy", num);
+		float total = (float)academy.get("POINT")*(int)academy.get("PEOPLE");
+		total += Integer.parseInt(point);
+		double d = Double.parseDouble(String.format("%.1f", total/((int)academy.get("PEOPLE")+1/1.0)));
+		map.put("point", d);
+		ss.update("academy.reviewUp", map);
+		ss.commit();
+		ss.close();
+	}
+	
+	// 학원 총 포인트 업데이트
+	public void updateAcademy(int num, String point) {
+		SqlSession ss = fac.openSession();
+		HashMap map = new HashMap();
+		map.put("num", num);
+		HashMap academy = ss.selectOne("academy.academy", num);
+		float total = (float)academy.get("TOTAL")*(int)academy.get("PEOPLE");
+		total += Integer.parseInt(point);
+		peopleUp(num);
+		double d = Double.parseDouble(String.format("%.1f", total/((int)academy.get("PEOPLE")+1/1.0)));
+		map.put("total", d);
+		ss.update("academy.updatePoint", map);
+		ss.commit();
+		ss.close();
+	}
+
+	// 한줄평가 등록 후 댓글갯수 증가
+	public void replyUp(int num) {
+		SqlSession ss = fac.openSession();
+		ss.update("academy.replyUp", num);
+		ss.commit();
+		ss.close();
+	}
+	
+	// 학원 리뷰 등 작성인원 증가
+	public void peopleUp(int num){
+		SqlSession ss = fac.openSession();
+		ss.update("academy.peopleUp", num);
+		ss.commit();
+		ss.close();
+	}
+
+	// 학원 조회수 증가
+	public void countUp(int num, HttpServletRequest req, HttpServletResponse resp) {
+		Cookie[] ar = req.getCookies();
+		int n = 0;
+		if(ar.length>0){
+			for(Cookie c : ar){
+				if(c.getName().equals(""+num)){
+					n++;
+				}
+			}
+			if(n>0){
+				return;
+			} else {
+				SqlSession ss = fac.openSession();
+				ss.update("academy.countUp", num);
+				ss.commit();
+				ss.close();
+				Cookie cookie = new Cookie("acaCount"+num, "acaCount"+num);
+				cookie.setMaxAge(60*60);
+				cookie.setPath("/");
+				resp.addCookie(cookie);
+			}
+		} else {
+			SqlSession ss = fac.openSession();
+			ss.update("academy.countUp", num);
+			ss.commit();
+			ss.close();
+			Cookie cookie = new Cookie("acaCount"+num, "acaCount"+num);
+			cookie.setMaxAge(60*60);
+			cookie.setPath("/");
+			resp.addCookie(cookie);
+		}
+	}
+
+	// 리뷰 상세보기
+	public HashMap reviewDetail(int auto) {
+		SqlSession ss = fac.openSession();
+		HashMap review = ss.selectOne("academy.reviewDetail", auto);
+		String id = (String)review.get("WRITER");
+		review.put("ID", id);
+		String id1 = id.substring(0, id.length()/2);
+		String id2 = id.substring(id.length()/2);
+		for(int j=0; j<id2.length(); j++){
+			id1 += "*";
+		}
+		review.put("WRITER", id1);
+		ss.commit();
+		ss.close();
+		return review;
+	}
+
+	// 학원소식 상세보기
+	public HashMap view(int num) {
+		SqlSession ss = fac.openSession();
+		HashMap map = ss.selectOne("academy.newsView", num);
+		ss.close();
+		return map;
+	}
+	
+	// 학원소식 삭제
+	public boolean delete(int num) {
+		SqlSession ss = fac.openSession();
+		int n = ss.delete("academy.delete", num);
+		if(n>0){
+			ss.commit();
+			ss.close();
+			return true;
+		} else {
 			ss.rollback();
 			ss.close();
 			return false;

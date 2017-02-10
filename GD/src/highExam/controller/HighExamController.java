@@ -40,6 +40,34 @@ public class HighExamController {
 		int highPage = hs.highCount()%10==0 ? hs.highCount()/10 : hs.highCount()/10+1;
 		mav.addObject("highPage", highPage);
 		mav.addObject("selectPage", pageNum);
+		int start = 1+(int)((pageNum-1)/10)*10;
+		mav.addObject("start", start);
+		int end = start+9>highPage ? highPage : start+9;
+		mav.addObject("end", end);
 		return mav;
+	}
+	
+	// 고등입시 상세보기
+	@RequestMapping("/view/{num}")
+	public ModelAndView view(@PathVariable(name="num")int num){
+		ModelAndView mav = new ModelAndView("/menu/information/highExam/view.jsp");
+		List<HashMap> list = hs.view(num);
+		mav.addObject("map", list.get(0));
+		return mav;
+	}
+	
+	// 고등입시 수정
+	@RequestMapping("/modify/{num}/{title}/{content}")
+	@ResponseBody
+	public boolean modify(@PathVariable(name="num")int num, @PathVariable(name="title")String title,
+											@PathVariable(name="content")String content){
+		return hs.modify(num, title, content);
+	}
+	
+	// 고등입시 삭제
+	@RequestMapping("/delete/{num}")
+	@ResponseBody
+	public boolean delete(@PathVariable(name="num")int num){
+		return hs.delete(num);
 	}
 }

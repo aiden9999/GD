@@ -2,27 +2,32 @@
 <!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="academy">
 	<insert id="newAcademy" parameterType="java.util.HashMap">
-		insert into academy values((select *from (select max(seq)+1 from tbl_board) next), #{name}, #{addr1}, #{addr2}, #{tel}, #{type1}, #{type2},
-													#{site}, #{logo}, #{info}, #{pic1}, #{pic2}, #{pic3}, #{pic4}, #{pic5}, 0.0, 0, #{target}, #{subject})
+		insert into
+		academy(name, addr1, addr2, tel, type1, type2, site, logo, info, pic1, pic2, pic3, pic4, pic5, point, count, target, subject, reply, total, people) 
+		values(#{name}, #{addr1}, #{addr2}, #{tell}, #{type1}, #{type2}, #{site}, #{logo}, #{intro},
+					#{pic1}, #{pic2}, #{pic3}, #{pic4}, #{pic5}, 0.0, 0, #{target}, #{subject}, 0, 0.0, 0)
 	</insert>
 	<select id="academy" resultType="java.util.HashMap">
 		select * from academy where num = #{num}
 	</select>
 	<select id="acanews" parameterType="java.util.HashMap" resultType="java.util.HashMap">
-		select * from acanews where num = #{num} order by day desc limit 10 offset #{page}
+		select * from acanews where num = #{num} order by auto desc limit 10 offset #{page}
 	</select>
 	<select id="newsCount" resultType="java.lang.Integer">
 		select count(*) from acanews where num = #{num}
 	</select>
 	<insert id="review" parameterType="java.util.HashMap">
-		insert into review values(#{num}, #{day}, #{subject}, #{subject1}, #{className}, #{grade}, #{teacher}, #{type}, #{point}, #{rate1},
-											#{rate2}, #{rate3}, #{rate4}, #{again}, #{writer}, now(), 0, 0)
+		insert into
+		review(num, day, subject, subject1, classname, grade, teacher, type, point, rate1, rate2, rate3, rate4, 
+					again, writer, name, reday, count, recomend, reply)
+		values(#{num}, #{day}, #{subject}, #{subject1}, #{className}, #{grade}, #{teacher}, #{type}, #{point}, #{rate1},
+											#{rate2}, #{rate3}, #{rate4}, #{again}, #{writer}, #{name}, now(), 0, 0, 0)
 	</insert>
 	<select id="reviewPage" resultType="java.util.HashMap" parameterType="java.util.HashMap">
-		select * from review where num = #{num} order by reday desc limit 7 offset #{page}
+		select * from review where num = #{num} order by auto desc limit 7 offset #{page}
 	</select>
 	<select id="reviewTop" resultType="java.util.HashMap">
-		select * from review where num = #{num} order by recomend desc limit 3
+		select * from review where num = #{num} order by recomend desc, auto desc limit 3 offset 0
 	</select>
 	<select id="reviewAll" resultType="java.util.HashMap">
 		select * from review where num = #{num}
@@ -34,12 +39,55 @@
 		select count(*) from review where num = #{num} and again = 'y'
 	</select>
 	<insert id="comment" parameterType="java.util.HashMap">
-		insert into acacomment values(#{id}, #{name}, #{point}, #{comment}, now(), #{num})
+		insert into
+		acacomment(id, name, point, comment, day, num)
+		values(#{id}, #{name}, #{point}, #{comment}, now(), #{num})
 	</insert>
-	<select id="commentList" resultType="java.util.HashMap">
-		select * from acacomment where num = #{num} order by day desc
+	<select id="commentList" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+		select * from acacomment where num = #{num} order by auto desc limit 5 offset #{page}
+	</select>
+	<select id="commentPage" resultType="java.lang.Integer">
+		select count(*) from acacomment where num = #{num}
+	</select>
+	<select id="commentAll" resultType="java.util.HashMap">
+		select * from acacomment where num = #{num}
 	</select>
 	<insert id="saveNews" parameterType="java.util.HashMap">
-		insert into acanews values(#{title}, #{content}, #{writer}, now(), #{acaNum})
+		insert into
+		acanews(title, content, writer, name, day, num)
+		values(#{title}, #{content}, #{writer}, #{name}, now(), #{acaNum})
 	</insert>
+	<update id="updatePoint" parameterType="java.util.HashMap">
+		update academy set total = #{total} where num = #{num}
+	</update>
+	<update id="peopleUp">
+		update academy set people = people+1 where num = #{num}
+	</update>
+	<update id="replyUp">
+		update academy set reply = reply+1 where num = #{num}
+	</update>
+	<update id="reviewUp" parameterType="java.util.HashMap">
+		update academy set point = #{point} where num = #{num}
+	</update>
+	<update id="countUp">
+		update academy set count = count+1 where num = #{num}
+	</update>
+	<select id="reviewDetail" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		select * from review where auto = #{auto}
+	</select>
+	<select id="myComment" resultType="java.util.HashMap">
+		select * from acacomment where id = #{id} order by auto desc
+	</select>
+	<select id="myReview" resultType="java.util.HashMap">
+		select * from review where writer = #{id} order by auto desc
+	</select>
+	<select id="allAcademy" resultType="java.util.HashMap">
+		select * from academy
+	</select>
+	<select id="newsView" resultType="java.util.HashMap">
+		select * from acanews where auto = #{num}
+	</select>
+	<delete id="delete">
+		delete from acanews where auto = #{num}
+	</delete>
 </mapper>

@@ -47,13 +47,13 @@
             <div class="gnb">
                 <div class="inner">
                     <ul>
-                        <li onclick="location.href='/elementary'" class="gnb_menu">
+                        <li onclick="location.href='/el'" class="gnb_menu">
                             <div class="txt">초등학원</div>
                         </li>
-						<li onclick="location.href='/middle'" class="gnb_menu">
+						<li onclick="location.href='/mi'" class="gnb_menu">
                             <div class="txt">중등학원</div>
                         </li>
-                        <li onclick="location.href='/high'" class="gnb_menu">
+                        <li onclick="location.href='/hi'" class="gnb_menu">
                             <div class="txt">고등학원</div>
                         </li>
                         <li class="gnb_menu">
@@ -146,17 +146,16 @@
  		}
     	// 학원소식 저장
     	function save(){
-    		var writer = $("#writer").html();
     		var title = $("#title").val();
     		var content = $("#content").val();
     		$.ajax({
     			type : "post",
-    			url : "/academy/saveNews/"+writer+"/"+title+"/"+content+"/${acaNum }",
+    			url : "/academy/saveNews/${login.ID }/${login.NAME }/"+title+"/"+content+"/${acaNum }",
     			async : false,
     			success : function(txt){
     				if(txt){
     					alert("등록되었습니다");
-    					window.history.back();
+    					location.href="/academy/${acaNum}";
     				} else {
     					alert("등록에 실패하였습니다.\n잠시후 다시 시도해주세요");
     				}

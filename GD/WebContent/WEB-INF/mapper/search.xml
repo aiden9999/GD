@@ -13,25 +13,43 @@
 	<select id="noticePage" resultType="java.lang.Integer">
 		select count(*) from notice where title like #{search}
 	</select>
+	<select id="highExamPage" resultType="java.lang.Integer">
+		select count(*) from highexam where title like #{search}
+	</select>
+	<select id="univExamPage" resultType="java.lang.Integer">
+		select count(*) from univexam where title like #{search}
+	</select>
+	<select id="worryPage" resultType="java.lang.Integer">
+		select count(*) from worry where content like #{search}
+	</select>
+	<select id="wagglePage" resultType="java.lang.Integer">
+		select count(*) from waggle where content like #{search}
+	</select>
+	<select id="acaNewsPage" resultType="java.lang.Integer">
+		select count(*) from acanews where title like #{search}
+	</select>
+	<select id="acaCommentPage" resultType="java.lang.Integer">
+		select count(*) from acacomment where comment like #{search}
+	</select>
 	<select id="searchnotice" resultType="java.util.HashMap" parameterType="java.util.HashMap">
-		select * from notice where title like #{search} order by day desc limit 5 offset #{page}
+		select * from notice where title like #{search} order by auto desc limit 5 offset #{page}
 	</select>
-<!-- 	<select id="searchhighExam" resultType="java.util.HashMap" parameterType="java.util.HashMap"> -->
-<!-- 		select * from highexam where title like #{search} order by day desc limit 5 offset #{page} -->
-<!-- 	</select> -->
-<!-- 	<select id="searchunivExam" resultType="java.util.HashMap" parameterType="java.util.HashMap"> -->
-<!-- 		select * from univexam where title like #{search} order by day desc limit 5 offset #{page} -->
-<!-- 	</select> -->
+	<select id="searchhighExam" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+		select * from highexam where title like #{search} order by auto desc limit 5 offset #{page}
+	</select>
+	<select id="searchunivExam" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+		select * from univexam where title like #{search} order by auto desc limit 5 offset #{page}
+	</select>
 	<select id="searchworry" resultType="java.util.HashMap" parameterType="java.util.HashMap">
-		select * from worry where content like #{search} order by day desc limit 5 offset #{page}
+		select * from worry where content like #{search} order by auto desc limit 5 offset #{page}
 	</select>
-<!-- 	<select id="searchwaggle" resultType="java.util.HashMap" parameterType="java.util.HashMap"> -->
-<!-- 		select * from waggle where title like #{search} order by day desc limit 5 offset #{page} -->
-<!-- 	</select> -->
+	<select id="searchwaggle" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+		select * from waggle where content like #{search} order by auto desc limit 5 offset #{page}
+	</select>
 	<select id="searchacaNews" resultType="java.util.HashMap" parameterType="java.util.HashMap">
-		select * from acanews where title like #{search} order by day desc limit 5 offset #{page}
+		select * from acanews where title like #{search} order by auto desc limit 5 offset #{page}
 	</select>
 	<select id="searchacaComment" resultType="java.util.HashMap" parameterType="java.util.HashMap">
-		select * from acacomment where comment like #{search} order by day desc limit 5 offset #{page}
+		select * from acacomment where comment like #{search} order by auto desc limit 5 offset #{page}
 	</select>
 </mapper>

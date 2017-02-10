@@ -21,15 +21,15 @@
 		<div class="txt_box">
 			<div class="txt txt_number">
 				<c:choose>
-					<c:when test="${newsCount-i<10}">
-						<span>0${newsCount-i }</span>
+					<c:when test="${news.get(i).AUTO<10}">
+						<span>0${news.get(i).AUTO }</span>
 					</c:when>
 					<c:otherwise>
-						<span>${newsCount-i }</span>
+						<span>${news.get(i).AUTO }</span>
 					</c:otherwise>
 				</c:choose>
 			</div>
-			<div onclick="select(${i })" class="txt txt_tit">
+			<div onclick="select(${news.get(i).AUTO })" class="txt txt_tit">
 				<span>${news.get(i).TITLE }</span>
 			</div>
 			<div id="dropdown${i }" class="contents">
@@ -56,15 +56,15 @@
 <div class="page_wrap">
 	<div class="inner">
 		<div class="arrow_wrap">
-			<div class="arrow prev">
-				<img src="/img/sub02_arrow_prev.png" onclick="prev(this)" id="prev1">
+			<div class="arrow prev" onclick="newsPrev(this)" id="news${start }">
+				<img src="/img/sub02_arrow_prev.png" onclick="newsPrev(this)" id="newsPrev${start }">
 			</div>
-			<div class="arrow next">
-				<img src="/img/sub02_arrow_next.png" onclick="next(this)" id="next1">
+			<div class="arrow next" onclick="newsNext(this)" id="news${start }">
+				<img src="/img/sub02_arrow_next.png" onclick="newsNext(this)" id="newsNext${start }">
 			</div>
 		</div>
-		<div class="num_wrap" id="pages">
-			<c:forEach var="i" begin="1" end="${newsPage }">
+		<div class="num_wrap" align="center" id="newsPages" style="font-size: 0">
+			<c:forEach var="i" begin="${start }" end="${end }">
 				<c:choose>
 					<c:when test="${i==selectPage }">
 						<div class="num sel" onclick="newsPage(${i })" id="newsPage${i }">
@@ -81,3 +81,23 @@
 		</div>
 	</div>
 </div>
+
+<script>
+	//페이지 표시
+	$(document).ready(function(){
+		var start = ${start };
+		var end = ${end };
+		if(start==1 && end<10){
+			$("#newsPrev"+start).hide();
+			$("#newsNext"+start).hide();
+		} else {
+			if(start==1){
+	  			$("#newsPrev"+start).hide();
+	  			$("#newsNext"+start).show();
+	  		} else if(end>=${newsPage }){
+	  			$("#newsPrev"+start).show();
+	  			$("#newsNext"+start).hide();
+	  		}
+		}
+	});
+</script>

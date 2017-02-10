@@ -94,13 +94,13 @@
             <div class="gnb">
                 <div class="inner">
                     <ul>
-                        <li onclick="location.href='/elementary'" class="gnb_menu">
+                        <li onclick="location.href='/el'" class="gnb_menu">
                             <div class="txt">초등학원</div>
                         </li>
-						<li onclick="location.href='/middle'" class="gnb_menu">
+						<li onclick="location.href='/mi'" class="gnb_menu">
                             <div class="txt">중등학원</div>
                         </li>
-                        <li onclick="location.href='/high'" class="gnb_menu">
+                        <li onclick="location.href='/hi'" class="gnb_menu">
                             <div class="txt">고등학원</div>
                         </li>
                         <li class="gnb_menu">
@@ -154,15 +154,13 @@
 					</div>
 					<div class="homepage_wrap">
 						<div class="tit">홈페이지</div>
-						<a href="${list.SITE }" target="_blank">
+						<a href="http://${list.SITE }" target="_blank">
 							<div class="txt">${list.SITE }</div>
 						</a>
 					</div>
 				</div>
 				<div class="logo_box">
-					<div class="img">
-<%-- 						<img src="${list.LOGO }"> --%>
-						<img src="/img/sub01_logo.png">
+					<div class="img" style="background-image: url('/logo/${list.LOGO }'); width: 100%; height: 100%; background-size: 100%">
 					</div>
 				</div>
 			</section>
@@ -193,36 +191,46 @@
 							<div class="line"></div>
 						</div>
 						<div class="thums_box">
-							<div id="bigPic">
-								<div class="bigPic_wrap">
-									<div class="bigPic_img"></div>
-									<div class="bigPic_img"></div>
-									<div class="bigPic_img"></div>
-									<div class="bigPic_img"></div>
-									<div class="bigPic_img"></div>
-									<div class="bigPic_img"></div>
-									<div class="bigPic_img"></div>
-								</div>
+							<div class="bigpic_img">
+								<img src="/pic/${list.PIC1 }" id="big" style="width: 795px; height: 510px">
 							</div>
-							<ul id="thumbs" class="thumbs">
-								<div class="thumbs_wrap">
-									<li class="item active" rel="1"></li>
-									<li class="item" rel="2"></li>
-									<li class="item" rel="3"></li>
-									<li class="item" rel="4"></li>
-									<li class="item" rel="5"></li>
-									<li class="item" rel="6"></li>
-									<li class="item" rel="7"></li>
-								</div>
-								<div class="arrow_wrap">
-									<div class="arrow up">
-										<img src="/img/arrow_up.png" onclick="up()">
-									</div>
-									<div class="arrow down">
-										<img src="/img/arrow_down.png" onclick="down()">
-									</div>
+							<ul id="thumbs" class="thumbs_slider">
+								<div class="thumbs_inner">
+									<li class="item_slide active" rel="1" onclick="change(1)">
+										<img src="/pic/${list.PIC1 }" id="pic1"/>
+									</li>
+									<c:if test="${list.PIC2!=null }">
+										<li class="item_slide" rel="2" onclick="change(2)">
+											<img src="/pic/${list.PIC2 }" id="pic2"/>
+										</li>
+									</c:if>
+									<c:if test="${list.PIC3!=null }">
+										<li class="item_slide" rel="3" onclick="change(3)">
+											<img src="/pic/${list.PIC3 }" id="pic3"/>
+										</li>
+									</c:if>
+									<c:if test="${list.PIC4!=null }">
+										<li class="item_slide" rel="4" onclick="change(4)">
+											<img src="/pic/${list.PIC4 }" id="pic4"/>
+										</li>
+									</c:if>
+									<c:if test="${list.PIC5!=null }">
+										<li class="item_slide" rel="5" onclick="change(5)">
+											<img src="/pic/${list.PIC5 }" id="pic5"/>
+										</li>
+									</c:if>
 								</div>
 							</ul>
+							<div class="arrow_wrap">
+								<div class="arrow up th_arrow_up" style="display: none" id="arrow_up">
+									<img src="/img/arrow_up.png" onclick="move('up')">
+								</div>
+								<c:if test="${list.PIC1!=null && list.PIC2!=null && list.PIC3!=null && list.PIC4!=null }">
+									<div class="arrow down th_arrow_down" id="arrow_down">
+										<img src="/img/arrow_down.png" onclick="move('down')">
+									</div>
+								</c:if>
+							</div>
 						</div>
 						<div class="tit_wrap road_wrap">
 							<div class="tit">찾아가는길</div>
@@ -291,7 +299,7 @@
 							</div>
 							<div class="bus_wrap">
 								<div class="tit">주변 버스정류장</div>
-								<div class="txt_wrap">대치삼성아파트입구(23-223)</div>
+								<div class="txt">대치삼성아파트입구(23-223)</div>
 							</div>
 						</div>
 					</div>
@@ -320,21 +328,29 @@
 											<div class="txt_box">
 												<div class="txt txt_number">
 													<c:choose>
-		<%-- 												<c:when test="${news.size()-i<10}"> --%>
-														<c:when test="${newsCount-i<10}">
-															<span>0${newsCount-i }</span>
+														<c:when test="${news.get(i).AUTO<10}">
+															<span>0${news.get(i).AUTO }</span>
 														</c:when>
 														<c:otherwise>
-															<span>${newsCount-i }</span>
+															<span>${news.get(i).AUTO }</span>
 														</c:otherwise>
 													</c:choose>
 												</div>
-												<div onclick="select(${i })" class="txt txt_tit">
-													<span>${news.get(i).TITLE }</span>
-												</div>
+												<c:choose>
+													<c:when test="${login!=null }">
+														<div onclick="select(${news.get(i).AUTO })" class="txt txt_tit">
+															<span>${news.get(i).TITLE }</span>
+														</div>
+													</c:when>
+													<c:otherwise>
+														<div class="txt txt_tit">
+															<span>${news.get(i).TITLE }</span>
+														</div>
+													</c:otherwise>
+												</c:choose>
 												<div id="dropdown${i }" class="contents">
 													<div class="img">
-														<img src="/img/sub02_arrow_up.png" onclick="clo(${i })">
+														<img src="/img/sub02_arrow_up.png" onclick="clo(${news.get(i).AUTO })">
 													</div>
 													<div class="drop_txt">
 														${news.get(i).CONTENT }
@@ -358,32 +374,34 @@
 							</div>
 							<div class="write_wrap">
 								<div class="empty_box"></div>
-								<div class="write_btn">
-									<div class="txt" onclick="wr()">글쓰기</div>
-								</div>
+								<c:if test="${login!=null }">
+									<div class="write_btn">
+										<div class="txt" onclick="wr()">글쓰기</div>
+									</div>
+								</c:if>
 							</div>
 							<div class="page_wrap">
 								<div class="inner">
 									<div class="arrow_wrap">
-										<div class="arrow prev">
-											<img src="/img/sub02_arrow_prev.png" onclick="prev(this)"
+										<div class="arrow prev" onclick="newsPrev(this)" id="newsPrev1" style="display: none">
+											<img src="/img/sub02_arrow_prev.png" onclick="newsPrev(this)"
 												id="prev1">
 										</div>
-										<div class="arrow next">
-											<img src="/img/sub02_arrow_next.png" onclick="next(this)"
+										<div class="arrow next" onclick="newsNext(this)" id="newsNext1">
+											<img src="/img/sub02_arrow_next.png" onclick="newsNext(this)"
 												id="next1">
 										</div>
 									</div>
-									<div class="num_wrap" id="pages">
-										<c:forEach var="i" begin="1" end="${newsPage }">
+									<div class="num_wrap" id="newsPages" align="center" style="font-size: 0">
+										<c:forEach var="i" begin="1" end="${newsPage>10 ? 10 : newsPage }">
 											<c:choose>
 												<c:when test="${i==1 }">
-													<div class="num sel" onclick="newsPage(${i })" id="newsPage${i }">
+													<div class="num sel" onclick="newsPage(${i })" id="newsPage${i }" style="width: 33px">
 														<span>${i }</span>
 													</div>
 												</c:when>
 												<c:otherwise>
-													<div class="num" onclick="newsPage(${i })" id="newsPage${i }">
+													<div class="num" onclick="newsPage(${i })" id="newsPage${i }" style="width: 33px">
 														<span>${i }</span>
 													</div>
 												</c:otherwise>
@@ -503,9 +521,18 @@
 											<div class="best_txt">BEST</div>
 											<img src="/img/sub03_new_box.png">
 										</div>
-										<div class="txt txt_tit" onclick="reviewDetail()">
-											<span>${reviewTop.get(i).DAY } / ${reviewTop.get(i).SUBJECT } / ${reviewTop.get(i).POINT }</span>
-										</div>
+										<c:choose>
+											<c:when test="${login!=null }">
+												<div class="txt txt_tit" onclick="reviewDetail('${reviewTop.get(i).AUTO}')">
+													<span>${reviewTop.get(i).DAY } / ${reviewTop.get(i).SUBJECT } / ${reviewTop.get(i).POINT }</span>
+												</div>
+											</c:when>
+											<c:otherwise>
+												<div class="txt txt_tit">
+													<span>${reviewTop.get(i).DAY } / ${reviewTop.get(i).SUBJECT } / ${reviewTop.get(i).POINT }</span>
+												</div>
+											</c:otherwise>
+										</c:choose>
 										<div class="txt txt_rec">
 											<span>${reviewTop.get(i).RECOMEND }</span>
 											<div class="love">
@@ -519,9 +546,18 @@
 										<div class="txt txt_number">
 											<div class="best_txt">${reviewCount-i }</div>
 										</div>
-										<div class="txt txt_tit">
-											<span>${review.get(i).DAY } / ${review.get(i).SUBJECT } / ${review.get(i).POINT }</span>
-										</div>
+										<c:choose>
+											<c:when test="${login!=null }">
+												<div class="txt txt_tit" onclick="reviewDetail('${review.get(i).AUTO}')">
+													<span>${review.get(i).DAY } / ${review.get(i).SUBJECT } / ${review.get(i).POINT }</span>
+												</div>
+											</c:when>
+											<c:otherwise>
+												<div class="txt txt_tit">
+													<span>${review.get(i).DAY } / ${review.get(i).SUBJECT } / ${review.get(i).POINT }</span>
+												</div>
+											</c:otherwise>
+										</c:choose>
 										<div class="txt txt_rec">
 											<span>${review.get(i).RECOMEND }</span>
 											<div class="love">
@@ -542,23 +578,23 @@
 							<div class="page_wrap" id="pageDiv">
 								<div class="inner">
 									<div class="arrow_wrap">
-										<div class="arrow prev">
+										<div class="arrow prev" onclick="reviewPrev(this)" id="reviewPrev1" style="display: none">
 											<img src="/img/sub02_arrow_prev.png">
 										</div>
-										<div class="arrow next">
+										<div class="arrow next" onclick="reviewNext(this)" id="reviewNext1">
 											<img src="/img/sub02_arrow_next.png">
 										</div>
 									</div>
-									<div class="num_wrap">
-										<c:forEach var="i" begin="1" end="${reviewPage }">
+									<div class="num_wrap" id="reviewPages" align="center" style="font-size: 0">
+										<c:forEach var="i" begin="1" end="${reviewPage>10 ? 10 : reviewPage }">
 											<c:choose>
 												<c:when test="${i==1 }">
-													<div class="num sel" onclick="reviewPage(${i })" id="reviewPage${i }">
+													<div class="num sel" onclick="reviewPage(${i })" id="reviewPage${i }" style="width: 33px">
 														<span>${i }</span>
 													</div>
 												</c:when>
 												<c:otherwise>
-													<div class="num" onclick="reviewPage(${i })" id="reviewPage${i }">
+													<div class="num" onclick="reviewPage(${i })" id="reviewPage${i }" style="width: 33px">
 														<span>${i }</span>
 													</div>
 												</c:otherwise>
@@ -582,10 +618,10 @@
 							</div>
 						</c:otherwise>
 					 </c:choose>
-					<div class="review_wrap1" id="reviewDiv" style="display: none">
+					 <div class="review_wrap1" id="reviewDiv" style="display: none">
 					    <div class="review_intro">
 					        <div class="txt">
-					            <span class="txt1">강남에서 대학가기</span>는 내아이의학원을 고를 더 <span class="txt1">‘이런 리뷰가있으면 좋겠다 ’</span> 라는마음가짐으로 리뷰를 수집합니다.<br>
+					            <span class="txt1">강남에서 대학가기</span>는 내아이의학원을 고를 때 <span class="txt1">‘이런 리뷰가있으면 좋겠다 ’</span> 라는마음가짐으로 리뷰를 수집합니다.<br>
 					            작성하신리뷰는 <span class="txt1">익명</span>으로 저장되며 작성자의 개인정보는 어디에도 노출되지 않습니다.<br><br>
 					        </div>
 					        <div class="txt2">
@@ -596,16 +632,6 @@
 					    </div>
 					    <div class="academy_input">
 					        <div class="inner">
-<!-- 					            <div class="academy_name academy_info"> -->
-<!-- 					                <div class="tit">학원명</div> -->
-<!-- 					                <input type="text" id="acaName"> -->
-<!-- 					            </div> -->
-<!-- 					            <div class="aca_loca academy_info"> -->
-<!-- 					                <div class="tit">학원위치</div> -->
-<!-- 					                <input type="text" id="aca_loca"><span>시</span> -->
-<!-- 					                <input type="text" id="aca_loca"><span>구</span> -->
-<!-- 					                <input type="text" id="aca_loca"><span>동</span> -->
-<!-- 					            </div> -->
 					            <div class="aca_term academy_info">
 					                <div class="tit">수강기간</div>
 					                <input type="text" id="re_day" placeholder="ex. 6개월">
@@ -640,7 +666,7 @@
 					    </div>
 					</div>
 					<div class="feeling_wrap" id="feelingDiv" style="display: none">
-					    <div class="feeling_tit" style="width: 250px">
+					    <div class="feeling_tit" style="width: 340px">
 					        <div class="tit">학원 총 평점</div>
 					        <div class="star_wrap" style="float: none">
 					        	<c:forEach var="i" begin="1" end="5">
@@ -649,24 +675,26 @@
 						            </div>
 					        	</c:forEach>
 					        </div>
-					        <div class="txt" style="position: absolute; right: 0; top: 10%" id="totalPoint">(0.0)</div>
+					        <div class="txt" style="position: absolute; right: 0; top: 10%" id="totalPoint">(0.0)
+					        	<font style="color: red; font-weight: normal">*평점은 추후 수정불가</font>
+					        </div>
 					    </div>
 					    <div class="feeling_txtarea">
 					        <div class="ft_txtarea">
 					            <div class="tit">수업방식 및 특징<br><span>(20 ~ 100자)</span></div>
-					            <textarea id="rate1"></textarea>
+					            <textarea id="rate1" style="resize: none"></textarea>
 					        </div>
 					        <div class="ft_txtarea">
 					            <div class="tit">수강전 학생 상태<br><span>(20 ~ 100자)</span></div>
-					            <textarea id="rate2"></textarea>
+					            <textarea id="rate2" style="resize: none"></textarea>
 					        </div>
 					        <div class="ft_txtarea">
 					            <div class="tit">좋은점<br><span>(20 ~ 100자)</span></div>
-					            <textarea id="rate3"></textarea>
+					            <textarea id="rate3" style="resize: none"></textarea>
 					        </div>
 					        <div class="ft_txtarea">
 					            <div class="tit">아쉬운점<br><span>(20 ~ 100자)</span></div>
-					            <textarea id="rate4"></textarea>
+					            <textarea id="rate4" style="resize: none"></textarea>
 					        </div>
 					        <div class="ft_radio">
 					            <div class="tit">예전으로 돌아가도 이 학원을 다니실건가요?</div>
@@ -683,11 +711,12 @@
 					        <div class="btn next" onclick="reSave()">저 장</div>
 					    </div>
 					</div>
+					<div class="review_wrap" id="reviewDetail" style="display: none"></div>
 				</div>
 				<div id="tab4" style="display: none" class="tab">
 					<c:choose>
 						<c:when test="${comment.size()!=0 && totalPoint!=null}">
-							<div class="test_wrap">
+							<div class="test_wrap" id="replySection">
 								<div class="test_tit">
 									<div class="test">평가</div>
 									<div class="star_wrap">
@@ -808,6 +837,30 @@
 									</div>
 								</c:forEach>
 							</div>
+							<div class="page_wrap">
+                        		<div class="inner">
+									<div class="arrow_wrap">
+		                                <div class="arrow prev" onclick="prev(this)" id="commentPrev1" style="display: none">
+		                                    <img src="/img/sub02_arrow_prev.png">
+		                                </div>
+		                                <div class="arrow next" onclick="next(this)" id="commentNext1">
+		                                    <img src="/img/sub02_arrow_next.png">
+		                                </div>
+		                            </div>
+									<div class="num_wrap" id="commentPages" align="center" style="font-size: 0">
+		                                <c:forEach var="i" begin="1" end="${commentPage>10 ? 10 : commentPage }">
+		                            		<c:choose>
+			                            		<c:when test="${i==1 }">
+					                                <div class="num sel" onclick="commentPage(${i })" id="commentPage${i }" style="width: 33px"><span>${i }</span></div>
+			                            		</c:when>
+			                            		<c:otherwise>
+					                                <div class="num" onclick="commentPage(${i })" id="commentPage${i }" style="width: 33px"><span>${i }</span></div>
+			                            		</c:otherwise>
+		                            		</c:choose>
+		                            	</c:forEach>
+		                            </div>
+		                        </div>
+		                    </div>
 						</c:when>
 						<c:otherwise>
 							<div class="test_wrap">
@@ -892,7 +945,66 @@
 </body>
 
 <script>
- 		// 검색란에서 엔터입력
+		// 조회수 증가
+		$(document).ready(function(){
+			$.ajax({
+				type : "post",
+				url : "/academy/countUp/"+${list.NUM },
+				async : true
+			});
+		});
+		// 한줄평가 페이지 표시
+	    $(document).ready(function(){
+			var start = 1;
+			var end = start+9>=${commentPage } ? ${commentPage } : start+9;
+			if(start==1 && end<10){
+				$("#commentPrev"+start).hide();
+				$("#commentNext"+start).hide();
+			} else {
+				if(start==1){
+		  			$("#commentPrev"+start).hide();
+		  			$("#commentNext"+start).show();
+		  		} else if(end>=${commentPage }){
+		  			$("#commentPrev"+start).show();
+		  			$("#commentNext"+start).hide();
+		  		}
+			}
+		});
+		// 리뷰 페이지 표시
+	    $(document).ready(function(){
+			var start = 1;
+			var end = start+9>=${reviewPage } ? ${reviewPage } : start+9;
+			if(start==1 && end<10){
+				$("#reviewPrev"+start).hide();
+				$("#reviewNext"+start).hide();
+			} else {
+				if(start==1){
+		  			$("#reviewPrev"+start).hide();
+		  			$("#reviewNext"+start).show();
+		  		} else if(end>=${reviewPage }){
+		  			$("#reviewPrev"+start).show();
+		  			$("#reviewNext"+start).hide();
+		  		}
+			}
+		});
+		 // 학원소식 페이지 표시
+	    $(document).ready(function(){
+			var start = 1;
+			var end = start+9>=${newsPage } ? ${newsPage } : start+9;
+			if(start==1 && end<10){
+				$("#newsPrev"+start).hide();
+				$("#newsNext"+start).hide();
+			} else {
+				if(start==1){
+		  			$("#newsPrev"+start).hide();
+		  			$("#newsNext"+start).show();
+		  		} else if(end>=${newsPage }){
+		  			$("#newsPrev"+start).show();
+		  			$("#newsNext"+start).hide();
+		  		}
+			}
+		});
+		// 검색란에서 엔터입력
 		$("#hsearch").keyup(function(txt){
 			if(txt.keyCode==13){
 	    		var search = $("#hsearch").val();
@@ -931,39 +1043,35 @@
        		$("#boardDiv").show();
        		$("#writeDiv").show();
        		$("#pageDiv").show();
+       		$("#noReview").show();
        		$("#reviewDiv").hide();
        		$("#feelingDiv").hide();
+       		$("#reviewDetail").hide();
     	}
-    	// 사진 위 클릭
-    	function up(){
-    		alert("up");
+    	// 사진 화살표 클릭
+    	var tsn = 0;
+    	function move(arrow){
+    		if(arrow=="up"){
+    			tsn--;
+    			$("#arrow_up").hide();
+    			$("#arrow_down").show();
+    		} else {
+    			tsn++;
+    			$("#arrow_up").show();
+    			$("#arrow_down").hide();
+    		}
+    		$(".thumbs_inner").stop().animate({
+    			top : -461 * tsn
+    		});
     	}
-    	// 사진 아래 클릭
-    	function down(){
-    		alert("down");
+    	// 사진 변경
+    	function change(num){
+    		var src = $("#pic"+num).prop("src");
+    		$("#big").prop("src", src);
     	}
     	// 글 선택
-    	var ar = new Array();
-    	for(var i=0; i<${newsCount }; i++){
-    		ar[ar.length] = i;
-    	}
      	function select(num) { 
-            for(var i=0; i<ar.length; i++){
-            	var x = document.getElementById("dropdown"+ar[i]);
-            	if(ar[i]==num){
-            		if(x.className.indexOf("drop_show") == -1){
-            			x.className += " drop_show";
-            		} else {
-            			x.className = x.className.replace(" drop_show", "");
-            		}
-            	} else {
-            		if(x==null){
-            			continue;
-            		} else {
-	            		x.className = x.className.replace(" drop_show", "");
-            		}
-            	}
-            }
+    		location.href="/academy/view/${list.NAME }/${list.NUM }/"+num;
         }
      	// 글 닫기
         function clo(num) {
@@ -985,10 +1093,65 @@
      	function reviewPage(num){
      		$.ajax({
      			type : "post",
-     			url : "/academy/reviewPage/"+num+"/"+${list.NUM },
+     			url : "/academy/reviewPage/"+num+"/${list.NUM }",
      			async : false,
      			success : function(txt){
      				$("#tab3").html(txt);
+     			}
+     		});
+     	}
+     	// 리뷰 이전 클릭
+     	function reviewPrev(element){
+     		var id = element.id;
+      		id = id.substring(id.indexOf('prev')+4);
+      		var start = Number(id)-10;
+      		var end = start+9>=${reviewPage } ? ${reviewPage } : start+9;
+    		$("#reviewNext"+id).show();
+      		if(start==1){
+      			$("#reviewPrev"+id).hide();
+      		}
+      		var html = "";
+      		for(var i=start; i<=end; i++){
+      			if(i==start){
+      				html += "<div class='num sel' onclick='reviewPage("+i+")' id='reviewPage"+i+"' style='width: 33px'><span>"+i+"</span></div>";
+      			} else {
+      				html += "<div class='num' onclick='reviewPage("+i+")' id='reviewPage"+i+"' style='width: 33px'><span>"+i+"</span></div>";
+      			}
+      		}
+      		$("#reviewPrev"+id).prop("id", "reviewPrev"+start);
+      		$("#reviewNext"+id).prop("id", "reviewNext"+start);
+      		$("#reviewPages").html(html);
+     	}
+     	// 리뷰 다음 클릭
+     	function reviewNext(element){
+     		var id = element.id;
+      		id = id.substring(id.indexOf('xt')+2);
+      		var start = Number(id)+10;
+      		var end = start+9>=${reviewPage } ? ${reviewPage } : start+9;
+    		$("#reviewPrev"+id).show();
+    		if(end>=${commentPage }){
+      			$("#reviewNext"+id).hide();
+      		}
+      		var html = "";
+      		for(var i=start; i<=end; i++){
+      			if(i==start){
+      				html += "<div class='num sel' onclick='reviewPage("+i+")' id='reviewPage"+i+"' style='width: 33px'><span>"+i+"</span></div>";
+      			} else {
+      				html += "<div class='num' onclick='reviewPage("+i+")' id='reviewPage"+i+"' style='width: 33px'><span>"+i+"</span></div>";
+      			}
+      		}
+      		$("#reviewPrev"+id).prop("id", "reviewPrev"+start);
+      		$("#reviewNext"+id).prop("id", "reviewNext"+start);
+      		$("#reviewPages").html(html);
+     	}
+    	// 한줄평가 페이지 클릭
+   		function commentPage(num){
+     		$.ajax({
+     			type : "post",
+     			url : "/academy/commentPage/"+num+"/${list.NUM }",
+     			async : false,
+     			success : function(txt){
+     				$("#tab4").html(txt);
      			}
      		});
      	}
@@ -996,45 +1159,49 @@
      	function wr(){
      		location.href="/academy/writeNews/${list.NUM }";
      	}
-     	// 페이지 이전 클릭
+     	// 한줄평가 이전 클릭
      	function prev(element){
      		var id = element.id;
-     		id = id.substring(id.indexOf('v')+1);
-     		pageNum = new Array();
-     		var html = ""
-     		if(Number(id)==1){
-     			return;
-     		} else {
-	     		for(var i=(Number(id)-10); i<Number(id); i++){
-	     			if(i==(Number(id)-10)){
-	     				html += "<div class='num sel' onclick='page("+i+")' id='page"+i+"'><span>"+i+"</span></div>";
-	     			} else {
-	     				html += "<div class='num' onclick='page("+i+")' id='page"+i+"'><span>"+i+"</span></div>";
-	     			}
-	     			pageNum[pageNum.length] = i;
-	     		}
-	     		$("#prev"+id).prop("id", "prev"+(Number(id)-10));
-	     		$("#next"+id).prop("id", "next"+(Number(id)-10));
-	     		$("#pages").html(html);
-     		}
+      		id = id.substring(id.indexOf('v')+1);
+      		var start = Number(id)-10;
+      		var end = start+9>=${commentPage } ? ${commentPage } : start+9;
+    		$("#commentNext"+id).show();
+      		if(start==1){
+      			$("#commentPrev"+id).hide();
+      		}
+      		var html = "";
+      		for(var i=start; i<=end; i++){
+      			if(i==start){
+      				html += "<div class='num sel' onclick='commentPage("+i+")' id='commentPage"+i+"' style='width: 33px'><span>"+i+"</span></div>";
+      			} else {
+      				html += "<div class='num' onclick='commentPage("+i+")' id='commentPage"+i+"' style='width: 33px'><span>"+i+"</span></div>";
+      			}
+      		}
+      		$("#commentPrev"+id).prop("id", "commentPrev"+start);
+      		$("#commentNext"+id).prop("id", "commentNext"+start);
+      		$("#commentPages").html(html);
      	}
-     	// 페이지 다음 클릭
+     	// 한줄평가 다음 클릭
      	function next(element){
      		var id = element.id;
-     		id = id.substring(id.indexOf('t')+1);
-     		pageNum = new Array();
-     		var html = ""
-     		for(var i=(Number(id)+10); i<(Number(id)+20); i++){
-     			if(i==(Number(id)+10)){
-     				html += "<div class='num sel' onclick='page("+i+")' id='page"+i+"'><span>"+i+"</span></div>";
-     			} else {
-     				html += "<div class='num' onclick='page("+i+")' id='page"+i+"'><span>"+i+"</span></div>";
-     			}
-     			pageNum[pageNum.length] = i;
-     		}
-     		$("#next"+id).prop("id", "next"+(Number(id)+10));
-     		$("#prev"+id).prop("id", "prev"+(Number(id)+10));
-     		$("#pages").html(html);
+      		id = id.substring(id.indexOf('xt')+2);
+      		var start = Number(id)+10;
+      		var end = start+9>=${commentPage } ? ${commentPage } : start+9;
+    		$("#commentPrev"+id).show();
+    		if(end>=${commentPage }){
+      			$("#commentNext"+id).hide();
+      		}
+      		var html = "";
+      		for(var i=start; i<=end; i++){
+      			if(i==start){
+      				html += "<div class='num sel' onclick='commentPage("+i+")' id='commentPage"+i+"' style='width: 33px'><span>"+i+"</span></div>";
+      			} else {
+      				html += "<div class='num' onclick='commentPage("+i+")' id='commentPage"+i+"' style='width: 33px'><span>"+i+"</span></div>";
+      			}
+      		}
+      		$("#commentPrev"+id).prop("id", "commentPrev"+start);
+      		$("#commentNext"+id).prop("id", "commentNext"+start);
+      		$("#commentPages").html(html);
      	}
      	// 한줄평가 등록
      	function submit(){
@@ -1165,7 +1332,7 @@
 	     		$.ajax({
 	     			type : "post",
 	     			url : "/academy/review/"+num+"/"+day+"/"+subject+"/"+subject1+"/"+className+"/"+grade+"/"+teacher+"/"+type+"/"+
-	     					rate1+"/"+rate2+"/"+rate3+"/"+rate4+"/"+again+"/"+point+"/"+writer,
+	     					rate1+"/"+rate2+"/"+rate3+"/"+rate4+"/"+again+"/"+point+"/"+writer+"/${login.NAME }",
 	     			async : false,
 	     			success : function(txt){
 	     				if(txt){
@@ -1181,16 +1348,34 @@
      	// 평점 클릭
      	var repoint = 0;
      	function rePoint(num){
-     		var point = new Array(1, 2, 3, 4, 5);
-     		for(var i=0; i<point.length; i++){
-     			if(ar[i]<=num){
-     				$("#star"+ar[i]).prop("src", "/img/main01_03_star.png");
+     		for(var i=1; i<=5; i++){
+     			if(i<=num){
+     				$("#star"+i).prop("src", "/img/main01_03_star.png");
      			} else {
-     				$("#star"+ar[i]).prop("src", "/img/main01_03_star1.png");
+     				$("#star"+i).prop("src", "/img/main01_03_star1.png");
      			}
      		}
      		repoint = num;
-     		$("#totalPoint").html("("+num+".0)");
+     		var txt = "<font style='color: red; font-weight: normal'>*평점은 추후 수정불가</font>"
+     		$("#totalPoint").html("("+num+".0)"+txt);
+     	}
+    	// 리뷰 클릭
+     	function reviewDetail(auto){
+     		$.ajax({
+     			tyep : "post",
+     			url : "/academy/reviewDetail/"+auto,
+     			async : false,
+     			success : function(txt){
+     				$("#reviewDetail").html(txt);
+     				$("#reviewDetail").show();
+     				$("#gradeDiv").hide();
+     				$("#boardDiv").hide();
+     				$("#writeDiv").hide();
+     				$("#pageDiv").hide();
+     				$("#reviewDiv").hide();
+     				$("#feelingDiv").hide();
+     			}
+     		});
      	}
     </script>
 

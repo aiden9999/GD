@@ -23,6 +23,10 @@
 	<context:component-scan base-package="admin"/>
 	<context:component-scan base-package="highExam"/>
 	<context:component-scan base-package="univExam"/>
+	<context:component-scan base-package="search"/>
+	<context:component-scan base-package="review"/>
+	<context:component-scan base-package="waggle"/>
+	<context:component-scan base-package="info"/>
 	
 	<bean class="org.springframework.web.servlet.view.BeanNameViewResolver"
 		id="beanNameViewResolver" p:order="2" />

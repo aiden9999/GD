@@ -2,12 +2,23 @@
 <!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="notice">
 	<insert id="write" parameterType="java.util.HashMap">
-		insert into notice values(#{title}, #{content},  #{id}, #{name}, now())
+		insert into
+		notice(title, content, writer, name, day)
+		values(#{title}, #{content},  #{id}, #{name}, now())
 	</insert>
 	<select id="noticeList" resultType="java.util.HashMap">
-		select * from notice order by day desc limit 10 offset #{page}
+		select * from notice order by auto desc limit 10 offset #{page}
 	</select>
 	<select id="noticeCount" resultType="java.lang.Integer">
 		select count(*) from notice
 	</select>
+	<select id="noticeView" resultType="java.util.HashMap">
+		select * from notice where auto = #{num}
+	</select>
+	<update id="modify" parameterType="java.util.HashMap">
+		update notice set title = #{title}, content = #{content} where auto = #{num}
+	</update>
+	<delete id="delete">
+		delete from notice where auto = #{num}
+	</delete>
 </mapper>

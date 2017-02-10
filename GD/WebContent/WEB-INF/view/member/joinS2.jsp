@@ -49,13 +49,13 @@
             <div class="gnb">
                 <div class="inner">
                     <ul>
-                        <li onclick="location.href='/elementary'" class="gnb_menu">
+                        <li onclick="location.href='/el'" class="gnb_menu">
                             <div class="txt">초등학원</div>
                         </li>
-						<li onclick="location.href='/middle'" class="gnb_menu">
+						<li onclick="location.href='/mi'" class="gnb_menu">
                             <div class="txt">중등학원</div>
                         </li>
-                        <li onclick="location.href='/high'" class="gnb_menu">
+                        <li onclick="location.href='/hi'" class="gnb_menu">
                             <div class="txt">고등학원</div>
                         </li>
                         <li class="gnb_menu">
@@ -257,9 +257,6 @@
 							<option value="1학년">1학년</option>
 							<option value="2학년">2학년</option>
 							<option value="3학년">3학년</option>
-<!-- 							<option value="4학년">4학년</option> -->
-<!-- 							<option value="5학년">5학년</option> -->
-<!-- 							<option value="6학년">6학년</option> -->
 						</select>
 					</div>
 				</div>
@@ -284,6 +281,13 @@
 							<div class="input_txt">
 								<label><input type="radio" name="series" id="type3">
 									예체능
+								</label>
+							</div>
+						</div>
+						<div class="radio_wrap">
+							<div class="input_txt">
+								<label><input type="radio" name="series" id="type4" checked="checked">
+									선택안함
 								</label>
 							</div>
 						</div>
@@ -334,6 +338,12 @@
 				if (!(event.keyCode >=37 && event.keyCode<=40)) {
 					var inputVal = $(this).val();
 					$(this).val(inputVal.replace(/[^a-z0-9]/gi,''));
+				}
+			});
+			$("input[id=nick]").keyup(function(event){
+				if (!(event.keyCode >=37 && event.keyCode<=40)) {
+					var inputVal = $(this).val();
+					$(this).val(inputVal.replace(/[^a-z0-9ㄱ-ㅎㅏ-ㅣ가-힣]/gi,''));
 				}
 			});
 			$("input[name=email1]").keyup(function(event){ 
@@ -496,7 +506,8 @@
  			var schooladdr = $("#schooladdr").val();
  			var school = $("#school").val();
  			var grade = $("#grade").val();
- 			var type = $("#type1").prop("checked") ? "문과" : $("#type2").prop("checked") ? "이과" : $("#type3").prop("checked") ? "예체능" : false;
+ 			var type = $("#type1").prop("checked") ? "문과" : $("#type2").prop("checked") ? "이과" :
+ 								$("#type3").prop("checked") ? "예체능" : $("#type4").prop("checked") ? "선택안함" : false;
  			
  			if(id=="" || nick=="" || pw=="" || pw2=="" || addr1=='choose' || addr2=="" || phone1=='choose' || phone2=="" || phone3=="" ||
  					email1=="" || email2=="" || !agreesms || !agreeemail || schooladdr=="choose" || school=="" || grade=="choose" || !type){

@@ -45,13 +45,13 @@
             <div class="gnb">
                 <div class="inner">
                     <ul>
-                        <li onclick="location.href='/elementary'" class="gnb_menu">
+                        <li onclick="location.href='/el'" class="gnb_menu">
                             <div class="txt">초등학원</div>
                         </li>
-						<li onclick="location.href='/middle'" class="gnb_menu">
+						<li onclick="location.href='/mi'" class="gnb_menu">
                             <div class="txt">중등학원</div>
                         </li>
-                        <li onclick="location.href='/high'" class="gnb_menu">
+                        <li onclick="location.href='/hi'" class="gnb_menu">
                             <div class="txt">고등학원</div>
                         </li>
                         <li class="gnb_menu">
@@ -114,17 +114,26 @@
 									<div class="txt_box">
 			                            <div class="txt txt_number">
 			                            	<c:choose>
-			                            		<c:when test="${noticeCount-i<10 }">
-					                                <span>0${noticeCount-i }</span>
+			                            		<c:when test="${noticeList.get(i).AUTO<10 }">
+					                                <span>0${noticeList.get(i).AUTO }</span>
 			                            		</c:when>
 			                            		<c:otherwise>
-					                                <span>${noticeCount-i }</span>
+					                                <span>${noticeList.get(i).AUTO }</span>
 			                            		</c:otherwise>
 			                            	</c:choose>
 			                            </div>
-			                            <div onclick="select(${i })" class="txt txt_tit">
-			                                <span>${noticeList.get(i).TITLE }</span>
-			                            </div>
+			                            <c:choose>
+			                            	<c:when test="${login!=null }">
+					                            <div onclick="select(${noticeList.get(i).AUTO })" class="txt txt_tit">
+					                                <span>${noticeList.get(i).TITLE }</span>
+					                            </div>
+			                            	</c:when>
+			                            	<c:otherwise>
+					                            <div class="txt txt_tit">
+					                                <span>${noticeList.get(i).TITLE }</span>
+					                            </div>
+			                            	</c:otherwise>
+			                            </c:choose>
 			                            <div id="dropdown${i }" class="contents">
 			                                <div class="img"><img src="/img/sub02_arrow_up.png" onclick="clo(${i })"></div>
 			                                <div class="drop_txt">${noticeList.get(i).CONTENT }</div>
@@ -154,15 +163,15 @@
                     <div class="page_wrap">
                         <div class="inner">
                             <div class="arrow_wrap">
-                                <div class="arrow prev">
-                                    <img src="img/sub02_arrow_prev.png" onclick="prev(this)" id="prev1">
+                                <div class="arrow prev" onclick="prev(this)" id="prev1" style="display: none">
+                                    <img src="/img/sub02_arrow_prev.png">
                                 </div>
-                                <div class="arrow next">
-                                    <img src="img/sub02_arrow_next.png" onclick="next(this)" id="next1">
+                                <div class="arrow next" onclick="next(this)" id="next1">
+                                    <img src="/img/sub02_arrow_next.png">
                                 </div>
                             </div>
-                            <div class="num_wrap" id="pages">
-                            	<c:forEach var="i" begin="1" end="${noticePage }">
+                            <div class="num_wrap" id="pages" align="center">
+                            	<c:forEach var="i" begin="1" end="${noticePage>10 ? 10 : noticePage }">
                             		<c:choose>
 	                            		<c:when test="${i==1 }">
 			                                <div class="num sel" onclick="page(${i })" id="page${i }"><span>${i }</span></div>
@@ -189,6 +198,23 @@
     </body>
     
     <script>
+		 // 페이지 표시
+	    $(document).ready(function(){
+			var start = 1;
+			var end = start+9>=${noticePage } ? ${noticePage } : start+9;
+			if(start==1 && end<10){
+				$("#prev"+start).hide();
+				$("#next"+start).hide();
+			} else {
+				if(start==1){
+		  			$("#prev"+start).hide();
+		  			$("#next"+start).show();
+		  		} else if(end>=${noticePage }){
+		  			$("#prev"+start).show();
+		  			$("#next"+start).hide();
+		  		}
+			}
+		});
  		// 검색란에서 엔터입력
  		$("#hsearch").keyup(function(txt){
  			if(txt.keyCode==13){
@@ -211,23 +237,8 @@
      		location.href="/join";
      	}
      	// 글 선택
-     	function select(num) { 
-     		var ar = new Array();
-     		for(var i=0; i<${noticeCount}; i++){
-     			ar[i] = i;
-     		}
-            for(var i=0; i<ar.length; i++){
-            	var x = document.getElementById("dropdown"+ar[i]);
-            	if(ar[i]==num){
-            		if(x.className.indexOf("drop_show") == -1){
-            			x.className += " drop_show";
-            		} else {
-            			x.className = x.className.replace(" drop_show", "");
-            		}
-            	} else {
-            		x.className = x.className.replace(" drop_show", "");
-            	}
-            }
+     	function select(num) {
+     		location.href="/notice/view/"+num;
         }
      	// 글 닫기
         function clo(num) {
@@ -249,46 +260,50 @@
      	function wr(){
      		location.href="/notice/write";
      	}
-     	// 페이지 이전 클릭
-     	function prev(element){
-     		var id = element.id;
-     		id = id.substring(id.indexOf('v')+1);
-     		pageNum = new Array();
-     		var html = ""
-     		if(Number(id)==1){
-     			return;
-     		} else {
-	     		for(var i=(Number(id)-10); i<Number(id); i++){
-	     			if(i==(Number(id)-10)){
-	     				html += "<div class='num sel' onclick='page("+i+")' id='page"+i+"'><span>"+i+"</span></div>";
-	     			} else {
-	     				html += "<div class='num' onclick='page("+i+")' id='page"+i+"'><span>"+i+"</span></div>";
-	     			}
-	     			pageNum[pageNum.length] = i;
-	     		}
-	     		$("#prev"+id).prop("id", "prev"+(Number(id)-10));
-	     		$("#next"+id).prop("id", "next"+(Number(id)-10));
-	     		$("#pages").html(html);
-     		}
-     	}
-     	// 페이지 다음 클릭
-     	function next(element){
-     		var id = element.id;
-     		id = id.substring(id.indexOf('t')+1);
-     		pageNum = new Array();
-     		var html = ""
-     		for(var i=(Number(id)+10); i<(Number(id)+20); i++){
-     			if(i==(Number(id)+10)){
-     				html += "<div class='num sel' onclick='page("+i+")' id='page"+i+"'><span>"+i+"</span></div>";
-     			} else {
-     				html += "<div class='num' onclick='page("+i+")' id='page"+i+"'><span>"+i+"</span></div>";
-     			}
-     			pageNum[pageNum.length] = i;
-     		}
-     		$("#next"+id).prop("id", "next"+(Number(id)+10));
-     		$("#prev"+id).prop("id", "prev"+(Number(id)+10));
-     		$("#pages").html(html);
-     	}
+     // 페이지 이전 클릭
+      	function prev(element){
+      		var id = element.id;
+      		id = id.substring(id.indexOf('v')+1);
+      		var start = Number(id)-10;
+      		var end = start+9>=${noticePage } ? ${noticePage } : start+9;
+    		$("#next"+id).show();
+      		if(start==1){
+      			$("#prev"+id).hide();
+      		}
+      		var html = "";
+      		for(var i=start; i<=end; i++){
+      			if(i==start){
+      				html += "<div class='num sel' onclick='page("+i+")' id='page"+i+"'><span>"+i+"</span></div>";
+      			} else {
+      				html += "<div class='num' onclick='page("+i+")' id='page"+i+"'><span>"+i+"</span></div>";
+      			}
+      		}
+      		$("#prev"+id).prop("id", "prev"+start);
+      		$("#next"+id).prop("id", "next"+start);
+      		$("#pages").html(html);
+      	}
+      	// 페이지 다음 클릭
+      	function next(element){
+      		var id = element.id;
+      		id = id.substring(id.indexOf('t')+1);
+      		var start = Number(id)+10;
+      		var end = start+9>=${noticePage } ? ${noticePage } : start+9;
+   			$("#prev"+id).show();
+      		if(end>=${noticePage }){
+      			$("#next"+id).hide();
+      		}
+      		var html = "";
+      		for(var i=start; i<=end; i++){
+      			if(i==start){
+      				html += "<div class='num sel' onclick='page("+i+")' id='page"+i+"'><span>"+i+"</span></div>";
+      			} else {
+      				html += "<div class='num' onclick='page("+i+")' id='page"+i+"'><span>"+i+"</span></div>";
+      			}
+      		}
+      		$("#prev"+id).prop("id", "prev"+start);
+      		$("#next"+id).prop("id", "next"+start);
+      		$("#pages").html(html);
+      	}
    	</script>    
    	
 </html>

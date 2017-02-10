@@ -47,13 +47,13 @@
             <div class="gnb">
                 <div class="inner">
                     <ul>
-                        <li onclick="location.href='/elementary'" class="gnb_menu">
+                        <li onclick="location.href='/el'" class="gnb_menu">
                             <div class="txt">초등학원</div>
                         </li>
-						<li onclick="location.href='/middle'" class="gnb_menu">
+						<li onclick="location.href='/mi'" class="gnb_menu">
                             <div class="txt">중등학원</div>
                         </li>
-                        <li onclick="location.href='/high'" class="gnb_menu">
+                        <li onclick="location.href='/hi'" class="gnb_menu">
                             <div class="txt">고등학원</div>
                         </li>
                         <li class="gnb_menu">
@@ -86,7 +86,7 @@
             </div>
         </header>
         <div class="worry">
-            <div class="inner">
+            <div class="inner" id="worryList">
                 <div class="worry_tit">고민상담
                     <span class="txt">강남에서 대학가기</span>
                     <span class="txt1">고민상담 입니다.</span>
@@ -99,98 +99,116 @@
 		                        <div class="btn" onclick="submit()">등록</div>
                     		</c:when>
                     		<c:otherwise>
-                    			<textarea placeholder="(로그인 후 이용할 수 있습니다.)" style="resize: none" disabled="disabled"></textarea>
+                    			<textarea placeholder="(로그인 후 이용할 수 있습니다.)" style="resize: none" readonly="readonly"></textarea>
                     			<div class="btn">등록</div>
                     		</c:otherwise>
                     	</c:choose>
                     </div>
                 </div>
-                <c:forEach var="i" begin="0" end="${worryList.size()-1 }">
-	                <div class="worry_txt_wrap">
-	                	<c:choose>
-	                		<c:when test="${worryList.get(i).CONTENT.length()>40 }">
-			                    <div class="content"><label onclick="select(${i })" style="cursor: pointer;">
-			                    <font style="color: #88b04b; font-size: 15px; font-weight: bold;">
-			                    ${worryList.get(i).CONTENT.substring(0, 40) } ......
-			                    </label></font></div>
-	                		</c:when>
-	                		<c:otherwise>
-	                			<div class="content"><label onclick="select(${i })" style="cursor: pointer;">
-	                			<font style="color: #88b04b; font-size: 15px; font-weight: bold;">
-			                    ${worryList.get(i).CONTENT }
-			                    </label></font></div>
-	                		</c:otherwise>
-	                	</c:choose>
-	                    <div class="name">${worryList.get(i).NAME } (${worryList.get(i).WRITER })</div>
-	                    <div class="date">
-	                        <span class="txt1">${worryList.get(i).DAY } |</span>
-	                        <span class="txt3" style="cursor: default;"><font style="color: black; font-size: 13px; font-weight: normal">댓글 (0)</font></span>
-	                        <div id="dropdown${i }" class="contents">
-	                            <div class="img">
-	                                <img src="/img/sub02_arrow_up.png" onclick="clo(${i })">
-	                            </div>
-	                            <div class="txt_section">${worryList.get(i).CONTENT }</div>
-	                            <div class="reply_section">
-	                                <div class="reply_input">
-	                                    <input type="text" id="reply${worryList.get(i).NUM }" name="reply">
-	                                    <div class="btn" onclick="replySubmit(${worryList.get(i).NUM })">등록</div>
-	                                </div>
-	                                <c:forEach var="j" begin="0" end="${replyList.size()-1 }">
-	                                	<c:if test="${worryList.get(i).NUM == replyList.get(j).NUM }">
-			                                <div class="reply_old">
-			                                    <div class="header">
-			                                        <div class="header_name">${replyList.get(j).NAME } (${replyList.get(j).ID })</div>
-			                                        <div class="header_date">${replyList.get(j).DAY }</div>
-			                                    </div>
-			                                    <div class="reply_content">${replyList.get(j).REPLY }</div>
+                <c:choose>
+	                <c:when test="${worryList.size()>0 }">
+		                <c:forEach var="i" begin="0" end="${worryList.size()-1 }">
+			                <div class="worry_txt_wrap">
+			                	<c:choose>
+			                		<c:when test="${worryList.get(i).CONTENT.length()>40 }">
+					                    <div class="content"><label onclick="select(${i })" style="cursor: pointer;">
+					                    <font style="color: #88b04b; font-size: 15px; font-weight: bold;">
+					                    ${worryList.get(i).CONTENT.substring(0, 40) } ......
+					                    </font></label></div>
+			                		</c:when>
+			                		<c:otherwise>
+			                			<div class="content"><label onclick="select(${i })" style="cursor: pointer;">
+			                			<font style="color: #88b04b; font-size: 15px; font-weight: bold;">
+					                    ${worryList.get(i).CONTENT }
+					                    </font></label></div>
+			                		</c:otherwise>
+			                	</c:choose>
+			                    <div class="name">${worryList.get(i).NAME } (${worryList.get(i).WRITER })</div>
+			                    <div class="date">
+			                        <span class="txt1">${worryList.get(i).DAY } |</span>
+			                        <span class="txt3" style="cursor: default;"><font style="color: black; font-size: 13px; font-weight: normal">댓글 (${worryList.get(i).REPLY })</font></span>
+			                        <div id="dropdown${i }" class="contents">
+			                            <div class="img">
+			                                <img src="/img/sub02_arrow_up.png" onclick="clo(${i })">
+			                            </div>
+			                            <div class="txt_section">${worryList.get(i).CONTENT }</div>
+			                            <div class="reply_section">
+			                                <div class="reply_input">
+			                                	<c:choose>
+			                                		<c:when test="${login!=null }">
+					                                    <input type="text" id="reply${worryList.get(i).AUTO }" name="reply">
+					                                    <div class="btn" onclick="replySubmit(${worryList.get(i).AUTO })">등록</div>
+			                                		</c:when>
+			                                		<c:otherwise>
+					                                    <input type="text" id="reply${worryList.get(i).AUTO }" name="reply"
+					                                    		placeholder="(로그인 후 이용할 수 있습니다.)" readonly="readonly">
+					                                    <div class="btn">등록</div>
+			                                		</c:otherwise>
+			                                	</c:choose>
 			                                </div>
-	                                	</c:if>
-	                                </c:forEach>
-	                            </div>
-	                        </div>
-	                    </div>
-	                </div>
-                </c:forEach>
-                <div class="page_wrap">
-                    <div class="inner">
-                        <div class="arrow_wrap">
-                            <div class="arrow prev">
-                                <img src="/img/sub02_arrow_prev.png" onclick="prev()">
-                            </div>
-                            <div class="arrow next">
-                                <img src="/img/sub02_arrow_next.png" onclick="next()">
-                            </div>
-                        </div>
-                        <div class="num_wrap">
-                            <c:forEach var="i" begin="1" end="${worryPage }">
-                           		<c:choose>
-                            		<c:when test="${i==1 }">
-		                                <div class="num sel" onclick="page(${i })" id="page${i }"><span>${i }</span></div>
-                            		</c:when>
-                            		<c:otherwise>
-		                                <div class="num" onclick="page(${i })" id="page${i }"><span>${i }</span></div>
-                            		</c:otherwise>
-                           		</c:choose>
-                           	</c:forEach>
-                        </div>
-                    </div>
-                </div>
-                <div class="search_wrap">
-                    <div class="name_search">
-                        <select id="name">
-                            <option value="name">작성자</option>
-                            <option value="name">작성자</option>
-                            <option value="name">작성자</option>
-                            <option value="name">작성자</option>
-                        </select>
-                        <div class="input">
-                            <input type="text" id="search">
-                        </div>
-                        <div class="btn">
-                            <img src="img/search1.png" onclick="searchWorry()">
-                        </div>
-                    </div>
-                </div>
+			                                <c:if test="${replyList.size()>0 }">
+				                                <c:forEach var="j" begin="0" end="${replyList.size()-1 }">
+				                                	<c:if test="${worryList.get(i).AUTO == replyList.get(j).NUM }">
+						                                <div class="reply_old">
+						                                    <div class="header">
+						                                        <div class="header_name">${replyList.get(j).NAME } (${replyList.get(j).ID })</div>
+						                                        <div class="header_date">${replyList.get(j).DAY }</div>
+						                                    </div>
+						                                    <div class="reply_content">${replyList.get(j).REPLY }</div>
+						                                </div>
+				                                	</c:if>
+				                                </c:forEach>
+			                                </c:if>
+			                            </div>
+			                        </div>
+			                    </div>
+			                </div>
+		                </c:forEach>
+		                <div class="page_wrap">
+		                    <div class="inner">
+		                        <div class="arrow_wrap">
+		                            <div class="arrow prev">
+		                                <img src="/img/sub02_arrow_prev.png" onclick="prev()">
+		                            </div>
+		                            <div class="arrow next">
+		                                <img src="/img/sub02_arrow_next.png" onclick="next()">
+		                            </div>
+		                        </div>
+		                        <div class="num_wrap">
+		                            <c:forEach var="i" begin="1" end="${worryPage }">
+		                           		<c:choose>
+		                            		<c:when test="${i==1 }">
+				                                <div class="num sel" onclick="page(${i })" id="page${i }"><span>${i }</span></div>
+		                            		</c:when>
+		                            		<c:otherwise>
+				                                <div class="num" onclick="page(${i })" id="page${i }"><span>${i }</span></div>
+		                            		</c:otherwise>
+		                           		</c:choose>
+		                           	</c:forEach>
+		                        </div>
+		                    </div>
+		                </div>
+		                <div class="search_wrap">
+		                    <div class="name_search">
+		                        <select id="replySearch">
+		                            <option value="writer">작성자</option>
+		                            <option value="reply">내용</option>
+		                        </select>
+		                        <div class="input">
+		                            <input type="text" id="search">
+		                        </div>
+		                        <div class="btn">
+		                            <img src="/img/search1.png" onclick="searchWorry()">
+		                        </div>
+		                    </div>
+		                </div>
+	                </c:when>
+	                <c:otherwise>
+	                	<div align="center" style="margin-bottom: 30px">
+							<label>검색된 고민이 없습니다.</label>
+						</div>
+	                </c:otherwise>
+                </c:choose>
             </div>
         </div>
         <footer>
@@ -245,26 +263,16 @@
             var x = document.getElementById("dropdown"+num);
             x.className = x.className.replace(" drop_show", "");
         }
-     	// 페이지 클릭
-   		var pageNum = new Array();
-     	for(var i=1; i<=${worryPage}; i++){
-     		pageNum[i] = i;
-     	}
+   		// 페이지 클릭
      	function page(num){
-     		for(var i=0; i<pageNum.length; i++){
-				var x = document.getElementById("page"+pageNum[i]);
-     			if(pageNum[i]==num){
-     				if(x.className.indexOf("sel") == -1){
-     					x.className += " sel";
-     				}
-     			} else {
-     				x.className = x.className.replace(" sel", "");
+     		$.ajax({
+     			type : "post",
+     			url : "/worry/page/"+num,
+     			async : false,
+     			success : function(txt){
+     				$("#worryList").html(txt);
      			}
-     		}
-     	}
-     	// 글쓰기
-     	function wr(){
-     		alert("write");
+     		});
      	}
      	// 페이지 이전 클릭
      	function prev(element){
@@ -342,14 +350,26 @@
      	}
      	// 글 검색
      	function searchWorry(){
-     		var search = $("#search").val();
-     		alert(search);
+     		var search = $("#replySearch").val();
+     		var word = $("#search").val();
+     		if(word!=""){
+	     		$.ajax({
+	     			type : "post",
+	     			url : "/worry/search/"+search+"/"+word+"/1",
+	     			async : false,
+	     			success : function(txt){
+	     				$("#worryList").html(txt);
+	     			}
+	     		});
+     		}
      	}
      	// 글 검색창에서 엔터
      	$("#search").keyup(function(txt){
-     		if(txt.keyCode==13){
-     			searchWorry();
-     		}
+			if($("#search").val()!=""){
+	     		if(txt.keyCode==13){
+	     			searchWorry();
+	     		}
+			}
      	});
     </script>
     

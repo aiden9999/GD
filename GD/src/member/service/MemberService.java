@@ -272,23 +272,31 @@ public class MemberService {
 	}
 
 	// 내정보 내가 쓴글1
-//	public List<HashMap> board1(String id) {
-//		SqlSession ss = fac.openSession();
-//		List<HashMap> list = ss.selectList("member.waggleList", id);
-//		List<HashMap> list2 = ss.selectList("member.waggleReply", id);
-//		ss.close();
-//		return list;
-//	}
+	public List<HashMap> board1(String id) {
+		SqlSession ss = fac.openSession();
+		List<HashMap> list = ss.selectList("waggle.myWaggle", id);
+		List<HashMap> list2 = ss.selectList("waggle.myWaggleReply", id);
+		for(int i=0; i<list.size(); i++){
+			int n = 0;
+			for(int j=0; j<list2.size(); j++){
+				if(list.get(i).get("AUTO")==list2.get(j).get("NUM")){
+					list.get(i).put("REPLY", n++);
+				}
+			}
+		}
+		ss.close();
+		return list;
+	}
 	
 	// 내정보 내가 쓴글2
 	public List<HashMap> board2(String id) {
 		SqlSession ss = fac.openSession();
-		List<HashMap> list = ss.selectList("member.worryList", id);
-		List<HashMap> list2 = ss.selectList("worry.replyList");
+		List<HashMap> list = ss.selectList("worry.myWorry", id);
+		List<HashMap> list2 = ss.selectList("worry.myWorryReply", id);
 		for(int i=0; i<list.size(); i++){
 			int n = 0;
 			for(int j=0; j<list2.size(); j++){
-				if(list.get(i).get("NUM")==list2.get(j).get("NUM")){
+				if(list.get(i).get("AUTO")==list2.get(j).get("NUM")){
 					list.get(i).put("REPLY", n++);
 				}
 			}
@@ -297,18 +305,61 @@ public class MemberService {
 		return list;
 	}
 
-	// 내정보 내가 쓴 댓글2
-	public List<HashMap> reply2(String id) {
+	// 내정보 내가 쓴 댓글1
+	public List<HashMap> reply1(String id) {
 		SqlSession ss = fac.openSession();
-		List<HashMap> list = ss.selectList("worry.worryList", id);
-		List<HashMap> list2 = ss.selectList("worry.replyList");
+		List<HashMap> list = ss.selectList("waggle.myWaggle", id);
+		List<HashMap> list2 = ss.selectList("waggle.myWaggleReply", id);
 		for(int i=0; i<list2.size(); i++){
 			for(int j=0; j<list.size(); j++){
-				if(list2.get(i).get("NUM")==list.get(j).get("NUM")){
+				if(list2.get(i).get("NUM")==list.get(j).get("AUTO")){
 					list2.get(i).put("BOARD", list.get(j).get("CONTENT"));
 				}
 			}
 		}
+		ss.close();
 		return list2;
+	}
+	
+	// 내정보 내가 쓴 댓글2
+	public List<HashMap> reply2(String id) {
+		SqlSession ss = fac.openSession();
+		List<HashMap> list = ss.selectList("worry.myWorry", id);
+		List<HashMap> list2 = ss.selectList("worry.myWorryReply", id);
+		for(int i=0; i<list2.size(); i++){
+			for(int j=0; j<list.size(); j++){
+				if(list2.get(i).get("NUM")==list.get(j).get("AUTO")){
+					list2.get(i).put("BOARD", list.get(j).get("CONTENT"));
+				}
+			}
+		}
+		ss.close();
+		return list2;
+	}
+	
+	// 내정보 학원 리뷰
+	public List<HashMap> review(String id){
+		SqlSession ss = fac.openSession();
+		List<HashMap> list = ss.selectList("academy.myReview", id);
+		ss.close();
+		return list;
+	}
+	
+	// 내정보 한줄 평가
+	public List<HashMap> comment(String id){
+		SqlSession ss = fac.openSession();
+		List<HashMap> list = ss.selectList("academy.myComment", id);
+		List<HashMap> aca = ss.selectList("academy.allAcademy");
+		for(int i=0; i<list.size(); i++){
+			int point = Integer.parseInt(list.get(i).get("POINT").toString());
+			list.get(i).put("POINT", point);
+			for(int j=0; j<aca.size(); j++){
+				if(list.get(i).get("NUM").toString().equals(aca.get(j).get("NUM").toString())){
+					list.get(i).put("aca", aca.get(j).get("NAME"));
+				}
+			}
+		}
+		ss.close();
+		return list;
 	}
 }

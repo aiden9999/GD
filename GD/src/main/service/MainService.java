@@ -6,9 +6,10 @@ import java.util.*;
 import javax.servlet.http.*;
 
 import org.apache.ibatis.session.*;
-import org.apache.tomcat.util.collections.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.*;
+
+import member.service.*;
 
 @Component
 public class MainService {
@@ -16,6 +17,8 @@ public class MainService {
 	SqlSessionFactory fac;
 	@Autowired
 	SqlSession sss;
+	@Autowired
+	MemberService ms;
 	
 	// 아이디저장 / 자동로그인 체크
 	public void check(HttpServletRequest req, HttpServletResponse resp, HttpSession session){
@@ -89,6 +92,8 @@ public class MainService {
 			}
 		}
 		if(list.size()!=0){
+			list.get(0).put("email1", list.get(0).get("EMAIL").toString().substring(0, list.get(0).get("EMAIL").toString().indexOf('@')));
+			list.get(0).put("email2", list.get(0).get("EMAIL").toString().substring(list.get(0).get("EMAIL").toString().indexOf('@')+1));
 			Cookie autoCo = new Cookie("auto", "auto");
 			Cookie saveCo = new Cookie("save", "save");
 			Cookie idCo = new Cookie("id", id);
@@ -254,13 +259,214 @@ public class MainService {
 	}
 
 	// 검색 게시판 변경
-	public List<HashMap> boardChange(String board, String search) {
+	public List<HashMap> boardChange(String board, String search, int page) {
 		SqlSession ss = fac.openSession();
 		HashMap map = new HashMap();
 		map.put("search", "%"+search+"%");
-		map.put("page", 0);
-		List<HashMap> list = ss.selectList("search"+board, map);
+		map.put("page", (page-1)*5);
+		List<HashMap> list = ss.selectList("search.search"+board, map);
 		ss.close();
+		return list;
+	}
+
+	// 검색 게시판 변경 페이지
+	public int boardPage(String board, String search) {
+		SqlSession ss = fac.openSession();
+		int n = ss.selectOne("search."+board+"Page", "%"+search+"%");
+		ss.close();
+		return n;
+	}
+	
+	// 메인페이지 학원리스트
+	public List<List<HashMap>> mainAca(){
+		SqlSession ss = fac.openSession();
+		List<HashMap> list = ss.selectList("main.acaT");
+		ss.close();
+		List<List<HashMap>> total = new Vector<>();
+		List<HashMap> ele = new Vector<>();
+		List<HashMap> mid = new Vector<>();
+		List<HashMap> hig = new Vector<>();
+		for(HashMap m : list){
+			String target = (String)m.get("TARGET");
+			if(target.contains("초등")){
+				if(ele.size()<11){
+					ele.add(m);
+				} else {
+					break;
+				}
+			}
+		}
+		for(HashMap m : list){
+			String target = (String)m.get("TARGET");
+			if(target.contains("중등")){
+				if(mid.size()<11){
+					mid.add(m);
+				} else {
+					break;
+				}
+			}
+		}
+		for(HashMap m : list){
+			String target = (String)m.get("TARGET");
+			if(target.contains("고등")){
+				if(hig.size()<11){
+					hig.add(m);
+				} else {
+					break;
+				}
+			}
+		}
+		total.add(ele);
+		total.add(mid);
+		total.add(hig);
+		return total;
+	}
+	
+	// 메인페이지 학원리스트 정렬
+	public List<List<HashMap>> align(String align){
+		SqlSession ss = fac.openSession();
+		String sql = "main.aca";
+		switch(align){
+		case "total":
+			sql += "T";
+			break;
+		case "point":
+			sql += "P";
+			break;
+		case "search":
+			sql += "C";
+			break;
+		case "reply":
+			sql += "R";
+			break;
+		}
+		List<HashMap> list = ss.selectList(sql);
+		ss.close();
+		List<List<HashMap>> total = new Vector<>();
+		List<HashMap> ele = new Vector<>();
+		List<HashMap> mid = new Vector<>();
+		List<HashMap> hig = new Vector<>();
+		for(HashMap m : list){
+			String target = (String)m.get("TARGET");
+			if(target.contains("초등")){
+				if(ele.size()<11){
+					ele.add(m);
+				} else {
+					break;
+				}
+			}
+		}
+		for(HashMap m : list){
+			String target = (String)m.get("TARGET");
+			if(target.contains("중등")){
+				if(mid.size()<11){
+					mid.add(m);
+				} else {
+					break;
+				}
+			}
+		}
+		for(HashMap m : list){
+			String target = (String)m.get("TARGET");
+			if(target.contains("고등")){
+				if(hig.size()<11){
+					hig.add(m);
+				} else {
+					break;
+				}
+			}
+		}
+		total.add(ele);
+		total.add(mid);
+		total.add(hig);
+		return total;
+	}
+
+	// 메인페이지 내 글 갯수
+	public int myBoard(String id) {
+		int n = 0;
+		List<HashMap> board1 = ms.board1(id);
+		List<HashMap> board2 = ms.board2(id);
+		List<HashMap> review = ms.review(id);
+		List<HashMap> comment = ms.comment(id);
+		n = board1.size() + board2.size() + review.size() + comment.size();
+		return n;
+	}
+
+	// 메인페이지 내 댓글 갯수
+	public int myReply(String id) {
+		int n = 0;
+		List<HashMap> reply1 = ms.reply1(id);
+		List<HashMap> reply2 = ms.reply2(id);
+		n = reply1.size() + reply2.size();
+		return n;
+	}
+
+	// 메인 공지 리스트
+	public List<HashMap> mainNotice() {
+		SqlSession ss = fac.openSession();
+		List<HashMap> list = ss.selectList("notice.noticeList", 0);
+		ss.close();
+		return list;
+	}
+
+	// 메인 수다방 리스트
+	public List<HashMap> mainWaggle() {
+		SqlSession ss = fac.openSession();
+		List<HashMap> list = ss.selectList("waggle.waggleList");
+		ss.close();
+		return list;
+	}
+
+	// 메인 입시정보 리스트
+	public List<List<HashMap>> mainExam() {
+		SqlSession ss = fac.openSession();
+		List<HashMap> high = ss.selectList("highExam.mainHigh", 0);
+		List<HashMap> univ = ss.selectList("univExam.mainUniv", 0);
+		List<List<HashMap>> list = new Vector<>();
+		list.add(high);
+		list.add(univ);
+		ss.close();
+		return list;
+	}
+
+	// 메인 추천학원
+	public List<HashMap> recomendAcademy() {
+		List<List<HashMap>> total = align("total");
+		List<HashMap> ele = total.get(0);
+		List<HashMap> mid = total.get(1);
+		List<HashMap> hig = total.get(2);
+		for(int i=0; i<ele.size(); i++){
+			if(i>2){
+				ele.remove(i);
+			} else {
+				continue;
+			}
+		}
+		for(int i=0; i<mid.size(); i++){
+			if(i>2){
+				mid.remove(i);
+			} else {
+				continue;
+			}
+		}
+		for(int i=0; i<hig.size(); i++){
+			if(i>2){
+				hig.remove(i);
+			} else {
+				continue;
+			}
+		}
+		List<HashMap> list = new Vector<>();
+		for(int i=0; i<ele.size(); i++){
+			list.add(ele.get(i));
+		}
+		for(int i=0; i<mid.size(); i++){
+			list.add(mid.get(i));
+		}
+		for(int i=0; i<hig.size(); i++){
+			list.add(hig.get(i));
+		}
 		return list;
 	}
 }
