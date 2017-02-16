@@ -2,8 +2,16 @@
   font-family: 'namsanB';
   font-style: normal;
   font-weight: normal;
-  src: url('font/namsanB.eot'); 
-  src: local('※'), url('font/namsanB.woff') format('woff'), url('../font/namsanB.ttf') format('truetype'); 
+  src: url('/font/namsanB.eot'); 
+  src: local('※'), url('/font/namsanB.woff') format('woff'), url('/font/namsanB.ttf') format('truetype'); 
+}
+
+@font-face{
+  font-family: 'namsanM';
+  font-style: normal;
+  font-weight: normal;
+  src: url('/font/namsanM.eot'); 
+  src: local('※'), url('/font/namsanM.woff') format('woff'), url('/font/namsanM.ttf') format('truetype'); 
 }
 
 body { margin: 0; font-family:'namsanB'; font-size: 16px; }

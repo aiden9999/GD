@@ -47,6 +47,11 @@ public class WorryController {
 		mav.addObject("worryPage", worryPage);
 		mav.addObject("search", search);
 		mav.addObject("word", word);
+		mav.addObject("selectPage", page);
+		int start = 1+(int)((page-1)/10)*10;
+		mav.addObject("start", start);
+		int end = start+9>worryPage ? worryPage : start+9;
+		mav.addObject("end", end);
 		return mav;
 	}
 	
@@ -60,6 +65,11 @@ public class WorryController {
 		mav.addObject("replyList", replyList);
 		int worryPage = ws.worryCount()%10==0 ? ws.worryCount()/10 : ws.worryCount()/10+1;
 		mav.addObject("worryPage", worryPage);
+		mav.addObject("selectPage", page);
+		int start = 1+(int)((page-1)/10)*10;
+		mav.addObject("start", start);
+		int end = start+9>worryPage ? worryPage : start+9;
+		mav.addObject("end", end);
 		return mav;
 	}
 }

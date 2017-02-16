@@ -95,7 +95,7 @@
 				<div class="best_txt">BEST</div>
 				<img src="/img/sub03_new_box.png">
 			</div>
-			<div class="txt txt_tit" onclick="reviewDetail()">
+			<div class="txt txt_tit" onclick="reviewDetail('${reviewTop.get(i).AUTO}')">
 				<span>${reviewTop.get(i).DAY } / ${reviewTop.get(i).SUBJECT }
 					/ ${reviewTop.get(i).POINT }</span>
 			</div>

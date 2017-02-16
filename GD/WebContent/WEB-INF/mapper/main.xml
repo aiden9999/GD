@@ -13,4 +13,10 @@
 	<select id="acaC" resultType="java.util.HashMap">
 		select * from academy order by count desc
 	</select>
+	<insert id="visitIp">
+		insert into visitip(ip, day) values(#{id}, now())
+	</insert>
+	<select id="getIpAll" resultType="java.util.HashMap">
+		select * from visitip
+	</select>
 </mapper>

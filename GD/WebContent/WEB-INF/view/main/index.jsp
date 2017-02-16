@@ -35,58 +35,7 @@
 
 <body>
 	<header>
-		<div class="header_top">
-			<div class="inner">
-				<div class="logo" onclick="location.href='/'">
-					<label><span>L</span>ogo</label>
-				</div>
-				<div class="search">
-					<input type="text" id="hsearch"
-						style="border: 2px solid #888f8d; height: 24px;" maxlength="10">
-					<img class="hsearch" src="/img/search.png" onclick="search()">
-				</div>
-			</div>
-		</div>
-		<div class="gnb">
-			<div class="inner">
-				<ul>
-					<li onclick="mainAjax('elementary')" class="gnb_menu" id="menuEle">
-						<div class="txt">초등학원</div>
-					</li>
-					<li onclick="mainAjax('middle')" class="gnb_menu" id="menuMid">
-						<div class="txt">중등학원</div>
-					</li>
-					<li onclick="mainAjax('high')" class="gnb_menu" id="menuHig">
-						<div class="txt">고등학원</div>
-					</li>
-					<li class="gnb_menu">
-						<div class="txt">입시정보</div>
-						<ul>
-							<li class="drop_menu" onclick="location.href='/highExam'">
-								<div class="txt1">고등입시</div>
-							</li>
-							<li class="drop_menu" onclick="location.href='/univExam'">
-								<div class="txt1">대학입시</div>
-							</li>
-						</ul>
-					</li>
-					<li class="gnb_menu">
-						<div class="txt">커뮤니티</div>
-						<ul>
-							<li class="drop_menu" onclick="location.href='/waggle'">
-								<div class="txt1">수다방</div>
-							</li>
-							<li class="drop_menu" onclick="location.href='/worry'">
-								<div class="txt1">고민상담</div>
-							</li>
-							<li class="drop_menu" onclick="location.href='/notice'">
-								<div class="txt1">공지사항</div>
-							</li>
-						</ul>
-					</li>
-				</ul>
-			</div>
-		</div>
+		<c:import url="/WEB-INF/view/main/mainHeader.jsp"/>
 	</header>
 	<div class="main">
 		<div class="inner" style="display: inline-block; left: 50%; transform: translateX(-50%)">
@@ -443,18 +392,9 @@
 											<div class="img">
 												<img src="img/trophy.png">
 											</div>
-											<c:choose>
-												<c:when test="${login.ADMIN=='y' }">
-													<div class="txt" onclick="location.href='/admin'">
-														등급<span> ${login.GRADE }</span>
-													</div>
-												</c:when>
-												<c:otherwise>
-													<div class="txt" style="cursor: default;">
-														등급<span> ${login.GRADE }</span>
-													</div>
-												</c:otherwise>
-											</c:choose>
+											<div class="txt" style="cursor: default;">
+												등급<span> ${login.GRADE }</span>
+											</div>
 										</div>
 										<div class="point_wrap sub_box">
 											<div class="img">
@@ -482,10 +422,21 @@
 										</div>
 									</div>
 								</div>
-								<div class="logout_wrap">
-									<div class="txt" onclick="info()">내 정보</div>
-									<div class="txt" onclick="logout()">로그아웃</div>
-								</div>
+								<c:choose>
+									<c:when test="${login.ADMIN=='메인관리자' || login.ADMIN=='중간관리자' }">
+										<div class="logout_wrap" style="width: 247px; display: inline-block; left: 50%; transform: translateX(-50%)">
+											<div class="txt" onclick="location.href='/admin'" style="width: 33.33%; text-align: center; float: left">관리자페이지</div>
+											<div class="txt" onclick="info()" style="width: 33.33%; text-align: center; float: left">내 정보</div>
+											<div class="txt" onclick="logout()" style="width: 33.33%; text-align: center; margin-left: 0px">로그아웃</div>
+										</div>
+									</c:when>
+									<c:otherwise>
+										<div class="logout_wrap" style="width: 247px; display: inline-block; left: 50%; transform: translateX(-50%)">
+											<div class="txt" onclick="info()" style="width: 50%; text-align: center; float: left">내 정보</div>
+											<div class="txt" onclick="logout()" style="width: 50%; text-align: center; margin-left: 0px">로그아웃</div>
+										</div>
+									</c:otherwise>
+								</c:choose>
 							</div>
 						</div>
 					</c:when>
@@ -696,16 +647,7 @@
 		</div>
 	</div>
 	<footer>
-		<div class="inner">
-			<div class="logo">
-				<label onclick="location.href='/'"><span>L</span>ogo</label>
-			</div>
-			<div class="txt">
-				주소 : 서울 강남구 테헤란로 407 EK타워 4층 미래로입시컨설팅대표이사 : 이혁진 <br>상담시간 : 월 ~
-				금 - 오전 10시 ~ 오후 9시 ( 점심시간 오전 11시 30분 ~ 오후 1시) 토 - 오전 10시 ~ 오후 5시 <br>Copyright(c)
-				TS group. All Rights Reserved.
-			</div>
-		</div>
+		<c:import url="/WEB-INF/view/main/footer.jsp"/>
 	</footer>
 </body>
 
@@ -720,12 +662,14 @@
 	// top 메뉴 초등,중등,고등학원 눌렸는지 판단
 	$(document).ready(function(){
 		var type = "${type}";
-		if(type=="el"){
+		if(type=="초등"){
 			$("#menuEle").trigger("click");
-		} else if(type=="mi"){
+		} else if(type=="중등"){
 			$("#menuMid").trigger("click");
-		} else if(type=="hi"){
-			$("#menuhig").trigger("click");
+		} else if(type=="고등"){
+			$("#menuHig").trigger("click");
+		} else if(type=="재수"){
+			$("#menuMis").trigger("click");
 		}
 	});
 	// 검색란에서 엔터입력
@@ -936,7 +880,7 @@
 	function info() {
 		location.href = "/member/info/${login.ID }";
 	}
-	// top 메뉴 초등, 중등, 고등 학원 클릭
+	// top 메뉴 초등, 중등, 고등, 재수 학원 클릭
 	function mainAjax(type){
 		$.ajax({
 			type : "post",

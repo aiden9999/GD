@@ -26,4 +26,10 @@
 	<update id="reviewRepUp" >
 		update review set reply = reply+1 where auto = #{num}
 	</update>
+	<delete id="replyRemove">
+		delete from reviewreply where auto = #{num}
+	</delete>
+	<delete id="reviewRemove">
+		delete from review where auto = #{num}
+	</delete>
 </mapper>

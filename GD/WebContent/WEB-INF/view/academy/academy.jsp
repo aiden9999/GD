@@ -78,64 +78,26 @@
 </head>
 
 <body>
+    <div class="popup_cover" id="commentRD" style="display: none"></div>
+    <div class="popup_wrap search_popup school_popup popup_close" id="commentRD1" style="display: none">
+        <div class="tit_wrap">
+            <div class="logo"><span >L</span>ogo</div>
+        </div>
+        <div class="txt">
+            정말 삭제하시겠습니까?
+        </div>
+        <div class="close_btn_wrap">
+            <div class="close_btn left" onclick="$('#commendRD').hide(), $('#commentRD1').hide()">아니오</div>
+            <div class="close_btn right" onclick="commentCommit()">네</div>
+        </div>
+    </div>
 	<header>
-            <div class="header_top">
-                <div class="inner">
-                	<c:if test="${login==null }">
-	                	<div class="txt" onclick="login()">로그인</div>
-                	</c:if>
-                    <div class="logo" onclick="location.href='/'"><label><span >L</span>ogo</label></div>
-                    <div class="search">
-                        <input type="text" id="hsearch" style="border: 2px solid #888f8d; height: 24px; " maxlength="10">
-                        <img class="hsearch" src="/img/search.png" onclick="search()">
-                    </div>
-                </div>
-            </div>
-            <div class="gnb">
-                <div class="inner">
-                    <ul>
-                        <li onclick="location.href='/el'" class="gnb_menu">
-                            <div class="txt">초등학원</div>
-                        </li>
-						<li onclick="location.href='/mi'" class="gnb_menu">
-                            <div class="txt">중등학원</div>
-                        </li>
-                        <li onclick="location.href='/hi'" class="gnb_menu">
-                            <div class="txt">고등학원</div>
-                        </li>
-                        <li class="gnb_menu">
-                            <div class="txt">입시정보</div>
-                            <ul>
-                                <li class="drop_menu" onclick="location.href='/highExam'">
-                                    <div class="txt1">고등입시</div>
-                                </li>
-                                <li class="drop_menu" onclick="location.href='/univExam'">
-                                    <div class="txt1">대학입시</div>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="gnb_menu">
-                            <div class="txt">커뮤니티</div>
-                            <ul>
-                                <li class="drop_menu" onclick="location.href='/waggle'">
-                                    <div class="txt1">수다방</div>
-                                </li>
-                                <li class="drop_menu" onclick="location.href='/worry'">
-                                    <div class="txt1">고민상담</div>
-                                </li>
-                                <li class="drop_menu" onclick="location.href='/notice'">
-                                    <div class="txt1">공지사항</div>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </header>
+		<c:import url="/WEB-INF/view/main/header.jsp"/>
+	</header>
 	<div class="main01-01">
 		<div class="inner">
 			<div class="aca_name">${list.NAME }</div>
-			<section class="intro_section">
+			<section class="intro_section" style="height: 230px">
 				<div class="intro_wrap">
 					<div class="address_wrap">
 						<div class="tit">주소</div>
@@ -149,8 +111,12 @@
 						<div class="txt">${list.TEL }</div>
 					</div>
 					<div class="category_wrap">
-						<div class="tit">분류</div>
-						<div class="txt">${list.TYPE1 } > ${list.TYPE2 }</div>
+						<div class="tit">수업과목</div>
+						<div class="txt">${list.SUBJECT }</div>
+					</div>
+					<div class="category_wrap">
+						<div class="tit">수업대상</div>
+						<div class="txt">${list.TARGET }</div>
 					</div>
 					<div class="homepage_wrap">
 						<div class="tit">홈페이지</div>
@@ -159,7 +125,7 @@
 						</a>
 					</div>
 				</div>
-				<div class="logo_box">
+				<div class="logo_box" style="height: 215px">
 					<div class="img" style="background-image: url('/logo/${list.LOGO }'); width: 100%; height: 100%; background-size: 100%">
 					</div>
 				</div>
@@ -197,26 +163,26 @@
 							<ul id="thumbs" class="thumbs_slider">
 								<div class="thumbs_inner">
 									<li class="item_slide active" rel="1" onclick="change(1)">
-										<img src="/pic/${list.PIC1 }" id="pic1"/>
+										<img src="/pic/${list.PIC1 }" id="pic1" style="width: 100%; height: 141px"/>
 									</li>
 									<c:if test="${list.PIC2!=null }">
 										<li class="item_slide" rel="2" onclick="change(2)">
-											<img src="/pic/${list.PIC2 }" id="pic2"/>
+											<img src="/pic/${list.PIC2 }" id="pic2" style="width: 100%; height: 141px"/>
 										</li>
 									</c:if>
 									<c:if test="${list.PIC3!=null }">
 										<li class="item_slide" rel="3" onclick="change(3)">
-											<img src="/pic/${list.PIC3 }" id="pic3"/>
+											<img src="/pic/${list.PIC3 }" id="pic3" style="width: 100%; height: 141px"/>
 										</li>
 									</c:if>
 									<c:if test="${list.PIC4!=null }">
 										<li class="item_slide" rel="4" onclick="change(4)">
-											<img src="/pic/${list.PIC4 }" id="pic4"/>
+											<img src="/pic/${list.PIC4 }" id="pic4" style="width: 100%; height: 141px"/>
 										</li>
 									</c:if>
 									<c:if test="${list.PIC5!=null }">
 										<li class="item_slide" rel="5" onclick="change(5)">
-											<img src="/pic/${list.PIC5 }" id="pic5"/>
+											<img src="/pic/${list.PIC5 }" id="pic5" style="width: 100%; height: 141px"/>
 										</li>
 									</c:if>
 								</div>
@@ -374,7 +340,7 @@
 							</div>
 							<div class="write_wrap">
 								<div class="empty_box"></div>
-								<c:if test="${login!=null }">
+								<c:if test="${login.ID == list.ADMIN || login.ID == 'admin' }">
 									<div class="write_btn">
 										<div class="txt" onclick="wr()">글쓰기</div>
 									</div>
@@ -416,9 +382,11 @@
 								<label>등록된 글이 없습니다.</label>
 								<div class="write_wrap">
 								<div class="empty_box"></div>
-								<div class="write_btn">
-									<div class="txt" onclick="wr()">글쓰기</div>
-								</div>
+								<c:if test="${login.ID == list.ADMIN || login.ID == 'admin' }">
+									<div class="write_btn">
+										<div class="txt" onclick="wr()">글쓰기</div>
+									</div>
+								</c:if>
 							</div>
 							</div>
 						</c:otherwise>
@@ -822,7 +790,7 @@
 							</div>
 							<div class="reply_section">
 								<c:forEach var="i" begin="0" end="${comment.size()-1 }">
-									<div class="reply_wrap">
+									<div class="reply_wrap" style="margin-top: 20px; padding-bottom: 20px">
 										<div class="star_wrap">
 											<c:forEach var="j" begin="1" end="${comment.get(i).POINT }">
 												<div class="star">
@@ -830,10 +798,32 @@
 												</div>
 											</c:forEach>
 										</div>
-										<div class="txt" id="replyTxt${i }">${comment.get(i).COMMENT }</div>
-										<div class="id" id="replyId${i }">
-											${comment.get(i).NAME }(${comment.get(i).ID })<span class="txt1" id="replyTime${i }">${comment.get(i).DAY }</span>
+										<div class="txt_wrap" style="display: inline-block">
+											<div class="txt" id="replyTxt${comment.get(i).AUTO }">${comment.get(i).COMMENT }</div>
+											<div class="txt" id="replyM${comment.get(i).AUTO }" style="display: none">
+												<input type="text" id="replyMT${comment.get(i).AUTO }" value="${comment.get(i).COMMENT }"
+														style="width: 900px; height: 25px; padding-left: 10px; padding-right: 10px; margin-top: 5px; font-size: 12px"/>
+											</div>
+											<div class="id" id="replyId${comment.get(i).AUTO }">
+												${comment.get(i).NAME }(${comment.get(i).ID })<span class="txt1" id="replyTime${i }">${comment.get(i).DAY }</span>
+											</div>
 										</div>
+										<c:if test="${login.ID == comment.get(i).WRITER || login.ID == 'admin' }">
+											<div style="float: right; width: 150px">
+												<div style="cursor: pointer; width: 70px; height: 15px; font-size: 15px; padding: 7px 0; text-align: center;
+														border: 1px solid #2b3735; background-color: #fafafa; color: black; margin-top: 5px; display: inline-block"
+														onclick="commentModify(${comment.get(i).AUTO })" id="cm${comment.get(i).AUTO }">수정</div>
+												<div style="cursor: pointer; width: 70px; height: 15px; font-size: 15px; padding: 7px 0; text-align: center;
+														border: 1px solid #2b3735; background-color: #2b3735; color: white; margin-top: 5px; display: inline-block"
+														onclick="commentRemove(${comment.get(i).AUTO })" id="cr${comment.get(i).AUTO }">삭제</div>
+												<div style="cursor: pointer; width: 70px; height: 15px; font-size: 15px; padding: 7px 0; text-align: center;
+														border: 1px solid #2b3735; background-color: #fafafa; color: black; margin-top: 5px; display: inline-block;
+														display: none" onclick="commentCancel(${comment.get(i).AUTO })" id="cc${comment.get(i).AUTO }">취소</div>
+												<div style="cursor: pointer; width: 70px; height: 15px; font-size: 15px; padding: 7px 0; text-align: center;
+														border: 1px solid #2b3735; background-color: #2b3735; color: white; margin-top: 5px; display: inline-block;
+														display: none" onclick="commentSave(${comment.get(i).AUTO })" id="cs${comment.get(i).AUTO }">저장</div>
+											</div>
+										</c:if>
 									</div>
 								</c:forEach>
 							</div>
@@ -931,16 +921,7 @@
 		</div>
 	</div>
 	<footer>
-		<div class="inner">
-			<div class="logo" onclick="location.href='/'">
-				<label><span>L</span>ogo</label>
-			</div>
-			<div class="txt">
-				주소 : 서울 강남구 테헤란로 407 EK타워 4층 미래로입시컨설팅대표이사 : 이혁진 <br>상담시간 : 월 ~
-				금 - 오전 10시 ~ 오후 9시 ( 점심시간 오전 11시 30분 ~ 오후 1시) 토 - 오전 10시 ~ 오후 5시 <br>Copyright(c)
-				TS group. All Rights Reserved.
-			</div>
-		</div>
+		<c:import url="/WEB-INF/view/main/footer.jsp"/>
 	</footer>
 </body>
 
@@ -1047,6 +1028,7 @@
        		$("#reviewDiv").hide();
        		$("#feelingDiv").hide();
        		$("#reviewDetail").hide();
+       		$("#reviewPages").show();
     	}
     	// 사진 화살표 클릭
     	var tsn = 0;
@@ -1374,9 +1356,71 @@
      				$("#pageDiv").hide();
      				$("#reviewDiv").hide();
      				$("#feelingDiv").hide();
+     				$("#reviewPages").hide();
      			}
      		});
      	}
+    	// 한줄평가 수정
+    	var commentM = "";
+    	function commentModify(num){
+			$("#cm"+num).hide();
+			$("#cr"+num).hide();
+			$("#cc"+num).css("display", "inline-block");
+			$("#cs"+num).css("display", "inline-block");
+			$("#replyTxt"+num).hide();
+			$("#replyM"+num).show();
+			commentM = $("#replyMT"+num).val();
+    	}
+    	// 한줄평가 삭제
+    	var commentNum = 0;
+    	function commentRemove(num){
+    		$("#commentRD").show();
+    		$("#commentRD1").show();
+    		commentNum = num;
+    	}
+    	// 한줄평가 수정 취소
+    	function commentCancel(num){
+    		$("#cm"+num).show();
+			$("#cr"+num).show();
+			$("#cc"+num).hide();
+			$("#cs"+num).hide();
+			$("#replyTxt"+num).show();
+			$("#replyM"+num).hide();
+			$("#replyMT"+num).val(commentM);
+    	}
+    	// 한줄평가 수정 저장
+    	function commentSave(num){
+    		var comment = $("#replyMT"+num).val();
+    		$.ajax({
+    			type : "post",
+    			url : "/academy/commentModify/"+num+"/"+comment,
+    			async : false,
+    			success : function(txt){
+    				if(txt){
+    					alert("수정되었습니다.");
+    					location.reload();
+    				} else {
+    					alert("수정에 실패하였습니다.\n잠시후 다시 시도해주세요.");
+    				}
+    			}
+    		});
+    	}
+    	// 한줄평가 삭제
+    	function commentCommit(){
+    		$.ajax({
+    			type : "post",
+    			url : "/academy/commentRemove/"+commentNum,
+    			async : false,
+    			success : function(txt){
+    				if(txt){
+    					alert("삭제되었습니다.");
+    					location.reload();
+    				} else {
+    					alert("삭제에 실패하였습니다.\n잠시후 다시 시도해주세요.");
+    				}
+    			}
+    		});
+    	}
     </script>
 
 </html>

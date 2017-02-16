@@ -59,4 +59,18 @@ public class ReviewController {
 												@PathVariable(name="again")String again){
 		return rs.reviewModify(num, day, subject, subject1, className, grade, teacher, type, rate1, rate2, rate3, rate4, again);
 	}
+	
+	// 府轰 瘩臂 昏力
+	@RequestMapping("/replyRemove/{num}")
+	@ResponseBody
+	public boolean replyRemove(@PathVariable(name="num")int num){
+		return rs.replyRemove(num);
+	}
+	
+	// 府轰 昏力
+	@RequestMapping("reviewRemove/{num}")
+	@ResponseBody
+	public boolean reviewRemove(@PathVariable(name="num")int num){
+		return rs.reviewRemove(num);
+	}
 }

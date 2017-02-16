@@ -43,59 +43,8 @@
      
     <body>
         <header>
-            <div class="header_top">
-                <div class="inner">
-                	<c:if test="${login==null }">
-	                	<div class="txt" onclick="login()">로그인</div>
-                	</c:if>
-                    <div class="logo" onclick="location.href='/'"><label><span >L</span>ogo</label></div>
-                    <div class="search">
-                        <input type="text" id="hsearch" style="border: 2px solid #888f8d; height: 24px; " maxlength="10">
-                        <img class="hsearch" src="/img/search.png" onclick="search()">
-                    </div>
-                </div>
-            </div>
-            <div class="gnb">
-                <div class="inner">
-                    <ul>
-                        <li onclick="location.href='/el'" class="gnb_menu">
-                            <div class="txt">초등학원</div>
-                        </li>
-						<li onclick="location.href='/mi'" class="gnb_menu">
-                            <div class="txt">중등학원</div>
-                        </li>
-                        <li onclick="location.href='/hi'" class="gnb_menu">
-                            <div class="txt">고등학원</div>
-                        </li>
-                        <li class="gnb_menu">
-                            <div class="txt">입시정보</div>
-                            <ul>
-                                <li class="drop_menu" onclick="location.href='/highExam'">
-                                    <div class="txt1">고등입시</div>
-                                </li>
-                                <li class="drop_menu" onclick="location.href='/univExam'">
-                                    <div class="txt1">대학입시</div>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="gnb_menu">
-                            <div class="txt">커뮤니티</div>
-                            <ul>
-                                <li class="drop_menu" onclick="location.href='/waggle'">
-                                    <div class="txt1">수다방</div>
-                                </li>
-                                <li class="drop_menu" onclick="location.href='/worry'">
-                                    <div class="txt1">고민상담</div>
-                                </li>
-                                <li class="drop_menu" onclick="location.href='/notice'">
-                                    <div class="txt1">공지사항</div>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </header>
+			<c:import url="/WEB-INF/view/main/header.jsp"/>
+		</header>
         <div class="search02">
             <div class="inner">
                 <div class="search02_tit"><span>'${searchWord }'</span> 검색결과</div>
@@ -195,7 +144,7 @@
                                     </div>
                                 </div>
                                 <div class="num_wrap" id="boardPages2" align="center" style="font-size: 0; width: 350px">
-                                    <c:forEach var="i" begin="1" end="${listPage>10 ? 10 : listPage }">
+                                    <c:forEach var="i" begin="1" end="${boardPage>10 ? 10 : boardPage }">
                                 		<c:choose>
                                 			<c:when test="${i==1 }">
 			                                    <div class="num sel" onclick="boardPage(${i})" id="boardPage${i }" style="width: 33px"><span>${i }</span></div>
@@ -213,13 +162,7 @@
             </div>
         </div>
         <footer>
-            <div class="inner">
-                <div class="logo" onclick="location.href='/'"><label><span >L</span>ogo</label></div>
-                <div class="txt">주소 : 서울 강남구 테헤란로 407 EK타워 4층 미래로입시컨설팅대표이사 : 이혁진 
-<br>상담시간 : 월 ~ 금 - 오전 10시 ~ 오후 9시 ( 점심시간 오전 11시 30분 ~ 오후 1시)   토 - 오전 10시 ~ 오후 5시
-<br>Copyright(c) TS group. All Rights Reserved.</div>
-            </div>
-        </footer>
+            <c:import url="/WEB-INF/view/main/footer.jsp"/>
     </body>
     
     <script>
@@ -243,7 +186,7 @@
 	 	// 게시판 페이지 표시
 	    $(document).ready(function(){
 			var start = 1;
-			var end = start+9>=${listPage } ? ${listPage } : start+9;
+			var end = start+9>=${boardPage } ? ${boardPage } : start+9;
 			if(start==1 && end<10){
 				$("#boardPrev"+start).hide();
 				$("#boardNext"+start).hide();
@@ -251,7 +194,7 @@
 				if(start==1){
 		  			$("#boardPrev"+start).hide();
 		  			$("#boardNext"+start).show();
-		  		} else if(end>=${listPage }){
+		  		} else if(end>=${boardPage }){
 		  			$("#boardPrev"+start).show();
 		  			$("#boardNext"+start).hide();
 		  		}
@@ -283,6 +226,7 @@
       		location.href="/academy/"+num;
       	}
       	// 게시판 선택
+      	var boardP = 0;
       	$("#boardSelect").change(function(){
       		var board = $("#boardSelect").val();
       		$.ajax({
@@ -292,11 +236,19 @@
       			success : function(txt){
       				$.ajax({
       					type : "post",
-      					url : "/boardPage/"+board+"/${searchWord }/1",
+      					url : "/search/boardPage/"+board+"/${searchWord }/1",
       					async : false,
       					success : function(html){
-		      				$("#boardList").html(txt);
-		      				$("#boardPages").html(html);
+      						$.ajax({
+      							type : "post",
+      							url : "/search/boardP/"+board+"/${searchWord }/1",
+      							async : false,
+      							success : function(num){
+				      				$("#boardList").html(txt);
+				      				$("#boardPages").html(html);
+      								boardP = num;
+      							}
+      						});
       					}
       				});
       			}
@@ -316,22 +268,22 @@
       	// 게시판 페이지 이동
       	function boardPage(num){
       		var board = $("#boardSelect").val();
-     		$.ajax({
-     			type : "post",
-     			url : "/search/boardList/${searchWord }/"+num+"/"+board,
-     			async : false,
-     			success : function(txt){
-     				$.ajax({
-     					type : "post",
-     					url : "/search/boardPage/${searchWord }/"+num+"/"+board,
-     					async : false,
-     					success : function(html){
-		     				$("#boardList").html(txt);
-     						$("#boardPage").html(html);
-     					}
-     				});
-     			}
-     		});
+      		$.ajax({
+      			type : "post",
+      			url : "/search/boardChange/"+board+"/${searchWord }/"+num,
+      			async : false,
+      			success : function(txt){
+      				$.ajax({
+      					type : "post",
+      					url : "/search/boardPage/"+board+"/${searchWord }/"+num,
+      					async : false,
+      					success : function(html){
+		      				$("#boardList").html(txt);
+		      				$("#boardPages").html(html);
+      					}
+      				});
+      			}
+      		});
      	}
    	  	// 학원 이전 클릭
       	function acaPrev(element){
@@ -382,7 +334,7 @@
       		var id = element.id;
       		id = id.substring(id.indexOf('v')+1);
       		var start = Number(id)-10;
-      		var end = start+9>=${listPage } ? ${listPage } : start+9;
+      		var end = start+9>=boardP ? boardP : start+9;
     		$("#boardNext"+id).show();
       		if(start==1){
       			$("#boardPrev"+id).hide();
@@ -404,9 +356,9 @@
       		var id = element.id;
       		id = id.substring(id.indexOf('t')+1);
       		var start = Number(id)+10;
-      		var end = start+9>=${listPage } ? ${listPage } : start+9;
+      		var end = start+9>=boardP ? boardP : start+9;
    			$("#boardPrev"+id).show();
-      		if(end>=${listPage }){
+      		if(end>=boardP){
       			$("#boardNext"+id).hide();
       		}
       		var html = "";

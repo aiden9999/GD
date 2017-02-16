@@ -3,10 +3,13 @@ package admin.service;
 import java.io.*;
 import java.util.*;
 
+import javax.mail.*;
+import javax.mail.internet.*;
 import javax.servlet.*;
 
 import org.apache.ibatis.session.*;
 import org.springframework.beans.factory.annotation.*;
+import org.springframework.mail.javamail.*;
 import org.springframework.stereotype.*;
 import org.springframework.web.multipart.*;
 
@@ -16,6 +19,8 @@ public class AdminService {
 	SqlSessionFactory fac;
 	@Autowired
 	ServletContext application;
+	@Autowired
+	JavaMailSender jms;
 	
 	// 멤버리스트
 	public List<HashMap> memberList(){
@@ -114,26 +119,20 @@ public class AdminService {
 			end = "T";
 			break;
 		} 
-		int n = ss.update(sql+end, id);
-		if(n>0){
-			try{
-				HashMap<String, String> map = new HashMap<>();
-				map.put("id", id);
-				map.put("grade", grade);
-				map.put("what", what);
-				ss.insert("admin.saveGrade", map);
-				map.put("grade", "관리자");
-				ss.update("admin.updateGrade"+end, map);
-				ss.commit();
-				ss.close();
-				return true;
-			} catch(Exception e){
-				e.printStackTrace();
-				ss.rollback();
-				ss.close();
-				return false;
-			}
-		} else {
+		try{
+			int n = ss.update(sql+end, id);
+			HashMap<String, String> map = new HashMap<>();
+			map.put("id", id);
+			map.put("grade", grade);
+			map.put("what", what);
+			ss.insert("admin.saveGrade", map);
+			map.put("grade", "관리자");
+			ss.update("admin.updateGrade"+end, map);
+			ss.commit();
+			ss.close();
+			return true;
+		} catch(Exception e){
+			e.printStackTrace();
 			ss.rollback();
 			ss.close();
 			return false;
@@ -290,7 +289,7 @@ public class AdminService {
 	}
 	
 	// 학원 등록
-	public boolean academyRegist(String name, String addr1, String addr2, String tell, String type1, String type2, String site,
+	public boolean academyRegist(String name, String addr1, String addr2, String tell, String site,
 												String logo, String intro, String pic1, String pic2, String pic3, String pic4, String pic5, String target, String subject){
 		SqlSession ss = fac.openSession();
 		HashMap<String, String> map = new HashMap<>();
@@ -298,8 +297,8 @@ public class AdminService {
 		map.put("addr1", addr1);
 		map.put("addr2", addr2);
 		map.put("tell", tell);
-		map.put("type1", type1);
-		map.put("type2", type2);
+//		map.put("type1", type1);
+//		map.put("type2", type2);
 		map.put("site", site);
 		map.put("logo", logo);
 		map.put("intro", intro);
@@ -317,6 +316,87 @@ public class AdminService {
 			return true;
 		} catch(Exception e){
 			e.printStackTrace();
+			ss.rollback();
+			ss.close();
+			return false;
+		}
+	}
+
+	// 메일 리스트
+	public List<String> emailList(String[] to){
+		SqlSession ss = fac.openSession();
+		List<String> member = new Vector<>();
+		for(String s : to){
+			HashMap map = ss.selectOne("member.searchMemberS", s.subSequence(s.indexOf('(')+1, s.indexOf(')')));
+			if(map == null){
+				map = ss.selectOne("member.searchMemberN", s.subSequence(s.indexOf('(')+1, s.indexOf(')')));
+				if(map == null){
+					map = ss.selectOne("member.searchMemberT", s.subSequence(s.indexOf('(')+1, s.indexOf(')')));
+					if(map == null){
+						map = ss.selectOne("member.searchMemberP", s.subSequence(s.indexOf('(')+1, s.indexOf(')')));
+						if(map == null){
+							continue;
+						} else {
+							member.add(map.get("EMAIL").toString());
+						}
+					} else {
+						member.add(map.get("EMAIL").toString());
+					}
+				} else {
+					member.add(map.get("EMAIL").toString());
+				}
+			} else {
+				member.add(map.get("EMAIL").toString());
+			}
+		}
+		ss.close();
+		return member;
+	}
+
+	// 관리자 권한 셋팅
+	public boolean setAdmin(String id, String what, String grade, String admin, String num) {
+		SqlSession ss = fac.openSession();
+		HashMap map = new HashMap<>();
+		map.put("id", id);
+		map.put("what", what);
+		map.put("grade", grade);
+		map.put("admin", admin);
+		map.put("num", num);
+		String sql = "admin.setAdmin";
+		String end = "";
+		switch(what){
+		case "학생":
+			end = "S";
+			break;
+		case "일반":
+			end = "N";
+			break;
+		case "학부모":
+			end = "P";
+			break;
+		case "선생님":
+			end = "T";
+			break;
+		}
+		int n = ss.update(sql+end, map);
+		if(n>0){
+			if(!admin.equals("학원관리자")){
+				List<HashMap> list = ss.selectList("academy.allAcademy");
+				for(HashMap m : list){
+					if(m.get("ADMIN")!=null){
+						String acaAdmin = m.get("ADMIN").toString();
+						if(acaAdmin.equals(id)){
+							map.put("num", m.get("NUM"));
+						}
+					}
+				}
+				map.put("id", "aa");
+			}
+			ss.update("admin.acaAdmin", map);
+			ss.commit();
+			ss.close();
+			return true;
+		} else {
 			ss.rollback();
 			ss.close();
 			return false;

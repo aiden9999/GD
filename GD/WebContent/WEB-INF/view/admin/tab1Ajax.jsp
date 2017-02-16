@@ -32,43 +32,193 @@
 	<div class="txt">${memberList.get(0).EMAIL }</div>
 </div>
 <c:choose>
-	<c:when test="${memberList.get(0).ADMIN=='y' }">
+	<c:when test="${login.ID == 'admin' }">
 		<c:choose>
-			<c:when test="${memberList.get(0).NAME=='관리자' }">
-	   <div class="info_wrap checks">
-	       <input type="checkbox" id="giveAdmin" checked="checked" disabled="disabled">
-	       <label for="giveAdmin" class="tit">관리자 권한부여</label>
-	   </div>
+			<c:when test="${memberList.get(0).ADMIN == '메인관리자' }">
+				<div class="info_wrap checks" style="display: none">
+					<input type="radio" id="giveAdmin" name="admin" checked="checked">
+					<label for="giveAdmin" class="tit"
+						style="width: 145px; float: left">중간관리자 권한부여</label>
+				</div>
+				<div class="info_wrap checks" style="display: none">
+					<input type="radio" id="acaAdmin" name="admin"> <label
+						for="acaAdmin" class="tit" style="width: 145px; float: left">학원관리자
+						권한부여</label> <select id="acaSelect"
+						style="width: 140px; height: 25px; padding-left: 5px; display: none">
+						<option value="choose">선택</option>
+						<c:forEach var="t" items="${acaList }">
+							<option value="${t.NUM }">${t.NAME }</option>
+						</c:forEach>
+					</select>
+				</div>
+				<div class="info_wrap checks" style="display: none">
+					<input type="radio" id="delAdmin" name="admin"> <label
+						for="delAdmin" class="tit" style="width: 145px; float: left">권한없음</label>
+				</div>
+			</c:when>
+			<c:when test="${memberList.get(0).ADMIN == '중간관리자' }">
+				<div class="info_wrap checks">
+					<input type="radio" id="giveAdmin" name="admin" checked="checked">
+					<label for="giveAdmin" class="tit"
+						style="width: 145px; float: left">중간관리자 권한부여</label>
+				</div>
+				<div class="info_wrap checks">
+					<input type="radio" id="acaAdmin" name="admin"> <label
+						for="acaAdmin" class="tit" style="width: 145px; float: left">학원관리자
+						권한부여</label> <select id="acaSelect"
+						style="width: 140px; height: 25px; padding-left: 5px; display: none">
+						<option value="choose">선택</option>
+						<c:forEach var="t" items="${acaList }">
+							<option value="${t.NUM }">${t.NAME }</option>
+						</c:forEach>
+					</select>
+				</div>
+				<div class="info_wrap checks">
+					<input type="radio" id="delAdmin" name="admin"> <label
+						for="delAdmin" class="tit" style="width: 145px; float: left">권한없음</label>
+				</div>
+			</c:when>
+			<c:when test="${memberList.get(0).ADMIN == '학원관리자' }">
+				<div class="info_wrap checks">
+					<input type="radio" id="giveAdmin" name="admin"> <label
+						for="giveAdmin" class="tit" style="width: 145px; float: left">중간관리자
+						권한부여</label>
+				</div>
+				<div class="info_wrap checks">
+					<input type="radio" id="acaAdmin" name="admin" checked="checked">
+					<label for="acaAdmin" class="tit" style="width: 145px; float: left">학원관리자
+						권한부여</label> <select id="acaSelect"
+						style="width: 140px; height: 25px; padding-left: 5px; display: none">
+						<option value="choose">선택</option>
+						<c:forEach var="t" items="${acaList }">
+							<option value="${t.NUM }">${t.NAME }</option>
+						</c:forEach>
+					</select>
+				</div>
+				<div class="info_wrap checks">
+					<input type="radio" id="delAdmin" name="admin"> <label
+						for="delAdmin" class="tit" style="width: 145px; float: left">권한없음</label>
+				</div>
 			</c:when>
 			<c:otherwise>
-	   <div class="info_wrap checks">
-	   	<c:choose>
-	   		<c:when test="${login.ID == 'admin' }">
-	         <input type="checkbox" id="giveAdmin" checked="checked">
-	   		</c:when>
-	   		<c:otherwise>
-	         <input type="checkbox" id="giveAdmin" checked="checked" disabled="disabled">
-	   		</c:otherwise>
-	   	</c:choose>
-	       <label for="giveAdmin" class="tit">관리자 권한부여</label>
-	   </div>
+				<div class="info_wrap checks">
+					<input type="radio" id="giveAdmin" name="admin"> <label
+						for="giveAdmin" class="tit" style="width: 145px; float: left">중간관리자
+						권한부여</label>
+				</div>
+				<div class="info_wrap checks">
+					<input type="radio" id="acaAdmin" name="admin"> <label
+						for="acaAdmin" class="tit" style="width: 145px; float: left">학원관리자
+						권한부여</label> <select id="acaSelect"
+						style="width: 140px; height: 25px; padding-left: 5px; display: none">
+						<option value="choose">선택</option>
+						<c:forEach var="t" items="${acaList }">
+							<option value="${t.NUM }">${t.NAME }</option>
+						</c:forEach>
+					</select>
+				</div>
+				<div class="info_wrap checks">
+					<input type="radio" id="delAdmin" name="admin" checked="checked">
+					<label for="delAdmin" class="tit" style="width: 145px; float: left">권한없음</label>
+				</div>
 			</c:otherwise>
 		</c:choose>
 	</c:when>
 	<c:otherwise>
-	 <div class="info_wrap checks">
-	 	<c:choose>
-	 		<c:when test="${login.ID == 'admin' }">
-	       <input type="checkbox" id="giveAdmin">
-	 		</c:when>
-	 		<c:otherwise>
-	       <input type="checkbox" id="giveAdmin" disabled="disabled">
-	 		</c:otherwise>
-	 	</c:choose>
-	     <label for="giveAdmin" class="tit">관리자 권한부여</label>
-	 </div>
+		<c:choose>
+			<c:when test="${memberList.get(0).ADMIN == '메인관리자' }">
+				<div class="info_wrap checks" style="display: none">
+					<input type="radio" id="giveAdmin" name="admin" checked="checked">
+					<label for="giveAdmin" class="tit"
+						style="width: 145px; float: left">중간관리자 권한부여</label>
+				</div>
+				<div class="info_wrap checks" style="display: none">
+					<input type="radio" id="acaAdmin" name="admin"> <label
+						for="acaAdmin" class="tit" style="width: 145px; float: left">학원관리자
+						권한부여</label> <select id="acaSelect"
+						style="width: 140px; height: 25px; padding-left: 5px; display: none">
+						<option value="choose">선택</option>
+						<c:forEach var="t" items="${acaList }">
+							<option value="${t.NUM }">${t.NAME }</option>
+						</c:forEach>
+					</select>
+				</div>
+				<div class="info_wrap checks" style="display: none">
+					<input type="radio" id="delAdmin" name="admin" disabled="disabled"> <label
+						for="delAdmin" class="tit" style="width: 145px; float: left">권한없음</label>
+				</div>
+			</c:when>
+			<c:when test="${memberList.get(0).ADMIN == '중간관리자' }">
+				<div class="info_wrap checks">
+					<input type="radio" id="giveAdmin" name="admin" checked="checked"
+						disabled="disabled"> <label for="giveAdmin" class="tit"
+						style="width: 145px; float: left">중간관리자 권한부여</label>
+				</div>
+				<div class="info_wrap checks">
+					<input type="radio" id="acaAdmin" name="admin" disabled="disabled">
+					<label for="acaAdmin" class="tit" style="width: 145px; float: left">학원관리자
+						권한부여</label> <select id="acaSelect"
+						style="width: 140px; height: 25px; padding-left: 5px; display: none">
+						<option value="choose">선택</option>
+						<c:forEach var="t" items="${acaList }">
+							<option value="${t.NUM }">${t.NAME }</option>
+						</c:forEach>
+					</select>
+				</div>
+				<div class="info_wrap checks">
+					<input type="radio" id="delAdmin" name="admin" disabled="disabled"> <label
+						for="delAdmin" class="tit" style="width: 145px; float: left">권한없음</label>
+				</div>
+			</c:when>
+			<c:when test="${memberList.get(0).ADMIN == '학원관리자' }">
+				<div class="info_wrap checks">
+					<input type="radio" id="giveAdmin" name="admin" disabled="disabled">
+					<label for="giveAdmin" class="tit"
+						style="width: 145px; float: left">중간관리자 권한부여</label>
+				</div>
+				<div class="info_wrap checks">
+					<input type="radio" id="acaAdmin" name="admin" checked="checked"
+						disabled="disabled"> <label for="acaAdmin" class="tit"
+						style="width: 145px; float: left">학원관리자 권한부여</label> <select
+						id="acaSelect"
+						style="width: 140px; height: 25px; padding-left: 5px; display: none">
+						<option value="choose">선택</option>
+						<c:forEach var="t" items="${acaList }">
+							<option value="${t.NUM }">${t.NAME }</option>
+						</c:forEach>
+					</select>
+				</div>
+				<div class="info_wrap checks">
+					<input type="radio" id="delAdmin" name="admin" disabled="disabled"> <label
+						for="delAdmin" class="tit" style="width: 145px; float: left">권한없음</label>
+				</div>
+			</c:when>
+			<c:otherwise>
+				<div class="info_wrap checks">
+					<input type="radio" id="giveAdmin" name="admin" disabled="disabled">
+					<label for="giveAdmin" class="tit"
+						style="width: 145px; float: left">중간관리자 권한부여</label>
+				</div>
+				<div class="info_wrap checks">
+					<input type="radio" id="acaAdmin" name="admin" disabled="disabled">
+					<label for="acaAdmin" class="tit" style="width: 145px; float: left">학원관리자
+						권한부여</label> <select id="acaSelect"
+						style="width: 140px; height: 25px; padding-left: 5px; display: none">
+						<option value="choose">선택</option>
+						<c:forEach var="t" items="${acaList }">
+							<option value="${t.NUM }">${t.NAME }</option>
+						</c:forEach>
+					</select>
+				</div>
+				<div class="info_wrap checks">
+					<input type="radio" id="delAdmin" name="admin" checked="checked"
+						disabled="disabled"> <label for="delAdmin" class="tit"
+						style="width: 145px; float: left">권한없음</label>
+				</div>
+			</c:otherwise>
+		</c:choose>
 	</c:otherwise>
-	</c:choose>
+</c:choose>
 <div class="cannext_wrap" style="margin: 70px 0">
 	<div class="btn cancel" onclick="location.href='/'">취 소</div>
 	<c:choose>
@@ -80,3 +230,18 @@
 		</c:otherwise>
 	</c:choose>
 </div>
+
+<script>
+	//학원관리자 선택시 학원리스트 show
+	$("#giveAdmin").change(function(){
+		$("#acaSelect").hide();
+		$("#acaSelect").val("choose");
+	});
+	$("#acaAdmin").change(function(){
+		$("#acaSelect").show();
+	});
+	$("#delAdmin").change(function(){
+		$("#acaSelect").hide();
+		$("#acaSelect").val("choose");
+	});
+</script>

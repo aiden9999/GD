@@ -180,4 +180,18 @@ public class AcademyController {
 	public boolean delete(@PathVariable(name="num")int num){
 		return as.delete(num);
 	}
+	
+	// 한줄평가 수정
+	@RequestMapping("/commentModify/{num}/{comment}")
+	@ResponseBody
+	public boolean commentModify(@PathVariable(name="num")int num, @PathVariable(name="comment")String comment){
+		return as.commentModify(num, comment);
+	}
+	
+	// 한줄평가 삭제
+	@RequestMapping("/commentRemove/{num}")
+	@ResponseBody
+	public boolean commentRemove(@PathVariable(name="num")int num){
+		return as.commentRemove(num);
+	}
 }

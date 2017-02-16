@@ -2,7 +2,32 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-
+<div class="popup_cover" id="reviewRD" style="display: none"></div>
+<div class="popup_wrap search_popup school_popup popup_close" id="reviewRD1" style="display: none">
+    <div class="tit_wrap">
+        <div class="logo"><span >L</span>ogo</div>
+    </div>
+    <div class="txt">
+        정말 삭제하시겠습니까?
+    </div>
+    <div class="close_btn_wrap">
+        <div class="close_btn left" onclick="$('#reviewRD').hide(), $('#reviewRD1').hide()">아니오</div>
+        <div class="close_btn right" onclick="reviewCommit()">네</div>
+    </div>
+</div>
+<div class="popup_cover" id="replyRD" style="display: none"></div>
+<div class="popup_wrap search_popup school_popup popup_close" id="replyRD1" style="display: none">
+    <div class="tit_wrap">
+        <div class="logo"><span >L</span>ogo</div>
+    </div>
+    <div class="txt">
+        정말 삭제하시겠습니까?
+    </div>
+    <div class="close_btn_wrap">
+        <div class="close_btn left" onclick="$('#replyRD').hide(), $('#replyRD1').hide()">아니오</div>
+        <div class="close_btn right" onclick="replyCommit()">네</div>
+    </div>
+</div>
 <div class="inner">
 	<div class="review_txt">
 		<div class="review_header">
@@ -156,10 +181,10 @@
 				</div>
 				<div class="cannext_wrap" style="width: 320px">
 					<c:choose>
-						<c:when test="${login.ID == list.ID }">
-							<div class="btn next" onclick="modify('${list.AUTO }')" style="float: none;" id="modify${list.AUTO }">수 정</div>
+						<c:when test="${login.ID == list.ID || login.ID == 'admin' }">
+							<div class="btn next" onclick="modify('${list.AUTO }')" style="float: none; background-color: #fafafa; color: black" id="modify${list.AUTO }">수 정</div>
 							<div class="btn next" onclick="remov('${list.AUTO }')" style="float: none;" id="remov${list.AUTO }">삭 제</div>
-							<div class="btn cancel" onclick="cancel('${list.AUTO }')" style="float: none; display: none" id="cancel${list.AUTO }">취 소</div>
+							<div class="btn cancel" onclick="cancel('${list.AUTO }')" style="float: none; background-color: #fafafa; color: black; display: none" id="cancel${list.AUTO }">취 소</div>
 							<div class="btn next" onclick="save('${list.AUTO }')" style="float: none; display: none" id="save${list.AUTO }">저 장</div>
 							<div class="btn cancel" onclick="goList()">목록으로</div>
 						</c:when>
@@ -192,14 +217,14 @@
 				</div>
 				<div class="substance" style="width: 75%; height: 25px; display: inline-block;"
 						id="reply${t.AUTO }">${t.REPLY }</div>
-				<c:if test="${login.ID == t.id }">
+				<c:if test="${login.ID == t.id || login.ID == 'admin' }">
 					<input type="text" style="width: 75%; height: 25px; display: none" id="replyTxt${t.AUTO }" value="${t.REPLY }"
 							maxlength="50"/>
 					<div class="btn next" onclick="removRep('${t.AUTO}')" style="float: right; border: 1px solid #2b3735; font-size: 15px;
 							text-align: center; cursor: pointer; padding: 7px 0; width: 100px; background-color: black; color: white"
 							id="removRep${t.AUTO }">삭 제</div>
 					<div class="btn next" onclick="modifyRep('${t.AUTO }')" style="float: right; border: 1px solid #2b3735; font-size: 15px;
-							text-align: center; cursor: pointer; padding: 7px 0; width: 100px; background-color: black; color: white; margin-right: 5px;"
+							text-align: center; cursor: pointer; padding: 7px 0; width: 100px; background-color: #fafafa; color: black; margin-right: 5px;"
 							id="modifyRep${t.AUTO }">수 정</div>
 					<div class="btn next" onclick="saveRep('${t.AUTO}')" style="float: right; border: 1px solid #2b3735; font-size: 15px; display: none;
 							text-align: center; cursor: pointer; padding: 7px 0; width: 100px; background-color: black; color: white"
@@ -210,7 +235,6 @@
 				</c:if>
 			</div>
 		</c:forEach>
-		
 	</div>
 </div>
 
@@ -267,6 +291,7 @@
 		$("#boardDiv").show();
 		$("#writeDiv").show();
 		$("#pageDiv").show();
+		$("#reviewPages").show();
 	}
 	// 글 수정
 	function modify(num){
@@ -292,7 +317,8 @@
 	}
 	// 글 삭제
 	function remov(num){
-		
+		$("#reviewRD").show();
+		$("#reviewRD1").show();
 	}
 	// 글 수정 취소
 	function cancel(num){
@@ -368,8 +394,11 @@
 		$("#replyTxt"+num).show();
 	}
 	// 댓글 삭제
+	var replyNum = 0;
 	function removRep(num){
-		
+		$("#replyRD").show();
+		$("#replyRD1").show();
+		replyNum = num;
 	}
 	// 댓글 수정 취소
 	function cancelRep(num, reply){
@@ -418,5 +447,37 @@
 		} else {
 			alert("로그인 후 이용 가능합니다.");
 		}
+	}
+	// 리뷰 삭제 완료
+	function reviewCommit(){
+		$.ajax({
+			type : "post",
+			url : "/review/reviewRemove/${list.AUTO }",
+			async : false,
+			success : function(txt){
+				if(txt){
+					alert("삭제되었습니다.");
+					location.reload();
+				} else {
+					alert("삭제에 실패하였습니다.\n잠시후 다시 시도해주세요.");
+				}
+			}
+		});
+	}
+	// 댓글 삭제 완료
+	function replyCommit(){
+		$.ajax({
+			type : "post",
+			url : "/review/replyRemove/"+replyNum,
+			async : false,
+			success : function(txt){
+				if(txt){
+					alert("삭제되었습니다.");
+					location.reload();
+				} else {
+					alert("삭제에 실패하였습니다.\n잠시후 다시 시도해주세요.");
+				}
+			}
+		});
 	}
 </script>

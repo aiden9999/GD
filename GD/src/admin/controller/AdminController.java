@@ -2,12 +2,15 @@ package admin.controller;
 
 import java.util.*;
 
+import javax.servlet.http.*;
+
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.*;
 import org.springframework.web.servlet.*;
 
+import academy.service.*;
 import admin.service.*;
 
 @Controller
@@ -15,6 +18,10 @@ import admin.service.*;
 public class AdminController {
 	@Autowired
 	AdminService ad;
+	@Autowired
+	MailService ms;
+	@Autowired
+	AcademyService as;
 	
 	// 멤버 상세정보
 	@RequestMapping("/memberDetail/{id}")
@@ -22,6 +29,8 @@ public class AdminController {
 		ModelAndView mav = new ModelAndView("/admin/tab1Ajax.jsp");
 		List<HashMap> list = ad.memberDetail(id);
 		mav.addObject("memberList", list);
+		List<HashMap> acaList = as.allAcademy();
+		mav.addObject("acaList", acaList);
 		return mav;
 	}
 	
@@ -37,6 +46,15 @@ public class AdminController {
 	@ResponseBody
 	public boolean loseAdmin(@PathVariable(name="id")String id){
 		return ad.loseAdmin(id);
+	}
+	
+	// 관리자 권한 설정
+	@RequestMapping("/setAdmin/{id}/{what}/{grade}/{admin}/{acaNum}")
+	@ResponseBody
+	public boolean setAdmin2(@PathVariable(name="id")String id, @PathVariable(name="what")String what,
+												@PathVariable(name="grade")String grade, @PathVariable(name="admin")String admin,
+												@PathVariable(name="acaNum")String num){
+		return ad.setAdmin(id, what, grade, admin, num);
 	}
 	
 	// tab2 글목록
@@ -68,7 +86,6 @@ public class AdminController {
 	@ResponseBody
 	public ModelAndView commit(@RequestParam(name="name")String name, @RequestParam(name="addr")String addr,
 													@RequestParam(name="addr1")String addr1, @RequestParam(name="tell")String tell,
-													@RequestParam(name="type1")String type1, @RequestParam(name="type2")String type2,
 													@RequestParam(name="site")String site, @RequestParam(name="intro")String intro,
 													@RequestParam(name="target")String target, @RequestParam(name="subject")String subject,
 													@RequestParam(name="logo")MultipartFile logo, @RequestParam(name="pic1")MultipartFile pic1,
@@ -83,13 +100,11 @@ public class AdminController {
 		String pic3UUID = ad.picUUID(pic3);
 		String pic4UUID = ad.picUUID(pic4);
 		String pic5UUID = ad.picUUID(pic5);
-		if(logoUUID!=null && pic1UUID!=null){
-			boolean b = ad.academyRegist(name, addr, addr1, tell, type1, type2, site, logoUUID, intro, pic1UUID, pic2UUID, pic3UUID,
-										pic4UUID, pic5UUID, target, subject);
-			List<HashMap> memberList = ad.memberList();
-			mav.addObject("memberList", memberList);
-			mav.addObject("b", b ? "y" : "n");
-		}
+		boolean b = ad.academyRegist(name, addr, addr1, tell, site, logoUUID, intro, pic1UUID, pic2UUID, pic3UUID,
+									pic4UUID, pic5UUID, target, subject);
+		List<HashMap> memberList = ad.memberList();
+		mav.addObject("memberList", memberList);
+		mav.addObject("b", b ? "y" : "n");
 		return mav;
 	}
 	
@@ -97,6 +112,15 @@ public class AdminController {
 	@RequestMapping("/postCode")
 	public String postCode(){
 		return "/admin/postCode.jsp";
+	}
+	
+	// 메일보내기
+	@RequestMapping("/mail/{to}/{subject}/{content}")
+	@ResponseBody
+	public boolean mail(@PathVariable(name="to")String[] to, @PathVariable(name="subject")String subject,
+									@PathVariable(name="content")String content, HttpSession session){
+		List<String> emailList = ad.emailList(to);
+		return ms.mailSend(emailList, subject, content);
 	}
 	
 	// 주소검색 창

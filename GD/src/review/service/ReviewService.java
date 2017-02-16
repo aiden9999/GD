@@ -186,4 +186,34 @@ public class ReviewService {
 			return false;
 		}
 	}
+
+	// 府轰 瘩臂 昏力
+	public boolean replyRemove(int num) {
+		SqlSession ss = fac.openSession();
+		int n = ss.delete("review.replyRemove", num);
+		if(n>0){
+			ss.commit();
+			ss.close();
+			return true;
+		} else {
+			ss.rollback();
+			ss.close();
+			return false;
+		}
+	}
+
+	// 府轰 昏力
+	public boolean reviewRemove(int num) {
+		SqlSession ss = fac.openSession();
+		int n = ss.delete("review.reviewRemove", num);
+		if(n>0){
+			ss.commit();
+			ss.close();
+			return true;
+		} else {
+			ss.rollback();
+			ss.close();
+			return false;
+		}
+	}
 }

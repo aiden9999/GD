@@ -109,9 +109,8 @@ public class SearchController {
 	public ModelAndView boardPage(@PathVariable(name="board")String board, @PathVariable(name="word")String word,
 														@PathVariable(name="page")int page){
 		ModelAndView mav = new ModelAndView("/main/boardPageAjax.jsp");
-//		int boardCount = ss.boardCount()-(page-1)*10;
-//		mav.addObject("boardCount", boardCount);
-		int boardPage = ss.boardPage(word, board)%5==0 ? ss.boardPage(word, board)/5 : ss.boardPage(word, board)/5+1; 
+		int boardPage = ss.boardPage(word, board);
+		boardPage = boardPage%5==0 ? boardPage/5 : boardPage/5+1; 
 		mav.addObject("boardPage", boardPage);
 		mav.addObject("selectPage", page);
 		int start = 1+(int)((page-1)/10)*10;
@@ -119,5 +118,15 @@ public class SearchController {
 		int end = start+9>boardPage ? boardPage : start+9;
 		mav.addObject("end", end);
 		return mav;
+	}
+	
+	// 검색 게시판 페이지 수
+	@RequestMapping("/boardP/{board}/{word}/{page}")
+	@ResponseBody
+	public int boardP(@PathVariable(name="board")String board, @PathVariable(name="word")String word,
+								@PathVariable(name="page")int page){
+		int boardP = ss.boardPage(word, board);
+		boardP = boardP%5==0 ? boardP/5 : boardP/5+1;
+		return boardP;
 	}
 }

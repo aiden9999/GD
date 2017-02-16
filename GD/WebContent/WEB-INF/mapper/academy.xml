@@ -5,7 +5,7 @@
 		insert into
 		academy(name, addr1, addr2, tel, type1, type2, site, logo, info, pic1, pic2, pic3, pic4, pic5, point, count, target, subject, reply, total, people) 
 		values(#{name}, #{addr1}, #{addr2}, #{tell}, #{type1}, #{type2}, #{site}, #{logo}, #{intro},
-					#{pic1}, #{pic2}, #{pic3}, #{pic4}, #{pic5}, 0.0, 0, #{target}, #{subject}, 0, 0.0, 0)
+					#{pic1}, #{pic2}, #{pic3}, #{pic4}, #{pic5}, 0.0, 0, 0, #{target}, #{subject}, 0, 0.0, 0)
 	</insert>
 	<select id="academy" resultType="java.util.HashMap">
 		select * from academy where num = #{num}
@@ -89,5 +89,17 @@
 	</select>
 	<delete id="delete">
 		delete from acanews where auto = #{num}
+	</delete>
+	<update id="searchUp">
+		update academy set search = search+1 where name = #{name}
+	</update>
+	<update id="searchTotalUp">
+		update academy set total = total+0.01 where num = #{num}
+	</update>
+	<update id="commentModify" parameterType="java.util.HashMap">
+		update acacomment set comment = #{comment} where auto = #{num}
+	</update>
+	<delete id="commentRemove">
+		delete from acacomment where auto = #{num}
 	</delete>
 </mapper>

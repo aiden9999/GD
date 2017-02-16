@@ -14,10 +14,10 @@
 		select count(*) from notice where title like #{search}
 	</select>
 	<select id="highExamPage" resultType="java.lang.Integer">
-		select count(*) from highexam where title like #{search}
+		select count(*) from highExam where title like #{search}
 	</select>
 	<select id="univExamPage" resultType="java.lang.Integer">
-		select count(*) from univexam where title like #{search}
+		select count(*) from univExam where title like #{search}
 	</select>
 	<select id="worryPage" resultType="java.lang.Integer">
 		select count(*) from worry where content like #{search}
@@ -35,10 +35,10 @@
 		select * from notice where title like #{search} order by auto desc limit 5 offset #{page}
 	</select>
 	<select id="searchhighExam" resultType="java.util.HashMap" parameterType="java.util.HashMap">
-		select * from highexam where title like #{search} order by auto desc limit 5 offset #{page}
+		select * from highExam where title like #{search} order by auto desc limit 5 offset #{page}
 	</select>
 	<select id="searchunivExam" resultType="java.util.HashMap" parameterType="java.util.HashMap">
-		select * from univexam where title like #{search} order by auto desc limit 5 offset #{page}
+		select * from univExam where title like #{search} order by auto desc limit 5 offset #{page}
 	</select>
 	<select id="searchworry" resultType="java.util.HashMap" parameterType="java.util.HashMap">
 		select * from worry where content like #{search} order by auto desc limit 5 offset #{page}

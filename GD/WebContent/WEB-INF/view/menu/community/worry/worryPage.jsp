@@ -88,31 +88,27 @@
 		</c:forEach>
 		<div class="page_wrap">
 			<div class="inner">
-				<div class="arrow_wrap">
-					<div class="arrow prev">
-						<img src="/img/sub02_arrow_prev.png" onclick="prev()">
-					</div>
-					<div class="arrow next">
-						<img src="/img/sub02_arrow_next.png" onclick="next()">
-					</div>
-				</div>
-				<div class="num_wrap">
-					<c:forEach var="i" begin="1" end="${worryPage }">
-						<c:choose>
-							<c:when test="${i==1 }">
-								<div class="num sel" onclick="page(${i })" id="page${i }">
-									<span>${i }</span>
-								</div>
-							</c:when>
-							<c:otherwise>
-								<div class="num" onclick="page(${i })" id="page${i }">
-									<span>${i }</span>
-								</div>
-							</c:otherwise>
-						</c:choose>
-					</c:forEach>
-				</div>
-			</div>
+                <div class="arrow_wrap">
+                    <div class="arrow prev" onclick="prev(this)" id="prev${start }" style="display: none">
+                        <img src="/img/sub02_arrow_prev.png">
+                    </div>
+                    <div class="arrow next" onclick="next(this)" id="next${start }" style="display: none">
+                        <img src="/img/sub02_arrow_next.png">
+                    </div>
+                </div>
+                <div class="num_wrap" id="pages" align="center" style="font-size: 0">
+                    <c:forEach var="i" begin="${start }" end="${end }">
+                   		<c:choose>
+                    		<c:when test="${i==selectPage }">
+                          <div class="num sel" onclick="page(${i })" id="page${i }" style="width: 33px"><span>${i }</span></div>
+                    		</c:when>
+                    		<c:otherwise>
+                          <div class="num" onclick="page(${i })" id="page${i }" style="width: 33px"><span>${i }</span></div>
+                    		</c:otherwise>
+                   		</c:choose>
+                   	</c:forEach>
+                </div>
+            </div>
 		</div>
 		<div class="search_wrap">
 			<div class="name_search">
@@ -138,6 +134,28 @@
 </c:choose>
 
 <script>
+	//페이지 표시
+	$(document).ready(function(){
+		var start = ${start };
+		var end = ${end };
+		if(start==end && end>10){
+			$("#prev"+start).show();
+			$("#next"+start).hide();
+		} else {
+			if(start==1 && end<10){
+				$("#prev"+start).hide();
+				$("#next"+start).hide();
+			} else {
+				if(start==1){
+		  			$("#prev"+start).hide();
+		  			$("#next"+start).show();
+		  		} else if(end>=${worryPage }){
+		  			$("#prev"+start).show();
+		  			$("#next"+start).hide();
+		  		}
+			}
+		}
+	});
 	//글 검색창에서 엔터
 	$("#search").keyup(function(txt){
 		if($("#search").val()!=""){

@@ -29,59 +29,8 @@
      
     <body>
         <header>
-            <div class="header_top">
-                <div class="inner">
-                	<c:if test="${login==null }">
-	                	<div class="txt" onclick="login()">로그인</div>
-                	</c:if>
-                    <div class="logo" onclick="location.href='/'"><label><span >L</span>ogo</label></div>
-                    <div class="search">
-                        <input type="text" id="hsearch" style="border: 2px solid #888f8d; height: 24px; " maxlength="10">
-                        <img class="hsearch" src="/img/search.png" onclick="search()">
-                    </div>
-                </div>
-            </div>
-            <div class="gnb">
-                <div class="inner">
-                    <ul>
-                        <li onclick="location.href='/el'" class="gnb_menu">
-                            <div class="txt">초등학원</div>
-                        </li>
-						<li onclick="location.href='/mi'" class="gnb_menu">
-                            <div class="txt">중등학원</div>
-                        </li>
-                        <li onclick="location.href='/hi'" class="gnb_menu">
-                            <div class="txt">고등학원</div>
-                        </li>
-                        <li class="gnb_menu">
-                            <div class="txt">입시정보</div>
-                            <ul>
-                                <li class="drop_menu" onclick="location.href='/highExam'">
-                                    <div class="txt1">고등입시</div>
-                                </li>
-                                <li class="drop_menu" onclick="location.href='/univExam'">
-                                    <div class="txt1">대학입시</div>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="gnb_menu">
-                            <div class="txt">커뮤니티</div>
-                            <ul>
-                                <li class="drop_menu" onclick="location.href='/waggle'">
-                                    <div class="txt1">수다방</div>
-                                </li>
-                                <li class="drop_menu" onclick="location.href='/worry'">
-                                    <div class="txt1">고민상담</div>
-                                </li>
-                                <li class="drop_menu" onclick="location.href='/notice'">
-                                    <div class="txt1">공지사항</div>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </header>
+			<c:import url="/WEB-INF/view/main/header.jsp"/>
+		</header>
         <div class="admin01">
             <div class="inner">
                 <div class="tit">
@@ -92,16 +41,19 @@
                 </div>
                 <div class="container">
                     <div class="tab_wrap">
-                        <div class="tit sel" id="t1" onclick="tab(1)">
+                        <div class="tit sel" id="t1" onclick="tab(1)" style="width: 200px">
                             <div class="txt"> 회 원 목 록 </div>
                         </div>
-                        <div class="tit" id="t2" onclick="tab(2)">
+                        <div class="tit" id="t2" onclick="tab(2)" style="width: 200px">
                             <div class="txt"> 게 시 판 관 리 </div>
                         </div>
-                        <div class="tit" id="t3" onclick="tab(3)">
+                        <div class="tit" id="t3" onclick="tab(3)" style="width: 200px">
                             <div class="txt"> 문 자 전 송 </div>
                         </div>
-                        <div class="tit" id="t4" onclick="tab(4)" style="border-left: none">
+                        <div class="tit" id="t4" onclick="tab(4)" style="width: 200px">
+                            <div class="txt"> 메 일 전 송 </div>
+                        </div>
+                        <div class="tit" id="t5" onclick="tab(5)" style="border-left: none; width: 200px">
                             <div class="txt"> 학 원 등 록 </div>
                         </div>
                         <!-- tab1 -->
@@ -151,41 +103,173 @@
                                         <div class="txt">${memberList.get(0).EMAIL }</div>
                                     </div>
                                     <c:choose>
-                                    	<c:when test="${memberList.get(0).ADMIN=='y' }">
+                                    	<c:when test="${login.ID == 'admin' }">
                                     		<c:choose>
-                                    			<c:when test="${memberList.get(0).NAME=='관리자' }">
-				                                    <div class="info_wrap checks">
-				                                        <input type="checkbox" id="giveAdmin" checked="checked" disabled="disabled">
-				                                        <label for="giveAdmin" class="tit">관리자 권한부여</label>
+                                    			<c:when test="${memberList.get(0).ADMIN == '메인관리자' }">
+                                    				<div class="info_wrap checks" style="display: none">
+				                                        <input type="radio" id="giveAdmin" name="admin" checked="checked">
+				                                        <label for="giveAdmin" class="tit" style="width: 145px; float: left">중간관리자 권한부여</label>
+				                                    </div>
+				                                    <div class="info_wrap checks" style="display: none">
+				                                        <input type="radio" id="acaAdmin" name="admin">
+				                                        <label for="acaAdmin" class="tit" style="width: 145px; float: left">학원관리자 권한부여</label>
+				                                        <select id="acaSelect" style="width: 140px; height: 25px; padding-left: 5px; display: none">
+				                                        	<option value="choose">선택</option>
+				                                        	<c:forEach var="t" items="${acaList }">
+				                                        		<option value="${t.NUM }">${t.NAME }</option>
+				                                        	</c:forEach>
+				                                        </select>
+				                                    </div>
+				                                    <div class="info_wrap checks" style="display: none">
+				                                        <input type="radio" id="delAdmin" name="admin">
+				                                        <label for="delAdmin" class="tit" style="width: 145px; float: left">권한없음</label>
 				                                    </div>
                                     			</c:when>
-                                    			<c:otherwise>
-				                                    <div class="info_wrap checks">
-				                                    	<c:choose>
-				                                    		<c:when test="${login.ID == 'admin' }">
-						                                        <input type="checkbox" id="giveAdmin" checked="checked">
-				                                    		</c:when>
-				                                    		<c:otherwise>
-						                                        <input type="checkbox" id="giveAdmin" checked="checked" disabled="disabled">
-				                                    		</c:otherwise>
-				                                    	</c:choose>
-				                                        <label for="giveAdmin" class="tit">관리자 권한부여</label>
+	                                    		<c:when test="${memberList.get(0).ADMIN == '중간관리자' }">
+		                                    		<div class="info_wrap checks">
+				                                        <input type="radio" id="giveAdmin" name="admin" checked="checked">
+				                                        <label for="giveAdmin" class="tit" style="width: 145px; float: left">중간관리자 권한부여</label>
 				                                    </div>
-                                    			</c:otherwise>
+				                                    <div class="info_wrap checks">
+				                                        <input type="radio" id="acaAdmin" name="admin">
+				                                        <label for="acaAdmin" class="tit" style="width: 145px; float: left">학원관리자 권한부여</label>
+				                                        <select id="acaSelect" style="width: 140px; height: 25px; padding-left: 5px; display: none">
+				                                        	<option value="choose">선택</option>
+				                                        	<c:forEach var="t" items="${acaList }">
+				                                        		<option value="${t.NUM }">${t.NAME }</option>
+				                                        	</c:forEach>
+				                                        </select>
+				                                    </div>
+				                                    <div class="info_wrap checks">
+				                                        <input type="radio" id="delAdmin" name="admin">
+				                                        <label for="delAdmin" class="tit" style="width: 145px; float: left">권한없음</label>
+				                                    </div>
+	                                    		</c:when>
+	                                    		<c:when test="${memberList.get(0).ADMIN == '학원관리자' }">
+		                                    		<div class="info_wrap checks">
+				                                        <input type="radio" id="giveAdmin" name="admin">
+				                                        <label for="giveAdmin" class="tit" style="width: 145px; float: left">중간관리자 권한부여</label>
+				                                    </div>
+				                                    <div class="info_wrap checks">
+				                                        <input type="radio" id="acaAdmin" name="admin" checked="checked">
+				                                        <label for="acaAdmin" class="tit" style="width: 145px; float: left">학원관리자 권한부여</label>
+				                                        <select id="acaSelect" style="width: 140px; height: 25px; padding-left: 5px; display: none">
+				                                        	<option value="choose">선택</option>
+				                                        	<c:forEach var="t" items="${acaList }">
+				                                        		<option value="${t.NUM }">${t.NAME }</option>
+				                                        	</c:forEach>
+				                                        </select>
+				                                    </div>
+				                                    <div class="info_wrap checks">
+				                                        <input type="radio" id="delAdmin" name="admin">
+				                                        <label for="delAdmin" class="tit" style="width: 145px; float: left">권한없음</label>
+				                                    </div>
+	                                    		</c:when>
+	                                    		<c:otherwise>
+		                                    		<div class="info_wrap checks">
+				                                        <input type="radio" id="giveAdmin" name="admin">
+				                                        <label for="giveAdmin" class="tit" style="width: 145px; float: left">중간관리자 권한부여</label>
+				                                    </div>
+				                                    <div class="info_wrap checks">
+				                                        <input type="radio" id="acaAdmin" name="admin">
+				                                        <label for="acaAdmin" class="tit" style="width: 145px; float: left">학원관리자 권한부여</label>
+				                                        <select id="acaSelect" style="width: 140px; height: 25px; padding-left: 5px; display: none">
+				                                        	<option value="choose">선택</option>
+				                                        	<c:forEach var="t" items="${acaList }">
+				                                        		<option value="${t.NUM }">${t.NAME }</option>
+				                                        	</c:forEach>
+				                                        </select>
+				                                    </div>
+				                                    <div class="info_wrap checks">
+				                                        <input type="radio" id="delAdmin" name="admin" checked="checked">
+				                                        <label for="delAdmin" class="tit" style="width: 145px; float: left">권한없음</label>
+				                                    </div>
+	                                    		</c:otherwise>
                                     		</c:choose>
                                     	</c:when>
                                     	<c:otherwise>
-		                                    <div class="info_wrap checks">
-		                                    	<c:choose>
-		                                    		<c:when test="${login.ID == 'admin' }">
-				                                        <input type="checkbox" id="giveAdmin">
-		                                    		</c:when>
-		                                    		<c:otherwise>
-				                                        <input type="checkbox" id="giveAdmin" disabled="disabled">
-		                                    		</c:otherwise>
-		                                    	</c:choose>
-		                                        <label for="giveAdmin" class="tit">관리자 권한부여</label>
-		                                    </div>
+                                    		<c:choose>
+                                    			<c:when test="${memberList.get(0).ADMIN == '메인관리자' }">
+                                    				<div class="info_wrap checks" style="display: none">
+				                                        <input type="radio" id="giveAdmin" name="admin" checked="checked">
+				                                        <label for="giveAdmin" class="tit" style="width: 145px; float: left">중간관리자 권한부여</label>
+				                                    </div>
+				                                    <div class="info_wrap checks" style="display: none">
+				                                        <input type="radio" id="acaAdmin" name="admin">
+				                                        <label for="acaAdmin" class="tit" style="width: 145px; float: left">학원관리자 권한부여</label>
+				                                        <select id="acaSelect" style="width: 140px; height: 25px; padding-left: 5px; display: none">
+				                                        	<option value="choose">선택</option>
+				                                        	<c:forEach var="t" items="${acaList }">
+				                                        		<option value="${t.NUM }">${t.NAME }</option>
+				                                        	</c:forEach>
+				                                        </select>
+				                                    </div>
+				                                    <div class="info_wrap checks" style="display: none">
+				                                        <input type="radio" id="delAdmin" name="admin" disabled="disabled">
+				                                        <label for="delAdmin" class="tit" style="width: 145px; float: left">권한없음</label>
+				                                    </div>
+                                    			</c:when>
+	                                    		<c:when test="${memberList.get(0).ADMIN == '중간관리자' }">
+		                                    		<div class="info_wrap checks">
+				                                        <input type="radio" id="giveAdmin" name="admin" checked="checked" disabled="disabled">
+				                                        <label for="giveAdmin" class="tit" style="width: 145px; float: left">중간관리자 권한부여</label>
+				                                    </div>
+				                                    <div class="info_wrap checks">
+				                                        <input type="radio" id="acaAdmin" name="admin" disabled="disabled">
+				                                        <label for="acaAdmin" class="tit" style="width: 145px; float: left">학원관리자 권한부여</label>
+				                                        <select id="acaSelect" style="width: 140px; height: 25px; padding-left: 5px; display: none">
+				                                        	<option value="choose">선택</option>
+				                                        	<c:forEach var="t" items="${acaList }">
+				                                        		<option value="${t.NUM }">${t.NAME }</option>
+				                                        	</c:forEach>
+				                                        </select>
+				                                    </div>
+				                                    <div class="info_wrap checks">
+				                                        <input type="radio" id="delAdmin" name="admin" disabled="disabled">
+				                                        <label for="delAdmin" class="tit" style="width: 145px; float: left">권한없음</label>
+				                                    </div>
+	                                    		</c:when>
+	                                    		<c:when test="${memberList.get(0).ADMIN == '학원관리자' }">
+		                                    		<div class="info_wrap checks">
+				                                        <input type="radio" id="giveAdmin" name="admin" disabled="disabled">
+				                                        <label for="giveAdmin" class="tit" style="width: 145px; float: left">중간관리자 권한부여</label>
+				                                    </div>
+				                                    <div class="info_wrap checks">
+				                                        <input type="radio" id="acaAdmin" name="admin" checked="checked" disabled="disabled">
+				                                        <label for="acaAdmin" class="tit" style="width: 145px; float: left">학원관리자 권한부여</label>
+				                                        <select id="acaSelect" style="width: 140px; height: 25px; padding-left: 5px; display: none">
+				                                        	<option value="choose">선택</option>
+				                                        	<c:forEach var="t" items="${acaList }">
+				                                        		<option value="${t.NUM }">${t.NAME }</option>
+				                                        	</c:forEach>
+				                                        </select>
+				                                    </div>
+				                                    <div class="info_wrap checks">
+				                                        <input type="radio" id="delAdmin" name="admin" disabled="disabled">
+				                                        <label for="delAdmin" class="tit" style="width: 145px; float: left">권한없음</label>
+				                                    </div>
+	                                    		</c:when>
+	                                    		<c:otherwise>
+		                                    		<div class="info_wrap checks">
+				                                        <input type="radio" id="giveAdmin" name="admin" disabled="disabled">
+				                                        <label for="giveAdmin" class="tit" style="width: 145px; float: left">중간관리자 권한부여</label>
+				                                    </div>
+				                                    <div class="info_wrap checks">
+				                                        <input type="radio" id="acaAdmin" name="admin" disabled="disabled">
+				                                        <label for="acaAdmin" class="tit" style="width: 145px; float: left">학원관리자 권한부여</label>
+				                                        <select id="acaSelect" style="width: 140px; height: 25px; padding-left: 5px; display: none">
+				                                        	<option value="choose">선택</option>
+				                                        	<c:forEach var="t" items="${acaList }">
+				                                        		<option value="${t.NUM }">${t.NAME }</option>
+				                                        	</c:forEach>
+				                                        </select>
+				                                    </div>
+				                                    <div class="info_wrap checks">
+				                                        <input type="radio" id="delAdmin" name="admin" checked="checked" disabled="disabled">
+				                                        <label for="delAdmin" class="tit" style="width: 145px; float: left">권한없음</label>
+				                                    </div>
+	                                    		</c:otherwise>
+                                    		</c:choose>
                                     	</c:otherwise>
                                     </c:choose>
                                     <div class="cannext_wrap" style="margin: 70px 0">
@@ -269,10 +353,10 @@
                                 <div class="letter_wrap">
                                     <div class="tit">문자전송</div>
                                     <textarea placeholder="내용을 입력해주세요." style="resize: none" id="message"></textarea>
-                                    <div class="txt" id="words">0 / 200</div>
+                                    <div class="txt" id="words" style="bottom: 155px">0 / 200</div>
                                     <div class="cannext_wrap">
                                         <div class="btn cancel" onclick="location.href='/'">취 소</div>
-                                        <div class="btn next">전 송</div>
+                                        <div class="btn next" onclick="sendMessage()">전 송</div>
                                     </div>
                                 </div>
                             </div>
@@ -280,8 +364,41 @@
                         <!-- tab4 -->
                         <div class="contents" id="tab4" style="display: none">
                             <div class="inner">
+                                <div class="list_wrap list_wrap3">
+                                    <div class="tit">회원목록</div>
+                                    <div class="list">
+                                    	<c:forEach var="i" items="${memberList }">
+	                                        <div class="name_wrap">
+	                                            <div class="dot"></div>
+	                                            <div class="name" onclick="mailTake(this)" style="cursor: pointer;">${i.NAME }(${i.ID })</div>
+	                                        </div>
+                                    	</c:forEach>
+                                    </div>
+                                </div>
+                                <div class="receive_wrap">
+                                    <div class="tit">수신목록&nbsp;
+                                    	<font style="color: black; font-weight: normal; font-size: 15px" id="mailCount">0 / 30</font>
+                                    </div>
+                                    <div class="list" id="mailList"></div>
+                                </div>
+                                <div class="letter_wrap">
+                                    <div class="tit">메일전송</div>
+                                    <input type="text" id="subject1" placeholder="제목을 입력해주세요." style="width: 100%; border: solid 1px #88b04b;
+                                    			padding: 5px 0 5px 8px; font-family: 'namsanB'; font-size: 15px; color: #a1a1a1; margin-bottom: 5px"/>
+                                    <textarea placeholder="내용을 입력해주세요." style="resize: none; height: 325px" id="mail"></textarea>
+                                    <div class="txt" id="wordM" style="bottom: 155px">0 / 2000</div>
+                                    <div class="cannext_wrap">
+                                        <div class="btn cancel" onclick="location.href='/'">취 소</div>
+                                        <div class="btn next" onclick="sendMail()">전 송</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- tab5 -->
+                        <div class="contents" id="tab5" style="display: none">
+                            <div class="inner">
                             	<div class="join02">
-						        	<form action="/admin/	registCommit" enctype="multipart/form-data" method="post" id="form">
+						        	<form action="/admin/registCommit" enctype="multipart/form-data" method="post" id="form">
 							            <div class="inner">
 <!-- 							                <div class="prize_tit"> -->
 <!-- 							                    <div class="img"> -->
@@ -307,22 +424,22 @@
 							                        <div class="txt">학원 전화번호</div>
 							                        <input type="text" id="tell" name="tell" placeholder="ex) 02-123-4567">
 							                    </div>
-							                    <div class="save_box save_sort">
-							                        <div class="txt">분류1</div>
-							                        <select id="type1" name="type1">
-							                            <option value="1">1</option>
-							                            <option value="2">2</option>
-							                            <option value="3">3</option>
-							                        </select>
-							                    </div>
-							                    <div class="save_box save_sort save_sort1">
-							                        <div class="txt">분류2</div>
-							                        <select id="type2" name="type2">
-							                            <option value="1">1</option>
-							                            <option value="2">2</option>
-							                            <option value="3">3</option>
-							                        </select>
-							                    </div>
+<!-- 							                    <div class="save_box save_sort"> -->
+<!-- 							                        <div class="txt">분류1</div> -->
+<!-- 							                        <select id="type1" name="type1"> -->
+<!-- 							                            <option value="1">1</option> -->
+<!-- 							                            <option value="2">2</option> -->
+<!-- 							                            <option value="3">3</option> -->
+<!-- 							                        </select> -->
+<!-- 							                    </div> -->
+<!-- 							                    <div class="save_box save_sort save_sort1"> -->
+<!-- 							                        <div class="txt">분류2</div> -->
+<!-- 							                        <select id="type2" name="type2"> -->
+<!-- 							                            <option value="1">1</option> -->
+<!-- 							                            <option value="2">2</option> -->
+<!-- 							                            <option value="3">3</option> -->
+<!-- 							                        </select> -->
+<!-- 							                    </div> -->
 							                    <div class="save_box save_homepage">
 							                        <div class="txt">홈페이지주소</div>
 							                        <div class="txt1">http://</div>
@@ -336,7 +453,7 @@
 							                                <input type="file" id="logo" name="logo" style="display: none" onchange="showImg(this)"/>
 							                            </div>
 							                        </div>
-							                        <div class="txt1">(5mb 이하, 373px x 186px 사이즈로 업로드 해주십시오.)</div>
+							                        <div class="txt1">(5mb 이하, 373px x 215px 사이즈로 업로드 해주십시오.)</div>
 							                    </div>
 							                    <div class="save_box save_intro">
 							                        <div class="txt">학원 소개</div>
@@ -374,7 +491,7 @@
 							                                <input type="file" id="pic5" name="pic5" style="display: none" onchange="showImg(this)"/>
 							                            </div>
 							                        </div>
-							                        <div class="txt1">최소 1장 이상 (5mb 이하, 795px x 510px 사이즈로 업로드 해주십시오.)</div>
+							                        <div class="txt1">(5mb 이하, 795px x 510px 사이즈로 업로드 해주십시오.)</div>
 							                    </div>
 							                    <div class="save_box save_target">
 							                        <div class="txt">수업대상</div>
@@ -400,13 +517,7 @@
             </div>
         </div>
         <footer>
-            <div class="inner">
-                <div class="logo" onclick="location.href='/'"><label><span >L</span>ogo</label></div>
-                <div class="txt">주소 : 서울 강남구 테헤란로 407 EK타워 4층 미래로입시컨설팅대표이사 : 이혁진 
-<br>상담시간 : 월 ~ 금 - 오전 10시 ~ 오후 9시 ( 점심시간 오전 11시 30분 ~ 오후 1시)   토 - 오전 10시 ~ 오후 5시
-<br>Copyright(c) TS group. All Rights Reserved.</div>
-            </div>
-        </footer>
+            <c:import url="/WEB-INF/view/main/footer.jsp"/>
 	</body>
 	
 	<script>
@@ -439,7 +550,7 @@
 		}
 		// 탭이동
 		function tab(num){
-			for(var i=1; i<5; i++){
+			for(var i=1; i<=5; i++){
 				var x = document.getElementById("t"+i);
             	if(i==num){
             		if(x.className.indexOf(" sel") == -1){
@@ -464,46 +575,63 @@
 				}
 			});
 		}
+		// 학원관리자 선택시 학원리스트 show
+		$("#giveAdmin").change(function(){
+			$("#acaSelect").hide();
+			$("#acaSelect").val("choose");
+		});
+		$("#acaAdmin").change(function(){
+			$("#acaSelect").show();
+		});
+		$("#delAdmin").change(function(){
+			$("#acaSelect").hide();
+			$("#acaSelect").val("choose");
+		});
 		// 관리자 권한주기, 권한뺏기 및 저장
 		function tab1Save(){
-			var admin = $("#giveAdmin").prop("checked");
+			var admin = $("#giveAdmin").prop("checked") ? "중간관리자" : $("#acaAdmin").prop("checked") ? "학원관리자" :
+									$("#delAdmin").prop("checked") ? "일반" : false;
 			var id = $("#id").html();
 			var what = $("#what").html();
 			var grade = $("#grade").html();
+			var acaNum = $("#acaSelect").val();
 			if(admin){
-				$.ajax({
-					type : "post",
-					url : "/admin/giveAdmin/"+id+"/"+what+"/"+grade,
-					async : false,
-					success : function(txt){
-						if(txt){
-							alert("저장되었습니다.");
-							location.reload();
-						} else {
-							alert("저장에 실패하였습니다.\n잠시후 다시 시도해주세요.");
-						}
+				if(admin=="학원관리자"){
+					if(acaNum=="choose"){
+						alert("학원을 선택해주세요.");
+					} else {
+						$.ajax({
+							type : "post",
+							url : "/admin/setAdmin/"+id+"/"+what+"/"+grade+"/"+admin+"/"+acaNum,
+							async : false,
+							success : function(txt){
+								if(txt){
+									alert("저장되었습니다.");
+									location.reload();
+								} else {
+									alert("저장에 실패하였습니다.\n잠시후 다시 시도해주세요.");
+								}
+							}
+						});
 					}
-				});
+				} else {
+					$.ajax({
+						type : "post",
+						url : "/admin/setAdmin/"+id+"/"+what+"/"+grade+"/"+admin+"/"+acaNum,
+						async : false,
+						success : function(txt){
+							if(txt){
+								alert("저장되었습니다.");
+								location.reload();
+							} else {
+								alert("저장에 실패하였습니다.\n잠시후 다시 시도해주세요.");
+							}
+						}
+					});
+				}
 			} else {
-				$.ajax({
-					type : "post",
-					url : "/admin/loseAdmin/"+id,
-					async : false,
-					success : function(txt){
-						if(txt){
-							alert("저장되었습니다.");
-							location.reload();
-						} else {
-							alert("저장에 실패하였습니다.\n잠시후 다시 시도해주세요.");
-						}
-					}
-				});
+				alert("권한을 선택해주세요.");
 			}
-		}
-		// 메인관리자 권한 체크해제
-		function change(){
-			$("#giveAdmin").prop("checked", true);
-			alert("메인관리자의 권한은 제거할 수 없습니다.");
 		}
 		// tab2 게시판 선택
 		$("#nowBoard").change(function(){
@@ -570,7 +698,7 @@
 		function take(element){
 			var html = "<div class='name_wrap' id='give"+num+"'>";
 			html += "<div class='dot'></div>&nbsp;";
-			html += "<div class='name'>"+element.innerHTML+"</div>&nbsp;";
+			html += "<div class='name' id='to"+num+"'>"+element.innerHTML+"</div>&nbsp;";
 			html += "<div class='X_mark' onclick='remov("+num+")'>X</div></div>";
 			if($("#takeList").html().indexOf(element.innerHTML)>0){
 				alert("이미 수신목록에 있습니다.");
@@ -626,14 +754,105 @@
      			$("#message").prop("rows", "1");
      		}
      	});
-    	 // tab4 등록
+		// tab3 문자 전송
+		function sendMessage(){
+			var to = new Array();
+			for(var i=0; i<num; i++){
+				to[i] = $("#to"+i).html();
+			}
+			var message = $("#message").val();
+			alert(to+"\n"+message);
+		}
+		// tab4 회원 클릭
+		var numM = 0;
+		function mailTake(element){
+			var html = "<div class='name_wrap' id='mailGive"+numM+"'>";
+			html += "<div class='dot'></div>&nbsp;";
+			html += "<div class='name' id='mail"+numM+"'>"+element.innerHTML+"</div>&nbsp;";
+			html += "<div class='X_mark' onclick='removMail("+numM+")'>X</div></div>";
+			if($("#mailList").html().indexOf(element.innerHTML)>0){
+				alert("이미 수신목록에 있습니다.");
+			} else {
+				$("#mailList").append(html);
+				numM ++;
+				$("#mailCount").html(numM+" / 30");
+			}
+		}
+		// tab4 회원 제거
+		function removMail(num2){
+			$("#mailGive"+num2).remove();
+			var count = $("#mailCount").html();
+			count = count.substring(0, count.indexOf('/')-1);
+			count --;
+			numM --;
+			$("#mailCount").html(count+" / 30");
+		}
+		// tab4 메일내용 입력
+     	$("#mail").keyup(function(txt){
+     		var strValue = $("#mail").val();
+	        var strLen = strValue.length;
+	        var totalByte = 0;
+	        var len = 0;
+	        var oneChar = "";
+	        var str2 = "";
+	 
+	        for (var i = 0; i < strLen; i++) {
+	            var oneChar = strValue.charAt(i);
+	            if (escape(oneChar).length > 4) {
+	                totalByte += 2;
+	            } else {
+	                totalByte++;
+	            }
+	 
+	            // 입력한 문자 길이보다 넘치면 잘라내기 위해 저장
+	            if (totalByte <= 2000) {
+	                len = i + 1;
+	            }
+	        }
+	 
+	        // 넘어가는 글자는 자른다.
+	        if (totalByte > 2000) {
+	            str2 = strValue.substr(0, len);
+	            totalByte = 2000;
+	            $("#mail").val(str2);
+	        }
+	        
+     		$("#wordM").html(totalByte+" / 2000");
+     		if(totalByte>=132){
+     			$("#mail").prop("rows", "2");
+     		} else if(totalByte<132){
+     			$("#mail").prop("rows", "1");
+     		}
+     	});
+		// tab4 메일 전송
+		function sendMail(){
+			var to = new Array();
+			for(var i=0; i<numM; i++){
+				to[i] = $("#mail"+i).html();
+			}
+			var subject = $("#subject1").val();
+			var mail = $("#mail").val();
+			$.ajax({
+				type : "post",
+				url : "/admin/mail/"+to+"/"+subject+"/"+mail,
+				async : false,
+				success : function(txt){
+					if(txt){
+						alert("전송되었습니다.");
+					} else {
+						alert("전송에 실패하였습니다.\n잠시후 다시 시도해주세요.");
+					}
+				}
+			});
+		}
+    	// tab5 등록
 	  	function commit(){
 	  		var name = $("#name").val();
 	  		var addr1 = $("#address").val();
 	  		var addr2 = $("#address1").val();
 	  		var tell = $("#tell").val();
-	  		var type1 = $("#type1").val();
-	  		var type2 = $("#type2").val();
+// 	  		var type1 = $("#type1").val();
+// 	  		var type2 = $("#type2").val();
 	  		var site = $("#site").val();
 	  		var logo = $("#logo").val();
 	  		var intro = $("#intro").val();
@@ -644,38 +863,33 @@
 	  		var pic5 = $("#pic5").val();
 	  		var target = $("#target").val();
 	  		var subject = $("#subject").val();
-	  		if(logo==""){
-	  			alert("학원로고는 필수로 등록해주세요.");
-	  		} else if(pic1==""){
-	  			alert("학원이미지는 1장이상 등록해야합니다.");
-	  		} else if(name=="" || addr1=="" || addr2=="" || tell=="" || type1=="choose" || type2=="choose" || site=="" || intro=="" ||
-	  						target=="" || subject==""){
+	  		if(name=="" || addr1=="" || addr2=="" || tell=="" || site=="" || intro=="" || target=="" || subject==""){
 	  			alert("입력하지 않은 항목이 있습니다.");
 	  		} else {
 	  			$("#form").submit();
 	  		}
 	  	}
-	  	// tab4 우편번호
+	  	// tab5 우편번호
 	    function postCode(){
 	  		var width = window.innerWidth;
 	  		var height = window.innerHeight; 
 			window.open("/admin/postCode", "postCode", "width=500px; height=550px; left="+width/2+" top="+height/2);
 		}
-	  	// tab4 우편번호
+	  	// tab5 우편번호
 	    function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2,engAddr, jibunAddr, zipNo, admCd, rnMgtSn, bdMgtSn){
 	    	// 팝업페이지에서 주소입력한 정보를 받아서, 현 페이지에 정보를 등록합니다.
 	    	$("#address").val(roadFullAddr);
 	    	$("#address1").val(jibunAddr+" "+addrDetail);
 	    }
-	  	// tab4 로고 선택
+	  	// tab5 로고 선택
 	  	function logo(){
 	  		$("#logo").trigger("click");
 	  	}
-	  	// tab4 사진 선택
+	  	// tab5 사진 선택
 	  	function picture(num){
 	  		$("#pic"+num).trigger("click");
 	  	}
-	 	// tab4 사진 변경시 이미지 미리보기
+	 	// tab5 사진 변경시 이미지 미리보기
  		function showImg(input) {
 	 		var id = input.id;
 	 		if(id.startsWith("l")){

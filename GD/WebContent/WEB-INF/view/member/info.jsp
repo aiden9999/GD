@@ -46,61 +46,7 @@
 
 <body>
 	<header>
-		<div class="header_top">
-			<div class="inner">
-				<c:if test="${login==null }">
-					<div class="txt" onclick="login()">로그인</div>
-				</c:if>
-				<div class="logo" onclick="location.href='/'">
-					<label><span>L</span>ogo</label>
-				</div>
-				<div class="search">
-					<input type="text" id="hsearch"
-						style="border: 2px solid #888f8d; height: 24px;" maxlength="10">
-					<img class="hsearch" src="/img/search.png" onclick="search()">
-				</div>
-			</div>
-		</div>
-		<div class="gnb">
-			<div class="inner">
-				<ul>
-					<li onclick="location.href='/el'" class="gnb_menu">
-						<div class="txt">초등학원</div>
-					</li>
-					<li onclick="location.href='/mi'" class="gnb_menu">
-						<div class="txt">중등학원</div>
-					</li>
-					<li onclick="location.href='/hi'" class="gnb_menu">
-						<div class="txt">고등학원</div>
-					</li>
-					<li class="gnb_menu">
-						<div class="txt">입시정보</div>
-						<ul>
-							<li class="drop_menu" onclick="location.href='/highExam'">
-								<div class="txt1">고등입시</div>
-							</li>
-							<li class="drop_menu" onclick="location.href='/univExam'">
-								<div class="txt1">대학입시</div>
-							</li>
-						</ul>
-					</li>
-					<li class="gnb_menu">
-						<div class="txt">커뮤니티</div>
-						<ul>
-							<li class="drop_menu" onclick="location.href='/waggle'">
-								<div class="txt1">수다방</div>
-							</li>
-							<li class="drop_menu" onclick="location.href='/worry'">
-								<div class="txt1">고민상담</div>
-							</li>
-							<li class="drop_menu" onclick="location.href='/notice'">
-								<div class="txt1">공지사항</div>
-							</li>
-						</ul>
-					</li>
-				</ul>
-			</div>
-		</div>
+		<c:import url="/WEB-INF/view/main/header.jsp"/>
 	</header>
 	<div class="info_page">
 		<div class="inner">
@@ -115,13 +61,12 @@
 				</ul>
 			</aside>
 			<div class="container" id="tab1">
-				<div class="tit">회원 정보변경</div>
+				<div class="tit" style="width: 145px">회원 정보변경</div>
 				<div class="welcome_wrap">
 					<div class="txt">${type }회원</div>
 					<div class="txt">
 						<span>${login.ID }님</span> 환영합니다.
 					</div>
-					<!--                         <div class="txt1">회원 정보변경</div> -->
 				</div>
 				<div class="devide_wrap">
 					<div class="txt_wrap">
@@ -168,34 +113,34 @@
 					<div class="info_change_wrap">
 						<div class="info_change" onclick="infoModify()">회원 정보변경</div>
 						<div class="info_wrap">
-							<div class="info_tit">이름</div>
+							<div class="info_tit" style="width: 108px">이름</div>
 							<div class="txt">${login.NAME }</div>
 						</div>
 						<div class="info_wrap">
-							<div class="info_tit">아이디</div>
+							<div class="info_tit" style="width: 108px">아이디</div>
 							<div class="txt">${login.ID }</div>
 						</div>
 						<div class="info_wrap">
-							<div class="info_tit">필명</div>
+							<div class="info_tit" style="width: 108px">필명</div>
 							<div class="txt" id="infoNick">${login.NICK }</div>
 							<input type="text" id="modNick" value="${login.NICK }" style="display: none" maxlength="6">
 						</div>
 						<div class="info_wrap">
-							<div class="info_tit">현재 비밀번호</div>
+							<div class="info_tit" style="width: 108px">현재 비밀번호</div>
 							<input type="password" id="modNowPw" readonly="readonly" maxlength="16">
 						</div>
 						<div class="info_wrap">
-							<div class="info_tit">비밀번호</div>
+							<div class="info_tit" style="width: 108px">비밀번호</div>
 							<input type="password" id="modPw" readonly="readonly" maxlength="16">
 							<font style="font-size: 11px; font-weight: normal; display: none" id="changePw">(비밀번호 변경시 입력하세요.)</font>
 						</div>
 						<div class="info_wrap">
-							<div class="info_tit">비밀번호 확인</div>
+							<div class="info_tit" style="width: 108px">비밀번호 확인</div>
 							<input type="password" id="modPw1" readonly="readonly" maxlength="16">
 							<font style="font-size: 11px; font-weight: normal; display: none" id="changePw1">(비밀번호 변경시 입력하세요.)</font>
 						</div>
 						<div class="info_wrap">
-							<div class="info_tit">거주지역</div>
+							<div class="info_tit" style="width: 108px">거주지역</div>
 							<div class="txt1" id="infoAddr1">${login.ADDR1 }</div>
 							<select id="modAddr1" style="display: none">
 								<c:forEach var="i" items="${addr }">
@@ -211,12 +156,12 @@
 							</select>
 						</div>
 						<div class="info_wrap">
-							<div class="info_tit">주소</div>
+							<div class="info_tit" style="width: 108px">주소</div>
 							<div class="txt1" id="infoAddr2">${login.ADDR2 }</div>
 							<input type="text" id="modAddr2" value="${login.ADDR2 }" style="display: none">
 						</div>
 						<div class="info_wrap phone_wrap">
-							<div class="info_tit">휴대폰</div>
+							<div class="info_tit" style="width: 108px">휴대폰</div>
 							<div class="txt1" id="infoPhone">${login.PHONE }</div>
 							<input type="text" id="modPhone1" value="${login.PHONE.substring(0, 3) }" style="display: none" maxlength="4">
 							<font id="modPhone-1" style="display: none"> - </font>
@@ -225,7 +170,7 @@
                             <input type="text" id="modPhone3" value="${login.PHONE.substring(9) }" style="display: none" maxlength="4">
 						</div>
 						<div class="info_wrap email_wrap">
-							<div class="info_tit">E-mail</div>
+							<div class="info_tit" style="width: 108px">E-mail</div>
 							<div class="txt1" id="infoEmail">${login.EMAIL }</div>
 							<input type="text" id="modEmail1" value="${login.email1 }" style="display: none">
 							<font id="modEmail3" style="display: none">@</font>
@@ -239,8 +184,8 @@
                             <input type="text" id="modEmail2" value="${login.email2 }" style="display: none">
 						</div>
 						<div class="info_wrap">
-							<div class="info_tit">정보수신여부</div>
-							<div class="info_receive_wrap">
+							<div class="info_tit" style="width: 108px">정보수신여부</div>
+							<div class="info_receive_wrap" style="margin-left: 0px">
 								<div class="receive_tit">미래로 입시컨설팅 주최 설명회 소식 혹은 학원 설명회 광고를
 									문자나 이메일로 받으시겠습니까?</div>
 								<div class="receive_txt">
@@ -295,7 +240,7 @@
 				</div>
 			</div>
 			<div class="container" id="tab2" style="display: none">
-				<div class="tit">나의 학원정보</div>
+				<div class="tit" style="width: 145px">나의 학원정보</div>
 				<div class="bulletin_wrap">
 					<div class="bulletin_header">
 						<div class="bulletin_tit">
@@ -384,7 +329,7 @@
 				</div>
 			</div>
 			<div class="container" id="tab3" style="display: none">
-				<div class="tit">나의 게시글</div>
+				<div class="tit" style="width: 145px">나의 게시글</div>
 				<div class="bulletin_wrap">
 					<div class="bulletin_header">
 						<div class="bulletin_tit">
@@ -459,7 +404,7 @@
 				</div>
 			</div>
 			<div class="container" id='tab4' style="display: none">
-				<div class="tit">나의 댓글</div>
+				<div class="tit" style="width: 145px">나의 댓글</div>
 				<div class="bulletin_wrap">
 					<div class="bulletin_header">
 						<div class="bulletin_tit">
@@ -550,7 +495,7 @@
 				</div>
 			</div>
 			<div class="container" id="tab5" style="display: none">
-				<div class="tit">회원 탈퇴</div>
+				<div class="tit" style="width: 145px">회원 탈퇴</div>
 				<div class="withdrawa_wrap">
 					<div class="withdrawa_txt">
 						<div class="logo_wrap">
@@ -584,23 +529,23 @@
 						<div class="section_radio_wrap">
 							<label>
 								<input type="radio" value="service" name="withdrawa" id="type1">
-								<div class="txt">서비스불만</div>
+								<div class="txt" style="margin: 20px 50px 20px 0">서비스불만</div>
 							</label>
 							<label>
 								<input type="radio" value="center" name="withdrawa" id="type2">
-								<div class="txt">고객센터 처리불만</div>
+								<div class="txt" style="margin: 20px 50px 20px 0">고객센터 처리불만</div>
 							</label>
 							<label>
 								<input type="radio" value="info" name="withdrawa" id="type3">
-								<div class="txt">개인정보 유출</div>
+								<div class="txt" style="margin: 20px 50px 20px 0">개인정보 유출</div>
 							</label>
 							<label>
 								<input type="radio" value="use" name="withdrawa" id="type4">
-								<div class="txt txt1">이용빈도 낮음</div>
+								<div class="txt txt1" style="margin: 20px 50px 20px 0">이용빈도 낮음</div>
 							</label>
 							<label>
 								<input type="radio" value="etc" name="withdrawa" id="type5">
-								<div class="txt">기타 (아래에 내용을 적어주세요)</div>
+								<div class="txt" style="margin: 20px 50px 20px 0">기타 (아래에 내용을 적어주세요)</div>
 							</label>
 						</div>
 						<textarea placeholder="기타 (내용을 적어주세요 - 최대 100자)" style="resize: none" maxlength="100" id="exitEtc"></textarea>
@@ -618,20 +563,8 @@
 		</div>
 	</div>
 	<footer class="info_footer">
-		<div class="inner">
-			<div class="logo" onclick="location.href='/'">
-				<label><span>L</span>ogo</label>
-			</div>
-			<div class="txt">
-				주소 : 서울 강남구 테헤란로 407 EK타워 4층 미래로입시컨설팅대표이사 : 이혁진 <br>상담시간 : 월 ~
-				금 - 오전 10시 ~ 오후 9시 ( 점심시간 오전 11시 30분 ~ 오후 1시) 토 - 오전 10시 ~ 오후 5시 <br>Copyright(c)
-				TS group. All Rights Reserved.
-			</div>
-		</div>
+		<c:import url="/WEB-INF/view/main/footer.jsp"/>
 	</footer>
-<!-- 	<div style="width: 100%; height: 100%"> -->
-<!-- 		<div class="ajaxLoading" style="background-image: url('/ajaxLoading/ajaxLoading.gif')"></div> -->
-<!-- 	</div> -->
 </body>
 
 <script>

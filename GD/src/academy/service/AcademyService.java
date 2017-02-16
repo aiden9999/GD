@@ -164,6 +164,7 @@ public class AcademyService {
 				id1 += "*";
 			}
 			m.put("ID", id1);
+			m.put("WRITER", id);
 			list.set(i, m);
 		}
 		ss.close();
@@ -232,7 +233,9 @@ public class AcademyService {
 		float total = (float)academy.get("TOTAL")*(int)academy.get("PEOPLE");
 		total += Integer.parseInt(point);
 		peopleUp(num);
-		double d = Double.parseDouble(String.format("%.1f", total/((int)academy.get("PEOPLE")+1/1.0)));
+		float count = (float)((int)academy.get("COUNT")/100.0);
+		float search = (float)((int)academy.get("SEARCH")/100.0);
+		double d = Double.parseDouble(String.format("%.2f", total/((int)academy.get("PEOPLE")+1/1.0)+count+search));
 		map.put("total", d);
 		ss.update("academy.updatePoint", map);
 		ss.commit();
@@ -255,13 +258,13 @@ public class AcademyService {
 		ss.close();
 	}
 
-	// 학원 조회수 증가
+	// 학원 조회수 증가 및 포인트 증가
 	public void countUp(int num, HttpServletRequest req, HttpServletResponse resp) {
 		Cookie[] ar = req.getCookies();
 		int n = 0;
 		if(ar.length>0){
 			for(Cookie c : ar){
-				if(c.getName().equals(""+num)){
+				if(c.getName().equals("acaCount"+num)){
 					n++;
 				}
 			}
@@ -270,6 +273,7 @@ public class AcademyService {
 			} else {
 				SqlSession ss = fac.openSession();
 				ss.update("academy.countUp", num);
+				ss.update("academy.searchTotalUp", num);
 				ss.commit();
 				ss.close();
 				Cookie cookie = new Cookie("acaCount"+num, "acaCount"+num);
@@ -280,6 +284,7 @@ public class AcademyService {
 		} else {
 			SqlSession ss = fac.openSession();
 			ss.update("academy.countUp", num);
+			ss.update("academy.searchTotalUp", num);
 			ss.commit();
 			ss.close();
 			Cookie cookie = new Cookie("acaCount"+num, "acaCount"+num);
@@ -327,5 +332,46 @@ public class AcademyService {
 			ss.close();
 			return false;
 		}
+	}
+
+	// 한줄평가 수정
+	public boolean commentModify(int num, String comment) {
+		SqlSession ss = fac.openSession();
+		HashMap map = new HashMap();
+		map.put("num", num);
+		map.put("comment", comment);
+		int n = ss.update("academy.commentModify", map);
+		if(n>0){
+			ss.commit();
+			ss.close();
+			return true;
+		} else {
+			ss.rollback();
+			ss.close();
+			return false;
+		}
+	}
+	
+	// 한줄평가 삭제
+	public boolean commentRemove(int num) {
+		SqlSession ss = fac.openSession();
+		int n = ss.delete("academy.commentRemove", num);
+		if(n>0){
+			ss.commit();
+			ss.close();
+			return true;
+		} else {
+			ss.rollback();
+			ss.close();
+			return false;
+		}
+	}
+	
+	// 학원 전체 리스트
+	public List<HashMap> allAcademy(){
+		SqlSession ss = fac.openSession();
+		List<HashMap> list = ss.selectList("academy.allAcademy");
+		ss.close();
+		return list;
 	}
 }

@@ -22,7 +22,17 @@
 			<div class="txt">공지사항</div>
 		</div>
 		<div class="txt txt_tit">
-			<span>${t.TITLE }</span>
+			<c:choose>
+				<c:when test="${t.TITLE != null }">
+					<span>${t.TITLE }</span>
+				</c:when>
+				<c:when test="${t.CONTENT != null }">
+					<span>${t.CONTENT }</span>
+				</c:when>
+				<c:otherwise>
+					<span>${t.COMMENT }</span>
+				</c:otherwise>
+			</c:choose>
 		</div>
 		<div class="txt txt_rec">
 			<span>${t.NAME }</span>

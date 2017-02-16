@@ -3,14 +3,14 @@
 <mapper namespace="univExam">
 	<insert id="write" parameterType="java.util.HashMap">
 		insert into
-		univexam(title, content, writer, name, day)
+		univExam(title, content, writer, name, day)
 		values(#{title}, #{content},  #{id}, #{name}, now())
 	</insert>
 	<select id="univExam" resultType="java.util.HashMap">
-		select * from univexam order by auto desc limit 10 offset #{page}
+		select * from univExam order by auto desc limit 10 offset #{page}
 	</select>
 	<select id="count" resultType="java.lang.Integer">
-		select count(*) from univexam
+		select count(*) from univExam
 	</select>
 	<select id="mainUniv" resultType="java.util.HashMap">
 		select * from univExam order by auto desc

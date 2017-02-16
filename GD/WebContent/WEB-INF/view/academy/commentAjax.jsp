@@ -107,7 +107,7 @@
 </div>
 <div class="reply_section" id="replySection">
 	<c:forEach var="i" begin="0" end="${comment.size()-1 }">
-		<div class="reply_wrap">
+		<div class="reply_wrap" style="margin-top: 20px; padding-bottom: 20px">
 			<div class="star_wrap">
 				<c:forEach var="j" begin="1" end="${comment.get(i).POINT }">
 					<div class="star">
@@ -115,11 +115,32 @@
 					</div>
 				</c:forEach>
 			</div>
-			<div class="txt" id="replyTxt${i }">${comment.get(i).COMMENT }</div>
-			<div class="id" id="replyId${i }">
-				${comment.get(i).NAME }(${comment.get(i).ID })<span class="txt1"
-					id="replyTime${i }">${comment.get(i).DAY }</span>
+			<div class="txt_wrap" style="display: inline-block">
+				<div class="txt" id="replyTxt${comment.get(i).AUTO }">${comment.get(i).COMMENT }</div>
+				<div class="txt" id="replyM${comment.get(i).AUTO }" style="display: none">
+					<input type="text" id="replyMT${comment.get(i).AUTO }" value="${comment.get(i).COMMENT }"
+							style="width: 900px; height: 25px; padding-left: 10px; padding-right: 10px; margin-top: 5px; font-size: 12px"/>
+				</div>
+				<div class="id" id="replyId${comment.get(i).AUTO }">
+					${comment.get(i).NAME }(${comment.get(i).ID })<span class="txt1" id="replyTime${i }">${comment.get(i).DAY }</span>
+				</div>
 			</div>
+			<c:if test="${login.ID == comment.get(i).WRITER || login.ID == 'admin' }">
+				<div style="float: right; width: 150px">
+					<div style="cursor: pointer; width: 70px; height: 15px; font-size: 15px; padding: 7px 0; text-align: center;
+							border: 1px solid #2b3735; background-color: #fafafa; color: black; margin-top: 5px; display: inline-block"
+							onclick="commentModify(${comment.get(i).AUTO })" id="cm${comment.get(i).AUTO }">수정</div>
+					<div style="cursor: pointer; width: 70px; height: 15px; font-size: 15px; padding: 7px 0; text-align: center;
+							border: 1px solid #2b3735; background-color: #2b3735; color: white; margin-top: 5px; display: inline-block"
+							onclick="commentRemove(${comment.get(i).AUTO })" id="cr${comment.get(i).AUTO }">삭제</div>
+					<div style="cursor: pointer; width: 70px; height: 15px; font-size: 15px; padding: 7px 0; text-align: center;
+							border: 1px solid #2b3735; background-color: #fafafa; color: black; margin-top: 5px; display: inline-block;
+							display: none" onclick="commentCancel(${comment.get(i).AUTO })" id="cc${comment.get(i).AUTO }">취소</div>
+					<div style="cursor: pointer; width: 70px; height: 15px; font-size: 15px; padding: 7px 0; text-align: center;
+							border: 1px solid #2b3735; background-color: #2b3735; color: white; margin-top: 5px; display: inline-block;
+							display: none" onclick="commentSave(${comment.get(i).AUTO })" id="cs${comment.get(i).AUTO }">저장</div>
+				</div>
+			</c:if>
 		</div>
 	</c:forEach>
 </div>

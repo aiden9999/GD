@@ -34,59 +34,8 @@
 
 <body>
 	<header>
-            <div class="header_top">
-                <div class="inner">
-                	<c:if test="${login==null }">
-	                	<div class="txt" onclick="login()">로그인</div>
-                	</c:if>
-                    <div class="logo" onclick="location.href='/'"><label><span >L</span>ogo</label></div>
-                    <div class="search">
-                        <input type="text" id="hsearch" style="border: 2px solid #888f8d; height: 24px; " maxlength="10">
-                        <img class="hsearch" src="/img/search.png" onclick="search()">
-                    </div>
-                </div>
-            </div>
-            <div class="gnb">
-                <div class="inner">
-                    <ul>
-                        <li onclick="location.href='/el'" class="gnb_menu">
-                            <div class="txt">초등학원</div>
-                        </li>
-						<li onclick="location.href='/mi'" class="gnb_menu">
-                            <div class="txt">중등학원</div>
-                        </li>
-                        <li onclick="location.href='/hi'" class="gnb_menu">
-                            <div class="txt">고등학원</div>
-                        </li>
-                        <li class="gnb_menu">
-                            <div class="txt">입시정보</div>
-                            <ul>
-                                <li class="drop_menu" onclick="location.href='/highExam'">
-                                    <div class="txt1">고등입시</div>
-                                </li>
-                                <li class="drop_menu" onclick="location.href='/univExam'">
-                                    <div class="txt1">대학입시</div>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="gnb_menu">
-                            <div class="txt">커뮤니티</div>
-                            <ul>
-                                <li class="drop_menu" onclick="location.href='/waggle'">
-                                    <div class="txt1">수다방</div>
-                                </li>
-                                <li class="drop_menu" onclick="location.href='/worry'">
-                                    <div class="txt1">고민상담</div>
-                                </li>
-                                <li class="drop_menu" onclick="location.href='/notice'">
-                                    <div class="txt1">공지사항</div>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </header>
+		<c:import url="/WEB-INF/view/main/header.jsp"/>
+	</header>
 	<div class="join01-02 join01-03">
 		<div class="inner">
 			<div class="tit">
@@ -147,9 +96,20 @@
 					<div class="select_box">
 						<select id="addr1">
 							<option value="choose">선택</option>
-							<option value="강남">강남</option>
-							<option value="강남">강남</option>
-							<option value="강남">강남</option>
+                            <option value="서울">서울</option>
+                            <option value="인천">인천</option>
+                            <option value="세종">세종</option>
+                            <option value="대전">대전</option>
+                            <option value="대구">대구</option>
+                            <option value="광주">광주</option>
+                            <option value="울산">울산</option>
+                            <option value="부산">부산</option>
+                            <option value="경기도">경기도</option>
+                            <option value="강원도">강원도</option>
+                            <option value="충청도">충청도</option>
+                            <option value="전라도">전라도</option>
+                            <option value="경상도">경상도</option>
+                            <option value="제주도">제주도</option>
 						</select>
 					</div>
 				</div>
@@ -250,26 +210,58 @@
 							<div class="input">
 								<select id="${i }schoolAddr">
 									<option value="choose">학교소재지</option>
-									<option value="강남">강남</option>
-									<option value="강남">강남</option>
-									<option value="강남">강남</option>
-									<option value="강남">강남</option>
+	                                <option value="서울">서울</option>
+	                                <option value="인천">인천</option>
+	                                <option value="세종">세종</option>
+	                                <option value="대전">대전</option>
+	                                <option value="대구">대구</option>
+	                                <option value="광주">광주</option>
+	                                <option value="울산">울산</option>
+	                                <option value="부산">부산</option>
+	                                <option value="경기도">경기도</option>
+	                                <option value="강원도">강원도</option>
+	                                <option value="충청도">충청도</option>
+	                                <option value="전라도">전라도</option>
+	                                <option value="경상도">경상도</option>
+	                                <option value="제주도">제주도</option>
 								</select>
 							</div>
 							<div class="input">
 								<select id="${i }acaAddr1">
 									<option value="강남">학원소재지</option>
-									<option value="강남">강남</option>
-									<option value="강남">강남</option>
-									<option value="강남">강남</option>
+	                                <option value="서울">서울</option>
+	                                <option value="인천">인천</option>
+	                                <option value="세종">세종</option>
+	                                <option value="대전">대전</option>
+	                                <option value="대구">대구</option>
+	                                <option value="광주">광주</option>
+	                                <option value="울산">울산</option>
+	                                <option value="부산">부산</option>
+	                                <option value="경기도">경기도</option>
+	                                <option value="강원도">강원도</option>
+	                                <option value="충청도">충청도</option>
+	                                <option value="전라도">전라도</option>
+	                                <option value="경상도">경상도</option>
+	                                <option value="제주도">제주도</option>
 								</select>
 							</div>
 							<div class="input">
 								<select id="${i }acaAddr2">
 									<option value="강남">학원소재지</option>
-									<option value="강남">강남</option>
-									<option value="강남">강남</option>
-									<option value="강남">강남</option>
+	                                <option value="서울">서울</option>
+	                                <option value="인천">인천</option>
+	                                <option value="세종">세종</option>
+	                                <option value="대전">대전</option>
+	                                <option value="대구">대구</option>
+	                                <option value="광주">광주</option>
+	                                <option value="울산">울산</option>
+	                                <option value="부산">부산</option>
+	                                <option value="경기도">경기도</option>
+	                                <option value="강원도">강원도</option>
+	                                <option value="충청도">충청도</option>
+	                                <option value="전라도">전라도</option>
+	                                <option value="경상도">경상도</option>
+	                                <option value="제주도">제주도</option>
 								</select>
 							</div>
 						</div>
@@ -313,16 +305,7 @@
 		</div>
 	</div>
 	<footer>
-		<div class="inner">
-			<div class="logo" onclick="location.href='/'">
-				<label><span>L</span>ogo</label>
-			</div>
-			<div class="txt">
-				주소 : 서울 강남구 테헤란로 407 EK타워 4층 미래로입시컨설팅대표이사 : 이혁진 <br>상담시간 : 월 ~
-				금 - 오전 10시 ~ 오후 9시 ( 점심시간 오전 11시 30분 ~ 오후 1시) 토 - 오전 10시 ~ 오후 5시 <br>Copyright(c)
-				TS group. All Rights Reserved.
-			</div>
-		</div>
+		<c:import url="/WEB-INF/view/main/footer.jsp"/>
 	</footer>
 
 	<div class="popup_cover" style="display: none" id="end1"></div>

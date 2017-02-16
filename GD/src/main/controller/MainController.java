@@ -37,6 +37,18 @@ public class MainController {
 	UnivExamService us;
 	@Autowired
 	WaggleService was;
+
+	// header
+	@RequestMapping("/header")
+	public String header(){
+		return "/main/header.jsp";
+	}
+	
+	// footer
+	@RequestMapping("/footer")
+	public String footer(){
+		return "/main/footer.jsp";
+	}
 	
 	// 메인
 	@RequestMapping("/")
@@ -76,6 +88,13 @@ public class MainController {
 		// 메인 추천학원
 		List<HashMap> recAca = ms.recomendAcademy();
 		mav.addObject("recAca", recAca);
+		
+		// 아이피 저장 및 방문자수 리턴
+		String ipSize = ms.visitIp(req);
+		String todayVisit = ipSize.substring(0, ipSize.indexOf('/'));
+		String totalVisit = ipSize.substring(ipSize.indexOf('/')+1);
+		mav.addObject("todayVisit", todayVisit);
+		mav.addObject("totalVisit", totalVisit);
 		return mav;
 	}
 	
@@ -106,7 +125,6 @@ public class MainController {
 		// 수다방
 		List<HashMap> waggle = ms.mainWaggle();
 		mav.addObject("waggle", waggle);
-		mav.addObject("type", type);
 		
 		// 입시정보
 		List<List<HashMap>> exam = ms.mainExam();
@@ -116,6 +134,15 @@ public class MainController {
 		// 메인 추천학원
 		List<HashMap> recAca = ms.recomendAcademy();
 		mav.addObject("recAca", recAca);
+		
+		// 아이피 저장 및 방문자수 리턴
+		String ipSize = ms.visitIp(req);
+		String todayVisit = ipSize.substring(0, ipSize.indexOf('/'));
+		String totalVisit = ipSize.substring(ipSize.indexOf('/')+1);
+		mav.addObject("todayVisit", todayVisit);
+		mav.addObject("totalVisit", totalVisit);
+		
+		mav.addObject("type", type);
 		return mav;
 	}
 	
@@ -149,6 +176,17 @@ public class MainController {
 		List<HashMap> hig = total.get(2);
 		mav.addObject("list", hig);
 		mav.addObject("type", 2);
+		return mav;
+	}
+	
+	// top 메뉴 재수학원
+	@RequestMapping("/misfortune")
+	public ModelAndView misf(){
+		ModelAndView mav = new ModelAndView("/menu/misfortune/index.jsp");
+		List<List<HashMap>> total = ms.mainAca();
+		List<HashMap> mis = total.get(3);
+		mav.addObject("list", mis);
+		mav.addObject("type", 3);
 		return mav;
 	}
 
@@ -284,8 +322,9 @@ public class MainController {
 	
 	// 검색
 	@RequestMapping("/search/{search}")
-	public ModelAndView search(@PathVariable(name="search")String search){
+	public ModelAndView search(@PathVariable(name="search")String search, HttpServletRequest req, HttpServletResponse resp){
 		ModelAndView mav = inner(search, 1);
+		ms.searchUpdate(search, req, resp);
 		return mav;
 	}
 	
@@ -302,7 +341,7 @@ public class MainController {
 		mav.addObject("notice", notice);
 		int noticePage = ms.noticePage(search);
 		noticePage = noticePage%5==0 ? noticePage/5 : noticePage/5+1;
-		mav.addObject("listPage", noticePage);
+		mav.addObject("boardPage", noticePage);
 		return mav;
 	}
 	
@@ -315,8 +354,7 @@ public class MainController {
 		mav.addObject("list", list);
 		int listPage = ms.boardPage(board, search);
 		listPage = listPage%5==0 ? listPage/5 : listPage/5+1;
-		mav.addObject("listPage", listPage);
-		mav.addObject("selectPage", page);
+		mav.addObject("boardPage", listPage);
 		int start = 1+(int)((listPage-1)/10)*10;
 		mav.addObject("start", start);
 		int end = start+9>listPage ? listPage : start+9;
@@ -347,7 +385,6 @@ public class MainController {
 			break;
 		}
 		mav.addObject("type", type);
-		mav.addObject("selectPage", page);
 		return mav;
 	}
 	
@@ -358,7 +395,7 @@ public class MainController {
 		ModelAndView mav = new ModelAndView("/main/boardPageAjax.jsp");
 		int page = ms.boardPage(board, search);
 		page = page%5==0 ? page/5 : page/5+1;
-		mav.addObject("listPage", page);
+		mav.addObject("boardPage", page);
 		int start = 1+(int)((num-1)/5)*5;
 		mav.addObject("start", start);
 		int end = start+9>page ? page: start+9;
@@ -373,6 +410,8 @@ public class MainController {
 		ModelAndView mav = new ModelAndView("/admin/admin.jsp");
 		List<HashMap> memberList = ad.memberList();
 		mav.addObject("memberList", memberList);
+		List<HashMap> acaList = as.allAcademy();
+		mav.addObject("acaList", acaList);
 		return mav;
 	}
 	
@@ -399,7 +438,7 @@ public class MainController {
 		return mav;
 	}
 	
-	// 메인 초등, 중등, 고등 정렬
+	// 메인 초등, 중등, 고등, 재수 정렬
 	@RequestMapping("/main/searchAlign/{align}/{num}")
 	public ModelAndView searchAlign(@PathVariable(name="align")String align, @PathVariable(name="num")int num){
 		ModelAndView mav = new ModelAndView();
@@ -425,6 +464,13 @@ public class MainController {
 			mav.addObject("list", list);
 			mav.addObject("type", 2);
 			mav.setViewName("/menu/high/index.jsp");
+			mav.addObject("align", align);
+			break;
+		case 3:
+			list = total.get(3);
+			mav.addObject("list", list);
+			mav.addObject("type", 3);
+			mav.setViewName("/menu/misfortune/index.jsp");
 			mav.addObject("align", align);
 			break;
 		}

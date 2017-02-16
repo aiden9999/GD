@@ -47,6 +47,7 @@ public class WaggleController {
 		mav.addObject("wagglePage", wagglePage);
 		mav.addObject("search", search);
 		mav.addObject("word", word);
+		mav.addObject("selectPage", page);
 		return mav;
 	}
 	
@@ -60,6 +61,11 @@ public class WaggleController {
 		mav.addObject("replyList", replyList);
 		int wagglePage = ws.waggleCount()%10==0 ? ws.waggleCount()/10 : ws.waggleCount()/10+1;
 		mav.addObject("wagglePage", wagglePage);
+		mav.addObject("selectPage", page);
+		int start = 1+(int)((page-1)/10)*10;
+		mav.addObject("start", start);
+		int end = start+9>wagglePage ? wagglePage : start+9;
+		mav.addObject("end", end);
 		return mav;
 	}
 }
