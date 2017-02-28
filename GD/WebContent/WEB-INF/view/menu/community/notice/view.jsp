@@ -7,19 +7,21 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <link rel="stylesheet" href="/css/style.css" type="text/css">
-        <link rel="stylesheet" href="/css/swiper.min.css">
-        <link href="http://fonts.googleapis.com/earlyaccess/nanumgothic.css" rel='stylesheet' type='text/css'>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
-        <meta name="robots" content="follow">
-        <meta name="description" content="대치동 내신 수시전문학원 국영수과사 과목별 학습비법 암기비법 중등 고등">
-        <meta name="keywords" content="대치동 내신 수시전문학원 국영수과사 과목별 학습비법 암기비법 중등 고등">
-        <meta property="og:type" content="website">
-        <meta property="og:title" content="강남대치학원 멘토클리닉">
-        <meta property="og:description" content="대치동 내신 수시전문학원 국영수과사 과목별 학습비법 암기비법 중등 고등">
-        <meta property="og:image" content="http://www.mysite.com/myimage.jpg">
-        <meta property="og:url" content="http://mentorschool.co.kr">
-        <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=i9nljBxxeJZYnyH27RC1"></script>
+		<link rel="stylesheet" href="/css/ggs_style.css" type="text/css">
+		<link href="http://fonts.googleapis.com/earlyaccess/nanumgothic.css"
+			rel='stylesheet' type='text/css'>
+		<meta name="viewport"
+			content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+		<meta name="robots" content="follow">
+		<meta name="description"
+			content="대치동수학학원 대치동영어학원 대치동과학학원 대치동논술학원 강남재수학원">
+		<meta name="keywords" content="대치동수학학원 대치동영어학원 대치동과학학원 대치동논술학원 강남재수학원">
+		<meta property="og:type" content="website">
+		<meta property="og:title" content="강남에서 대학가기">
+		<meta property="og:description" content="대치동수학학원 대치동영어학원 대치동과학학원 대치동논술학원 강남재수학원">
+		<meta property="og:image" content="http://www.mysite.com/myimage.jpg">
+		<meta property="og:url" content="http://www.gogosky.co.kr">
+		<meta name="naver-site-verification" content="845557ce7747caed7b061d3a096c9396db155afd"/>
         <title></title>
         
         <style>
@@ -27,15 +29,15 @@
         </style>
          
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-        <script src="/js/common.js"></script>
+        <script src="/js/ggs_common.js"></script>
     </head>
      
     <body>
     	<div class="popup_cover" id="removeDiv" style="display: none"></div>
         <div class="popup_wrap search_popup school_popup popup_close" id="removeDiv1" style="display: none">
-            <div class="tit_wrap">
-                <div class="logo"><span >L</span>ogo</div>
-            </div>
+            <div class="tit_wrap" align="center" style="padding-top: 10px; padding-bottom: 5px">
+	        	<img src="/img/loginLogo.png"/>
+	        </div>
             <div class="txt">
                 정말 삭제하시겠습니까?
             </div>

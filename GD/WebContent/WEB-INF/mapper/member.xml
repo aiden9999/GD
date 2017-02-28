@@ -2,39 +2,39 @@
 <!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="member">
 	<insert id="joinId">
-		insert into id values(#{id})
+		insert into ggs_id values(#{id})
 	</insert>
 	<insert id="joinNick">
-		insert into nick values(#{nick})
+		insert into ggs_nick values(#{nick})
 	</insert>
 	<select id="idCheck" resultType="java.util.HashMap">
-		select * from id where id = #{id}
+		select * from ggs_id where id = #{id}
 	</select>
 	<select id="nickCheck" resultType="java.util.HashMap">
-		select * from nick where nick = #{nick}
+		select * from ggs_nick where nick = #{nick}
 	</select>
 	<select id="searchMemberS" resultType="java.util.HashMap">
-		select * from student where id = #{id}
+		select * from ggs_student where id = #{id}
 	</select>
 	<select id="searchMemberN" resultType="java.util.HashMap">
-		select * from normal where id = #{id}
+		select * from ggs_normal where id = #{id}
 	</select>
 	<select id="searchMemberT" resultType="java.util.HashMap">
-		select * from teacher where id = #{id}
+		select * from ggs_teacher where id = #{id}
 	</select>
 	<select id="searchMemberP" resultType="java.util.HashMap">
-		select * from parent where id = #{id}
+		select * from ggs_parent where id = #{id}
 	</select>
 	<insert id="joinS" parameterType="java.util.HashMap">
-		insert into student values(#{id}, #{name}, #{pw}, #{nick}, #{addr1}, #{addr2}, #{phone}, #{email}, #{agreesms}, #{agreeemail},
+		insert into ggs_student values(#{id}, #{name}, #{pw}, #{nick}, #{addr1}, #{addr2}, #{phone}, #{email}, #{agreesms}, #{agreeemail},
 												#{schooladdr}, #{school}, #{grade}, #{type}, '새싹', 0, now(), 'n')
 	</insert>
 	<insert id="joinN" parameterType="java.util.HashMap">
-		insert into normal values(#{id}, #{name}, #{pw}, #{nick}, #{addr1}, #{addr2}, #{phone}, #{email}, #{agreesms}, #{agreeemail},
+		insert into ggs_normal values(#{id}, #{name}, #{pw}, #{nick}, #{addr1}, #{addr2}, #{phone}, #{email}, #{agreesms}, #{agreeemail},
 												'새싹', 0, now(), 'n')
 	</insert>
 	<insert id="joinP" parameterType="java.util.HashMap">
-		insert into parent values(#{id}, #{name}, #{pw}, #{nick}, #{addr1}, #{addr2}, #{phone}, #{email}, #{agreesms}, #{agreeemail},
+		insert into ggs_parent values(#{id}, #{name}, #{pw}, #{nick}, #{addr1}, #{addr2}, #{phone}, #{email}, #{agreesms}, #{agreeemail},
 												#{child1}, #{1schoolAddr}, #{1schoolGrade}, #{1school}, #{1acaAddr1}, #{1academy1}, #{1teacher1},
 												#{1acaAddr2}, #{1academy2}, #{1teacher2},
 												#{child2}, #{2schoolAddr}, #{2schoolGrade}, #{2school}, #{2acaAddr1}, #{2academy1}, #{2teacher1},
@@ -43,64 +43,64 @@
 												#{3acaAddr2}, #{3academy2}, #{3teacher2}, '새싹', 0, now(), #{review}, 'n')
 	</insert>
 	<insert id="joinT" parameterType="java.util.HashMap">
-		insert into teacher values(#{id}, #{name}, #{pw}, #{nick}, #{addr1}, #{addr2}, #{phone}, #{email}, #{agreesms}, #{agreeemail},
+		insert into ggs_teacher values(#{id}, #{name}, #{pw}, #{nick}, #{addr1}, #{addr2}, #{phone}, #{email}, #{agreesms}, #{agreeemail},
 												#{type}, #{schooladdr}, #{school}, #{target}, #{subject}, #{etc}, '새싹', 0, now(), 'n')
 	</insert>
 	<select id="loginS" parameterType="java.util.HashMap" resultType="java.util.HashMap">
-		select * from student where id = #{id} and pw = #{pw}
+		select * from ggs_student where id = #{id} and pw = #{pw}
 	</select>
 	<select id="loginN" parameterType="java.util.HashMap" resultType="java.util.HashMap">
-		select * from normal where id = #{id} and pw = #{pw}
+		select * from ggs_normal where id = #{id} and pw = #{pw}
 	</select>
 	<select id="loginP" parameterType="java.util.HashMap" resultType="java.util.HashMap">
-		select * from parent where id = #{id} and pw = #{pw}
+		select * from ggs_parent where id = #{id} and pw = #{pw}
 	</select>
 	<select id="loginT" parameterType="java.util.HashMap" resultType="java.util.HashMap">
-		select * from teacher where id = #{id} and pw = #{pw}
+		select * from ggs_teacher where id = #{id} and pw = #{pw}
 	</select>
 	<insert id="visit">
-		insert into visit values(#{id}, now())
+		insert into ggs_visit values(#{id}, now())
 	</insert>
 	<update id="visitUpS">
-		update student set visit = visit+1 where id = #{id}
+		update ggs_student set visit = visit+1 where id = #{id}
 	</update>
 	<update id="visitUpN">
-		update normal set visit = visit+1 where id = #{id}
+		update ggs_normal set visit = visit+1 where id = #{id}
 	</update>
 	<update id="visitUpP">
-		update parent set visit = visit+1 where id = #{id}
+		update ggs_parent set visit = visit+1 where id = #{id}
 	</update>
 	<update id="visitUpT">
-		update teacher set visit = visit+1 where id = #{id}
+		update ggs_teacher set visit = visit+1 where id = #{id}
 	</update>
 	<select id="visitList" resultType="java.util.HashMap">
-		select * from visit where id = #{id} order by visit asc
+		select * from ggs_visit where id = #{id} order by visit asc
 	</select>
 	<select id="searchIdS" parameterType="java.util.HashMap" resultType="java.util.HashMap">
-		select * from student where name = #{name} and phone = #{phone}
+		select * from ggs_student where name = #{name} and phone = #{phone}
 	</select>
 	<select id="searchIdN" parameterType="java.util.HashMap" resultType="java.util.HashMap">
-		select * from normal where name = #{name} and phone = #{phone}
+		select * from ggs_normal where name = #{name} and phone = #{phone}
 	</select>
 	<select id="searchIdP" parameterType="java.util.HashMap" resultType="java.util.HashMap">
-		select * from parent where name = #{name} and phone = #{phone}
+		select * from ggs_parent where name = #{name} and phone = #{phone}
 	</select>
 	<select id="searchIdT" parameterType="java.util.HashMap" resultType="java.util.HashMap">
-		select * from teacher where name = #{name} and phone = #{phone}
+		select * from ggs_teacher where name = #{name} and phone = #{phone}
 	</select>
 	<select id="searchPwS" parameterType="java.util.HashMap" resultType="java.util.HashMap">
-		select * from student where id = #{id} and name = #{name}
+		select * from ggs_student where id = #{id} and name = #{name}
 	</select>
 	<select id="searchPwN" parameterType="java.util.HashMap" resultType="java.util.HashMap">
-		select * from normal where id = #{id} and name = #{name}
+		select * from ggs_normal where id = #{id} and name = #{name}
 	</select>
 	<select id="searchPwP" parameterType="java.util.HashMap" resultType="java.util.HashMap">
-		select * from parent where id = #{id} and name = #{name}
+		select * from ggs_parent where id = #{id} and name = #{name}
 	</select>
 	<select id="searchPwT" parameterType="java.util.HashMap" resultType="java.util.HashMap">
-		select * from teacher where id = #{id} and name = #{name}
+		select * from ggs_teacher where id = #{id} and name = #{name}
 	</select>
 	<select id="worryList" resultType="java.util.HashMap">
-		select * from worry where writer = #{id} order by day desc
+		select * from ggs_worry where writer = #{id} order by day desc
 	</select>
 </mapper>

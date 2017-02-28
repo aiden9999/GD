@@ -30,18 +30,9 @@
 							</c:otherwise>
 						</c:choose>
 					</div>
-					<c:choose>
-						<c:when test="${login!=null }">
-							<div onclick="select(${noticeList.get(i).AUTO })" class="txt txt_tit">
-								<span>${noticeList.get(i).TITLE }</span>
-							</div>
-						</c:when>
-						<c:otherwise>
-							<div class="txt txt_tit">
-								<span>${noticeList.get(i).TITLE }</span>
-							</div>
-						</c:otherwise>
-					</c:choose>
+					<div onclick="select(${noticeList.get(i).AUTO })" class="txt txt_tit">
+						<span>${noticeList.get(i).TITLE }</span>
+					</div>
 					<div id="dropdown${i }" class="contents">
 						<div class="img">
 							<img src="/img/sub02_arrow_up.png" onclick="clo(${i })">
@@ -110,7 +101,7 @@
 			$("#prev"+start).show();
 			$("#next"+start).hide();
 		} else {
-			if(start==1 && end<10){
+			if(start==1 && end<=10){
 				$("#prev"+start).hide();
 				$("#next"+start).hide();
 			} else {

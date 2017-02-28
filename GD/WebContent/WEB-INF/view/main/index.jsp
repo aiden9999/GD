@@ -7,21 +7,21 @@
 <html>
 <head>
 <meta charset="utf-8">
-<link rel="stylesheet" href="/css/style.css" type="text/css">
+<link rel="stylesheet" href="/css/ggs_style.css" type="text/css">
 <link href="http://fonts.googleapis.com/earlyaccess/nanumgothic.css"
 	rel='stylesheet' type='text/css'>
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
 <meta name="robots" content="follow">
 <meta name="description"
-	content="대치동 내신 수시전문학원 국영수과사 과목별 학습비법 암기비법 중등 고등">
-<meta name="keywords" content="대치동 내신 수시전문학원 국영수과사 과목별 학습비법 암기비법 중등 고등">
+	content="대치동수학학원 대치동영어학원 대치동과학학원 대치동논술학원 강남재수학원">
+<meta name="keywords" content="대치동수학학원 대치동영어학원 대치동과학학원 대치동논술학원 강남재수학원">
 <meta property="og:type" content="website">
-<meta property="og:title" content="강남대치학원 멘토클리닉">
-<meta property="og:description"
-	content="대치동 내신 수시전문학원 국영수과사 과목별 학습비법 암기비법 중등 고등">
+<meta property="og:title" content="강남에서 대학가기">
+<meta property="og:description" content="대치동수학학원 대치동영어학원 대치동과학학원 대치동논술학원 강남재수학원">
 <meta property="og:image" content="http://www.mysite.com/myimage.jpg">
-<meta property="og:url" content="http://mentorschool.co.kr">
+<meta property="og:url" content="http://www.gogosky.co.kr">
+<meta name="naver-site-verification" content="845557ce7747caed7b061d3a096c9396db155afd"/>
 <title></title>
 
 <style>
@@ -29,7 +29,7 @@
 
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script src="/js/common.js"></script>
+<script src="/js/ggs_common.js"></script>
 <script src="/socket/sockjs-0.3.4.js"></script>
 </head>
 
@@ -42,28 +42,28 @@
 			<div class="contents">
 				<div class="main_slider">
 					<div class="main_slider_inner">
-						<div class="main_slide main_slide_sel">
+						<div class="main_slide main_slide_sel" id="slide0">
 							<img src="/img/main_slide1.png">
 						</div>
-						<div class="main_slide">
+						<div class="main_slide" id="slide1">
 							<img src="/img/main_slide1.png">
 						</div>
-						<div class="main_slide">
+						<div class="main_slide" id="slide2">
 							<img src="/img/main_slide1.png">
 						</div>
-						<div class="main_slide">
+						<div class="main_slide" id="slide3">
 							<img src="/img/main_slide1.png">
 						</div>
-						<div class="main_slide">
+						<div class="main_slide" id="slide4">
 							<img src="/img/main_slide1.png">
 						</div>
 					</div>
 					<div class="circle_wrap">
-						<div class="slide_circle circle_sel"></div>
-						<div class="slide_circle"></div>
-						<div class="slide_circle"></div>
-						<div class="slide_circle"></div>
-						<div class="slide_circle"></div>
+						<div class="slide_circle circle_sel" id="circle0"></div>
+						<div class="slide_circle" id="circle1"></div>
+						<div class="slide_circle" id="circle2"></div>
+						<div class="slide_circle" id="circle3"></div>
+						<div class="slide_circle" id="circle4"></div>
 					</div>
 				</div>
 				<div class="rec">
@@ -442,9 +442,8 @@
 					</c:when>
 					<c:otherwise>
 						<div class="login_wrap">
-							<div class="logo">
-								<span>L</span>ogo
-							</div>
+							<div class="logo" style="background-image: url('/img/loginLogo.png'); width: 129px; height: 38px;
+										left: 70px; bottom: 5px; opacity: 0.7"></div>
 							<div class="login_box">
 								<div class="id_box" style="margin-top: 2px">
 									<c:choose>
@@ -481,7 +480,8 @@
 									확인해주세요.</font>
 							</div>
 							<div class="txt_wrap">
-								<div class="txt" onclick="searchId()">아이디/비밀번호찾기</div>
+<!-- 								<div class="txt" onclick="searchId()">아이디/비밀번호찾기</div> -->
+								<div class="txt" onclick="javascript: alert('준비중입니다.')">아이디/비밀번호찾기</div>
 								<div class="txt" onclick="join()">회원가입</div>
 							</div>
 							<div class="check_box">

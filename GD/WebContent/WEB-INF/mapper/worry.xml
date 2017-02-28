@@ -2,52 +2,52 @@
 <!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="worry">
 	<select id="worry" resultType="java.util.HashMap">
-		select * from worry order by auto desc limit 10 offset #{page}
+		select * from ggs_worry order by auto desc limit 10 offset #{page}
 	</select>
 	<insert id="write" parameterType="java.util.HashMap">
 		insert into
-		worry(content, writer, name, day, reply)
+		ggs_worry(content, writer, name, day, reply)
 		values(#{worry}, #{id}, #{name}, now(), 0)
 	</insert>
 	<insert id="reply" parameterType="java.util.HashMap">
 		insert into
-		worryreply(id, name, reply, day, num)
+		ggs_worryreply(id, name, reply, day, num)
 		values(#{id}, #{name}, #{reply}, now(), #{num})
 	</insert>
 	<select id="replyList" resultType="java.util.HashMap">
-		select * from worryreply order by auto desc
+		select * from ggs_worryreply order by auto desc
 	</select>
 <!-- 	<select id="worryList" resultType="java.util.HashMap"> -->
 <!-- 		select * from worry where writer = #{id} order by auto desc -->
 <!-- 	</select> -->
 	<select id="worryCount" resultType="java.lang.Integer">
-		select count(*) from worry
+		select count(*) from ggs_worry
 	</select>
 	<update id="replyUp">
-		update worry set reply = reply+1 where auto = #{num}
+		update ggs_worry set reply = reply+1 where auto = #{num}
 	</update>
 	<select id="worryAjaxwriter" resultType="java.util.HashMap" parameterType="java.util.HashMap">
-		select * from worry where writer like #{word} or name like #{word} order by auto desc limit 10 offset #{page}
+		select * from ggs_worry where writer like #{word} or name like #{word} order by auto desc limit 10 offset #{page}
 	</select>
 	<select id="worryAjaxreply" resultType="java.util.HashMap" parameterType="java.util.HashMap">
-		select * from worry where content like #{word} order by auto desc limit 10 offset #{page}
+		select * from ggs_worry where content like #{word} order by auto desc limit 10 offset #{page}
 	</select>
 	<select id="replyAjaxwriter" resultType="java.util.HashMap" parameterType="java.util.HashMap">
-		select * from worryreply where id like #{word} or name like #{word} order by auto desc  limit 10 offset #{page}
+		select * from ggs_worryreply where id like #{word} or name like #{word} order by auto desc  limit 10 offset #{page}
 	</select>
 	<select id="replyAjaxreply" resultType="java.util.HashMap" parameterType="java.util.HashMap">
-		select * from worryreply where reply like #{word} order by auto desc limit 10 offset #{page}
+		select * from ggs_worryreply where reply like #{word} order by auto desc limit 10 offset #{page}
 	</select>
 	<select id="searchPagewriter" resultType="java.lang.Integer">
-		select count(*) from worry where writer like #{word} or name like #{word} order by auto desc
+		select count(*) from ggs_worry where writer like #{word} or name like #{word} order by auto desc
 	</select>
 	<select id="searchPagereply" resultType="java.lang.Integer">
-		select count(*) from worry where content like #{word} order by auto desc
+		select count(*) from ggs_worry where content like #{word} order by auto desc
 	</select>
 	<select id="myWorry" resultType="java.util.HashMap">
-		select * from worry where writer = #{id} order by auto desc
+		select * from ggs_worry where writer = #{id} order by auto desc
 	</select>
 	<select id="myWorryReply" resultType="java.util.HashMap">
-		select * from worryreply where id = #{id} order by auto desc
+		select * from ggs_worryreply where id = #{id} order by auto desc
 	</select>
 </mapper>

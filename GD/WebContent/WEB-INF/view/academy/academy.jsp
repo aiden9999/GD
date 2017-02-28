@@ -7,24 +7,21 @@
 <html>
 <head>
 <meta charset="utf-8">
-<link rel="stylesheet" href="/css/style.css" type="text/css">
-<link rel="stylesheet" href="/css/swiper.min.css">
+<link rel="stylesheet" href="/css/ggs_style.css" type="text/css">
 <link href="http://fonts.googleapis.com/earlyaccess/nanumgothic.css"
 	rel='stylesheet' type='text/css'>
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
 <meta name="robots" content="follow">
 <meta name="description"
-	content="대치동 내신 수시전문학원 국영수과사 과목별 학습비법 암기비법 중등 고등">
-<meta name="keywords" content="대치동 내신 수시전문학원 국영수과사 과목별 학습비법 암기비법 중등 고등">
+	content="대치동수학학원 대치동영어학원 대치동과학학원 대치동논술학원 강남재수학원">
+<meta name="keywords" content="대치동수학학원 대치동영어학원 대치동과학학원 대치동논술학원 강남재수학원">
 <meta property="og:type" content="website">
-<meta property="og:title" content="강남대치학원 멘토클리닉">
-<meta property="og:description"
-	content="대치동 내신 수시전문학원 국영수과사 과목별 학습비법 암기비법 중등 고등">
+<meta property="og:title" content="강남에서 대학가기">
+<meta property="og:description" content="대치동수학학원 대치동영어학원 대치동과학학원 대치동논술학원 강남재수학원">
 <meta property="og:image" content="http://www.mysite.com/myimage.jpg">
-<meta property="og:url" content="http://mentorschool.co.kr">
-<script type="text/javascript"
-	src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=i9nljBxxeJZYnyH27RC1"></script>
+<meta property="og:url" content="http://www.gogosky.co.kr">
+<meta name="naver-site-verification" content="845557ce7747caed7b061d3a096c9396db155afd"/>
 <title></title>
 
 <style>
@@ -32,7 +29,7 @@
 
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script src="/js/common.js"></script>
+<script src="/js/ggs_common.js"></script>
 <script type="text/javascript">
             var currentImage;
             var currentIndex = -1;
@@ -80,14 +77,14 @@
 <body>
     <div class="popup_cover" id="commentRD" style="display: none"></div>
     <div class="popup_wrap search_popup school_popup popup_close" id="commentRD1" style="display: none">
-        <div class="tit_wrap">
-            <div class="logo"><span >L</span>ogo</div>
-        </div>
+        <div class="tit_wrap" align="center" style="padding-top: 10px; padding-bottom: 5px">
+	        	<img src="/img/loginLogo.png"/>
+	        </div>
         <div class="txt">
             정말 삭제하시겠습니까?
         </div>
         <div class="close_btn_wrap">
-            <div class="close_btn left" onclick="$('#commendRD').hide(), $('#commentRD1').hide()">아니오</div>
+            <div class="close_btn left" onclick="$('#commentRD').hide(), $('#commentRD1').hide()">아니오</div>
             <div class="close_btn right" onclick="commentCommit()">네</div>
         </div>
     </div>
@@ -302,18 +299,9 @@
 														</c:otherwise>
 													</c:choose>
 												</div>
-												<c:choose>
-													<c:when test="${login!=null }">
-														<div onclick="select(${news.get(i).AUTO })" class="txt txt_tit">
-															<span>${news.get(i).TITLE }</span>
-														</div>
-													</c:when>
-													<c:otherwise>
-														<div class="txt txt_tit">
-															<span>${news.get(i).TITLE }</span>
-														</div>
-													</c:otherwise>
-												</c:choose>
+												<div onclick="select(${news.get(i).AUTO })" class="txt txt_tit">
+													<span>${news.get(i).TITLE }</span>
+												</div>
 												<div id="dropdown${i }" class="contents">
 													<div class="img">
 														<img src="/img/sub02_arrow_up.png" onclick="clo(${news.get(i).AUTO })">
@@ -489,18 +477,9 @@
 											<div class="best_txt">BEST</div>
 											<img src="/img/sub03_new_box.png">
 										</div>
-										<c:choose>
-											<c:when test="${login!=null }">
-												<div class="txt txt_tit" onclick="reviewDetail('${reviewTop.get(i).AUTO}')">
-													<span>${reviewTop.get(i).DAY } / ${reviewTop.get(i).SUBJECT } / ${reviewTop.get(i).POINT }</span>
-												</div>
-											</c:when>
-											<c:otherwise>
-												<div class="txt txt_tit">
-													<span>${reviewTop.get(i).DAY } / ${reviewTop.get(i).SUBJECT } / ${reviewTop.get(i).POINT }</span>
-												</div>
-											</c:otherwise>
-										</c:choose>
+										<div class="txt txt_tit" onclick="reviewDetail('${reviewTop.get(i).AUTO}')">
+											<span>${reviewTop.get(i).DAY } / ${reviewTop.get(i).SUBJECT } / ${reviewTop.get(i).POINT }</span>
+										</div>
 										<div class="txt txt_rec">
 											<span>${reviewTop.get(i).RECOMEND }</span>
 											<div class="love">
@@ -514,18 +493,9 @@
 										<div class="txt txt_number">
 											<div class="best_txt">${reviewCount-i }</div>
 										</div>
-										<c:choose>
-											<c:when test="${login!=null }">
-												<div class="txt txt_tit" onclick="reviewDetail('${review.get(i).AUTO}')">
-													<span>${review.get(i).DAY } / ${review.get(i).SUBJECT } / ${review.get(i).POINT }</span>
-												</div>
-											</c:when>
-											<c:otherwise>
-												<div class="txt txt_tit">
-													<span>${review.get(i).DAY } / ${review.get(i).SUBJECT } / ${review.get(i).POINT }</span>
-												</div>
-											</c:otherwise>
-										</c:choose>
+										<div class="txt txt_tit" onclick="reviewDetail('${review.get(i).AUTO}')">
+											<span>${review.get(i).DAY } / ${review.get(i).SUBJECT } / ${review.get(i).POINT }</span>
+										</div>
 										<div class="txt txt_rec">
 											<span>${review.get(i).RECOMEND }</span>
 											<div class="love">
@@ -938,51 +908,66 @@
 	    $(document).ready(function(){
 			var start = 1;
 			var end = start+9>=${commentPage } ? ${commentPage } : start+9;
-			if(start==1 && end<10){
-				$("#commentPrev"+start).hide();
+			if(start==end && end>10){
+				$("#commentPrev"+start).show();
 				$("#commentNext"+start).hide();
 			} else {
-				if(start==1){
-		  			$("#commentPrev"+start).hide();
-		  			$("#commentNext"+start).show();
-		  		} else if(end>=${commentPage }){
-		  			$("#commentPrev"+start).show();
-		  			$("#commentNext"+start).hide();
-		  		}
+				if(start==1 && end<=10){
+					$("#commentPrev"+start).hide();
+					$("#commentNext"+start).hide();
+				} else {
+					if(start==1){
+			  			$("#commentPrev"+start).hide();
+			  			$("#commentNext"+start).show();
+			  		} else if(end>=${commentPage }){
+			  			$("#commentPrev"+start).show();
+			  			$("#commentNext"+start).hide();
+			  		}
+				}
 			}
 		});
 		// 리뷰 페이지 표시
 	    $(document).ready(function(){
 			var start = 1;
 			var end = start+9>=${reviewPage } ? ${reviewPage } : start+9;
-			if(start==1 && end<10){
-				$("#reviewPrev"+start).hide();
+			if(start==end && end>10){
+				$("#reviewPrev"+start).show();
 				$("#reviewNext"+start).hide();
 			} else {
-				if(start==1){
-		  			$("#reviewPrev"+start).hide();
-		  			$("#reviewNext"+start).show();
-		  		} else if(end>=${reviewPage }){
-		  			$("#reviewPrev"+start).show();
-		  			$("#reviewNext"+start).hide();
-		  		}
+				if(start==1 && end<=10){
+					$("#reviewPrev"+start).hide();
+					$("#reviewNext"+start).hide();
+				} else {
+					if(start==1){
+			  			$("#reviewPrev"+start).hide();
+			  			$("#reviewNext"+start).show();
+			  		} else if(end>=${reviewPage }){
+			  			$("#reviewPrev"+start).show();
+			  			$("#reviewNext"+start).hide();
+			  		}
+				}
 			}
 		});
 		 // 학원소식 페이지 표시
 	    $(document).ready(function(){
 			var start = 1;
 			var end = start+9>=${newsPage } ? ${newsPage } : start+9;
-			if(start==1 && end<10){
-				$("#newsPrev"+start).hide();
+			if(start==end && end>10){
+				$("#newsPrev"+start).show();
 				$("#newsNext"+start).hide();
 			} else {
-				if(start==1){
-		  			$("#newsPrev"+start).hide();
-		  			$("#newsNext"+start).show();
-		  		} else if(end>=${newsPage }){
-		  			$("#newsPrev"+start).show();
-		  			$("#newsNext"+start).hide();
-		  		}
+				if(start==1 && end<=10){
+					$("#newsPrev"+start).hide();
+					$("#newsNext"+start).hide();
+				} else {
+					if(start==1){
+			  			$("#newsPrev"+start).hide();
+			  			$("#newsNext"+start).show();
+			  		} else if(end>=${newsPage }){
+			  			$("#newsPrev"+start).show();
+			  			$("#newsNext"+start).hide();
+			  		}
+				}
 			}
 		});
 		// 검색란에서 엔터입력
@@ -1053,7 +1038,12 @@
     	}
     	// 글 선택
      	function select(num) { 
-    		location.href="/academy/view/${list.NAME }/${list.NUM }/"+num;
+    		if(${login == null}){
+    			alert("로그인 후 이용가능합니다.");
+    			location.href="/join";
+    		} else {
+	    		location.href="/academy/view/${list.NAME }/${list.NUM }/"+num;
+    		}
         }
      	// 글 닫기
         function clo(num) {
@@ -1070,6 +1060,50 @@
      				$("#tab2").html(txt);
      			}
      		});
+     	}
+		// 학원소식 이전 클릭
+     	function newsPrev(element){
+     		var id = element.id;
+      		id = id.substring(id.indexOf('prev')+4);
+      		var start = Number(id)-10;
+      		var end = start+9>=${newsPage } ? ${newsPage } : start+9;
+    		$("#newsNext"+id).show();
+      		if(start==1){
+      			$("#newsPrev"+id).hide();
+      		}
+      		var html = "";
+      		for(var i=start; i<=end; i++){
+      			if(i==start){
+      				html += "<div class='num sel' onclick='newsPage("+i+")' id='newsPage"+i+"' style='width: 33px'><span>"+i+"</span></div>";
+      			} else {
+      				html += "<div class='num' onclick='newsPage("+i+")' id='newsPage"+i+"' style='width: 33px'><span>"+i+"</span></div>";
+      			}
+      		}
+      		$("#newsPrev"+id).prop("id", "newsPrev"+start);
+      		$("#newsNext"+id).prop("id", "newsNext"+start);
+      		$("#newsPages").html(html);
+     	}
+     	// 학원소식 다음 클릭
+     	function newsNext(element){
+     		var id = element.id;
+      		id = id.substring(id.indexOf('xt')+2);
+      		var start = Number(id)+10;
+      		var end = start+9>=${newsPage } ? ${newsPage } : start+9;
+    		$("#newsPrev"+id).show();
+    		if(end>=${newsPage }){
+      			$("#newsNext"+id).hide();
+      		}
+      		var html = "";
+      		for(var i=start; i<=end; i++){
+      			if(i==start){
+      				html += "<div class='num sel' onclick='newsPage("+i+")' id='newsPage"+i+"' style='width: 33px'><span>"+i+"</span></div>";
+      			} else {
+      				html += "<div class='num' onclick='newsPage("+i+")' id='newsPage"+i+"' style='width: 33px'><span>"+i+"</span></div>";
+      			}
+      		}
+      		$("#newsPrev"+id).prop("id", "newsPrev"+start);
+      		$("#newsNext"+id).prop("id", "newsNext"+start);
+      		$("#newsPages").html(html);
      	}
      	// 리뷰 페이지 클릭
      	function reviewPage(num){
@@ -1111,7 +1145,7 @@
       		var start = Number(id)+10;
       		var end = start+9>=${reviewPage } ? ${reviewPage } : start+9;
     		$("#reviewPrev"+id).show();
-    		if(end>=${commentPage }){
+    		if(end>=${reviewPage }){
       			$("#reviewNext"+id).hide();
       		}
       		var html = "";
@@ -1343,22 +1377,27 @@
      	}
     	// 리뷰 클릭
      	function reviewDetail(auto){
-     		$.ajax({
-     			tyep : "post",
-     			url : "/academy/reviewDetail/"+auto,
-     			async : false,
-     			success : function(txt){
-     				$("#reviewDetail").html(txt);
-     				$("#reviewDetail").show();
-     				$("#gradeDiv").hide();
-     				$("#boardDiv").hide();
-     				$("#writeDiv").hide();
-     				$("#pageDiv").hide();
-     				$("#reviewDiv").hide();
-     				$("#feelingDiv").hide();
-     				$("#reviewPages").hide();
-     			}
-     		});
+    		if(${login == null}){
+    			alert("로그인 후 이용가능합니다.");
+    			location.href="/join";
+    		} else {
+	     		$.ajax({
+	     			tyep : "post",
+	     			url : "/academy/reviewDetail/"+auto,
+	     			async : false,
+	     			success : function(txt){
+	     				$("#reviewDetail").html(txt);
+	     				$("#reviewDetail").show();
+	     				$("#gradeDiv").hide();
+	     				$("#boardDiv").hide();
+	     				$("#writeDiv").hide();
+	     				$("#pageDiv").hide();
+	     				$("#reviewDiv").hide();
+	     				$("#feelingDiv").hide();
+	     				$("#reviewPages").hide();
+	     			}
+	     		});
+    		}
      	}
     	// 한줄평가 수정
     	var commentM = "";

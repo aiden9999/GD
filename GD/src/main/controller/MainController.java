@@ -37,18 +37,6 @@ public class MainController {
 	UnivExamService us;
 	@Autowired
 	WaggleService was;
-
-	// header
-	@RequestMapping("/header")
-	public String header(){
-		return "/main/header.jsp";
-	}
-	
-	// footer
-	@RequestMapping("/footer")
-	public String footer(){
-		return "/main/footer.jsp";
-	}
 	
 	// ∏ﬁ¿Œ
 	@RequestMapping("/")

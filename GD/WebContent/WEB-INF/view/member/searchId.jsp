@@ -5,7 +5,9 @@
 
 <div class="tit_wrap">
     <div class="tit">아이디 찾기</div>
-    <div class="logo"><label><span >L</span>ogo</label></div>
+    <div class="logo">
+    	<img src="/img/loginLogo.png" style="width: 129px; height: 45px"/>
+    </div>
 </div>
 <div class="result_wrap">
     <div class="txt">아이디 조회 결과</div>
@@ -21,19 +23,14 @@
     	</c:choose>
     </div>
 </div>
-<div class="logpw_wrap">
-    <div class="logpw">
-        <div class="txt" onclick="location.href='/join'">로그인 하기</div>
-    </div>
-    <div class="logpw">
-    	<c:choose>
-	    	<c:when test="${list!=null }">
-		        <div class="txt" onclick="pwSearch()">비밀번호 찾기</div>
-	    	</c:when>
-	    	<c:otherwise>
-	    		<div class="txt" onclick="idSearch()">아이디 찾기</div>
-	    	</c:otherwise>
-    	</c:choose>
-    </div>
-</div>
+<c:if test="${list!=null }">
+	<div class="logpw_wrap">
+	    <div class="logpw">
+	        <div class="txt" onclick="location.href='/join'">로그인 하기</div>
+	    </div>
+	    <div class="logpw">
+	        <div class="txt" onclick="pwSearch()">비밀번호 찾기</div>
+	    </div>
+	</div>
+</c:if>
 <div class="close_btn" onclick="$('#idpop').hide(), $('#idpop2').hide()">닫기</div>

@@ -2,28 +2,28 @@
 <!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="admin">
 	<select id="memberListS" resultType="java.util.HashMap">
-		select * from student
+		select * from ggs_student
 	</select>
 	<select id="memberListN" resultType="java.util.HashMap">
-		select * from normal
+		select * from ggs_normal
 	</select>
 	<select id="memberListP" resultType="java.util.HashMap">
-		select * from parent
+		select * from ggs_parent
 	</select>
 	<select id="memberListT" resultType="java.util.HashMap">
-		select * from teacher
+		select * from ggs_teacher
 	</select>
 	<select id="memberDetailS" resultType="java.util.HashMap">
-		select * from student where id = #{id}
+		select * from ggs_student where id = #{id}
 	</select>
 	<select id="memberDetailN" resultType="java.util.HashMap">
-		select * from normal where id = #{id}
+		select * from ggs_normal where id = #{id}
 	</select>
 	<select id="memberDetailP" resultType="java.util.HashMap">
-		select * from parent where id = #{id}
+		select * from ggs_parent where id = #{id}
 	</select>
 	<select id="memberDetailT" resultType="java.util.HashMap">
-		select * from teacher where id = #{id}
+		select * from ggs_teacher where id = #{id}
 	</select>
 <!-- 	<update id="giveAdminS"> -->
 <!-- 		update student set admin = 'y' where id = #{id} -->
@@ -50,66 +50,66 @@
 <!-- 		update teacher set admin = 'n' where id = #{id} -->
 <!-- 	</update> -->
 	<update id="setAdminS" parameterType="java.util.HashMap">
-		update student set admin = #{admin} where id = #{id}
+		update ggs_student set admin = #{admin} where id = #{id}
 	</update>
 	<update id="setAdminN" parameterType="java.util.HashMap">
-		update normal set admin = #{admin} where id = #{id}
+		update ggs_normal set admin = #{admin} where id = #{id}
 	</update>
 	<update id="setAdminP" parameterType="java.util.HashMap">
-		update parent set admin = #{admin} where id = #{id}
+		update ggs_parent set admin = #{admin} where id = #{id}
 	</update>
 	<update id="setAdminT" parameterType="java.util.HashMap">
-		update teacher set admin = #{admin} where id = #{id}
+		update ggs_teacher set admin = #{admin} where id = #{id}
 	</update>
 	<update id="acaAdmin" parameterType="java.util.HashMap">
-		update academy set admin = #{id} where num = #{num}
+		update ggs_academy set admin = #{id} where num = #{num}
 	</update>
 	<update id="updateGradeS" parameterType="java.util.HashMap">
-		update student set grade = #{grade} where id = #{id}
+		update ggs_student set grade = #{grade} where id = #{id}
 	</update>
 	<update id="updateGradeN" parameterType="java.util.HashMap">
-		update normal set grade = #{grade} where id = #{id}
+		update ggs_normal set grade = #{grade} where id = #{id}
 	</update>
 	<update id="updateGradeP" parameterType="java.util.HashMap">
-		update parent set grade = #{grade} where id = #{id}
+		update ggs_parent set grade = #{grade} where id = #{id}
 	</update>
 	<update id="updateGradeT" parameterType="java.util.HashMap">
-		update teacher set grade = #{grade} where id = #{id}
+		update ggs_teacher set grade = #{grade} where id = #{id}
 	</update>
 	<insert id="saveGrade" parameterType="java.util.HashMap">
-		insert into grade values(#{id}, #{grade}, #{what})
+		insert into ggs_grade values(#{id}, #{grade}, #{what})
 	</insert>
 	<select id="selectGrade" resultType="java.util.HashMap">
-		select * from grade where id = #{id}
+		select * from ggs_grade where id = #{id}
 	</select>
 	<delete id="deleteGrade" parameterType="java.util.HashMap">
-		delete from grade where id = #{id}
+		delete from ggs_grade where id = #{id}
 	</delete>
 	<select id="boardnotice" resultType="java.util.HashMap">
-		select * from notice order by auto desc
+		select * from ggs_notice order by auto desc
 	</select>
 	<select id="boardhighExam" resultType="java.util.HashMap">
-		select * from highExam order by auto desc
+		select * from ggs_highExam order by auto desc
 	</select>
 	<select id="boardunivExam" resultType="java.util.HashMap">
-		select * from univExam order by auto desc
+		select * from ggs_univExam order by auto desc
 	</select>
 	<select id="noticeList" resultType="java.util.HashMap">
-		select * from notice where title = #{title}
+		select * from ggs_notice where title = #{title}
 	</select>
 	<select id="highExamList" resultType="java.util.HashMap">
-		select * from highExam where title = #{title}
+		select * from ggs_highExam where title = #{title}
 	</select>
 	<select id="univExamList" resultType="java.util.HashMap">
-		select * from univExam where title = #{title}
+		select * from ggs_univExam where title = #{title}
 	</select>
 	<delete id="deletenotice" parameterType="java.util.HashMap">
-		delete from notice where title = #{title} and writer = #{writer} and content = #{content}
+		delete from ggs_notice where title = #{title} and writer = #{writer} and content = #{content}
 	</delete>
 	<delete id="deletehighExam" parameterType="java.util.HashMap">
-		delete from highExam where title = #{title} and writer = #{writer} and content = #{content}
+		delete from ggs_highExam where title = #{title} and writer = #{writer} and content = #{content}
 	</delete>
 	<delete id="deleteunivExam" parameterType="java.util.HashMap">
-		delete from univExam where title = #{title} and writer = #{writer} and content = #{content}
+		delete from ggs_univExam where title = #{title} and writer = #{writer} and content = #{content}
 	</delete>
 </mapper>

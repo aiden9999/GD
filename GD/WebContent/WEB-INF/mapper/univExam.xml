@@ -3,25 +3,25 @@
 <mapper namespace="univExam">
 	<insert id="write" parameterType="java.util.HashMap">
 		insert into
-		univExam(title, content, writer, name, day)
+		ggs_univExam(title, content, writer, name, day)
 		values(#{title}, #{content},  #{id}, #{name}, now())
 	</insert>
 	<select id="univExam" resultType="java.util.HashMap">
-		select * from univExam order by auto desc limit 10 offset #{page}
+		select * from ggs_univExam order by auto desc limit 10 offset #{page}
 	</select>
 	<select id="count" resultType="java.lang.Integer">
-		select count(*) from univExam
+		select count(*) from ggs_univExam
 	</select>
 	<select id="mainUniv" resultType="java.util.HashMap">
-		select * from univExam order by auto desc
+		select * from ggs_univExam order by auto desc
 	</select>
 	<select id="view" resultType="java.util.HashMap">
-		select * from univExam where auto = #{num}
+		select * from ggs_univExam where auto = #{num}
 	</select>
 	<update id="modify" parameterType="java.util.HashMap">
-		update univExam set title = #{title}, content = #{content} where auto = #{num}
+		update ggs_univExam set title = #{title}, content = #{content} where auto = #{num}
 	</update>
 	<delete id="delete">
-		delete from univExam where auto = #{num}
+		delete from ggs_univExam where auto = #{num}
 	</delete>
 </mapper>

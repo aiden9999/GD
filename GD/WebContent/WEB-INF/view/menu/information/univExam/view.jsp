@@ -7,19 +7,21 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <link rel="stylesheet" href="/css/style.css" type="text/css">
-        <link rel="stylesheet" href="/css/swiper.min.css">
-        <link href="http://fonts.googleapis.com/earlyaccess/nanumgothic.css" rel='stylesheet' type='text/css'>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
-        <meta name="robots" content="follow">
-        <meta name="description" content="대치동 내신 수시전문학원 국영수과사 과목별 학습비법 암기비법 중등 고등">
-        <meta name="keywords" content="대치동 내신 수시전문학원 국영수과사 과목별 학습비법 암기비법 중등 고등">
-        <meta property="og:type" content="website">
-        <meta property="og:title" content="강남대치학원 멘토클리닉">
-        <meta property="og:description" content="대치동 내신 수시전문학원 국영수과사 과목별 학습비법 암기비법 중등 고등">
-        <meta property="og:image" content="http://www.mysite.com/myimage.jpg">
-        <meta property="og:url" content="http://mentorschool.co.kr">
-        <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=i9nljBxxeJZYnyH27RC1"></script>
+		<link rel="stylesheet" href="/css/ggs_style.css" type="text/css">
+		<link href="http://fonts.googleapis.com/earlyaccess/nanumgothic.css"
+			rel='stylesheet' type='text/css'>
+		<meta name="viewport"
+			content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+		<meta name="robots" content="follow">
+		<meta name="description"
+			content="대치동수학학원 대치동영어학원 대치동과학학원 대치동논술학원 강남재수학원">
+		<meta name="keywords" content="대치동수학학원 대치동영어학원 대치동과학학원 대치동논술학원 강남재수학원">
+		<meta property="og:type" content="website">
+		<meta property="og:title" content="강남에서 대학가기">
+		<meta property="og:description" content="대치동수학학원 대치동영어학원 대치동과학학원 대치동논술학원 강남재수학원">
+		<meta property="og:image" content="http://www.mysite.com/myimage.jpg">
+		<meta property="og:url" content="http://www.gogosky.co.kr">
+		<meta name="naver-site-verification" content="845557ce7747caed7b061d3a096c9396db155afd"/>
         <title></title>
         
         <style>
@@ -27,15 +29,15 @@
         </style>
          
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-        <script src="/js/common.js"></script>
+        <script src="/js/ggs_common.js"></script>
     </head>
      
     <body>
     	<div class="popup_cover" id="removeDiv" style="display: none"></div>
         <div class="popup_wrap search_popup school_popup popup_close" id="removeDiv1" style="display: none">
-            <div class="tit_wrap">
-                <div class="logo"><span >L</span>ogo</div>
-            </div>
+            <div class="tit_wrap" align="center" style="padding-top: 10px; padding-bottom: 5px">
+	        	<img src="/img/loginLogo.png"/>
+	        </div>
             <div class="txt">
                 정말 삭제하시겠습니까?
             </div>
@@ -45,64 +47,7 @@
             </div>
         </div>
         <header>
-			<div class="header_top">
-				<div class="inner">
-	               	<c:if test="${login==null }">
-	                	<div class="txt" onclick="login()">로그인</div>
-	               	</c:if>
-					<div class="logo" onclick="location.href='/'">
-						<label><span>L</span>ogo</label>
-					</div>
-					<div class="search">
-						<input type="text" id="hsearch"
-							style="border: 2px solid #888f8d; height: 24px;" maxlength="10">
-						<img class="hsearch" src="/img/search.png" onclick="search()">
-					</div>
-				</div>
-			</div>
-			<div class="gnb">
-				<div class="inner">
-					<ul>
-						<li onclick="location.href='/초등'" class="gnb_menu" id="menuEle" style="width: 16.5%">
-							<div class="txt">초등학원</div>
-						</li>
-						<li onclick="location.href='/중등'" class="gnb_menu" id="menuMid" style="width: 16.5%">
-							<div class="txt">중등학원</div>
-						</li>
-						<li onclick="location.href='/고등'" class="gnb_menu" id="menuHig" style="width: 16.5%">
-							<div class="txt">고등학원</div>
-						</li>
-						<li onclick="location.href='/재수'" class="gnb_menu" id="menujesu" style="width: 16.5%">
-							<div class="txt">재수학원</div>
-						</li>
-						<li class="gnb_menu" style="width: 16.5%">
-							<div class="txt">입시정보</div>
-							<ul style="width: 16.5%">
-								<li class="drop_menu" onclick="location.href='/highExam'">
-									<div class="txt1">고등입시</div>
-								</li>
-								<li class="drop_menu" onclick="location.href='/univExam'">
-									<div class="txt1">대학입시</div>
-								</li>
-							</ul>
-						</li>
-						<li class="gnb_menu" style="width: 16.5%">
-							<div class="txt">커뮤니티</div>
-							<ul style="width: 16.5%">
-								<li class="drop_menu" onclick="location.href='/waggle'">
-									<div class="txt1">수다방</div>
-								</li>
-								<li class="drop_menu" onclick="location.href='/worry'">
-									<div class="txt1">고민상담</div>
-								</li>
-								<li class="drop_menu" onclick="location.href='/notice'">
-									<div class="txt1">공지사항</div>
-								</li>
-							</ul>
-						</li>
-					</ul>
-				</div>
-			</div>
+			<c:import url="/WEB-INF/view/main/header.jsp"/>
 		</header>
         <div class="write01">
             <div class="inner">
@@ -150,12 +95,7 @@
             </div>
         </div>
         <footer>
-            <div class="inner">
-                <div class="logo" onclick="location.href='/'"><label><span >L</span>ogo</label></div>
-                <div class="txt">주소 : 서울 강남구 테헤란로 407 EK타워 4층 미래로입시컨설팅대표이사 : 이혁진 
-<br>상담시간 : 월 ~ 금 - 오전 10시 ~ 오후 9시 ( 점심시간 오전 11시 30분 ~ 오후 1시)   토 - 오전 10시 ~ 오후 5시
-<br>Copyright(c) TS group. All Rights Reserved.</div>
-            </div>
+            <c:import url="/WEB-INF/view/main/footer.jsp"/>
         </footer>
     </body>
     

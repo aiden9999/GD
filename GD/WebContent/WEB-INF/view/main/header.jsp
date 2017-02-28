@@ -7,7 +7,7 @@
 		<c:if test="${login==null }">
 			<div class="txt" onclick="login()">로그인</div>
 		</c:if>
-		<div class="logo" onclick="location.href='/'" style="background-image: url('/img/header.png'); width: 160px; height: 72px; top: 7px"></div>
+		<div class="logo" onclick="location.href='/'" style="background-image: url('/img/header_footer.png'); width: 160px; height: 72px; top: 7px"></div>
 		<div class="search">
 			<input type="text" id="hsearch"
 				style="border: 2px solid #888f8d; height: 24px;" maxlength="10">
@@ -18,19 +18,19 @@
 <div class="gnb">
 	<div class="inner">
 		<ul>
-			<li onclick="mainAjax('elementary')" class="gnb_menu" id="menuEle"
+			<li onclick="aca('초등')" class="gnb_menu" id="menuEle"
 				style="width: 16.5%">
 				<div class="txt">초등학원</div>
 			</li>
-			<li onclick="mainAjax('middle')" class="gnb_menu" id="menuMid"
+			<li onclick="aca('중등')" class="gnb_menu" id="menuMid"
 				style="width: 16.5%">
 				<div class="txt">중등학원</div>
 			</li>
-			<li onclick="mainAjax('high')" class="gnb_menu" id="menuHig"
+			<li onclick="aca('고등')" class="gnb_menu" id="menuHig"
 				style="width: 16.5%">
 				<div class="txt">고등학원</div>
 			</li>
-			<li onclick="mainAjax('misfortune')" class="gnb_menu" id="menuMis"
+			<li onclick="aca('재수')" class="gnb_menu" id="menuMis"
 				style="width: 16.5%">
 				<div class="txt">재수학원</div>
 			</li>
@@ -62,3 +62,10 @@
 		</ul>
 	</div>
 </div>
+
+<script>
+	// 메뉴 학원
+	function aca(menu){
+		location.href="/"+menu;
+	}
+</script>

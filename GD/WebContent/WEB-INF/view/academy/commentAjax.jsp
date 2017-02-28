@@ -180,17 +180,22 @@
 	$(document).ready(function(){
 		var start = ${start };
 		var end = ${end };
-		if(start==1 && end<10){
-			$("#commentPrev"+start).hide();
-			$("#commentNext"+start).hide();
+		if(start==end && end>10){
+			$("#prev"+start).show();
+			$("#next"+start).hide();
 		} else {
-			if(start==1){
-	  			$("#commentPrev"+start).hide();
-	  			$("#commentNext"+start).show();
-	  		} else if(end>=${commentPage }){
-	  			$("#commentPrev"+start).show();
-	  			$("#commentNext"+start).hide();
-	  		}
+			if(start==1 && end<=10){
+				$("#prev"+start).hide();
+				$("#next"+start).hide();
+			} else {
+				if(start==1){
+		  			$("#prev"+start).hide();
+		  			$("#next"+start).show();
+		  		} else if(end>=${commentPage }){
+		  			$("#prev"+start).show();
+		  			$("#next"+start).hide();
+		  		}
+			}
 		}
 	});
 </script>

@@ -6,17 +6,21 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <link rel="stylesheet" href="/css/style.css" type="text/css">
-        <link href="http://fonts.googleapis.com/earlyaccess/nanumgothic.css" rel='stylesheet' type='text/css'>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
-        <meta name="robots" content="follow">
-        <meta name="description" content="대치동 내신 수시전문학원 국영수과사 과목별 학습비법 암기비법 중등 고등">
-        <meta name="keywords" content="대치동 내신 수시전문학원 국영수과사 과목별 학습비법 암기비법 중등 고등">
-        <meta property="og:type" content="website">
-        <meta property="og:title" content="강남대치학원 멘토클리닉">
-        <meta property="og:description" content="대치동 내신 수시전문학원 국영수과사 과목별 학습비법 암기비법 중등 고등">
-        <meta property="og:image" content="http://www.mysite.com/myimage.jpg">
-        <meta property="og:url" content="http://mentorschool.co.kr">
+		<link rel="stylesheet" href="/css/ggs_style.css" type="text/css">
+		<link href="http://fonts.googleapis.com/earlyaccess/nanumgothic.css"
+			rel='stylesheet' type='text/css'>
+		<meta name="viewport"
+			content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+		<meta name="robots" content="follow">
+		<meta name="description"
+			content="대치동수학학원 대치동영어학원 대치동과학학원 대치동논술학원 강남재수학원">
+		<meta name="keywords" content="대치동수학학원 대치동영어학원 대치동과학학원 대치동논술학원 강남재수학원">
+		<meta property="og:type" content="website">
+		<meta property="og:title" content="강남에서 대학가기">
+		<meta property="og:description" content="대치동수학학원 대치동영어학원 대치동과학학원 대치동논술학원 강남재수학원">
+		<meta property="og:image" content="http://www.mysite.com/myimage.jpg">
+		<meta property="og:url" content="http://www.gogosky.co.kr">
+		<meta name="naver-site-verification" content="845557ce7747caed7b061d3a096c9396db155afd"/>
         <title></title>
         
         <style>
@@ -24,7 +28,7 @@
         </style>
          
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-        <script src="/js/common.js"></script>
+        <script src="/js/ggs_common.js"></script>
     </head>
      
     <body>
@@ -71,7 +75,9 @@
         <div class="popup_wrap search_popup pwsearch_popup" style="display: none" id="pwpop2">
             <div class="tit_wrap">
                 <div class="tit">비밀번호 찾기</div>
-                <div class="logo"><label><span >L</span>ogo</label></div>
+                <div class="logo">
+					<img src="/img/loginLogo.png" style="width: 129px; height: 45px"/>
+				</div>
             </div>
             <div class="intro_txt">
                 비밀번호 찾기는 본인인증 후 이용할 수 있습니다.<br>

@@ -6,17 +6,21 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <link rel="stylesheet" href="/css/style.css" type="text/css">
-        <link href="http://fonts.googleapis.com/earlyaccess/nanumgothic.css" rel='stylesheet' type='text/css'>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
-        <meta name="robots" content="follow">
-        <meta name="description" content="대치동 내신 수시전문학원 국영수과사 과목별 학습비법 암기비법 중등 고등">
-        <meta name="keywords" content="대치동 내신 수시전문학원 국영수과사 과목별 학습비법 암기비법 중등 고등">
-        <meta property="og:type" content="website">
-        <meta property="og:title" content="강남대치학원 멘토클리닉">
-        <meta property="og:description" content="대치동 내신 수시전문학원 국영수과사 과목별 학습비법 암기비법 중등 고등">
-        <meta property="og:image" content="http://www.mysite.com/myimage.jpg">
-        <meta property="og:url" content="http://mentorschool.co.kr">
+		<link rel="stylesheet" href="/css/ggs_style.css" type="text/css">
+		<link href="http://fonts.googleapis.com/earlyaccess/nanumgothic.css"
+			rel='stylesheet' type='text/css'>
+		<meta name="viewport"
+			content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+		<meta name="robots" content="follow">
+		<meta name="description"
+			content="대치동수학학원 대치동영어학원 대치동과학학원 대치동논술학원 강남재수학원">
+		<meta name="keywords" content="대치동수학학원 대치동영어학원 대치동과학학원 대치동논술학원 강남재수학원">
+		<meta property="og:type" content="website">
+		<meta property="og:title" content="강남에서 대학가기">
+		<meta property="og:description" content="대치동수학학원 대치동영어학원 대치동과학학원 대치동논술학원 강남재수학원">
+		<meta property="og:image" content="http://www.mysite.com/myimage.jpg">
+		<meta property="og:url" content="http://www.gogosky.co.kr">
+		<meta name="naver-site-verification" content="845557ce7747caed7b061d3a096c9396db155afd"/>
         <title></title>
         
         <style>
@@ -24,7 +28,7 @@
         </style>
          
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-        <script src="js/common.js"></script>
+        <script src="js/ggs_common.js"></script>
         
     </head>
      
@@ -71,18 +75,9 @@
 			                            		</c:otherwise>
 			                            	</c:choose>
 			                            </div>
-			                            <c:choose>
-			                            	<c:when test="${login!=null }">
-					                            <div onclick="select(${list.get(i).AUTO })" class="txt txt_tit">
-					                                <span>${list.get(i).TITLE }</span>
-					                            </div>
-			                            	</c:when>
-			                            	<c:otherwise>
-					                            <div class="txt txt_tit">
-					                                <span>${list.get(i).TITLE }</span>
-					                            </div>
-			                            	</c:otherwise>
-			                            </c:choose>
+			                            <div onclick="select(${list.get(i).AUTO })" class="txt txt_tit">
+			                                <span>${list.get(i).TITLE }</span>
+			                            </div>
 			                            <div id="dropdown${i }" class="contents">
 			                                <div class="img"><img src="/img/sub02_arrow_up.png" onclick="clo(${i })"></div>
 			                                <div class="drop_txt">${list.get(i).CONTENT }</div>
@@ -103,7 +98,7 @@
                     </div>
                     <div class="write_wrap">
                         <div class="empty_box"></div>
-                        <c:if test="${login.GRADE=='관리자' }">
+                        <c:if test="${login.ADMIN=='메인관리자' }">
                         	<div class="write_btn" onclick="wr()">
 	                            <div class="txt">글쓰기</div>
                         	</div>
@@ -150,7 +145,7 @@
 				$("#prev"+start).show();
 				$("#next"+start).hide();
 			} else {
-				if(start==1 && end<10){
+				if(start==1 && end<=10){
 					$("#prev"+start).hide();
 					$("#next"+start).hide();
 				} else {
@@ -187,7 +182,12 @@
       	}
       	// 글 선택
       	function select(num) { 
-      		location.href="/highExam/view/"+num;
+      		if(${login == null}){
+      			alert("로그인 후 이용할 수 있습니다.");
+      			location.href="/join";
+      		} else {
+	      		location.href="/highExam/view/"+num;
+      		}
          }
       	// 글 닫기
          function clo(num) {

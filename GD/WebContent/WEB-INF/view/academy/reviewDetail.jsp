@@ -4,9 +4,9 @@
 
 <div class="popup_cover" id="reviewRD" style="display: none"></div>
 <div class="popup_wrap search_popup school_popup popup_close" id="reviewRD1" style="display: none">
-    <div class="tit_wrap">
-        <div class="logo"><span >L</span>ogo</div>
-    </div>
+    <div class="tit_wrap" align="center" style="padding-top: 10px; padding-bottom: 5px; width: 100%; margin-bottom: 0px">
+	        	<img src="/img/loginLogo.png"/>
+	        </div>
     <div class="txt">
         정말 삭제하시겠습니까?
     </div>
@@ -17,9 +17,9 @@
 </div>
 <div class="popup_cover" id="replyRD" style="display: none"></div>
 <div class="popup_wrap search_popup school_popup popup_close" id="replyRD1" style="display: none">
-    <div class="tit_wrap">
-        <div class="logo"><span >L</span>ogo</div>
-    </div>
+    <div class="tit_wrap" align="center" style="padding-top: 10px; padding-bottom: 5px; width: 100%; margin-bottom: 0px">
+	        	<img src="/img/loginLogo.png"/>
+	        </div>
     <div class="txt">
         정말 삭제하시겠습니까?
     </div>

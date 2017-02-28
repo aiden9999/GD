@@ -6,17 +6,21 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <link rel="stylesheet" href="/css/style.css" type="text/css">
-        <link href="http://fonts.googleapis.com/earlyaccess/nanumgothic.css" rel='stylesheet' type='text/css'>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
-        <meta name="robots" content="follow">
-        <meta name="description" content="대치동 내신 수시전문학원 국영수과사 과목별 학습비법 암기비법 중등 고등">
-        <meta name="keywords" content="대치동 내신 수시전문학원 국영수과사 과목별 학습비법 암기비법 중등 고등">
-        <meta property="og:type" content="website">
-        <meta property="og:title" content="강남대치학원 멘토클리닉">
-        <meta property="og:description" content="대치동 내신 수시전문학원 국영수과사 과목별 학습비법 암기비법 중등 고등">
-        <meta property="og:image" content="http://www.mysite.com/myimage.jpg">
-        <meta property="og:url" content="http://mentorschool.co.kr">
+		<link rel="stylesheet" href="/css/ggs_style.css" type="text/css">
+		<link href="http://fonts.googleapis.com/earlyaccess/nanumgothic.css"
+			rel='stylesheet' type='text/css'>
+		<meta name="viewport"
+			content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+		<meta name="robots" content="follow">
+		<meta name="description"
+			content="대치동수학학원 대치동영어학원 대치동과학학원 대치동논술학원 강남재수학원">
+		<meta name="keywords" content="대치동수학학원 대치동영어학원 대치동과학학원 대치동논술학원 강남재수학원">
+		<meta property="og:type" content="website">
+		<meta property="og:title" content="강남에서 대학가기">
+		<meta property="og:description" content="대치동수학학원 대치동영어학원 대치동과학학원 대치동논술학원 강남재수학원">
+		<meta property="og:image" content="http://www.mysite.com/myimage.jpg">
+		<meta property="og:url" content="http://www.gogosky.co.kr">
+		<meta name="naver-site-verification" content="845557ce7747caed7b061d3a096c9396db155afd"/>
         <title></title>
         
         <style>
@@ -24,7 +28,7 @@
         </style>
          
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-        <script src="/js/common.js"></script>
+        <script src="/js/ggs_common.js"></script>
     </head>
      
     <body>
@@ -34,7 +38,9 @@
         <div class="join">
             <div class="inner">
                 <div class="join_top">
-                    <div class="logo" onclick="location.href='/'"><label><span>L</span>ogo</label></div>
+                    <div class="logo" onclick="location.href='/'">
+                    	<img src="/img/joinLogo.png" style="width: 204px; height: 58px"/>
+                    </div>
                     <div class="login_wrap">
                         <div class="log_box">
                             <c:choose>
@@ -58,7 +64,8 @@
                         	<font style="color: red; font-size:12px">아이디/비밀번호를 확인해주세요.</font>
                         </div>
                         <div class="idpw_search">
-                            <span onclick="searchId()">아이디 / 비밀번호 찾기</span>
+<!--                             <span onclick="searchId()">아이디 / 비밀번호 찾기</span> -->
+                            <span onclick="javascript: alert('준비중입니다.')">아이디 / 비밀번호 찾기</span>
                         </div>
                         <div class="checks_wrap">
                             <div class="checks">
@@ -83,7 +90,8 @@
                     <div class="tit"><span>강남에서 대학가기 </span>회원가입</div>
                     <div class="join_type">
                         <div class="type_wrap">
-                            <div class="type" onclick="student()">
+<!--                             <div class="type" onclick="student()"> -->
+                            <div class="type" onclick="javascript: alert('준비중입니다.')">
                                 <div class="stu img"></div>
                                 <div class="txt">
                                     <span>학생 회원가입</span>
@@ -91,7 +99,8 @@
                             </div>
                         </div>
                         <div class="type_wrap">
-                            <div class="type" onclick="parent()">
+<!--                             <div class="type" onclick="parent()"> -->
+                            <div class="type" onclick="javascript: alert('준비중입니다.')">
                                 <div class="par img"></div>
                                 <div class="txt">
                                     <span>학부모 회원가입</span>
@@ -99,7 +108,8 @@
                             </div>
                         </div>
                         <div class="type_wrap">
-                            <div class="type" onclick="teacher()">
+<!--                             <div class="type" onclick="teacher()"> -->
+                            <div class="type" onclick="javascript: alert('준비중입니다.')">
                                 <div class="tea img"></div>
                                 <div class="txt">
                                     <span>선생님 회원가입</span>
@@ -107,7 +117,8 @@
                             </div>
                         </div>
                         <div class="type_wrap">
-                            <div class="type" onclick="normal()">
+<!--                             <div class="type" onclick="normal()"> -->
+                            <div class="type" onclick="javascript: alert('준비중입니다.')">
                                 <div class="per img"></div>
                                 <div class="txt">
                                     <span>일반 회원가입</span>
@@ -115,7 +126,8 @@
                             </div>
                         </div>
                         <div class="type_wrap">
-                            <div class="type" onclick="academy()">
+<!--                             <div class="type" onclick="academy()"> -->
+                            <div class="type" onclick="javascript: alert('준비중입니다.')">
                                 <div class="aca img"></div>
                                 <div class="txt">
                                     <span>학원 회원가입</span>
@@ -123,7 +135,8 @@
                             </div>
                         </div>
                         <div class="type_wrap">
-                            <div class="type" onclick="school()">
+<!--                             <div class="type" onclick="school()"> -->
+                            <div class="type" onclick="javascript: alert('준비중입니다.')">
                                 <div class="sch img"></div>
                                 <div class="txt">
                                     <span>학교/법인 회원가입</span>

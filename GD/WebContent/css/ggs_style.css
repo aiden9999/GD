@@ -3,7 +3,7 @@
   font-style: normal;
   font-weight: normal;
   src: url('/font/namsanB.eot'); 
-  src: local('※'), url('/font/namsanB.woff') format('woff'), url('/font/namsanB.ttf') format('truetype'); 
+  src: local('��'), url('/font/namsanB.woff') format('woff'), url('/font/namsanB.ttf') format('truetype'); 
 }
 
 @font-face{
@@ -11,7 +11,7 @@
   font-style: normal;
   font-weight: normal;
   src: url('/font/namsanM.eot'); 
-  src: local('※'), url('/font/namsanM.woff') format('woff'), url('/font/namsanM.ttf') format('truetype'); 
+  src: local('��'), url('/font/namsanM.woff') format('woff'), url('/font/namsanM.ttf') format('truetype'); 
 }
 
 body { margin: 0; font-family:'namsanB'; font-size: 16px; }
@@ -19,6 +19,7 @@ div, header, footer, section, nav { position: relative;}
 img { vertical-align: top; max-width: 100%; }
 ul { margin: 0; padding: 0; }
 li { list-style: none; }
+textarea { resize: none; }
 
 header { width: 100%; }
 header .header_top { border-bottom: 1px solid #484848; }
@@ -411,7 +412,7 @@ select::-ms-expand { display: none; }
 .main01-01 .info_section .test_wrap .test_input .select_box { position: absolute; top: 15px; width: 130px; height: 24px; border: 1px solid #d4d4d4; z-index: 1; display: flex; }
 .main01-01 .info_section .test_wrap .test_input .select_box::after { content: ""; position: absolute; top: -1px; left: 135px; width: 24px; height: 24px; background-image: url(../img/main01_04_sel_arrow.png); background-size: 90%; background-color: #fff; background-repeat: no-repeat; background-position: 1px 4px; border: 1px solid #d4d4d4; cursor: pointer; }
 .main01-01 .info_section .test_wrap .test_input .select_box label { position: absolute; top: 1px; left: 5px; z-index: -1; }
-.main01-01 .info_section .test_wrap .test_input .select_box select { width: 100%; height: auto; -webkit-appearance: none; /* 네이티브 외형 감추기 */ -moz-appearance: none; appearance: none; padding: 0 0 5px 36px; }
+.main01-01 .info_section .test_wrap .test_input .select_box select { width: 100%; height: auto; -webkit-appearance: none; -moz-appearance: none; appearance: none; padding: 0 0 5px 36px; }
 .main01-01 .info_section .test_wrap .text_wrap { padding-top: 50px; }
 .main01-01 .info_section .test_wrap .text_wrap .text_box { width: 935px; display: inline-block; }
 .main01-01 .info_section .test_wrap .text_wrap .text_box textarea { width: 100%; padding: 15px 10px 15px; border: none; font-size: 14px; }

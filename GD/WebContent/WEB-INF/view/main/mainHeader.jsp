@@ -4,11 +4,12 @@
 
 <div class="header_top">
 	<div class="inner">
-		<div class="txt" onclick="login()"
-			style="text-align: center; font-size: 13px; margin-top: 50px">
-			방문자수<br />오늘 : ${todayVisit }명 / 누적 : ${totalVisit }명
-		</div>
-		<div class="logo" onclick="location.href='/'" style="background-image: url('/img/header.png'); width: 160px; height: 72px; top: 7px"></div>
+		<c:if test="${login.ADMIN == '메인관리자' }">
+			<div class="txt" style="text-align: center; font-size: 13px; margin-top: 50px; cursor: default;">
+				방문자수<br />오늘 : ${todayVisit }명 / 누적 : ${totalVisit }명
+			</div>
+		</c:if>
+		<div class="logo" onclick="location.href='/'" style="background-image: url('/img/header_footer.png'); width: 160px; height: 72px; top: 7px"></div>
 		<div class="search">
 			<input type="text" id="hsearch"
 				style="border: 2px solid #888f8d; height: 24px;" maxlength="10">

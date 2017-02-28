@@ -152,7 +152,7 @@
 			$("#prev"+start).show();
 			$("#next"+start).hide();
 		} else {
-			if(start==1 && end<10){
+			if(start==1 && end<=10){
 				$("#prev"+start).hide();
 				$("#next"+start).hide();
 			} else {

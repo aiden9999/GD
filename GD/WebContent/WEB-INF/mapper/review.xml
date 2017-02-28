@@ -2,34 +2,34 @@
 <!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="review">
 	<update id="recomend">
-		update review set recomend = recomend+1 where auto = #{num}
+		update ggs_review set recomend = recomend+1 where auto = #{num}
 	</update>
 	<update id="countUp">
-		update review set count = count+1 where auto = #{num}
+		update ggs_review set count = count+1 where auto = #{num}
 	</update>
 	<insert id="writeRep" parameterType="java.util.HashMap">
 		insert into
-		reviewreply(id, name, day, reply, num)
+		ggs_reviewreply(id, name, day, reply, num)
 		values(#{id}, #{name}, now(), #{reply}, #{num})
 	</insert>
 	<select id="replyList" resultType="java.util.HashMap">
-		select * from reviewreply where num = #{num} order by auto desc
+		select * from ggs_reviewreply where num = #{num} order by auto desc
 	</select>
 	<update id="replyModify" parameterType="java.util.HashMap">
-		update reviewreply set reply = #{reply} where auto = #{num}
+		update ggs_reviewreply set reply = #{reply} where auto = #{num}
 	</update>
 	<update id="reviewModify" parameterType="java.util.HashMap">
-		update review set day = #{day}, subject = #{subject}, subject1 = #{subject1}, className = #{className}, grade = #{grade}, 
+		update ggs_review set day = #{day}, subject = #{subject}, subject1 = #{subject1}, className = #{className}, grade = #{grade}, 
 		teacher = #{teacher}, type = #{type}, rate1 = #{rate1}, rate2 = #{rate2}, rate3 = #{rate3}, rate4 = #{rate4}, again = #{again}
 		where auto = #{num}
 	</update>
 	<update id="reviewRepUp" >
-		update review set reply = reply+1 where auto = #{num}
+		update ggs_review set reply = reply+1 where auto = #{num}
 	</update>
 	<delete id="replyRemove">
-		delete from reviewreply where auto = #{num}
+		delete from ggs_reviewreply where auto = #{num}
 	</delete>
 	<delete id="reviewRemove">
-		delete from review where auto = #{num}
+		delete from ggs_review where auto = #{num}
 	</delete>
 </mapper>
